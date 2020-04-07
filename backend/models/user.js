@@ -6,9 +6,16 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
         },
         role: {
-            type: Sequelize.ENUM("superadmin", "admin", "user"),
+            // 0 : user, 1 : admin, 2 : superadmin
+            type: Sequelize.ENUM("0", "1", "2"),
             allowNull: false,
-            defaultValue: "user",
+            defaultValue: "0",
+        },
+        status: {
+            // 0 : actif, 1 : inactif, 2 : supprimé
+            type: Sequelize.ENUM("0", "1", "2"),
+            allowNull: false,
+            defaultValue: "0",
         },
         email: {
             type: Sequelize.STRING, // STRING = VARCHAR(255)
@@ -22,17 +29,31 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false,
         },
+        username: {
+            type: Sequelize.STRING, // STRING = VARCHAR(255)
+            allowNull: false,
+            unique: true,
+        },
         firstname: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(50),
         },
         lastname: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(50),
         },
         phone: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(10),
         },
         address: {
-            type: Sequelize.STRING, // A PRECISER
+            type: Sequelize.STRING,
+        },
+        postal_code: {
+            type: Sequelize.STRING(5),
+        },
+        city: {
+            type: Sequelize.STRING,
+        },
+        gdpr_accepted_at: {
+            type: Sequelize.DATE,
         },
     });
 
