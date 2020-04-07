@@ -1,0 +1,41 @@
+@import 'src/styles/_vars.scss';
+
+.footer {
+  display: flex;
+  align-items: center;
+  padding: $gutter;
+  color: #fff;
+
+  &__copyright, &__links, &__socials {
+    width: calc(100% / 3);
+  }
+  
+  &__copyright {
+    
+  }
+  &__links {
+    text-align: center;
+
+    &__link {
+      margin: 0 ($gutter / 2);
+      &:hover {
+        color: $secondaryColor;
+      }
+    }
+  }
+  &__socials {
+    text-align: right;
+    
+    &__link {
+      font-size: 2em;
+      margin-left: $gutter / 2;
+      &:hover {
+        color: $secondaryColor;
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+
+}
