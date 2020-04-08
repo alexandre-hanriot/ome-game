@@ -1,0 +1,26 @@
+@import 'src/styles/_vars.scss';
+
+.legal-mentions {
+  margin-bottom: $gutter;
+
+  &__title {
+    font-size: 3em;
+    text-align: center;
+    margin: $gutter;
+    color: $primaryColor;
+    font-weight: bold;
+  }
+  &__content {
+    line-height: 1.6;
+
+    & > h2 {
+      font-weight: bold;
+      margin: ($gutter /4) 0;
+      color: $primaryColor;
+      font-size: 1.4em;
+    }
+    & > p {
+      padding: $gutter/3 $gutter/2;
+    }
+  }
+}
