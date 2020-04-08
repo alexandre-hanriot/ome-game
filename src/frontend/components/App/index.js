@@ -11,7 +11,7 @@ const App = () => (
   <div className="app">
     <Header />
     <main>
-     <Details />
+      <Home />
     </main>
     <Footer />
   </div>
