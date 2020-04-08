@@ -3,20 +3,17 @@ import React from 'react';
 
 import Header from 'src/frontend/components/Header';
 import Footer from 'src/frontend/components/Footer';
-import Home from 'src/frontend/components/Home';
-import About from 'src/frontend/components/About';
-import Offer from 'src/frontend/components/Offer';
+
+import Details from 'src/frontend/components/Offer/Details';
 
 // == Composant
 const App = () => (
   <div className="app">
     <Header />
     <main>
-      {/* <Home /> */}
-      {/* <About /> */}
-      <Offer />
+     <Details />
     </main>
-    <Footer light={false} />
+    <Footer />
   </div>
 );
 
