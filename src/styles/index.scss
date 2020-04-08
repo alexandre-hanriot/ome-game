@@ -1,0 +1,28 @@
+@import 'reset';
+@import 'vars';
+
+body {
+  font-family: 'Gotu', sans-serif;
+  background-color: #3d5471;
+  color: #fff;
+}
+
+main {
+  min-height: calc(100vh - 200px); // header: 80px / footer: 120px
+}
+
+.wrapper {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1200px) {
+  main {
+    min-height: auto;
+  }
+
+  .wrapper {
+      width: 100%;
+      padding: 0 1rem;
+  }
+}
