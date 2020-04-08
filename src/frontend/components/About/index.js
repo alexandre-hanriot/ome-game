@@ -12,7 +12,7 @@ const About = () => (
     </p>
     <ul className="about__team">
       <li className="about__team__member">
-        <img className="about__team__member__image" src="https://resize-parismatch.lanmedia.fr/img/var/news/storage/images/paris-match/people-a-z/emmanuel-macron/14862769-13-fre-FR/Emmanuel-Macron.jpg" alt="" />
+        <img className="about__team__member__image" src="https://anniversaire-celebrite.com/upload/250x333/pikachu-250.jpg" alt="" />
         <h2 className="about__team__member__name">Jennifer</h2>
         <p className="about__team__member__job">Product Owner</p>
       </li>
