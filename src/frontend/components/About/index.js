@@ -30,7 +30,7 @@ const About = () => (
         <img className="about__team__member__image" src="https://resize-parismatch.lanmedia.fr/img/var/news/storage/images/paris-match/people-a-z/emmanuel-macron/14862769-13-fre-FR/Emmanuel-Macron.jpg" alt="" />
         <h2 className="about__team__member__name">Stephane</h2>
         <p className="about__team__member__job">Lead dev back</p>
-      </li> 
+      </li>
     </ul>
   </div>
 );

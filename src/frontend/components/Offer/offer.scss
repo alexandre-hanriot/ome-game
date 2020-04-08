@@ -1,0 +1,202 @@
+@import 'src/styles/_vars.scss';
+
+@mixin offer-input {
+  font-size: inherit;
+  color: inherit;
+  padding: .6rem 1rem;
+  border-radius: .4rem;
+  border: 1px solid #8199b7;
+  background-color: #fff;
+}
+
+.offer {
+  display: flex;
+  min-height: inherit;
+
+  &__map {
+    background-color: rgb(169, 187, 142);
+    flex-grow: 3;
+    min-height: 400px;
+  }
+
+  &__aside {
+    box-sizing: border-box;
+    width: 500px;
+    background-color: $lightBlue;
+    color: $darkBlue;
+    padding: $gutter;
+
+    &__title {
+      font-size: 1.6em;
+      font-weight: bold;
+      margin-bottom: $gutter/2;
+      color: $primaryColor; 
+    }
+
+    &__subtitle {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-top: $gutter;
+      margin-bottom: $gutter/2;
+      color: $primaryColor; 
+    }
+
+    &__search {
+      display: flex;
+      align-items: center;
+      background-color: #fff;
+      border: 1px solid #8199b7;
+      border-radius: .4rem;
+      margin-bottom: $gutter/2;
+
+      &__input {
+        font-size: inherit;
+        padding: .6rem 1rem;
+        flex-grow: 1;
+        border: 0;
+        border-radius: inherit;
+      }
+      &__button {
+        font-size: inherit;
+        padding: .5rem 1rem;
+        border: 0;
+        background-color: transparent;
+        color: inherit;
+
+        &:hover {
+          color: $secondaryColor;
+        }
+      }
+    }
+
+    &__options {
+      &__button {
+        font-size: inherit;
+        color: #fff;
+        border: 0;
+        background-color: transparent;
+        margin-bottom: $gutter/2;
+
+        i {
+          vertical-align: 2px;
+        }
+      }
+      &__fields {
+        input, select {
+          margin-bottom: .5rem;
+        }
+
+        &__group {
+          display: flex;
+          align-items: center;
+        }
+
+        &__game {
+          @include offer-input;
+          width: 100%;
+        }
+        &__disponibility {
+          @include offer-input;
+          padding: calc(.6rem - .5px) 1rem;
+          width: 50%;
+          margin-right: .25rem;
+        }
+        &__types {
+          @include offer-input;
+          padding: calc(.6rem - .5px) 1rem;
+          width: 50%;
+          margin-left: .25rem;
+        } 
+        &__categories {
+          @include offer-input;
+          padding: calc(.6rem - .5px) 1rem;
+          width: 50%;
+          margin-right: .25rem;
+        } 
+        &__range {
+          @include offer-input;
+          width: 50%;
+          margin-left: .25rem; 
+        }
+      }
+    }
+
+    &__tags {
+      &__tag {
+        border: 0;
+        background-color: #8199b7;
+        color: #fff;
+        padding: .3rem .8rem;
+        border-radius: .4rem;
+        margin-right: .4rem;
+        margin-bottom: .4rem;
+
+        &:hover {
+          background-color: $secondaryColor;
+        }
+      }
+    }
+
+    &__results {
+      &__result {
+        display: flex;
+        align-items: center;
+        background-color: #E3E5EC;
+        margin-bottom: .5rem;
+        padding: 1rem;
+        border-radius: .4rem;
+        cursor: pointer;
+
+        &__content {
+          flex-grow: 1;
+          line-height: 1.6;
+        }
+        &__image {
+          width: 80px;
+          height: 80px;
+          margin-right: 1rem;
+        }
+        &__name {
+          font-weight: bold;
+        }
+        &__type {
+          float: right;
+          font-size: .8em;
+        }
+        &__disponibility {
+          display: inline-block;
+          font-size: .7em;
+          background-color: #4abb6d;
+          color: #fff;
+          padding: .2rem .6rem;
+          border-radius: .4rem;
+
+          &--off {
+            background-color: #a1b2b8;
+          }
+        } 
+        &__city {
+          font-size: .8em;
+        } 
+      }
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .offer {
+    flex-direction: column;
+
+    &__aside {
+      margin: 0 auto;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .offer {
+    &__aside {
+      width: 100%;
+    }
+  }
+}

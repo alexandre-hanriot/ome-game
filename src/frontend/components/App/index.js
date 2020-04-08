@@ -3,8 +3,8 @@ import React from 'react';
 
 import Header from 'src/frontend/components/Header';
 import Footer from 'src/frontend/components/Footer';
-import Details from 'src/frontend/components/Offer/Details';
 
+import Details from 'src/frontend/components/Offer/Details';
 
 // == Composant
 const App = () => (
@@ -13,7 +13,6 @@ const App = () => (
     <main>
      <Details />
     </main>
-
     <Footer />
   </div>
 );
