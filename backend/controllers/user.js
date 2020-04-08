@@ -31,11 +31,11 @@ exports.findAll = (req, res) => {
     coreController.findAll(User, conditions, order, res);
 };
 
-// Récupération d'un utilisateur en fonction de sa clé primaire en utilisant le core controller
+// Récupération d'un utilisateur en fonction de sa clé primaire
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    coreController.findByPk(User, id, res);
+    coreController.findOne(User, id, res);
 };
 
 // Création d'un utilisateur
@@ -113,4 +113,21 @@ exports.update = (req, res) => {
 
     // si la mise à jour a échoué
     else res.status(500).json({ error: "Une erreur est survenue dans la mise à jour de l'utilisateur" });
+};
+
+// Suppression de plusieurs utilisateurs en fonction de leur id
+exports.deleteManyByID = (req, res) => {
+    let ids = [];
+
+    // Si les ids sont renseignés :
+    if (typeof req.query.id !== "undefined") ids = [...req.query.id];
+
+    coreController.deleteManyByID(User, ids, res);
+};
+
+// Suppression d'un utilisateur en fonction de sa clé primaire
+exports.deleteOne = (req, res) => {
+    const id = req.params.id;
+
+    coreController.deleteOne(User, id, res);
 };

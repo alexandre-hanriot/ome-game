@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+var cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
@@ -22,6 +23,14 @@ db.sequelize.sync().then(() => {
 const app = express();
 
 app.use(logger("dev"));
+
+// Paramérage des CORS : A CONFIGURER
+// var corsOptions = {
+//     origin: "http://example.com",
+//     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+// };
+// app.use(cors(corsOptions));
+app.use(cors());
 
 // Paramétrage des requêtes et réponses
 app.use(bodyParser.urlencoded({ extended: false }));
