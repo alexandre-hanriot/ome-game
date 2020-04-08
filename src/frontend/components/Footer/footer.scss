@@ -1,41 +1,75 @@
 @import 'src/styles/_vars.scss';
 
 .footer {
-  display: flex;
   align-items: center;
-  padding: $gutter;
   color: #fff;
+  position: relative;
+  height: 120px;
+  overflow: hidden;
 
-  &__copyright, &__links, &__socials {
-    width: calc(100% / 3);
+  &__background {
+
+    &--off {
+      display: none;
+    }
+
+    position: absolute;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
   }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    height: inherit;
+    padding: 0 $gutter;
+
+    &__copyright, &__links, &__socials {
+      width: calc(100% / 3);
+    }
+
+    &__copyright {
+      font-size: .8em;
+    }
+    &__links {
+      text-align: center;
   
-  &__copyright {
-    
-  }
-  &__links {
-    text-align: center;
-
-    &__link {
-      margin: 0 ($gutter / 2);
-      &:hover {
-        color: $secondaryColor;
+      &__link {
+        margin: 0 ($gutter / 2);
+        &:hover {
+          color: $secondaryColor;
+        }
       }
     }
-  }
-  &__socials {
-    text-align: right;
-    
-    &__link {
-      font-size: 2em;
-      margin-left: $gutter / 2;
-      &:hover {
-        color: $secondaryColor;
+    &__socials {
+      text-align: right;
+      
+      &__link {
+        font-size: 2em;
+        margin-left: $gutter / 2;
+        &:hover {
+          color: $secondaryColor;
+        }
       }
     }
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
+  .footer {
+    height: auto;
+    padding: 1rem 0;
+    &__content {
+      flex-direction: column-reverse;
 
+      &__copyright, &__links, &__socials {
+        width: 100%;
+        text-align: center;
+        padding: .5rem 0;
+      }
+    }
+  }
 }

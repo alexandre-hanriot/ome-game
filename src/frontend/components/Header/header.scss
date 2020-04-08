@@ -3,6 +3,7 @@
 .header {
     position: relative;
     color: #fff;
+
     &__logo {
       position: absolute;
       left: calc(50% - 125px);
@@ -13,7 +14,9 @@
         align-items: center;
         justify-content: space-between;
         background-color: rgba(28,36,45,0.5);
-        padding: ($gutter / 2) $gutter;
+        height: 80px;
+        padding: 0 $gutter;
+        // padding: ($gutter / 2) $gutter;
         /*position: relative; */
 
         &__menu {
