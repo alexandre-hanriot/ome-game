@@ -9,10 +9,10 @@ import Footer from 'src/frontend/components/Footer';
 import Home from 'src/frontend/components/Home';
 import About from 'src/frontend/components/About';
 import Offer from 'src/frontend/components/Offer';
+import LegalMentions from 'src/frontend/components/Legal-mentions';
 
 // == Composant
 const App = () => {
-
   const location = useLocation();
   const currentPath = location.pathname;
   const isHome = currentPath === '/';
@@ -31,6 +31,9 @@ const App = () => {
           </Route>
           <Route exact path="/recherche/jeux">
             <Offer />
+          </Route>
+          <Route exact path="/mentions-legales">
+            <LegalMentions />
           </Route>
           <Route>
             <p>erreur 404</p>

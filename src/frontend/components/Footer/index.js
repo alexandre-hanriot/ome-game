@@ -23,7 +23,7 @@ const Footer = ({ isHome }) => {
         </div>
         <div className="footer__content__links">
           <Link className="footer__content__links__link" to="/a-propos">A propos</Link>
-          <Link className="footer__content__links__link">Mentions légales</Link>
+          <Link className="footer__content__links__link" to="/mentions-legales">Mentions légales</Link>
         </div>
         <div className="footer__content__socials">
           <Link className="footer__content__socials__link" title="Facebook"><i className="fab fa-facebook-square"> </i></Link>
