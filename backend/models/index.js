@@ -23,10 +23,7 @@ sequelize
         console.log("Connecté à la base de données");
     })
     .catch((err) => {
-        console.error(
-            "Problème lors de la connexion à la base de données",
-            err
-        );
+        console.error("Problème lors de la connexion à la base de données", err);
     });
 
 // Affectation des modèles à la bdd
@@ -36,5 +33,6 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.users = require("../models/user")(sequelize, Sequelize);
+db.offers = require("../models/offer")(sequelize, Sequelize);
 
 module.exports = db;

@@ -7,6 +7,7 @@ const logger = require("morgan");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/user");
+const offersRouter = require("./routes/offer");
 
 // Synchronisation des modèles avec la bdd
 const db = require("./models/index");
@@ -42,5 +43,6 @@ app.use(express.static(path.join(__dirname, "public")));
 // Définition des routes
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/offers", offersRouter);
 
 module.exports = app;

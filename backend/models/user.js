@@ -20,7 +20,7 @@ module.exports = (sequelize, Sequelize) => {
                 defaultValue: "0",
             },
             email: {
-                type: Sequelize.STRING, // STRING = VARCHAR(255)
+                type: Sequelize.STRING,
                 allowNull: false,
                 unique: true,
                 validate: {
@@ -32,7 +32,7 @@ module.exports = (sequelize, Sequelize) => {
                 allowNull: false,
             },
             username: {
-                type: Sequelize.STRING, // STRING = VARCHAR(255)
+                type: Sequelize.STRING,
                 allowNull: false,
                 unique: true,
             },
@@ -43,7 +43,7 @@ module.exports = (sequelize, Sequelize) => {
                 type: Sequelize.STRING(50),
             },
             phone: {
-                type: Sequelize.STRING(10),
+                type: Sequelize.STRING(15),
             },
             address: {
                 type: Sequelize.STRING,
