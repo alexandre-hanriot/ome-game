@@ -12,6 +12,7 @@ import Offer from 'src/frontend/components/Offer';
 import AccountProfil from 'src/frontend/components/Account/Profil';
 import LegalMentions from 'src/frontend/components/Legal-mentions';
 import Contact from 'src/frontend/components/Contact';
+import Account from 'src/frontend/components/Account';
 
 // == Composant
 const App = () => {
@@ -44,6 +45,9 @@ const App = () => {
           </Route>
           <Route exact path="/contact">
             <Contact />
+          </Route>
+          <Route exact path="/compte">
+            <Account />
           </Route>
           <Route>
             <p>erreur 404</p>

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import './contact.scss';
 
 const Contact = () => (
@@ -11,8 +11,9 @@ const Contact = () => (
       <input className="contact__form__input" type="email" placeholder="adresse mail" label="" />
       <textarea className="contact__form__textarea" type="text" placeholder="Message" label="" />
       <div className="contact__form__checkbox">
-        <input type="checkbox" className="contact__form__checkbox__input" />
-        <p className="contact__form__checkbox__text">Accepter les mentions légales du site</p>
+        <label>
+          <input type="checkbox" className="contact__form__checkbox__input" />Accepter <Link target="_blank" to="/mentions-legales" className="contact__form__checkbox__input__link">les mentions légales</Link>
+        </label>
       </div>
       <button className="contact__form__button" type="submit">Envoyer</button>
     </form>
