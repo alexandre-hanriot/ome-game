@@ -1,23 +1,23 @@
 const express = require("express");
 const router = express.Router();
-const offerController = require("../controllers/offerController");
+const reservationController = require("../controllers/reservationController");
 
 // Récupération de tous les utilisateurs avec en option filtrage et tri
-router.get("/", offerController.findAll);
+router.get("/", reservationController.findAll);
 
 // Récupération d'un utilisateur en fonction de son id
-router.get("/:id", offerController.findOne);
+router.get("/:id", reservationController.findOne);
 
 // Création d'un utilisateur
-router.post("/", offerController.create);
+router.post("/", reservationController.create);
 
 // Modification d'un utilisateur
-router.put("/:id", offerController.update);
+router.put("/:id", reservationController.update);
 
 // Suppression de plusieurs utilisateurs en fonction de leur id
-router.delete("/", offerController.deleteManyByID);
+router.delete("/", reservationController.deleteManyByID);
 
 // Suppression d'un utilisateur en fonction de son id
-router.delete("/:id", offerController.deleteOne);
+router.delete("/:id", reservationController.deleteOne);
 
 module.exports = router;

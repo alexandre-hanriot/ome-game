@@ -1,5 +1,28 @@
-// Recherche d'une instance de modèle par clé primaire
-exports.findAll = (model, conditions, order, res) => {
+// Récupération de toutes les instances d'une table
+// En option on peut spécifier dans l'url un ou plusieurs paramètres de filtrage et tri/classement des résultats
+exports.findAll = (model, req, res) => {
+    // On vérifie si orderby et sortby (asc/desc) sont définis dans l'url
+    // Sinon de base on tri par username croissant
+    const orderBy =
+        typeof req.query.orderby === "undefined" || req.query.orderby === "" ? "username" : req.query.orderby;
+    const sortBy = typeof req.query.sortby === "undefined" || req.query.sortby === "" ? "ASC" : req.query.sortby;
+
+    const order = [orderBy, sortBy];
+
+    // On récupère les conditions de filtrage en supprimant orderby et sortby des propriétés
+    let conditions = {};
+    if (typeof req.query.orderby !== "undefined" && typeof req.query.sortby !== "undefined") {
+        const { orderby, sortby, ...filteredConditions } = req.query;
+        conditions = { ...filteredConditions };
+    } else if (typeof req.query.orderby !== "undefined") {
+        const { orderby, ...filteredConditions } = req.query;
+        conditions = { ...filteredConditions };
+    } else if (typeof req.query.sortby !== "undefined") {
+        const { sortby, ...filteredConditions } = req.query;
+        conditions = { ...filteredConditions };
+    } else conditions = { ...req.query };
+
+    // On lance la recherche avec les paramètres conditions et order (orderby + sortby)
     model
         .findAll({ where: conditions, order: [[order]] })
         .then((data) => {
@@ -25,13 +48,27 @@ exports.findOne = (model, id, res, returnOption = false) => {
     });
 };
 
+// Création d'une instance d'un modèle
+exports.create = (model, instanceData, res) => {
+    model
+        .create(instanceData)
+        .then((data) => {
+            res.send(data);
+        })
+        .catch((err) => {
+            res.status(500).json({
+                error: `Une erreur est survenue pendant la création de l'instance de ${model} : ${err}`,
+            });
+        });
+};
+
 // Mise à jour d'une instance de modèle
 exports.update = (model, id, req, res) => {
     model
         .update(req.body, {
             where: { id },
-            returning: true,
-            plain: true,
+            returning: true, // pour retourner l'instance
+            plain: true, // dans son intégralité
         })
         .then((data) => {
             res.send(data);
@@ -45,7 +82,6 @@ exports.update = (model, id, req, res) => {
 
 // Suppression de plusieurs instances d'un modèle en fonction de leurs ID
 exports.deleteManyByID = (model, ids, res) => {
-    console.log(ids.length);
     // Protection contre la suppression de toutes les instances d'un coup
     if (ids.length === 0) {
         res.status(500).json({

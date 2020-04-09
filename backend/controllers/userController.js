@@ -5,30 +5,8 @@ const coreController = require("./coreController");
 const utils = require("../utils");
 
 // Récupération de tous les utilisateurs
-// En option on peut spécifier dans l'url un ou plusieurs paramètres de filtrage et tri/classement des résultats
 exports.findAll = (req, res) => {
-    // On vérifie si orderby et sortby (asc/desc) sont définis dans l'url
-    // Sinon de base on tri par username croissant
-    const orderBy =
-        typeof req.query.orderby === "undefined" || req.query.orderby === null ? "username" : req.query.orderby;
-    const sortBy = typeof req.query.sortby === "undefined" || req.query.sortby === null ? "ASC" : req.query.sortby;
-
-    const order = [orderBy, sortBy];
-
-    // On récupère les conditions de filtrage en supprimant orderby et sortby des propriétés
-    let conditions = {};
-    if (typeof req.query.orderby !== "undefined" && typeof req.query.sortby !== "undefined") {
-        const { orderby, sortby, ...filteredConditions } = req.query;
-        conditions = { ...filteredConditions };
-    } else if (typeof req.query.orderby !== "undefined") {
-        const { orderby, ...filteredConditions } = req.query;
-        conditions = { ...filteredConditions };
-    } else if (typeof req.query.sortby !== "undefined") {
-        const { sortby, ...filteredConditions } = req.query;
-        conditions = { ...filteredConditions };
-    } else conditions = { ...req.query };
-
-    coreController.findAll(User, conditions, order, res);
+    coreController.findAll(User, req, res);
 };
 
 // Récupération d'un utilisateur en fonction de sa clé primaire
@@ -54,15 +32,7 @@ exports.create = (req, res) => {
         const user = { ...req.body, password: hashedPassword };
 
         // Sauvegarde de l'instance dans la bdd
-        User.create(user)
-            .then((data) => {
-                res.send(data);
-            })
-            .catch((err) => {
-                res.status(500).json({
-                    error: `Une erreur est survenue pendant la création d'un utilisateur : ${err}`,
-                });
-            });
+        coreController.create(User, user, res);
     });
 };
 
@@ -71,10 +41,8 @@ exports.update = (req, res) => {
     const id = req.params.id;
 
     // si oldpassword ou newpassword n'est pas défini alors sa valeur est une chaine vide
-    const oldPassword =
-        typeof req.body.oldPassword === "undefined" || req.body.oldPassword === null ? "" : req.body.oldPassword;
-    const newPassword =
-        typeof req.body.newPassword === "undefined" || req.body.newPassword === null ? "" : req.body.newPassword;
+    const oldPassword = typeof req.body.oldPassword === "undefined" ? "" : req.body.oldPassword;
+    const newPassword = typeof req.body.newPassword === "undefined" ? "" : req.body.newPassword;
 
     // si on essaie de modifier directement le champ password
     if (req.body.password) {

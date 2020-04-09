@@ -1,20 +1,20 @@
 const db = require("../models/index");
-const Offer = db.offers;
+const Game = db.games;
 const coreController = require("./coreController");
 
-// Récupération de toutes les offres
+// Récupération de tous les jeux
 exports.findAll = (req, res) => {
-    coreController.findAll(Offer, req, res);
+    coreController.findAll(Game, req, res);
 };
 
-// Récupération d'une offre en fonction de sa clé primaire
+// Récupération d'un jeu en fonction de sa clé primaire
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    coreController.findOne(Offer, id, res);
+    coreController.findOne(Game, id, res);
 };
 
-// Création d'une offre
+// Création d'un jeu
 exports.create = (req, res) => {
     // Gestion des erreurs => A COMPLETER
     // if (!req.body.email) {
@@ -24,32 +24,32 @@ exports.create = (req, res) => {
     //     return;
     // }
 
-    const offer = { ...req.body };
+    const game = { ...req.body };
 
     // Sauvegarde de l'instance dans la bdd
-    coreController.create(Offer, offer, res);
+    coreController.create(Game, game, res);
 };
 
-// Modification d'une offre
+// Modification d'un jeu
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    coreController.update(Offer, id, req, res);
+    coreController.update(Game, id, req, res);
 };
 
-// Suppression de plusieurs offres en fonction de leur id
+// Suppression de plusieurs jeux en fonction de leur id
 exports.deleteManyByID = (req, res) => {
     let ids = [];
 
     // Si les ids sont renseignés :
     if (typeof req.query.id !== "undefined") ids = [...req.query.id];
 
-    coreController.deleteManyByID(Offer, ids, res);
+    coreController.deleteManyByID(Game, ids, res);
 };
 
-// Suppression d'une offre en fonction de sa clé primaire
+// Suppression d'un jeu en fonction de sa clé primaire
 exports.deleteOne = (req, res) => {
     const id = req.params.id;
 
-    coreController.deleteOne(Offer, id, res);
+    coreController.deleteOne(Game, id, res);
 };

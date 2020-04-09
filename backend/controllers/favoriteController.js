@@ -1,20 +1,20 @@
 const db = require("../models/index");
-const Offer = db.offers;
+const Favorite = db.favorites;
 const coreController = require("./coreController");
 
-// Récupération de toutes les offres
+// Récupération de tous les favoris de jeux
 exports.findAll = (req, res) => {
-    coreController.findAll(Offer, req, res);
+    coreController.findAll(Favorite, req, res);
 };
 
-// Récupération d'une offre en fonction de sa clé primaire
+// Récupération d'un favori en fonction de sa clé primaire
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    coreController.findOne(Offer, id, res);
+    coreController.findOne(Favorite, id, res);
 };
 
-// Création d'une offre
+// Création d'un favori
 exports.create = (req, res) => {
     // Gestion des erreurs => A COMPLETER
     // if (!req.body.email) {
@@ -24,32 +24,32 @@ exports.create = (req, res) => {
     //     return;
     // }
 
-    const offer = { ...req.body };
+    const favorite = { ...req.body };
 
     // Sauvegarde de l'instance dans la bdd
-    coreController.create(Offer, offer, res);
+    coreController.create(Favorite, favorite, res);
 };
 
-// Modification d'une offre
+// Modification d'un favori
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    coreController.update(Offer, id, req, res);
+    coreController.update(Favorite, id, req, res);
 };
 
-// Suppression de plusieurs offres en fonction de leur id
+// Suppression de plusieurs favoris en fonction de leur id
 exports.deleteManyByID = (req, res) => {
     let ids = [];
 
     // Si les ids sont renseignés :
     if (typeof req.query.id !== "undefined") ids = [...req.query.id];
 
-    coreController.deleteManyByID(Offer, ids, res);
+    coreController.deleteManyByID(Favorite, ids, res);
 };
 
-// Suppression d'une offre en fonction de sa clé primaire
+// Suppression d'un favori en fonction de sa clé primaire
 exports.deleteOne = (req, res) => {
     const id = req.params.id;
 
-    coreController.deleteOne(Offer, id, res);
+    coreController.deleteOne(Favorite, id, res);
 };
