@@ -4,7 +4,7 @@ import './details.scss';
 
 const Details = () => (
   <article className="wrapper offer-detail">
-    <div className="offer-detail__ariane">
+    <div className="offer-detail__breadcrumb">
       <Link to="/">Accueil ></Link>
       <Link to="/recherche/jeux">Ma recherche ></Link>
       <Link to="/offre/:id-:offerName">Offre</Link>
