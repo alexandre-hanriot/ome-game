@@ -32,9 +32,9 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.users = require("../models/user")(sequelize, Sequelize);
-db.offers = require("../models/offer")(sequelize, Sequelize);
-db.games = require("../models/game")(sequelize, Sequelize);
-db.categories = require("../models/category")(sequelize, Sequelize);
+db.users = require("./user")(sequelize, Sequelize);
+db.game_categories = require("./game_category")(sequelize, Sequelize);
+db.games = require("./game")(sequelize, Sequelize);
+db.offers = require("./offer")(sequelize, Sequelize);
 
 module.exports = db;

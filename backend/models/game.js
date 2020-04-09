@@ -1,8 +1,9 @@
-const Category = db.categories;
+const db = require("./index");
+const Game_category = db.game_categories;
 
 module.exports = (sequelize, Sequelize) => {
     const Game = sequelize.define(
-        "game",
+        "games",
         {
             id: {
                 type: Sequelize.INTEGER,
@@ -24,22 +25,31 @@ module.exports = (sequelize, Sequelize) => {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 references: {
-                    model: Category,
+                    model: "game_categories",
                     key: "id",
-                    deferrable: Deferrable.INITIALLY_IMMEDIATE, // vérifie les contraintes immédiatement
+                    deferrable: Sequelize.INITIALLY_IMMEDIATE, // vérifie les contraintes immédiatement
                 },
             },
             nb_players_min: {
-                type: Sequelize.TINYINT.UNSIGNED,
+                type: Sequelize.SMALLINT,
                 defaultValue: null,
+                validate: {
+                    min: 0, // On accepte que les entiers positifs (unsigned non pris en compte par postgres avec SMALLINT)
+                },
             },
             nb_players_max: {
-                type: Sequelize.TINYINT.UNSIGNED,
+                type: Sequelize.SMALLINT,
                 defaultValue: null,
+                validate: {
+                    min: 0, // On accepte que les entiers positifs (unsigned non pris en compte par postgres avec SMALLINT)
+                },
             },
             age_min: {
-                type: Sequelize.TINYINT.UNSIGNED,
+                type: Sequelize.SMALLINT,
                 defaultValue: null,
+                validate: {
+                    min: 0, // On accepte que les entiers positifs (unsigned non pris en compte par postgres avec SMALLINT)
+                },
             },
             duration: {
                 type: Sequelize.STRING(25),
@@ -71,6 +81,7 @@ module.exports = (sequelize, Sequelize) => {
                     fields: ["status"],
                 },
                 {
+                    unique: true,
                     fields: ["name"],
                 },
                 {

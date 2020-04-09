@@ -1,8 +1,10 @@
+const db = require("./index");
 const User = db.users;
+const Game = db.games;
 
 module.exports = (sequelize, Sequelize) => {
     const Offer = sequelize.define(
-        "offer",
+        "offers",
         {
             id: {
                 type: Sequelize.INTEGER,
@@ -19,9 +21,9 @@ module.exports = (sequelize, Sequelize) => {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 references: {
-                    model: User,
+                    model: "users",
                     key: "id",
-                    deferrable: Deferrable.INITIALLY_IMMEDIATE, // vérifie les contraintes immédiatement
+                    deferrable: Sequelize.INITIALLY_IMMEDIATE, // vérifie les contraintes immédiatement
                 },
             },
             type: {
@@ -40,16 +42,16 @@ module.exports = (sequelize, Sequelize) => {
                 allowNull: false,
             },
             price: {
-                type: Sequelize.FLOAT.UNSIGNED,
+                type: Sequelize.FLOAT,
                 defaultValue: 0,
             },
             game_id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 references: {
-                    model: Game,
+                    model: "games",
                     key: "id",
-                    deferrable: Deferrable.INITIALLY_IMMEDIATE, // vérifie les contraintes immédiatement
+                    deferrable: Sequelize.INITIALLY_IMMEDIATE, // vérifie les contraintes immédiatement
                 },
             },
             description: {
