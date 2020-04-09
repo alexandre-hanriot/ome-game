@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 
-// import reducers
+import reservationReducer from './reservations';
+import headerReducer from './header';
 
 const rootReducer = combineReducers({
-  //reducers
+  header: headerReducer,
+  reservations: reservationReducer,
 });
 
 export default rootReducer;

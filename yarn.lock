@@ -6569,6 +6569,11 @@ react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.0.tgz#0f37c3613c34fe6b37cd7f763a0d6293ab15c527"
   integrity sha512-GFMtL0vHkiBv9HluwNZTggSn/sCyEt9n02aM0dSAjGGyqyNlAyftYm4phPxdvCigG15JreC5biwxCgTAJZ7yAA==
 
+react-media-hook@^0.4.6:
+  version "0.4.6"
+  resolved "https://registry.yarnpkg.com/react-media-hook/-/react-media-hook-0.4.6.tgz#b045ff1a794c93f19fa7c067aa292f0a1fa1a367"
+  integrity sha512-379/MGChct34qPEgvz83kKNQa99/YZpjl+2lkieDkH8yQNQzx+1aiKrBZ7Z1Ae7dceNNcAlI17+n+I7HYJoV6w==
+
 react-redux@^7.2.0:
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.2.0.tgz#f970f62192b3981642fec46fd0db18a074fe879d"

@@ -65,20 +65,15 @@
       display: block;
       &__title {
         text-align: center;
-        font-size: 2.5em;
-        margin-top: $gutter;
+        // font-size: 2.5em;
+        margin-top: $gutter*2;
       }
       &__form {
-        width: 100%;
-        margin: auto;
         width: 80%;
-        margin-top: $gutter;
-        margin-bottom: $gutter;
-        &__button {
-          background-color: $secondaryColor;
-          color: #fff;
-          border-radius: 0 5px 5px 0;     
-        }
+        margin: $gutter auto;
+      }
+      &__text {
+        text-align: center;
       }
     }
   }
