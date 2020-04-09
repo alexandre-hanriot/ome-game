@@ -10,10 +10,10 @@ import Home from 'src/frontend/components/Home';
 import About from 'src/frontend/components/About';
 import Offer from 'src/frontend/components/Offer';
 import AccountProfil from 'src/frontend/components/Account/Profil';
+import LegalMentions from 'src/frontend/components/Legal-mentions';
 
 // == Composant
 const App = () => {
-  // return the current location
   const location = useLocation();
   // return the current pathname
   const currentPath = location.pathname;
@@ -37,6 +37,9 @@ const App = () => {
           </Route>
           <Route exact path="/compte/profil">
             <AccountProfil />
+          </Route>
+          <Route exact path="/mentions-legales">
+            <LegalMentions />
           </Route>
           <Route>
             <p>erreur 404</p>
