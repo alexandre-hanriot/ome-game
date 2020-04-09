@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 import './header.scss';
 import logo from './logo.png';
@@ -7,7 +7,7 @@ import logo from './logo.png';
 const Header = () => (
   <header className="header">
     <div className="header__logo">
-      <img src={logo} alt="" />
+      <Link to="/"><img src={logo} alt="Logo O`me game" /></Link>
     </div>
     <nav className="header__nav">
       <div className="header__nav__menu">

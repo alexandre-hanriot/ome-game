@@ -1,0 +1,181 @@
+@import 'src/styles/_vars.scss';
+
+@mixin profil-input {
+  font-size: inherit;
+  color: $darkBlue;
+  padding: .6rem 1rem;
+  // border-radius: .4rem;
+  border: 1px solid #8199b7;
+  background-color: #fff;
+  width: 60%;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: .3rem;
+}
+
+.account-profil {
+  &__breadcrumb {
+    padding: $gutter 0;
+
+    a:hover {
+      color: $secondaryColor;
+    }
+  }
+
+  &__title {
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-bottom: $gutter/2;
+    color: $primaryColor; 
+  }
+
+  &__subtitle {
+    font-size: 1.4em;
+    font-weight: bold;
+    margin: $gutter/2 0;
+    color: $primaryColor; 
+  }
+
+  &__container {
+    display: flex;
+
+    &__left {
+      width: 50%;
+    }
+    &__right {
+      width: 50%;
+    }
+  }
+
+  &__submit {
+    display: block;
+    margin: $gutter auto;
+    border: 0;
+    background-color: $darkBlue;
+    color: #fff;
+    padding: $gutter/2 $gutter;
+    font-size: inherit;
+    border-radius: .4rem;
+
+    &:hover {
+      background-color: $secondaryColor;
+    }
+  }
+
+  &__avatar {
+    margin-bottom: $gutter;
+
+    &__image {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto;
+      background-color: #E3E5EC;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+
+      i {
+        color: $lightBlue;
+        font-size: 3em;
+      }
+
+      span {
+        position: absolute;
+        padding: .8rem 1rem;
+        background-color: $secondaryColor;
+        color: #fff;
+        border-radius: .5rem;
+        display: none;
+        font-size: .9em;
+      }
+
+      &:hover {
+        cursor: pointer;
+        span {
+          display: block;
+        }
+      }
+    }
+    &__remove {
+      margin: 0 auto;
+      display: block;
+      border: 0;
+      background-color: transparent;
+      color: #E3E5EC;
+      padding: .5rem;
+      font-size: .9em;
+
+      &:hover {
+        color: $secondaryColor;
+      }
+    }
+  }
+
+  &__infos {
+    &__field {
+      @include profil-input;
+    }
+  }
+  &__address {
+    margin-bottom: $gutter;
+
+    &__field {
+      @include profil-input;
+    }
+  }
+  &__password {
+    margin-bottom: $gutter;
+    &__field {
+      @include profil-input;
+    }
+  }
+  &__params {
+    &__content {
+      margin-left: $gutter;
+    }
+  }
+}
+
+
+@media (max-width: 1200px) {
+  .account-profil {
+    &__container {
+      flex-direction: column;
+
+      &__left {
+        width: 100%;
+      }
+      &__right {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: 425px) {
+  .account-profil {
+    &__container {
+      flex-direction: column;
+    }
+
+    &__infos {
+      &__field {
+        width: 100%;
+      }
+    }
+    &__address {
+      margin-bottom: $gutter;
+  
+      &__field {
+        width: 100%;
+      }
+    }
+    &__password {
+      &__field {
+        width: 100%;
+      }
+    }
+  }
+}
