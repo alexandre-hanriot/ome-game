@@ -1,0 +1,143 @@
+@import 'src/styles/_vars.scss';
+
+.reservations {
+
+  &__breadcrumb {
+    margin: $gutter 0;
+  }
+  &__title {
+    font-size: 2em;
+    color: $primaryColor;
+    font-weight: bold;
+    margin: $gutter 0;
+  }
+  &__container {
+    background-color: $darkBlue;
+    margin: $gutter;
+
+    &__item {
+      display: flex;
+      justify-content: space-between;
+
+      &__left {
+        display: flex;
+        align-items: center;
+
+        &__picture {
+          width: 150px;
+          height: 150px;
+          padding: $gutter/2;
+        }
+        &__text {
+          line-height: 1.6;
+
+          &__subtitle {
+            font-size: 1.8em;
+            color: $primaryColor;
+          }
+          &__status {
+            margin-left: $gutter/2;
+            border-radius: 20px;
+            padding: ($gutter /6) ($gutter/2);
+            background-color: $green;
+            font-size: .4em;
+            color: $darkBlue;
+          }
+          &__third {
+            font-size: 1.2em;
+          }
+        }
+        
+      }
+      &__right {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+        &__button {
+          background-color: $lightBlue;
+          border: none;
+          border-radius: 5px;
+          padding: ($gutter /3);
+          font-size: 1em;
+          color: white;
+          margin-right: $gutter/2;
+          &:hover {
+          background-color: $secondaryColor;
+        }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 710px) {
+  .reservations {
+
+    &__breadcrumb {
+      
+    }
+    &__title {
+      font-size: 2em;
+      color: $primaryColor;
+      font-weight: bold;
+      margin: $gutter 0;
+    }
+    &__container {
+      background-color: $darkBlue;
+      margin: $gutter 0;
+  
+      &__item {
+        flex-direction: column;
+        
+  
+        &__left {
+          display: flex;
+          flex-direction: column;
+  
+          &__picture {
+            width: 150px;
+            height: 150px;
+            padding: $gutter/2;
+          }
+          &__text {
+            max-width: 100%;
+            text-align: center;
+  
+            &__subtitle {
+              font-size: 1.8em;
+              color: $primaryColor;
+              margin-bottom: $gutter/2;
+              
+            }
+            &__status {
+              margin-left: $gutter/2;
+              border-radius: 20px;
+              padding: ($gutter /6) ($gutter/2);
+              background-color: $green;
+              font-size: .4em;
+              color: $darkBlue;
+            }
+            &__third {
+              font-size: 1.2em;
+            }
+          }
+          
+        }
+        &__right {
+          align-items: center;
+          margin: $gutter/2 0;
+  
+          &__button {
+            margin: $gutter/2 0;
+            width: 90%;
+
+            &:hover {
+            background-color: $secondaryColor;
+          }
+          }
+        }
+      }
+    }
+  }
+}
