@@ -1,6 +1,17 @@
 @import 'src/styles/_vars.scss';
 
+.modal-background {
+  position: fixed;
+  z-index: 90;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
 .reservations {
+  position: relative;
 
   &__breadcrumb {
     margin: $gutter 0;
@@ -69,14 +80,67 @@
       }
     }
   }
+  &__details {
+    width: 800px;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    left: calc(50% - 400px);
+    z-index: 99;
+    background-color: $backgroundLight;
+    color: $darkBlue;
+    line-height: 2;
+    padding: $gutter;
+    margin: $gutter;
+    border-radius: 1rem;
+
+    &__link {
+      border-bottom: 1px solid $lightBlue;
+
+      &:hover {
+        color: $secondaryColor;
+        border-bottom: 1px solid $secondaryColor;
+      }
+    }
+    &__title {
+      font-size: 2em;
+      color: $primaryColor;
+      font-weight: bold;
+
+    }
+    &__list {
+
+
+      &__item {
+        &__bold {
+
+          font-weight: bold;
+        }
+      }
+    }
+    &__buttons {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      &__button {
+        background-color: $lightBlue;
+          border: none;
+          border-radius: 5px;
+          padding: ($gutter /3);
+          font-size: 1em;
+          color: white;
+          margin-right: $gutter/2;
+          &:hover {
+          background-color: $secondaryColor;
+        }
+      }
+    }
+  }
 }
 
 @media (max-width: 710px) {
   .reservations {
-
-    &__breadcrumb {
-      
-    }
     &__title {
       font-size: 2em;
       color: $primaryColor;
@@ -137,6 +201,35 @@
           }
           }
         }
+      }
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .reservations {
+    &__details {
+      width: calc(100% -2rem);
+      margin: 0 $gutter/2;
+      left: 0;
+      flex-direction: column;
+
+      &__list {
+        &__item {
+          &__bold {
+            display: block;
+          }
+        }
+      }
+
+      &__buttons {
+        text-align: center;
+        &__button {
+          margin: $gutter/2 0;
+        }
+      }
+      &__link {
+        display: inline-block;
       }
     }
   }
