@@ -85,7 +85,7 @@
     }
     &__container {
       background-color: $darkBlue;
-      margin: $gutter;
+      margin: $gutter 0;
   
       &__item {
         flex-direction: column;

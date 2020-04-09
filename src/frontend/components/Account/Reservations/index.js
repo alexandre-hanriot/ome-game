@@ -16,7 +16,7 @@ const Reservations = () => (
           <div className="reservations__container__item__left">
             <img className="reservations__container__item__left__picture" src="https://cdn3.trictrac.net/documents/formats/thumb_300_300/documents/originals/29/2c/676d3ba08cf231daf0fc67c709bc0ba8a6468f2fb878061c99c16e6f751d.jpeg" alt="" />
             <div className="reservations__container__item__left__text">
-              <h2 className="reservations__container__item__left__text__subtitle">Nom de l'offre gggggggggggggggggggggggggggggggggg<span className="reservations__container__item__left__text__status">Status</span></h2>
+              <h2 className="reservations__container__item__left__text__subtitle">Nom de l'offre <span className="reservations__container__item__left__text__status">Status</span></h2>
               <h3 className="reservations__container__item__left__text__third">Nom du jeu</h3>
             </div>
           </div>
