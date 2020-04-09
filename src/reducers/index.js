@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
+import reservationReducer from './reservations';
 
 // import reducers
 
 const rootReducer = combineReducers({
-  //reducers
+  reservations: reservationReducer,
 });
 
 export default rootReducer;

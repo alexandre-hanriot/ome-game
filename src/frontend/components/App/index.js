@@ -13,7 +13,7 @@ import AccountProfil from 'src/frontend/components/Account/Profil';
 import LegalMentions from 'src/frontend/components/Legal-mentions';
 import Contact from 'src/frontend/components/Contact';
 import Details from 'src/frontend/components/Offer/Details';
-import Reservations from 'src/frontend/components/Account/Reservations';
+import Reservations from 'src/frontend/containers/Account/Reservations';
 
 // == Composant
 const App = () => {
