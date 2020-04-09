@@ -13,6 +13,8 @@ import AccountProfil from 'src/frontend/components/Account/Profil';
 import AccountOffersAdd from 'src/frontend/components/Account/Offers/Form';
 import LegalMentions from 'src/frontend/components/Legal-mentions';
 import Contact from 'src/frontend/components/Contact';
+import Account from 'src/frontend/components/Account';
+
 import Details from 'src/frontend/components/Offer/Details';
 import Reservations from 'src/frontend/containers/Account/Reservations';
 
@@ -54,8 +56,13 @@ const App = () => {
           <Route exact path="/contact">
             <Contact />
           </Route>
+
+          <Route exact path="/compte">
+            <Account />
+
           <Route exact path="/compte/reservations">
             <Reservations />
+
           </Route>
           <Route>
             <p>erreur 404</p>

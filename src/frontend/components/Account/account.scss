@@ -1,0 +1,248 @@
+@import 'src/styles/_vars.scss';
+
+.account {
+  &__dashboard {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__breadcrumb {
+    padding: $gutter 0;
+
+    a:hover {
+      color: $secondaryColor;
+    }
+  }
+  &__title {
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-bottom: $gutter/2;
+    color: $primaryColor;
+  }
+
+  &__general {
+    width: 47%;
+    // height: 40%;
+    background-color: $darkBlue;
+    display: inline-block;
+    padding: $gutter;
+    margin: $gutter/2;
+    &__subtitle {
+      text-align: center;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-bottom: $gutter/2;
+      color: $primaryColor;
+    }
+    &__table {
+        margin: auto;
+        width: 85%;
+      &__body {
+        // border: $lightBlue solid 1px;
+        border-top: $lightBlue solid 1px;
+        &__td {
+          // border: $lightBlue solid 1px;
+          border-bottom: $lightBlue solid 1px;
+          padding: .5rem 1rem;
+          text-align: center;
+          margin: auto auto;
+          line-height: 1.2em;
+
+          &__disponible {
+            margin-left: $gutter/2;
+            border-radius: 20px;
+            padding: ($gutter /6) ($gutter/2);
+            background-color: $green;
+            font-size: .4em;
+            color: $darkBlue;
+            &--inactive {
+              display: none;
+            }
+          }
+
+          &__indisponible {
+            margin-left: $gutter/2;
+            border-radius: 20px;
+            padding: ($gutter /7) ($gutter/3);
+            background-color: #df2121;
+            font-size: .6em;
+            color: #fff;
+            &--inactive {
+              display: none;
+            }
+          }
+
+          &--left {
+            text-align: left;
+          }
+
+          &__button__remove, &__button__pencil, &__button__bell, &__button__bellslash {
+            border: none;
+            border-radius: 5px;
+            background-color: #E3E5EC;
+            margin: 0.3rem;
+            font-size: $gutter/2;
+            
+          }
+          &__button__pencil{
+            color: $darkBlue;
+            padding: .4rem .5rem;
+          }
+          &__button__remove{
+            color: red;
+            padding: .4rem .6rem;
+          }
+
+          &__button__bell {
+            padding: 0.4rem .6rem;
+            color: $green;
+            &--active {
+
+            }
+            &--inactive{
+              display: none;
+            }
+          }
+          &__button__bellslash {
+            color: $darkBlue;
+            padding: 0.4rem .4rem;
+            &--inactive {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+    &__button {
+      padding: $gutter/2;
+      margin: $gutter/3 auto;
+      border: none;
+      border-radius: 5px;
+      text-align: center;
+      display: block;
+      margin-top: 1rem;
+
+      &:hover {
+        background-color: $secondaryColor;
+        color: #fff;
+      }
+    }
+  }
+
+  &__profil {
+    display: flex;
+    justify-content: space-between;
+    padding: $gutter;
+    &__left {
+      
+      &__list {
+        margin-bottom: $gutter;
+        &__content {
+          line-height: 2em;
+        }
+
+      }
+      &__link {
+        border-bottom: 1px solid $secondaryColor;
+        font-size: 1.1em;
+        &:hover{
+          color: $secondaryColor;
+          
+        }
+      }
+    }
+
+    &__right {
+      &__picture {
+        font-size: $gutter*5;
+        border-radius: 50%;
+     
+      }
+    }
+  }
+  
+}
+
+@media (max-width: 1200px) {
+  .account {
+    width: 100%;
+    &__title {
+      text-align: center;
+    }
+    &__general {
+      width: 100%;
+
+      &__table {
+        &__body {
+          display: flex;
+          flex-direction: column;
+          &__tr {
+            justify-content: space-between;
+            display: flex;
+            border-bottom: solid 1px $lightBlue;
+
+          }
+          &__td {
+            display: flex;
+            border-bottom: none;
+          }
+        }
+      }
+      &__button {
+        background-color: $secondaryColor;
+        color: #fff;
+      }
+
+    }
+
+    &__profil {
+      display: flex;
+      flex-direction: column-reverse;
+      &__left {
+        &__link {
+          text-align: center;
+          color: $secondaryColor;
+        }
+      }
+      &__right {
+        text-align: center;
+        &__picture {
+          font-size: $gutter*2;
+        }
+      }
+    }
+
+  }
+}
+
+@media (max-width: 700px) {
+  .account {
+    width: 100%;
+    &__title {
+      text-align: center;
+    }
+    &__general {
+      width: 100%;
+      display: block;
+
+      &__table {
+        border: none;
+        &__body {
+          display: flex;
+          flex-direction: column;
+          border: none;
+          &__td {
+            display: flex;
+            border-bottom: none;
+          }
+          &__tr {
+            flex-direction: column;
+            display: flex;
+            border-bottom: solid 1px $lightBlue;
+       
+          }
+        }
+      }
+    }
+  }
+}
