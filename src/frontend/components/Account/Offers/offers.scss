@@ -1,0 +1,125 @@
+@import 'src/styles/_vars.scss';
+
+.accountOffers {
+
+  &__title {
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-bottom: $gutter/2;
+    color: $primaryColor;
+  }
+
+  &__listOffers {
+   
+    margin: $gutter;
+    &__offer {
+      display: flex;
+      justify-content: space-between;
+      background-color: $darkBlue;
+      margin: $gutter;
+      padding: $gutter/2;
+      &__left {
+        display: -webkit-box;
+        &__picture {
+          width: 120px;
+          height: 120px;
+          margin: auto;
+          text-align: center;
+        }
+        &__content {
+          line-height: 1.6;
+          padding-left: $gutter;
+          &__subtitle {
+            font-size: 1.5em;
+            color: $primaryColor;
+            &__euro {
+              font-size: 0.8em;
+            }
+          }
+        }
+        &__status {
+          margin-left: 1rem;
+          margin-top: 0.5rem;
+          border-radius: 20px;
+          padding: ($gutter /6) ($gutter/2);
+          background-color: $green;
+          font-size: .4em;
+          color: $darkBlue;
+          display: inline-block;
+        }
+      }
+      &__right {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        & button {
+          background-color: $lightBlue;
+          border: none;
+          border-radius: 5px;
+          padding: ($gutter /3);
+          font-size: 1em;
+          color: white;
+          margin-right: $gutter;
+          &:hover{
+            background-color: $secondaryColor;
+
+          }
+        }
+        &__pencil{
+          color: $darkBlue;
+        }
+        &__trash {
+          color: red;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .accountOffers {
+    &__listOffers {
+      &__offer {
+        display: block;
+        margin: 0 0 1rem 0 ;
+        &__right {
+          display: flex;
+          justify-content: center;
+          flex-direction: row;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 750px) {
+  .accountOffers {
+    &__title {
+      text-align: center;
+    }
+    &__listOffers {
+      width: 100%;
+      margin: 0;
+      &__offer {
+        width: 100%;
+        margin: 0;
+        margin-bottom: $gutter/2;
+        &__left {
+          display: block;
+          &__picture {
+            text-align: center;
+            display: block;
+          }
+          &__status {
+            display: none;
+          }
+        }
+        &__right {
+          & button {
+            margin: 0.5rem .5rem .5rem .1rem;
+          }
+        }
+      }
+    }
+  }
+}
