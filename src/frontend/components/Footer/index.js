@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import './footer.scss';
 
 const Footer = ({ isHome }) => {
-  console.log(isHome);
   return (
     <footer className="footer">
       {!isHome && (
@@ -26,8 +25,8 @@ const Footer = ({ isHome }) => {
           <Link className="footer__content__links__link" to="/mentions-legales">Mentions légales</Link>
         </div>
         <div className="footer__content__socials">
-          <Link className="footer__content__socials__link" title="Facebook"><i className="fab fa-facebook-square"> </i></Link>
-          <Link className="footer__content__socials__link" title="Twitter"><i className="fab fa-twitter-square"> </i></Link>
+          <Link className="footer__content__socials__link" title="Facebook" to=""><i className="fab fa-facebook-square"> </i></Link>
+          <Link className="footer__content__socials__link" title="Twitter" to=""><i className="fab fa-twitter-square"> </i></Link>
         </div>
       </div>
     </footer>

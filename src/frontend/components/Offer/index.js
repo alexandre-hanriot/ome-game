@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './offer.scss';
 
@@ -54,33 +55,39 @@ const Offer = () => (
       <h2 className="offer__aside__subtitle">Résultat(s)</h2>
 
       <ul className="offer__aside__results">
-        <li className="offer__aside__results__result">
-          <img src="https://cdn2.philibertnet.com/372889-large_default/le-parrain-l-empire-de-corleone.jpg" alt="" className="offer__aside__results__result__image" />
-          <div className="offer__aside__results__result__content">
-            <h3 className="offer__aside__results__result__name">Le parrain (2018)</h3>
-            <p className="offer__aside__results__result__city">Rixheim (68170)</p>
-            <span className="offer__aside__results__result__disponibility">Disponible</span>
-            <span className="offer__aside__results__result__type">Location</span>
-          </div>
-        </li>
-        <li className="offer__aside__results__result">
-          <img src="https://cdn2.philibertnet.com/372889-large_default/le-parrain-l-empire-de-corleone.jpg" alt="" className="offer__aside__results__result__image" />
-          <div className="offer__aside__results__result__content">
-            <h3 className="offer__aside__results__result__name">Le parrain (2018)</h3>
-            <p className="offer__aside__results__result__city">Habsheim (68440)</p>
-            <span className="offer__aside__results__result__disponibility">Disponible</span>
-            <span className="offer__aside__results__result__type">Prêt</span>
-          </div>
-        </li>
-        <li className="offer__aside__results__result">
-          <img src="https://cdn2.philibertnet.com/372889-large_default/le-parrain-l-empire-de-corleone.jpg" alt="" className="offer__aside__results__result__image" />
-          <div className="offer__aside__results__result__content">
-            <h3 className="offer__aside__results__result__name">Le parrain (2006)</h3>
-            <p className="offer__aside__results__result__city">Mulhouse (68100)</p>
-            <span className="offer__aside__results__result__disponibility offer__aside__results__result__disponibility--off">Non disponible</span>
-            <span className="offer__aside__results__result__type">Location</span>
-          </div>
-        </li>
+        <Link to="/recherche/jeux/1-toto">
+          <li className="offer__aside__results__result">
+            <img src="https://cdn2.philibertnet.com/372889-large_default/le-parrain-l-empire-de-corleone.jpg" alt="" className="offer__aside__results__result__image" />
+            <div className="offer__aside__results__result__content">
+              <h3 className="offer__aside__results__result__name">Le parrain (2018)</h3>
+              <p className="offer__aside__results__result__city">Rixheim (68170)</p>
+              <span className="offer__aside__results__result__disponibility">Disponible</span>
+              <span className="offer__aside__results__result__type">Location</span>
+            </div>
+          </li>
+        </Link>
+        <Link to="/recherche/jeux/1-toto">
+          <li className="offer__aside__results__result">
+            <img src="https://cdn2.philibertnet.com/372889-large_default/le-parrain-l-empire-de-corleone.jpg" alt="" className="offer__aside__results__result__image" />
+            <div className="offer__aside__results__result__content">
+              <h3 className="offer__aside__results__result__name">Le parrain (2018)</h3>
+              <p className="offer__aside__results__result__city">Habsheim (68440)</p>
+              <span className="offer__aside__results__result__disponibility">Disponible</span>
+              <span className="offer__aside__results__result__type">Prêt</span>
+            </div>
+          </li>
+        </Link>
+        <Link to="/recherche/jeux/1-toto">
+          <li className="offer__aside__results__result">
+            <img src="https://cdn2.philibertnet.com/372889-large_default/le-parrain-l-empire-de-corleone.jpg" alt="" className="offer__aside__results__result__image" />
+            <div className="offer__aside__results__result__content">
+              <h3 className="offer__aside__results__result__name">Le parrain (2006)</h3>
+              <p className="offer__aside__results__result__city">Mulhouse (68100)</p>
+              <span className="offer__aside__results__result__disponibility offer__aside__results__result__disponibility--off">Non disponible</span>
+              <span className="offer__aside__results__result__type">Location</span>
+            </div>
+          </li>
+        </Link>
       </ul>
 
     </aside>

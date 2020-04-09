@@ -3,7 +3,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { Route, Switch, useLocation } from 'react-router-dom';
 
-import Header from 'src/frontend/components/Header';
+import Header from 'src/frontend/containers/Header';
 import Footer from 'src/frontend/components/Footer';
 
 import Home from 'src/frontend/components/Home';
@@ -48,7 +48,7 @@ const App = () => {
           <Route exact path="/mentions-legales">
             <LegalMentions />
           </Route>
-          <Route exact path="/offre/1-toto">
+          <Route exact path="/recherche/jeux/1-toto">
             <Details />
           </Route>
           <Route exact path="/contact">
