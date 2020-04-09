@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
-import reservationReducer from './reservations';
 
-// import reducers
+import reservationReducer from './reservations';
+import headerReducer from './header';
 
 const rootReducer = combineReducers({
+  header: headerReducer,
   reservations: reservationReducer,
 });
 
