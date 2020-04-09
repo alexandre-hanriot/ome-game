@@ -58,13 +58,12 @@
             font-size: 1.2em;
           }
         }
-        
       }
       &__right {
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-
+        margin-right: 2rem;
         &__button {
           background-color: $lightBlue;
           border: none;
@@ -72,7 +71,6 @@
           padding: ($gutter /3);
           font-size: 1em;
           color: white;
-          margin-right: $gutter/2;
           &:hover {
           background-color: $secondaryColor;
         }
@@ -122,7 +120,6 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-
       &__button {
         background-color: $lightBlue;
           border: none;

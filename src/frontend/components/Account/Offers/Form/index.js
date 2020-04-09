@@ -34,7 +34,11 @@ const Form = () => (
 
         <h2 className="account-offers-form__subtitle">Description</h2>
 
-        <textarea placeholder="Description" className="account-offers-form__field account-offers-form__description"></textarea>
+        <textarea
+          placeholder="Description"
+          className="account-offers-form__field
+          account-offers-form__description"
+        />
         <p className="account-offers-form__dates">Créer le xx/xx/xxxx à xxhxx</p>
         <p className="account-offers-form__dates">Modifier le xx/xx/xxxx à xxhxx</p>
         <button type="submit" className="account-offers-form__submit">Ajouter</button>
@@ -45,7 +49,11 @@ const Form = () => (
         <div className="account-offers-form__block account-offers-form__block--flex50">
           <div className="account-offers-form__status">
             <h2 className="account-offers-form__subtitle">Etat</h2>
-            <div><label><input type="radio" name="status" checked /> Actif</label></div>
+            <div>
+              <label>
+                <input type="radio" name="status" checked /> Actif
+              </label>
+            </div>
             <div><label><input type="radio" name="status" /> Inactif</label></div>
           </div>
           <div className="account-offers-form__disponibility">
