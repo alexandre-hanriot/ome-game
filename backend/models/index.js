@@ -34,5 +34,7 @@ db.sequelize = sequelize;
 
 db.users = require("../models/user")(sequelize, Sequelize);
 db.offers = require("../models/offer")(sequelize, Sequelize);
+db.games = require("../models/game")(sequelize, Sequelize);
+db.categories = require("../models/category")(sequelize, Sequelize);
 
 module.exports = db;

@@ -40,7 +40,7 @@ module.exports = (sequelize, Sequelize) => {
                 allowNull: false,
             },
             price: {
-                type: Sequelize.INTEGER.UNSIGNED,
+                type: Sequelize.FLOAT.UNSIGNED,
                 defaultValue: 0,
             },
             game_id: {
@@ -54,7 +54,7 @@ module.exports = (sequelize, Sequelize) => {
             },
             description: {
                 type: Sequelize.TEXT,
-                defaultValue: "",
+                defaultValue: null,
             },
         },
         {

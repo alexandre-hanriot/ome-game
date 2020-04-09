@@ -38,24 +38,31 @@ module.exports = (sequelize, Sequelize) => {
             },
             firstname: {
                 type: Sequelize.STRING(50),
+                defaultValue: null,
             },
             lastname: {
                 type: Sequelize.STRING(50),
+                defaultValue: null,
             },
             phone: {
                 type: Sequelize.STRING(15),
+                defaultValue: null,
             },
             address: {
                 type: Sequelize.STRING,
+                defaultValue: null,
             },
             postal_code: {
                 type: Sequelize.STRING(5),
+                defaultValue: null,
             },
             city: {
                 type: Sequelize.STRING,
+                defaultValue: null,
             },
             gdpr_accepted_at: {
                 type: Sequelize.DATE,
+                defaultValue: null,
             },
         },
         {
