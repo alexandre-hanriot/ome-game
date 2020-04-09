@@ -1,6 +1,3 @@
-const db = require("./index");
-const Game_category = db.game_categories;
-
 module.exports = (sequelize, Sequelize) => {
     const Game = sequelize.define(
         "games",
@@ -20,15 +17,6 @@ module.exports = (sequelize, Sequelize) => {
                 type: Sequelize.STRING(100),
                 unique: true,
                 allowNull: false,
-            },
-            category_id: {
-                type: Sequelize.INTEGER,
-                allowNull: false,
-                references: {
-                    model: "game_categories",
-                    key: "id",
-                    deferrable: Sequelize.INITIALLY_IMMEDIATE, // vérifie les contraintes immédiatement
-                },
             },
             nb_players_min: {
                 type: Sequelize.SMALLINT,
@@ -85,9 +73,6 @@ module.exports = (sequelize, Sequelize) => {
                     fields: ["name"],
                 },
                 {
-                    fields: ["category_id"],
-                },
-                {
                     fields: ["nb_players_min"],
                 },
                 {
@@ -107,6 +92,10 @@ module.exports = (sequelize, Sequelize) => {
                 },
                 {
                     fields: ["image"],
+                },
+                // On crée les index des foreign key automatiquement générées par les associations dans models/index.js
+                {
+                    fields: ["gameCategoryId"],
                 },
             ],
         }

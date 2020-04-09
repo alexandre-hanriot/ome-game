@@ -1,7 +1,3 @@
-const db = require("./index");
-const User = db.users;
-const Game = db.games;
-
 module.exports = (sequelize, Sequelize) => {
     const Offer = sequelize.define(
         "offers",
@@ -16,15 +12,6 @@ module.exports = (sequelize, Sequelize) => {
                 type: Sequelize.ENUM("0", "1", "2"),
                 allowNull: false,
                 defaultValue: "0",
-            },
-            owner_id: {
-                type: Sequelize.INTEGER,
-                allowNull: false,
-                references: {
-                    model: "users",
-                    key: "id",
-                    deferrable: Sequelize.INITIALLY_IMMEDIATE, // vérifie les contraintes immédiatement
-                },
             },
             type: {
                 // 0 : prêt, 1 : location
@@ -45,15 +32,6 @@ module.exports = (sequelize, Sequelize) => {
                 type: Sequelize.FLOAT,
                 defaultValue: 0,
             },
-            game_id: {
-                type: Sequelize.INTEGER,
-                allowNull: false,
-                references: {
-                    model: "games",
-                    key: "id",
-                    deferrable: Sequelize.INITIALLY_IMMEDIATE, // vérifie les contraintes immédiatement
-                },
-            },
             description: {
                 type: Sequelize.TEXT,
                 defaultValue: null,
@@ -69,9 +47,6 @@ module.exports = (sequelize, Sequelize) => {
                     fields: ["status"],
                 },
                 {
-                    fields: ["owner_id"],
-                },
-                {
                     fields: ["type"],
                 },
                 {
@@ -84,10 +59,14 @@ module.exports = (sequelize, Sequelize) => {
                     fields: ["price"],
                 },
                 {
-                    fields: ["game_id"],
+                    fields: ["description"],
+                },
+                // On crée les index des foreign key automatiquement générées par les associations dans models/index.js
+                {
+                    fields: ["userId"],
                 },
                 {
-                    fields: ["description"],
+                    fields: ["gameId"],
                 },
             ],
         }
