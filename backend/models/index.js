@@ -44,55 +44,25 @@ db.game_categories = require("./game_category")(sequelize, Sequelize);
 // Par défaut si on supprime un élément parent la foreign key de l'enfant passe à NULL
 // Par défait si on update l'id d'un parent (mauvaise idée) les foreign key des enfants sont mises à jour en cascade
 // ATTENTION à ne pas oublier de créer les index dans les modèles pour les foreign keys générées automatiquement
-db.users.hasMany(db.offers, {
-    foreignKey: {
-        allowNull: false,
-        // onDelete: 'SET NULL',
-        // onUpdate: 'CASCADE'
-    },
-});
+db.users.hasMany(db.offers);
 db.offers.belongsTo(db.users);
 
-db.users.hasMany(db.reservations, {
-    foreignKey: {
-        allowNull: false,
-    },
-});
+db.users.hasMany(db.reservations);
 db.reservations.belongsTo(db.users);
 
-db.users.hasMany(db.favorites, {
-    foreignKey: {
-        allowNull: false,
-    },
-});
+db.users.hasMany(db.favorites);
 db.favorites.belongsTo(db.users);
 
-db.offers.hasMany(db.reservations, {
-    foreignKey: {
-        allowNull: false,
-    },
-});
+db.offers.hasMany(db.reservations);
 db.reservations.belongsTo(db.offers);
 
-db.offers.hasMany(db.favorites, {
-    foreignKey: {
-        allowNull: false,
-    },
-});
+db.offers.hasMany(db.favorites);
 db.favorites.belongsTo(db.offers);
 
-db.games.hasMany(db.offers, {
-    foreignKey: {
-        allowNull: false,
-    },
-});
+db.games.hasMany(db.offers);
 db.offers.belongsTo(db.games);
 
-db.game_categories.hasMany(db.games, {
-    foreignKey: {
-        allowNull: false,
-    },
-});
+db.game_categories.hasMany(db.games);
 db.games.belongsTo(db.game_categories);
 
 module.exports = db;

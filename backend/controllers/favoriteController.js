@@ -4,7 +4,8 @@ const coreController = require("./coreController");
 
 // Récupération de tous les favoris de jeux
 exports.findAll = (req, res) => {
-    coreController.findAll(Favorite, req, res);
+    const defaultOrderby = "id";
+    coreController.findAll(Favorite, defaultOrderby, req, res);
 };
 
 // Récupération d'un favori en fonction de sa clé primaire

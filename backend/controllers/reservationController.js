@@ -4,7 +4,8 @@ const coreController = require("./coreController");
 
 // Récupération de toutes les réservations
 exports.findAll = (req, res) => {
-    coreController.findAll(Reservation, req, res);
+    const defaultOrderby = "status";
+    coreController.findAll(Reservation, defaultOrderby, req, res);
 };
 
 // Récupération d'une réservation en fonction de sa clé primaire

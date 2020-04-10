@@ -72,5 +72,12 @@ module.exports = (sequelize, Sequelize) => {
         }
     );
 
+    // Ajout des Hooks
+    Offer.beforeCreate((offer, options) => {
+        if (typeof offer.userId === "undefined")
+            return Promise.reject("Une offre doit être associée à un ID d'utilisateur (propriétaire)");
+        if (typeof offer.gameId === "undefined") return Promise.reject("Une offre doit être associée à un ID de jeu");
+    });
+
     return Offer;
 };

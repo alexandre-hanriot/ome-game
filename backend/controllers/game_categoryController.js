@@ -4,7 +4,8 @@ const coreController = require("./coreController");
 
 // Récupération de toutes les catégories de jeux
 exports.findAll = (req, res) => {
-    coreController.findAll(Game_category, req, res);
+    const defaultOrderby = "name";
+    coreController.findAll(Game_category, defaultOrderby, req, res);
 };
 
 // Récupération d'une catégorie de jeu en fonction de sa clé primaire

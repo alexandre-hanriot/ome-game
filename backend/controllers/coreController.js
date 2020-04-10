@@ -1,10 +1,10 @@
 // Récupération de toutes les instances d'une table
 // En option on peut spécifier dans l'url un ou plusieurs paramètres de filtrage et tri/classement des résultats
-exports.findAll = (model, req, res) => {
+exports.findAll = (model, defaultOrderby, req, res) => {
     // On vérifie si orderby et sortby (asc/desc) sont définis dans l'url
-    // Sinon de base on tri par username croissant
+    // Sinon de base on tri par le paramètre defaultOrderby croissant
     const orderBy =
-        typeof req.query.orderby === "undefined" || req.query.orderby === "" ? "username" : req.query.orderby;
+        typeof req.query.orderby === "undefined" || req.query.orderby === "" ? defaultOrderby : req.query.orderby;
     const sortBy = typeof req.query.sortby === "undefined" || req.query.sortby === "" ? "ASC" : req.query.sortby;
 
     const order = [orderBy, sortBy];

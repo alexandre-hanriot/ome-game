@@ -32,5 +32,13 @@ module.exports = (sequelize, Sequelize) => {
         }
     );
 
+    // Ajout des Hooks
+    Favorite.beforeCreate((favorite, options) => {
+        if (typeof favorite.userId === "undefined")
+            return Promise.reject("Un favori doit être associé à un ID d'utilisateur (client)");
+        if (typeof favorite.offerId === "undefined")
+            return Promise.reject("Un favori doit être associé à un ID d'offre");
+    });
+
     return Favorite;
 };

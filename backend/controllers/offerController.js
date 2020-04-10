@@ -4,7 +4,8 @@ const coreController = require("./coreController");
 
 // Récupération de toutes les offres
 exports.findAll = (req, res) => {
-    coreController.findAll(Offer, req, res);
+    const defaultOrderby = "status";
+    coreController.findAll(Offer, defaultOrderby, req, res);
 };
 
 // Récupération d'une offre en fonction de sa clé primaire

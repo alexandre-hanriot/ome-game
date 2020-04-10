@@ -42,5 +42,13 @@ module.exports = (sequelize, Sequelize) => {
         }
     );
 
+    // Ajout des Hooks
+    Reservation.beforeCreate((reservation, options) => {
+        if (typeof reservation.userId === "undefined")
+            return Promise.reject("Une réservation doit être associée à un ID d'utilisateur (client)");
+        if (typeof reservation.offerId === "undefined")
+            return Promise.reject("Une réservation doit être associée à un ID d'offre");
+    });
+
     return Reservation;
 };

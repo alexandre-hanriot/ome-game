@@ -4,7 +4,8 @@ const coreController = require("./coreController");
 
 // Récupération de tous les jeux
 exports.findAll = (req, res) => {
-    coreController.findAll(Game, req, res);
+    const defaultOrderby = "name";
+    coreController.findAll(Game, defaultOrderby, req, res);
 };
 
 // Récupération d'un jeu en fonction de sa clé primaire

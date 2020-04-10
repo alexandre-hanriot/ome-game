@@ -6,7 +6,8 @@ const utils = require("../utils");
 
 // Récupération de tous les utilisateurs
 exports.findAll = (req, res) => {
-    coreController.findAll(User, req, res);
+    const defaultOrderby = "username";
+    coreController.findAll(User, defaultOrderby, req, res);
 };
 
 // Récupération d'un utilisateur en fonction de sa clé primaire
@@ -63,7 +64,7 @@ exports.update = (req, res) => {
 
     // si les données de changement de mot de passe sont renseignées
     else if (oldPassword.length > 0 && newPassword.length > 0) {
-        // On lance la fonction qui vérifie le mot de passe et renvoie le hash du nouveau mot de passe
+        // On lance la fonction qui vérifie l'ancien mot de passe et renvoie le hash du nouveau mot de passe
         utils.changePassword(User, id, oldPassword, newPassword).then((newHashedPassword) => {
             if (!newHashedPassword) {
                 res.status(500).json({

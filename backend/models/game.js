@@ -101,5 +101,11 @@ module.exports = (sequelize, Sequelize) => {
         }
     );
 
+    // Ajout des Hooks
+    Game.beforeCreate((game, options) => {
+        if (typeof game.gameCategoryId === "undefined")
+            return Promise.reject("Un jeu doit être associé à un ID de catégorie de jeu");
+    });
+
     return Game;
 };
