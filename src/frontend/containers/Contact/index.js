@@ -1,11 +1,10 @@
 import { connect } from 'react-redux';
-import Alert from 'src/frontend/components/Alert';
+import Contact from 'src/frontend/components/Contact';
 import { displayAlert } from 'src/actions/global';
 
 const mapStateToProps = (state) => ({
   // nom de la prop à remplir: donnée à récupérer dans le state
-  message: state.global.alertMessage,
-  success: state.global.alertSuccess,
+  showAlert: state.global.showAlert,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -18,4 +17,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Alert);
+)(Contact);
