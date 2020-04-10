@@ -1,8 +1,5 @@
 @import 'src/styles/_vars.scss';
 
-.wrapper {
-  
-}
 .alert {
   background: rgba(227, 229, 236, 1);
   width: 400px;
@@ -12,13 +9,14 @@
   position: fixed;
   right: 0;
   line-height: 1.4;
-  color: red;
 
   
   &__content {
     color: $darkBlue;
 
     &__message {
+      font-weight: bold;
+      color: red;
 
       &--success {
         color: $green;

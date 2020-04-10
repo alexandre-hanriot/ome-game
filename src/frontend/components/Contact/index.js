@@ -8,7 +8,7 @@ import Alert from 'src/frontend/containers/Alert';
 const Contact = ({ displayAlert, showAlert }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    displayAlert();
+    displayAlert('Veuillez remplir les champs obligatoires', false);
   };
   return (
     <div className="wrapper contact">
