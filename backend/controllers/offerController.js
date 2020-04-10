@@ -10,9 +10,7 @@ exports.findAll = (req, res) => {
 
 // Récupération d'une offre en fonction de sa clé primaire
 exports.findOne = (req, res) => {
-    const id = req.params.id;
-
-    coreController.findOne(Offer, id, res);
+    coreController.findOne(Offer, req, res);
 };
 
 // Création d'une offre

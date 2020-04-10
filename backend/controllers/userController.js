@@ -1,6 +1,10 @@
 const bcrypt = require("bcrypt");
 const db = require("../models/index");
 const User = db.users;
+const Offer = db.offers;
+const Reservation = db.reservations;
+const Game = db.games;
+const Game_category = db.game_categories;
 const coreController = require("./coreController");
 const utils = require("../utils");
 
@@ -12,9 +16,7 @@ exports.findAll = (req, res) => {
 
 // Récupération d'un utilisateur en fonction de sa clé primaire
 exports.findOne = (req, res) => {
-    const id = req.params.id;
-
-    coreController.findOne(User, id, res);
+    coreController.findOne(User, req, res);
 };
 
 // Création d'un utilisateur
@@ -99,4 +101,57 @@ exports.deleteOne = (req, res) => {
     const id = req.params.id;
 
     coreController.deleteOne(User, id, res);
+};
+
+// Récupération des offres d'un utilisateur et tri par date de création décroissante
+exports.findAllOffers = (req, res) => {
+    const id = req.params.id;
+
+    User.findOne({
+        where: { id },
+        include: {
+            model: Offer,
+            include: {
+                model: Game,
+                include: Game_category,
+            },
+        },
+        order: [[Offer, "createdAt", "DESC"]],
+    })
+        .then((data) => {
+            res.send(data);
+        })
+        .catch((err) => {
+            res.status(500).json({
+                error: `Une erreur est survenue pendant la récupération des offres de l'utilisateur id=${id} : ${err}`,
+            });
+        });
+};
+
+// Récupération des réservations d'un utilisateur et tri par date de création décroissante
+exports.findAllReservations = (req, res) => {
+    const id = req.params.id;
+
+    User.findOne({
+        where: { id },
+        include: {
+            model: Reservation,
+            include: {
+                model: Offer,
+                include: {
+                    model: Game,
+                    include: Game_category,
+                },
+            },
+        },
+        order: [[Reservation, "createdAt", "DESC"]],
+    })
+        .then((data) => {
+            res.send(data);
+        })
+        .catch((err) => {
+            res.status(500).json({
+                error: `Une erreur est survenue pendant la récupération des offres de l'utilisateur id=${id} : ${err}`,
+            });
+        });
 };

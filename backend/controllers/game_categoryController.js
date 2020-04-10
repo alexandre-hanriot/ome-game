@@ -10,9 +10,7 @@ exports.findAll = (req, res) => {
 
 // Récupération d'une catégorie de jeu en fonction de sa clé primaire
 exports.findOne = (req, res) => {
-    const id = req.params.id;
-
-    coreController.findOne(Game_category, id, res);
+    coreController.findOne(Game_category, req, res);
 };
 
 // Création d'une catégorie de jeu

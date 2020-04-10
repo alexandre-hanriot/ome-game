@@ -20,4 +20,10 @@ router.delete("/", userController.deleteManyByID);
 // Suppression d'un utilisateur en fonction de son id
 router.delete("/:id", userController.deleteOne);
 
+// Récupération des offres d'un utilisateur en fonction de son id
+router.get("/:id/offers", userController.findAllOffers);
+
+// Récupération des réservations d'un utilisateur en fonction de son id
+router.get("/:id/reservations", userController.findAllReservations);
+
 module.exports = router;

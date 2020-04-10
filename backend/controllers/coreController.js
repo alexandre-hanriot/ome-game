@@ -37,8 +37,10 @@ exports.findAll = (model, defaultOrderby, req, res) => {
 
 // Recherche d'une instance de modèle par clé primaire
 // returnOption permet de retourner les données au lieu d'envoyer une réponse http
-exports.findOne = (model, id, res, returnOption = false) => {
-    model.findByPk(id).then((data) => {
+exports.findOne = (model, req, res, returnOption = false) => {
+    const id = req.params.id;
+
+    model.findOne({ where: { id } }).then((data) => {
         if (data === null)
             res.status(404).json({
                 error: `${model.getTableName()} id=${id} non trouvé`,
