@@ -10,6 +10,7 @@ import Home from 'src/frontend/components/Home';
 import About from 'src/frontend/components/About';
 import Offer from 'src/frontend/components/Offer';
 import AccountProfil from 'src/frontend/components/Account/Profil';
+import AccountOffers from 'src/frontend/components/Account/Offers';
 import AccountOffersAdd from 'src/frontend/components/Account/Offers/Form';
 import LegalMentions from 'src/frontend/components/Legal-mentions';
 import Contact from 'src/frontend/components/Contact';
@@ -43,6 +44,9 @@ const App = () => {
           </Route>
           <Route exact path="/compte/profil">
             <AccountProfil />
+          </Route>
+          <Route exact path="/compte/offres">
+            <AccountOffers />
           </Route>
           <Route exact path="/compte/offres/ajouter">
             <AccountOffersAdd />
