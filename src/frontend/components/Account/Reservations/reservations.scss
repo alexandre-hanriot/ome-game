@@ -1,14 +1,14 @@
 @import 'src/styles/_vars.scss';
 
-.modal-background {
-  position: fixed;
-  z-index: 90;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.6);
-}
+// .modal-background {
+//   position: fixed;
+//   z-index: 90;
+//   top: 0;
+//   bottom: 0;
+//   right: 0;
+//   left: 0;
+//   background: rgba(0, 0, 0, 0.6);
+// }
 
 .reservations {
   position: relative;
@@ -72,21 +72,12 @@
     }
   }
   &__details {
-    width: 800px;
-    display: flex;
-    justify-content: space-between;
-    position: absolute;
-    left: calc(50% - 400px);
-    z-index: 99;
-    background-color: $backgroundLight;
-    color: $darkBlue;
     line-height: 2;
-    padding: $gutter;
-    margin: $gutter;
-    border-radius: 1rem;
 
     &__link {
       border-bottom: 1px solid $lightBlue;
+      margin-top: $gutter/2;
+      display: inline-block;
 
       &:hover {
         color: $secondaryColor;
@@ -97,11 +88,8 @@
       font-size: 2em;
       color: $primaryColor;
       font-weight: bold;
-
     }
     &__list {
-
-
       &__item {
         &__bold {
 
@@ -112,19 +100,7 @@
     &__buttons {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      &__button {
-        background-color: $lightBlue;
-          border: none;
-          border-radius: 5px;
-          padding: ($gutter /3);
-          font-size: 1em;
-          color: white;
-          margin-right: $gutter/2;
-          &:hover {
-          background-color: $secondaryColor;
-        }
-      }
+      align-items: flex-start;
     }
   }
 }

@@ -1,15 +1,15 @@
 import { connect } from 'react-redux';
 import Header from 'src/frontend/components/Header';
 
-import { handleMenu } from 'src/actions/header';
+import { showMenu } from 'src/actions/global';
 
 const mapStateToProps = (state) => ({
-  menuOpen: state.header.menuOpen,
+  showMenu: state.global.showMenu,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleMenu: () => {
-    dispatch(handleMenu());
+  displayMenu: () => {
+    dispatch(showMenu());
   },
 });
 
