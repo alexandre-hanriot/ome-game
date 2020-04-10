@@ -9,7 +9,15 @@ const AccountOffers = () => (
       <Link to="/compte"> Mon compte > </Link>
       Offres
     </div>
-    <h1 className="accountOffers__title">Mes Offres</h1>
+    <div className="accountOffers__global">
+      <h1 className="accountOffers__global__title">Mes Offres</h1>
+      <Link
+        className="global-button accountOffers__global__createOffer"
+        to="/compte/offres/ajouter"
+      >
+        Créer une offre
+      </Link>
+    </div>
     <ul className="accountOffers__listOffers">
       <li className="accountOffers__listOffers__offer">
         <div className="accountOffers__listOffers__offer__left">
@@ -27,7 +35,7 @@ const AccountOffers = () => (
         </div>
         <div className="accountOffers__listOffers__offer__right">
           <Link className="global-button global-button--light"><i className="fas fa-pencil-alt accountOffers__listOffers__offer__right__pencil" /> Modifier</Link>
-          <Link className="global-button global-button--light"><i className="fas fa-pencil-alt accountOffers__listOffers__offer__right__trash" /> Supprimer</Link>
+          <Link className="global-button global-button--light"><i className="fas fa-trash-alt accountOffers__listOffers__offer__right__trash" /> Supprimer</Link>
         </div>
       </li>
       <li className="accountOffers__listOffers__offer">
@@ -46,10 +54,9 @@ const AccountOffers = () => (
         </div>
         <div className="accountOffers__listOffers__offer__right">
           <Link className="global-button global-button--light"><i className="fas fa-pencil-alt accountOffers__listOffers__offer__right__pencil" /> Modifier</Link>
-          <Link className="global-button global-button--light"><i className="fas fa-pencil-alt accountOffers__listOffers__offer__right__trash" /> Supprimer</Link>
+          <Link className="global-button global-button--light"><i className="fas fa-trash-alt accountOffers__listOffers__offer__right__trash" /> Supprimer</Link>
         </div>
       </li>
-
     </ul>
   </div>
 );
