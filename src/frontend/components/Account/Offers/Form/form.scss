@@ -1,16 +1,16 @@
 @import 'src/styles/_vars.scss';
 
-@mixin account-offers-input {
-  font-size: inherit;
-  font-family: inherit;
-  color: $darkBlue;
-  padding: .5rem 1rem;
-  // border-radius: .4rem;
-  border: 1px solid #8199b7;
-  background-color: #fff;
-  width: 100%;
-  margin-bottom: .3rem;
-}
+// @mixin account-offers-input {
+//   font-size: inherit;
+//   font-family: inherit;
+//   color: $darkBlue;
+//   padding: .5rem 1rem;
+//   // border-radius: .4rem;
+//   border: 1px solid #8199b7;
+//   background-color: #fff;
+//   width: 100%;
+//   margin-bottom: .3rem;
+// }
 
 .account-offers-form {
   &__breadcrumb {
@@ -52,14 +52,6 @@
     }
   }
 
-  &__field {
-    @include account-offers-input;
-  }
-  &__description {
-    resize: vertical;
-    min-height: 400px;
-  }
-
   &__dates {
     line-height: 1.6;
   }
@@ -79,6 +71,10 @@
     }
   }
 
+  &__name {
+    width: 100%;
+  }
+
   &__block {
     background-color: $darkBlue;
     padding: $gutter;
@@ -94,29 +90,24 @@
 
   &__type {
     select {
-      @include account-offers-input;
       width: calc(60% - .4rem);
       margin-bottom: 0;
       margin-right: .4rem;
-      padding: calc(.5rem - 1px) 1rem;
     }
     input {
-      @include account-offers-input;
       width: 40%;
       margin-bottom: 0;
-      padding: calc(.5rem - 1px) 1rem;
     }
   }
 
   &__game {
     select {
-      @include account-offers-input;
       width: 50%;
-      padding: calc(.5rem - 1px) 1rem;
+      margin-bottom: .4rem;
     }
     input {
-      @include account-offers-input;
       width: 50%;
+      margin-bottom: .4rem;
 
       &:last-child {
         width: calc(50% - .4rem);
@@ -127,6 +118,11 @@
       input {
         margin-bottom: 0;
       }
+    }
+
+    &__name {
+      width: 100%;
+      margin-bottom: .4rem;
     }
 
     &__image {
@@ -149,8 +145,16 @@
     }
   } 
 
+  &__description {
+    resize: vertical;
+    min-height: 400px;
+    width: 100%;
+    margin-bottom: $gutter/2;
+  }
+
   &__location {
-    @include account-offers-input;
+    margin-bottom: .4rem;
+    width: 100%;
   }
 
   &__map {

@@ -63,7 +63,7 @@ const Account = () => (
             </tr>
           </tbody>
         </table>
-        <button className="account__general__button" type="button"> <i className="far fa-eye" /> <Link to="/compte/reservations">Voir plus</Link></button>
+        <Link to="/compte/reservations" className="account__general__button global-button global-button--light"><i className="far fa-eye" /> Voir plus</Link>
       </div>
 
       {/* Mes Offres */}
@@ -141,7 +141,7 @@ const Account = () => (
             </tr>
           </tbody>
         </table>
-        <button className="account__general__button" type="button"> <i className="far fa-eye" /> <Link to="/compte/offres"> Voir plus</Link></button>
+        <Link to="/compte/offres" className="account__general__button global-button global-button--light"><i className="far fa-eye" /> Voir plus</Link>
       </div>
 
       {/* Ma liste de souhait */}
@@ -280,7 +280,6 @@ const Account = () => (
             </tr>
           </tbody>
         </table>
-        <button className="account__general__button" type="button"> <i className="far fa-eye" /> Voir plus</button>
       </div>
       {/* Profil */}
       <div className="account__general profil">
@@ -294,7 +293,7 @@ const Account = () => (
               <li className="account__profil__left__list__content">Téléphone :</li>
               <li className="account__profil__left__list__content">Adresse Postale :</li>
             </ul>
-            <Link to="/compte/profil" className="account__profil__left__link">Modifier</Link>
+            <Link to="/compte/profil" className="account__general__button global-button global-button--light">Modifier</Link>
           </div>
           <div className="account__profil__right">
             <i className="far fa-portrait account__profil__right__picture" />

@@ -26,8 +26,8 @@ const AccountOffers = () => (
           </div>
         </div>
         <div className="accountOffers__listOffers__offer__right">
-          <button className="" type="button"> <i className="fas fa-pencil-alt accountOffers__listOffers__offer__right__pencil" /> <Link> Modifier</Link></button>
-          <button className="" type="button"> <i className="fas fa-trash-alt accountOffers__listOffers__offer__right__trash" /> Supprimer</button>
+          <Link className="global-button global-button--light"><i className="fas fa-pencil-alt accountOffers__listOffers__offer__right__pencil" /> Modifier</Link>
+          <Link className="global-button global-button--light"><i className="fas fa-pencil-alt accountOffers__listOffers__offer__right__trash" /> Supprimer</Link>
         </div>
       </li>
       <li className="accountOffers__listOffers__offer">
@@ -45,8 +45,8 @@ const AccountOffers = () => (
           </div>
         </div>
         <div className="accountOffers__listOffers__offer__right">
-          <button className="" type="button"> <i className="fas fa-pencil-alt accountOffers__listOffers__offer__right__pencil" /> Modifier</button>
-          <button className="" type="button"> <i className="fas fa-trash-alt accountOffers__listOffers__offer__right__trash" /> Supprimer</button>
+          <Link className="global-button global-button--light"><i className="fas fa-pencil-alt accountOffers__listOffers__offer__right__pencil" /> Modifier</Link>
+          <Link className="global-button global-button--light"><i className="fas fa-pencil-alt accountOffers__listOffers__offer__right__trash" /> Supprimer</Link>
         </div>
       </li>
 

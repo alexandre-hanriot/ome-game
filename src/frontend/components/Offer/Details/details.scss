@@ -79,15 +79,7 @@
       width: 95%;
   
       &__button {
-        background-color: $darkBlue;
-        border: none;
-        border-radius: 5px;
-        padding: ($gutter /3);
-        font-size: 1.5em;
-        color: white;
-        &:hover {
-          background-color: $secondaryColor;
-        }
+        font-size: 1.2em;
       }
     }
     &__user {
@@ -101,7 +93,7 @@
     }
   }
   &__right {
-    min-width: 450px;
+    width: 450px;
     text-align: center;
     &__image {
       width: 100%;
@@ -198,7 +190,7 @@
         
       }
       &__map {
-        
+        max-width: 100%;
       }
     }
   }

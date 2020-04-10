@@ -64,16 +64,9 @@
         flex-direction: column;
         justify-content: space-evenly;
         margin-right: 2rem;
+
         &__button {
-          background-color: $lightBlue;
-          border: none;
-          border-radius: 5px;
-          padding: ($gutter /3);
-          font-size: 1em;
-          color: white;
-          &:hover {
-          background-color: $secondaryColor;
-        }
+          font-size: .9em;
         }
       }
     }

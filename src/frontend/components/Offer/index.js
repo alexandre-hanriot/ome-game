@@ -13,35 +13,35 @@ const Offer = () => (
       <h1 className="offer__aside__title">Trouver un jeu</h1>
 
       <form className="offer__aside__search">
-        <input type="text" placeholder="Saisissez un lieu" className="offer__aside__search__input" />
-        <button type="submit" className="offer__aside__search__button" title="Rechercher"><i className="fas fa-search"></i></button>
+        <input type="text" placeholder="Saisissez un lieu" className="offer__aside__search__input global-input" />
+        <button type="submit" className="offer__aside__search__button" title="Rechercher"><i className="fas fa-search"> </i></button>
       </form>
 
       <div className="offer__aside__options">
-        <button type="button" className="offer__aside__options__button">Options <i className="fas fa-sort-down"></i></button>
+        <button type="button" className="offer__aside__options__button">Options <i className="fas fa-sort-down"> </i></button>
         <div className="offer__aside__options__fields">
-          <input type="text" placeholder="Nom du jeu" className="offer__aside__options__fields__game" />
+          <input type="text" placeholder="Nom du jeu" className="offer__aside__options__fields__game global-input" />
           <div className="offer__aside__options__fields__group">
-            <select className="offer__aside__options__fields__disponibility">
+            <select className="offer__aside__options__fields__disponibility global-select">
               <option value="">Disponibilité</option>
               <option value="1">Disponible</option>
               <option value="0">Non disponible</option>
             </select>
-            <select className="offer__aside__options__fields__types">
+            <select className="offer__aside__options__fields__types global-select">
               <option value="">Type d'offre</option>
               <option value="1">Location</option>
               <option value="0">Prêt</option>
             </select>
           </div>
           <div className="offer__aside__options__fields__group">
-            <select className="offer__aside__options__fields__categories">
+            <select className="offer__aside__options__fields__categories global-select">
               <option value="">Catégorie</option>
               <option value="1">Jeux de rôle</option>
               <option value="2">Jeux de carte</option>
               <option value="3">Jeux de plateau</option>
               <option value="4">...</option>
             </select>
-            <input type="text" placeholder="Autour (km)" className="offer__aside__options__fields__range" />
+            <input type="text" placeholder="Autour (km)" className="offer__aside__options__fields__range global-input" />
           </div>
         </div>
       </div>

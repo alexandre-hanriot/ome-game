@@ -60,13 +60,11 @@ const App = () => {
           <Route exact path="/contact">
             <Contact />
           </Route>
-
           <Route exact path="/compte">
             <Account />
           </Route>
           <Route exact path="/compte/reservations">
             <Reservations />
-
           </Route>
           <Route>
             <p>erreur 404</p>

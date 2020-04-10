@@ -40,8 +40,8 @@ const Details = () => (
           </p><br />
         </div>
         <div className="offer-detail__left__buttons">
-          <button className="offer-detail__left__buttons__button" type="button"> <i className="fas fa-star" /></button>
-          <button type="button" className="offer-detail__left__buttons__button">Réserver ce jeu</button>
+          <button className="offer-detail__left__buttons__button global-button" type="button"> <i className="fas fa-star" /></button>
+          <button type="button" className="offer-detail__left__buttons__button global-button">Réserver ce jeu</button>
         </div>
         <section className="offer-detail__left__user">
           <p className="offer-detail__left__user__content">A propos de Mme Michu :</p>
