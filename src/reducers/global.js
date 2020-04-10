@@ -1,8 +1,13 @@
-import { SHOW_MODAL, SHOW_MENU } from '../actions/global';
+import {
+  SHOW_MODAL, SHOW_MENU, SHOW_ALERT,
+} from '../actions/global';
 
 const initialState = {
   showModal: false,
   showMenu: false,
+  alertMessage: '',
+  alertSuccess: true,
+  showAlert: false,
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -18,7 +23,13 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         showMenu: !state.showMenu,
       };
-
+    case SHOW_ALERT:
+      return {
+        ...state,
+        alertMessage: action.message,
+        alertSuccess: action.success,
+        showAlert: !state.showAlert,
+      };
     default:
       return state;
   }
