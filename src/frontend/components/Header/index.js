@@ -6,7 +6,7 @@ import { useMediaPredicate } from 'react-media-hook';
 import Menu from './Menu';
 import './header.scss';
 
-const Header = ({ menuOpen, handleMenu }) => {
+const Header = ({ showMenu, displayMenu }) => {
   const isMobile = useMediaPredicate('(max-width: 1024px)');
 
   return (
@@ -19,11 +19,11 @@ const Header = ({ menuOpen, handleMenu }) => {
           {!isMobile && <Menu />}
           {isMobile && (
             <>
-              <button type="button" className="header__nav__menu__burger" onClick={handleMenu}><i className="fas fa-bars"> </i></button>
-              {menuOpen && (
+              <button type="button" className="header__nav__menu__burger" onClick={displayMenu}><i className="fas fa-bars"> </i></button>
+              {showMenu && (
                 <>
                   <div className="menu-background"> </div>
-                  <div className="header__nav__menu__container" onClick={handleMenu}>
+                  <div className="header__nav__menu__container" onClick={displayMenu}>
                     <Menu showIcon />
                   </div>
                 </>
@@ -40,8 +40,8 @@ const Header = ({ menuOpen, handleMenu }) => {
 };
 
 Header.propTypes = {
-  menuOpen: PropTypes.bool.isRequired,
-  handleMenu: PropTypes.func.isRequired,
+  showMenu: PropTypes.bool.isRequired,
+  displayMenu: PropTypes.func.isRequired,
 };
 
 export default Header;

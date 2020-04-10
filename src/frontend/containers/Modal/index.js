@@ -1,12 +1,9 @@
 import { connect } from 'react-redux';
-import Reservation from 'src/frontend/components/Account/Reservations';
+import Modal from 'src/frontend/components/Modal';
 
 import { showModal } from 'src/actions/global';
 
-const mapStateToProps = (state) => ({
-  // nom de la prop à remplir: donnée à récupérer dans le state
-  showModal: state.global.showModal,
-});
+const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = (dispatch) => ({
   displayModal: () => {
@@ -17,4 +14,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Reservation);
+)(Modal);
