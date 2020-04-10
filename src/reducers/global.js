@@ -1,8 +1,9 @@
-import { SHOW_MODAL, SHOW_MENU } from '../actions/global';
+import { SHOW_MODAL, SHOW_MENU, SHOW_MODAL_AUTH } from '../actions/global';
 
 const initialState = {
-  showModal: false,
+  showModal: '',
   showMenu: false,
+  // showModalAuthentification: 'login',
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -10,7 +11,7 @@ const reducer = (state = initialState, action = {}) => {
     case SHOW_MODAL:
       return {
         ...state,
-        showModal: !state.showModal,
+        showModal: action.name,
       };
 
     case SHOW_MENU:
@@ -18,6 +19,12 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         showMenu: !state.showMenu,
       };
+
+    // case SHOW_MODAL_AUTH:
+    //   return {
+    //     ...state,
+    //     showModalAuthentification: action.name,
+    //   };
 
     default:
       return state;

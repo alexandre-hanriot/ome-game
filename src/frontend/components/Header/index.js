@@ -2,15 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useMediaPredicate } from 'react-media-hook';
+import Modal from 'src/frontend/containers/Modal';
 
+import Authentification from 'src/frontend/containers/Header/Authentification';
 import Menu from './Menu';
 import './header.scss';
 
-const Header = ({ showMenu, displayMenu }) => {
+const Header = ({ showMenu, displayMenu, showModal, displayModal }) => {
   const isMobile = useMediaPredicate('(max-width: 1024px)');
+
+  const handleModal = () => {
+    displayModal('login');
+  };
 
   return (
     <header className="header">
+      {['login', 'registration'].includes(showModal) && (
+        <Modal content={<Authentification />} />
+      )}
+
       <div className="header__logo">
         <Link to="/" />
       </div>
@@ -32,7 +42,7 @@ const Header = ({ showMenu, displayMenu }) => {
           )}
         </div>
         <div className="header__nav__account">
-          <button type="button" className="header__nav__account__button" title="S'inscrire / Se connecter"><i className="fas fa-user"> </i></button>
+          <button type="button" className="header__nav__account__button" title="S'inscrire / Se connecter" onClick={handleModal}><i className="fas fa-user"> </i></button>
         </div>
       </nav>
     </header>
@@ -42,6 +52,8 @@ const Header = ({ showMenu, displayMenu }) => {
 Header.propTypes = {
   showMenu: PropTypes.bool.isRequired,
   displayMenu: PropTypes.func.isRequired,
+  showModal: PropTypes.string.isRequired,
+  displayModal: PropTypes.func.isRequired,
 };
 
 export default Header;

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './contact.scss';
@@ -11,7 +12,7 @@ const Contact = () => (
       <input className="contact__form__input global-input" type="email" placeholder="Adresse email" />
       <textarea className="contact__form__textarea global-input" type="text" placeholder="Message" />
       <div className="contact__form__checkbox">
-        <label htmlFor>
+        <label>
           <input type="checkbox" className="contact__form__checkbox__input" /> Accepter <Link target="_blank" to="/mentions-legales" className="contact__form__checkbox__input__link">les mentions légales</Link>
         </label>
       </div>
