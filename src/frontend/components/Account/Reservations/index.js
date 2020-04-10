@@ -2,14 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './reservations.scss';
 import PropTypes from 'prop-types';
-import Details from 'src/frontend/containers/Account/Reservations/details';
+import Modal from 'src/frontend/containers/Modal';
+import Details from './Details';
 
 const Reservations = ({ showModal, displayModal }) => (
   <div className="wrapper reservations">
     {showModal && (
-      <>
-        <div className="modal-background"> </div><Details />
-      </>
+      <Modal title="Nom de l'offre" content={<Details />} />
     )}
     <div className="reservations__breadcrumb">
       <Link to="/">Accueil ></Link>

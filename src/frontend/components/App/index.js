@@ -14,6 +14,7 @@ import AccountOffers from 'src/frontend/components/Account/Offers';
 import AccountOffersAdd from 'src/frontend/components/Account/Offers/Form';
 import LegalMentions from 'src/frontend/components/Legal-mentions';
 import Contact from 'src/frontend/components/Contact';
+
 import Account from 'src/frontend/containers/Account';
 
 import Details from 'src/frontend/components/Offer/Details';
