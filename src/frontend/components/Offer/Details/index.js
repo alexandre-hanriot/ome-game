@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import './details.scss';
+import Alert from 'src/frontend/containers/Alert';
 
-const Details = () => (
+const Details = ({ showAlert, displayAlert }) => (
   <article className="wrapper offer-detail">
+    {showAlert && <Alert />}
     <div className="offer-detail__breadcrumb">
       <Link to="/">Accueil ></Link>
       <Link to="/recherche/jeux">Ma recherche ></Link>
@@ -40,7 +43,7 @@ const Details = () => (
           </p><br />
         </div>
         <div className="offer-detail__left__buttons">
-          <button className="offer-detail__left__buttons__button global-button" type="button"> <i className="fas fa-star" /></button>
+          <button className="offer-detail__left__buttons__button global-button" type="button" onClick={displayAlert}> <i className="fas fa-star" /></button>
           <button type="button" className="offer-detail__left__buttons__button global-button">Réserver ce jeu</button>
         </div>
         <section className="offer-detail__left__user">
@@ -58,5 +61,10 @@ const Details = () => (
     </div>
   </article>
 );
+
+Details.propTypes = {
+  showAlert: PropTypes.bool.isRequired,
+  displayAlert: PropTypes.func.isRequired,
+};
 
 export default Details;

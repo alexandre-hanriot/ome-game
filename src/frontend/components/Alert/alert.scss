@@ -12,10 +12,19 @@
   position: fixed;
   right: 0;
   line-height: 1.4;
+  color: red;
 
   
-  &__message {
+  &__content {
     color: $darkBlue;
+
+    &__message {
+
+      &--success {
+        color: $green;
+    }
+    
+    }
   }
 }
 

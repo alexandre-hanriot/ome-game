@@ -3,8 +3,8 @@ import Alert from 'src/frontend/components/Alert';
 
 const mapStateToProps = (state) => ({
   // nom de la prop à remplir: donnée à récupérer dans le state
-  message: state.global.message,
-  success: state.global.success,
+  message: state.global.alertMessage,
+  success: state.global.alertSuccess,
 });
 
 const mapDispatchToProps = (dispatch) => ({
