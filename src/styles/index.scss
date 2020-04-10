@@ -31,3 +31,53 @@ main {
       padding: 0 1rem;
   }
 }
+
+.global-input {
+  font-family: inherit;
+  font-size: inherit;
+  border-radius: .3rem;
+  border: none;
+  padding: .6rem 1rem;
+  background-color: #fff;
+  color: $darkBlue;
+
+  &:focus, &:active {
+    border: none;
+    outline: none;
+  }
+}
+
+.global-select {
+  font-family: inherit;
+  font-size: inherit;
+  border-radius: .3rem;
+  border: none;
+  padding: calc(.6rem - 1px) 1rem;
+  background-color: #fff;
+  color: $darkBlue;
+
+  &:focus, &:active {
+    border: none;
+    outline: none;
+  } 
+}
+
+.global-button {
+  font-family: inherit;
+  font-size: inherit;
+  padding: .8rem 1rem;
+  color: #fff;
+  background-color: $darkBlue;
+  border: none;
+  border-radius: .3rem;
+  
+  &--light {
+    color: $darkBlue;
+    background-color: $backgroundLight;
+  }
+
+  &:hover {
+    background-color: $secondaryColor;
+    color: #fff;
+  }
+}

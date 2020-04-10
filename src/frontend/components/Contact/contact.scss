@@ -13,24 +13,16 @@
   &__form {
     margin: auto;
     width: 50%;
-    display: grid;
-    &__input {
-      display: block;
-      margin: $gutter/3;
-      border: none;
-      border-radius: 5px;
-      height: $gutter;
-      padding-left: 2em;
 
-
+    &__input {;
+      margin-bottom: $gutter/3;
+      width: 100%;
     }
     &__textarea {
-      margin: $gutter/3;
-      border: none;
-      border-radius: 5px;
-      height: $gutter*4;
-      padding-left: 2em;
-      padding-top: $gutter/2;
+      margin-bottom: $gutter/2;
+      min-height: 150px;
+      resize: vertical;
+      width: 100%;
     }
 
     &__checkbox {
@@ -40,7 +32,6 @@
       font-size: 0.9em;
 
         &__input__link {
-          //text-decoration: underline;
           border-bottom: solid 2px $secondaryColor;
           padding-bottom: -2px;
           &:hover {
@@ -50,19 +41,9 @@
       }
 
     &__button {
-      width: max-content;
-      margin: $gutter auto;
-      padding: 0.7rem 1rem 0.7rem 1rem;
-      border: none;
-      border-radius: 5px;
-      color: $darkBlue;
-      font-weight: bold;
-      font-size: 1em;
-
-      &:hover {
-        color: #fff;
-        background-color: $secondaryColor;
-      }
+      display: block;
+      margin: 0 auto;
+      margin-top: $gutter;
     }
   }
 }

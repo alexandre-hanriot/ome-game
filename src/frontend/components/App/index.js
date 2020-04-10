@@ -60,7 +60,6 @@ const App = () => {
           <Route exact path="/contact">
             <Contact />
           </Route>
-
           <Route exact path="/compte">
             <Account />
           </Route>

@@ -28,8 +28,8 @@ const Reservations = ({ showModal, displayModal }) => (
             </div>
           </div>
           <div className="reservations__container__item__right">
-            <button className="reservations__container__item__right__button" type="button" onClick={displayModal}> <i className="far fa-eye" /> Voir plus</button>
-            <button className="reservations__container__item__right__button" type="button"> <i className="fas fa-times" /> Annuler</button>
+            <button className="reservations__container__item__right__button global-button global-button--light" type="button" onClick={displayModal}> <i className="far fa-eye" /> Voir plus</button>
+            <button className="reservations__container__item__right__button global-button global-button--light" type="button"> <i className="fas fa-times" /> Annuler</button>
           </div>
         </div>
       </li>

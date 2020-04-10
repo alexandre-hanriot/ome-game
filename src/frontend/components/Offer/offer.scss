@@ -1,14 +1,5 @@
 @import 'src/styles/_vars.scss';
 
-@mixin offer-input {
-  font-size: inherit;
-  color: inherit;
-  padding: .6rem 1rem;
-  border-radius: .4rem;
-  border: 1px solid #8199b7;
-  background-color: #fff;
-}
-
 .offer {
   display: flex;
   min-height: inherit;
@@ -50,11 +41,7 @@
       margin-bottom: $gutter/2;
 
       &__input {
-        font-size: inherit;
-        padding: .6rem 1rem;
         flex-grow: 1;
-        border: 0;
-        border-radius: inherit;
       }
       &__button {
         font-size: inherit;
@@ -92,29 +79,21 @@
         }
 
         &__game {
-          @include offer-input;
           width: 100%;
         }
         &__disponibility {
-          @include offer-input;
-          padding: calc(.6rem - .5px) 1rem;
           width: 50%;
           margin-right: .25rem;
         }
         &__types {
-          @include offer-input;
-          padding: calc(.6rem - .5px) 1rem;
           width: 50%;
           margin-left: .25rem;
         } 
         &__categories {
-          @include offer-input;
-          padding: calc(.6rem - .5px) 1rem;
           width: 50%;
           margin-right: .25rem;
         } 
         &__range {
-          @include offer-input;
           width: 50%;
           margin-left: .25rem; 
         }
