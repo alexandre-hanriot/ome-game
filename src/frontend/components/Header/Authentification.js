@@ -22,6 +22,7 @@ const Authentification = ({ showModal, displayModal }) => {
         <button type="button" className={registrationClass} onClick={handleRegistration}>Inscription</button>
       </nav>
 
+      {showModal === 'passwordForget' && (<Login />)}
       {showModal === 'login' && (<Login />)}
       {showModal === 'registration' && (<Registration />)}
     </>
