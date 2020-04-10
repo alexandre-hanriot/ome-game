@@ -1,9 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+
+import Modal from 'src/frontend/containers/Account/Modal';
 import './account.scss';
 
-const Account = () => (
+const Account = ({ displayModal, showModal }) => (
   <div className="wrapper account">
+    {showModal && (
+      <>
+        <div className="modal-background"> </div><Modal />
+      </>
+    )}
     <div className="account__breadcrumb">
       <Link to="/">Accueil</Link> > Mon compte
     </div>
@@ -20,6 +28,7 @@ const Account = () => (
                   className="account__general__table__body__td__button__remove"
                   type="button"
                   title="annuler"
+                  onClick={displayModal}
                 >
                   <i className="far fa-times" />
                 </button>
@@ -72,14 +81,46 @@ const Account = () => (
         <table className="account__general__table">
           <tbody className="account__general__table__body">
             <tr className="account__general__table__body__tr">
-              <td className="account__general__table__body__td account__general__table__body__td--left">Nom de l'offre (status)</td>
+              <td className="account__general__table__body__td account__general__table__body__td--left">Nom de l'offre</td>
               <td className="account__general__table__body__td">
-                <button
+                <span
+                  className="account__general__table__body__td__disponible"
+                >
+                  disponible
+                </span>
+              </td>
+              <td className="account__general__table__body__td">
+                <Link
                   className="account__general__table__body__td__button__pencil"
-                  type="button"
+                  to="/compte/offres/ajouter"
                 >
                   <i className="far fa-pencil-alt" />
+                </Link>
+                <button
+                  className="account__general__table__body__td__button__remove"
+                  type="button"
+                  onClick={displayModal}
+                >
+                  <i className="far fa-times" />
                 </button>
+              </td>
+            </tr>
+            <tr className="account__general__table__body__tr">
+              <td className="account__general__table__body__td account__general__table__body__td--left">Nom de l'offre</td>
+              <td className="account__general__table__body__td">
+                <span
+                  className="account__general__table__body__td__disponible"
+                >
+                  disponible
+                </span>
+              </td>
+              <td className="account__general__table__body__td">
+                <Link
+                  className="account__general__table__body__td__button__pencil"
+                  to="/compte/offres/ajouter"
+                >
+                  <i className="far fa-pencil-alt" />
+                </Link>
                 <button
                   className="account__general__table__body__td__button__remove"
                   type="button"
@@ -89,51 +130,50 @@ const Account = () => (
               </td>
             </tr>
             <tr className="account__general__table__body__tr">
-              <td className="account__general__table__body__td account__general__table__body__td--left">Nom de l'offre (status)</td>
+              <td className="account__general__table__body__td account__general__table__body__td--left">Nom de l'offre</td>
               <td className="account__general__table__body__td">
-                <button
+                <span
+                  className="account__general__table__body__td__disponible"
+                >
+                  disponible
+                </span>
+              </td>
+              <td className="account__general__table__body__td">
+                <Link
                   className="account__general__table__body__td__button__pencil"
-                  type="button"
+                  to="/compte/offres/ajouter"
                 >
                   <i className="far fa-pencil-alt" />
-                </button>
+                </Link>
                 <button
                   className="account__general__table__body__td__button__remove"
                   type="button"
+                  onClick={displayModal}
                 >
                   <i className="far fa-times" />
                 </button>
               </td>
             </tr>
             <tr className="account__general__table__body__tr">
-              <td className="account__general__table__body__td account__general__table__body__td--left">Nom de l'offre (status)</td>
+              <td className="account__general__table__body__td account__general__table__body__td--left">Nom de l'offre</td>
               <td className="account__general__table__body__td">
-                <button
-                  className="account__general__table__body__td__button__pencil"
-                  type="button"
+                <span
+                  className="account__general__table__body__td__disponible"
                 >
-                  <i className="far fa-pencil-alt" />
-                </button>
-                <button
-                  className="account__general__table__body__td__button__remove"
-                  type="button"
-                >
-                  <i className="far fa-times" />
-                </button>
+                  disponible
+                </span>
               </td>
-            </tr>
-            <tr className="account__general__table__body__tr">
-              <td className="account__general__table__body__td account__general__table__body__td--left">Nom de l'offre (status)</td>
               <td className="account__general__table__body__td">
-                <button
+                <Link
                   className="account__general__table__body__td__button__pencil"
-                  type="button"
+                  to="/compte/offres/ajouter"
                 >
                   <i className="far fa-pencil-alt" />
-                </button>
+                </Link>
                 <button
                   className="account__general__table__body__td__button__remove"
                   type="button"
+                  onClick={displayModal}
                 >
                   <i className="far fa-times" />
                 </button>
@@ -175,6 +215,7 @@ const Account = () => (
                   className="account__general__table__body__td__button__remove"
                   type="button"
                   title="annuler"
+                  onClick={displayModal}
                 >
                   <i className="fas fa-times" />
                 </button>
@@ -211,6 +252,7 @@ const Account = () => (
                   className="account__general__table__body__td__button__remove"
                   type="button"
                   title="annuler"
+                  onClick={displayModal}
                 >
                   <i className="fas fa-times" />
                 </button>
@@ -242,6 +284,7 @@ const Account = () => (
                   className="account__general__table__body__td__button__remove"
                   type="button"
                   title="annuler"
+                  onClick={displayModal}
                 >
                   <i className="fas fa-times" />
                 </button>
@@ -273,6 +316,7 @@ const Account = () => (
                   className="account__general__table__body__td__button__remove"
                   type="button"
                   title="annuler"
+                  onClick={displayModal}
                 >
                   <i className="fas fa-times" />
                 </button>
@@ -293,7 +337,7 @@ const Account = () => (
               <li className="account__profil__left__list__content">Téléphone :</li>
               <li className="account__profil__left__list__content">Adresse Postale :</li>
             </ul>
-            <Link to="/compte/profil" className="account__general__button global-button global-button--light">Modifier</Link>
+            <Link to="/compte/profil" className="account__profil__left__link ">Modifier</Link>
           </div>
           <div className="account__profil__right">
             <i className="far fa-portrait account__profil__right__picture" />
@@ -305,5 +349,10 @@ const Account = () => (
 
 
 );
+
+Account.propTypes = {
+  displayModal: PropTypes.func.isRequired,
+  showModal: PropTypes.bool.isRequired,
+};
 
 export default Account;
