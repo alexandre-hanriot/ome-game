@@ -1,0 +1,26 @@
+@import 'src/styles/_vars.scss';
+
+.wrapper {
+  
+}
+.alert {
+  background: rgba(227, 229, 236, 1);
+  width: 400px;
+  text-align: right;
+  padding: $gutter;
+  border-radius: .3rem 0 0 .3rem;
+  position: fixed;
+  right: 0;
+  line-height: 1.4;
+
+  
+  &__message {
+    color: $darkBlue;
+  }
+}
+
+@media (max-width: 450px) {
+  .alert {
+    width: 100%;
+  }
+}
