@@ -9,8 +9,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   // nom de la prop à remplir: callback qui contient un appel à dispatch
-  displayModal: () => {
-    dispatch(showModal());
+  displayModal: (name) => {
+    dispatch(showModal(name));
   },
 });
 

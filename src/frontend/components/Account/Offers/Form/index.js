@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -49,16 +50,16 @@ const Form = () => (
           <div className="account-offers-form__status">
             <h2 className="account-offers-form__subtitle">Etat</h2>
             <div>
-              <label htmlFor>
+              <label>
                 <input type="radio" name="status" checked /> Actif
               </label>
             </div>
-            <div><label htmlFor><input type="radio" name="status" /> Inactif</label></div>
+            <div><label><input type="radio" name="status" /> Inactif</label></div>
           </div>
           <div className="account-offers-form__disponibility">
             <h2 className="account-offers-form__subtitle">Disponibilité</h2>
-            <div><label htmlFor><input type="radio" name="disponibility" checked /> Disponible</label></div>
-            <div><label htmlFor><input type="radio" name="disponibility" /> Non disponible</label></div>
+            <div><label><input type="radio" name="disponibility" checked /> Disponible</label></div>
+            <div><label><input type="radio" name="disponibility" /> Non disponible</label></div>
           </div>
         </div>
 
