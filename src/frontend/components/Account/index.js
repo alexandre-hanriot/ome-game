@@ -4,9 +4,12 @@ import { Link } from 'react-router-dom';
 import Modal from 'src/frontend/containers/Modal';
 import Alert from 'src/frontend/containers/Alert';
 import ConfirmSupp from 'src/frontend/containers/Account/Modal';
+import { useTitle } from 'src/hooks/useTitle';
 import './account.scss';
 
 const Account = ({ displayModal, showModal, showAlert }) => {
+  useTitle('Mon compte');
+
   const handleModal = () => {
     displayModal('confirmSupp');
   };
