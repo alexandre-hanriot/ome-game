@@ -1,48 +1,17 @@
 @import 'src/styles/_vars.scss';
 
-
-.modal-background {
-  position: fixed;
-  z-index: 90;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.6);
-}
-
 .account {
   &__modal {
-    width: 800px;
     display: flex;
-    // justify-content: space-between;
     flex-direction: column;
-    position: absolute;
-    left: calc(50% - 400px);
-    z-index: 99;
-    background-color: $backgroundLight;
-    color: $darkBlue;
     line-height: 2;
-    padding: $gutter;
-    margin: $gutter;
-    border-radius: 1rem;
 
     &__top {
-      display: flex;
-      justify-content: space-between;
+      text-align: center;
       &__content {
-        border-bottom: solid 1px $darkBlue;
-        padding-bottom: $gutter/2;
+        margin-bottom: $gutter;
       }
       &__close {
-        background-color: $lightBlue;
-        border: none;
-        border-radius: 5px;
-        padding: ($gutter /4);
-        font-size: 1em;
-        color: white;
-        margin-right: $gutter/2;
-        font-size: 1.5em;
         &:hover{
           background-color: $secondaryColor;
         }
@@ -51,7 +20,6 @@
     &__bottom {
       display: flex;
       justify-content: space-evenly;
-      margin-top: $gutter;
       &__cancel {
         background-color: $lightBlue;
         border: none;

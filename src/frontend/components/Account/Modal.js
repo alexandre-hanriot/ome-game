@@ -4,16 +4,9 @@ import './account.scss';
 
 const Modal = ({ displayModal }) => (
   <div className="account__modal">
+    <h1>Confirmation</h1>
     <div className="account__modal__top">
       <p className="account__modal__top__content">Etes-vous sûr de vouloir supprimer ? </p>
-      <button
-        className="account__modal__top__close"
-        type="button"
-        title="fermer la fenêtre"
-        onClick={displayModal}
-      >
-        <i className="fas fa-times" />
-      </button>
     </div>
     <div className="account__modal__bottom">
       <button
