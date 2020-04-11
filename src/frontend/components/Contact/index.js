@@ -4,8 +4,11 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './contact.scss';
 import Alert from 'src/frontend/containers/Alert';
+import { useTitle } from 'src/hooks/useTitle';
 
 const Contact = ({ displayAlert, showAlert }) => {
+  useTitle('Contact');
+
   const handleSubmit = (e) => {
     e.preventDefault();
     displayAlert('Veuillez remplir les champs obligatoires', false);

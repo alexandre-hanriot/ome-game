@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import './reservations.scss';
 import PropTypes from 'prop-types';
 import Modal from 'src/frontend/containers/Modal';
+import { useTitle } from 'src/hooks/useTitle';
 import Details from './Details';
 
 const Reservations = ({ showModal, displayModal }) => {
+  useTitle('Mes réservations');
 
   const handleModal = () => {
     displayModal('reservation');

@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Modal from 'src/frontend/containers/Modal';
 import ConfirmSupp from 'src/frontend/containers/Account/Modal';
+import { useTitle } from 'src/hooks/useTitle';
 import './account.scss';
 
 const Account = ({ displayModal, showModal }) => {
+  useTitle('Mon compte');
+
   const handleModal = () => {
     displayModal('confirmSupp');
   };
