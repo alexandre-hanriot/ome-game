@@ -5,6 +5,7 @@ import Account from 'src/frontend/components/Account';
 const mapStateToProps = (state) => ({
   // nom de la prop à remplir: donnée à récupérer dans le state
   showModal: state.global.showModal,
+  showAlert: state.global.showAlert,
 });
 
 const mapDispatchToProps = (dispatch) => ({

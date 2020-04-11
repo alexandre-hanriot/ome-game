@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Modal from 'src/frontend/containers/Modal';
+import Alert from 'src/frontend/containers/Alert';
 import ConfirmSupp from 'src/frontend/containers/Account/Modal';
 import './account.scss';
 
-const Account = ({ displayModal, showModal }) => {
+const Account = ({ displayModal, showModal, showAlert }) => {
   const handleModal = () => {
     displayModal('confirmSupp');
   };
@@ -14,6 +15,8 @@ const Account = ({ displayModal, showModal }) => {
       {showModal === 'confirmSupp' && (
         <Modal content={<ConfirmSupp />} />
       )}
+      {showAlert && (<Alert />)}
+
       <div className="account__breadcrumb">
         <Link to="/">Accueil</Link> > Mon compte
       </div>
@@ -354,6 +357,7 @@ const Account = ({ displayModal, showModal }) => {
 Account.propTypes = {
   displayModal: PropTypes.func.isRequired,
   showModal: PropTypes.string.isRequired,
+  showAlert: PropTypes.bool.isRequired,
 };
 
 export default Account;
