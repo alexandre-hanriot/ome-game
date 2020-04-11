@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Login from 'src/frontend/components/Login';
-import Registration from 'src/frontend/components/Registration';
 import classNames from 'classnames';
+import Login from 'src/frontend/containers/Login';
+import Registration from 'src/frontend/components/Registration';
+import ForgotPassword from 'src/frontend/components/ForgotPassword';
 
 const Authentification = ({ showModal, displayModal }) => {
   const handleLogin = () => {
@@ -22,9 +23,9 @@ const Authentification = ({ showModal, displayModal }) => {
         <button type="button" className={registrationClass} onClick={handleRegistration}>Inscription</button>
       </nav>
 
-      {showModal === 'passwordForget' && (<Login />)}
       {showModal === 'login' && (<Login />)}
       {showModal === 'registration' && (<Registration />)}
+      {showModal === 'forgotPassword' && (<ForgotPassword />)}
     </>
   );
 };

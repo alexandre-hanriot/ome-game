@@ -24,7 +24,7 @@
         display: block;
         width: 250px;
         height: 60px;
-        background-image: url(../../../assets/images/logo.png);
+        background-image: url(../../../assets/images/logo.svg);
         background-repeat: no-repeat;
       }
     }
@@ -153,12 +153,12 @@
   .header {
     &__logo {
       position: absolute;
-      left: calc(50% - 75px/2);
+      left: calc(50% - 60px/2);
   
       a {
         display: block;
-        width: 75px;
-        background-image: url(../../../assets/images/logo-small.png);
+        width: 60px;
+        background-image: url(../../../assets/images/logo-small.svg);
       }
     }
   }

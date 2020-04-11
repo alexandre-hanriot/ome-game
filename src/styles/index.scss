@@ -40,6 +40,7 @@ main {
   padding: .6rem 1rem;
   background-color: #fff;
   color: $darkBlue;
+  max-width: 100%;
 
   &:focus, &:active {
     border: none;
@@ -55,6 +56,7 @@ main {
   padding: calc(.6rem - 1px) 1rem;
   background-color: #fff;
   color: $darkBlue;
+  max-width: 100%;
 
   &:focus, &:active {
     border: none;
@@ -70,7 +72,8 @@ main {
   background-color: $darkBlue;
   border: none;
   border-radius: .3rem;
-  
+  max-width: 100%;
+
   &--light {
     color: $darkBlue;
     background-color: $backgroundLight;

@@ -17,7 +17,7 @@ const Header = ({ showMenu, displayMenu, showModal, displayModal }) => {
 
   return (
     <header className="header">
-      {['login', 'registration'].includes(showModal) && (
+      {['login', 'registration', 'forgotPassword'].includes(showModal) && (
         <Modal content={<Authentification />} />
       )}
 
