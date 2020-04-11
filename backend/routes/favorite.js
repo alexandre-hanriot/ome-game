@@ -2,22 +2,22 @@ const express = require("express");
 const router = express.Router();
 const favoriteController = require("../controllers/favoriteController");
 
-// Récupération de tous les utilisateurs avec en option filtrage et tri
+// Récupération de tous les favoris avec en option filtrage et tri
 router.get("/", favoriteController.findAll);
 
-// Récupération d'un utilisateur en fonction de son id
-router.get("/:id", favoriteController.findOne);
+// Récupération d'un favori en fonction de son id
+router.get("/:id(\\d+)", favoriteController.findOne);
 
-// Création d'un utilisateur
+// Création d'un favori
 router.post("/", favoriteController.create);
 
-// Modification d'un utilisateur
-router.put("/:id", favoriteController.update);
+// Modification d'un favori
+router.put("/:id(\\d+)", favoriteController.update);
 
-// Suppression de plusieurs utilisateurs en fonction de leur id
+// Suppression de plusieurs favoris en fonction de leur id
 router.delete("/", favoriteController.deleteManyByID);
 
-// Suppression d'un utilisateur en fonction de son id
-router.delete("/:id", favoriteController.deleteOne);
+// Suppression d'un favori en fonction de son id
+router.delete("/:id(\\d+)", favoriteController.deleteOne);
 
 module.exports = router;

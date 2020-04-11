@@ -2,22 +2,22 @@ const express = require("express");
 const router = express.Router();
 const gameController = require("../controllers/gameController");
 
-// Récupération de tous les utilisateurs avec en option filtrage et tri
+// Récupération de tous les jeux avec en option filtrage et tri
 router.get("/", gameController.findAll);
 
-// Récupération d'un utilisateur en fonction de son id
-router.get("/:id", gameController.findOne);
+// Récupération d'un jeu en fonction de son id
+router.get("/:id(\\d+)", gameController.findOne);
 
-// Création d'un utilisateur
+// Création d'un jeu
 router.post("/", gameController.create);
 
-// Modification d'un utilisateur
-router.put("/:id", gameController.update);
+// Modification d'un jeu
+router.put("/:id(\\d+)", gameController.update);
 
-// Suppression de plusieurs utilisateurs en fonction de leur id
+// Suppression de plusieurs jeux en fonction de leur id
 router.delete("/", gameController.deleteManyByID);
 
-// Suppression d'un utilisateur en fonction de son id
-router.delete("/:id", gameController.deleteOne);
+// Suppression d'un jeu en fonction de son id
+router.delete("/:id(\\d+)", gameController.deleteOne);
 
 module.exports = router;

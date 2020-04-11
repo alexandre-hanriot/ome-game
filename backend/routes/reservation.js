@@ -2,22 +2,22 @@ const express = require("express");
 const router = express.Router();
 const reservationController = require("../controllers/reservationController");
 
-// Récupération de tous les utilisateurs avec en option filtrage et tri
+// Récupération de toutes les réservations avec en option filtrage et tri
 router.get("/", reservationController.findAll);
 
-// Récupération d'un utilisateur en fonction de son id
-router.get("/:id", reservationController.findOne);
+// Récupération d'une réservation en fonction de son id
+router.get("/:id(\\d+)", reservationController.findOne);
 
-// Création d'un utilisateur
+// Création d'une réservation
 router.post("/", reservationController.create);
 
-// Modification d'un utilisateur
-router.put("/:id", reservationController.update);
+// Modification d'une réservation
+router.put("/:id(\\d+)", reservationController.update);
 
-// Suppression de plusieurs utilisateurs en fonction de leur id
+// Suppression de plusieurs réservations en fonction de leur id
 router.delete("/", reservationController.deleteManyByID);
 
-// Suppression d'un utilisateur en fonction de son id
-router.delete("/:id", reservationController.deleteOne);
+// Suppression d'une réservation en fonction de son id
+router.delete("/:id(\\d+)", reservationController.deleteOne);
 
 module.exports = router;

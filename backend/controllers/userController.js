@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const db = require("../models/index");
 const User = db.users;
 const Offer = db.offers;
+const Favorite = db.favorites;
 const Reservation = db.reservations;
 const Game = db.games;
 const Game_category = db.game_categories;
@@ -151,7 +152,35 @@ exports.findAllReservations = (req, res) => {
         })
         .catch((err) => {
             res.status(500).json({
-                error: `Une erreur est survenue pendant la récupération des offres de l'utilisateur id=${id} : ${err}`,
+                error: `Une erreur est survenue pendant la récupération des réservations de l'utilisateur id=${id} : ${err}`,
+            });
+        });
+};
+
+// Récupération des favoris d'un utilisateur et tri par date de création décroissante
+exports.findAllFavorites = (req, res) => {
+    const id = req.params.id;
+
+    User.findOne({
+        where: { id },
+        include: {
+            model: Favorite,
+            include: {
+                model: Offer,
+                include: {
+                    model: Game,
+                    include: Game_category,
+                },
+            },
+        },
+        order: [[Favorite, "createdAt", "DESC"]],
+    })
+        .then((data) => {
+            res.send(data);
+        })
+        .catch((err) => {
+            res.status(500).json({
+                error: `Une erreur est survenue pendant la récupération des favoris de l'utilisateur id=${id} : ${err}`,
             });
         });
 };
