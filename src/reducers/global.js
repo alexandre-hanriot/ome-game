@@ -3,7 +3,7 @@ import {
 } from '../actions/global';
 
 const initialState = {
-  showModal: false,
+  showModal: '',
   showMenu: false,
   alertMessage: '',
   alertSuccess: true,
@@ -15,7 +15,7 @@ const reducer = (state = initialState, action = {}) => {
     case SHOW_MODAL:
       return {
         ...state,
-        showModal: !state.showModal,
+        showModal: action.name,
       };
 
     case SHOW_MENU:

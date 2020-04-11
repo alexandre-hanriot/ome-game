@@ -1,0 +1,89 @@
+@import 'src/styles/_vars.scss';
+
+.registration {
+  &__text {
+    text-align: center;
+    margin-bottom: $gutter;
+  }
+  &__container {
+    display: flex;
+  }
+
+  &__form, &__infos {
+    width: 50%;
+  }
+
+  &__form {
+    // margin: 0 auto;
+    // width: 50%;
+    text-align: center;
+
+    .global-input {
+      width: 100%;
+      margin-bottom: .5rem;
+    }
+    .global-button {
+      padding: .5rem 1rem;
+    }
+
+    &__legalmentions {
+      display: block;
+      margin-top: .5rem;
+      margin-bottom: $gutter;
+      text-align: left;
+
+      a {
+        text-decoration: underline;
+
+        &:hover {
+          color: $secondaryColor;
+        }
+      }
+    }
+  }
+
+  &__infos {
+    // margin-top: $gutter;
+    padding-left: $gutter;
+    line-height: 1.4;
+    font-size: .8em;
+    color: $lightBlue;
+
+    p {
+      margin-bottom: .5rem;
+    }
+    li {
+      margin-left: $gutter;
+    }
+  }
+
+  .ReactPasswordStrength-strength-desc {
+    display: none;
+  }
+  .ReactPasswordStrength-input {
+    margin-bottom: 0;
+    padding: .6rem 1rem;
+    font-size: 1em;
+    font-family: 'Gotu';
+  }
+  .ReactPasswordStrength-strength-bar {
+    top: 0;
+    margin-bottom: .4rem;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .registration {
+    &__container {
+      flex-direction: column;
+    }
+    &__infos, &__form {
+      width: 100%;
+    }
+    &__infos {
+      margin-top: $gutter;
+      padding-left: 0;
+    }
+  }
+}

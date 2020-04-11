@@ -21,7 +21,7 @@ const Contact = ({ displayAlert, showAlert }) => {
         <textarea className="contact__form__textarea global-input" type="text" placeholder="Message" />
         <div className="contact__form__checkbox">
           <label>
-            <input type="checkbox" className="contact__form__checkbox__input" /> Accepter <Link target="_blank" to="/mentions-legales" className="contact__form__checkbox__input__link">les mentions légales</Link>
+            <input type="checkbox" className="contact__form__checkbox__input" /> J'ai lu et j'accepte les <Link target="_blank" to="/mentions-legales" className="contact__form__checkbox__input__link">mentions légales</Link>
           </label>
         </div>
         <button className="contact__form__button global-button" type="submit" onClick={handleSubmit}>Envoyer</button>

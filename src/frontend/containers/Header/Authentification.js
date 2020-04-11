@@ -1,9 +1,11 @@
 import { connect } from 'react-redux';
-import Modal from 'src/frontend/components/Modal';
+import Authentification from 'src/frontend/components/Header/Authentification';
 
 import { showModal } from 'src/actions/global';
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  showModal: state.global.showModal,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   displayModal: (name) => {
@@ -14,4 +16,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Modal);
+)(Authentification);

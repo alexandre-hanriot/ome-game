@@ -20,7 +20,7 @@ const Details = () => (
         </li>
       </ul>
     </div>
-    <Link className="reservations__details__link" to="/recherche/jeux/1-toto">Aller voir l'offre</Link>
+    <Link className="reservations__details__link" to="/recherche/jeux/1-toto" target="_blank">Aller voir l'offre</Link>
   </div>
 );
 

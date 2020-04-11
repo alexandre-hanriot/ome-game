@@ -9,8 +9,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  displayModal: () => {
-    dispatch(showModal());
+  displayModal: (name) => {
+    dispatch(showModal(name));
   },
 });
 

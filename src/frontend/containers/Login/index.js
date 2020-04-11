@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Modal from 'src/frontend/components/Modal';
+import Login from 'src/frontend/components/Login';
 
 import { showModal } from 'src/actions/global';
 
@@ -14,4 +14,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Modal);
+)(Login);
