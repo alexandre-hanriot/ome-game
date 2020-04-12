@@ -18,6 +18,7 @@ import Contact from 'src/frontend/containers/Contact';
 import Account from 'src/frontend/containers/Account';
 import Details from 'src/frontend/containers/Offer/Details';
 import Reservations from 'src/frontend/containers/Account/Reservations';
+import NotFound from 'src/frontend/components/NotFound';
 
 // == Composant
 const App = () => {
@@ -67,7 +68,7 @@ const App = () => {
             <Reservations />
           </Route>
           <Route>
-            <p>erreur 404</p>
+            <NotFound />
           </Route>
         </Switch>
       </main>

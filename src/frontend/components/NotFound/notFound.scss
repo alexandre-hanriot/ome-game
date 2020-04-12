@@ -1,0 +1,57 @@
+@import 'src/styles/_vars.scss';
+
+.not-found {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: $gutter 0;
+    
+
+    &__link {
+      margin: $gutter 0;
+    }
+    &__text {
+      margin: $gutter 0;
+      line-height: 2;
+      text-align: center;
+      font-size: 1.5em;    
+    }
+
+    &__title {
+      font-size: 4em;
+      text-transform: uppercase;
+      margin-bottom: $gutter;
+      font-weight: bold;
+  
+      &__item {
+  
+        &--one {
+          color: $backgroundLight;
+        }
+        &--two {
+          color: $primaryColor;
+        }
+        &--three {
+          color: $secondaryColor;
+        }
+      }
+    }
+  }
+  
+  &__image {
+    margin: 0 0 $gutter 0;
+    text-align: center;
+
+    & > img {
+      max-width: 100%;
+      text-align: center;
+      width: 60%;
+    }
+  }
+}
