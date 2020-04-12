@@ -36,24 +36,6 @@ body {
 main {
   min-height: calc(100vh - 200px); // header: 80px / footer: 120px
   /* width */
-::-webkit-scrollbar {
-  width: 50px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #888;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
 }
 
 .wrapper {
