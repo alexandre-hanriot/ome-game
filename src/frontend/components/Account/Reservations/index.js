@@ -7,7 +7,9 @@ import { useTitle } from 'src/hooks/useTitle';
 import Details from './Details';
 
 const Reservations = ({ showModal, displayModal }) => {
+
   useTitle('Mes réservations');
+
 
   const handleModal = () => {
     displayModal('reservation');

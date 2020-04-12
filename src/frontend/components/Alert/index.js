@@ -19,7 +19,7 @@ const Alert = ({ message, success, displayAlert }) => {
   return (
     <div className="wrapper alert">
       <div className="alert__content">
-        <p className={isSuccess}>{message}</p>
+        <p className={isSuccess}><span className="fas fa-chess-knight knight" /> {message} <span className="fas fa-chess-knight knight" /></p>
       </div>
     </div>
   );

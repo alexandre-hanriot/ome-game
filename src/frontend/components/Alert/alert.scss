@@ -1,5 +1,8 @@
 @import 'src/styles/_vars.scss';
-
+.knight {
+  color: $green;
+  display: inline-block;
+}
 .alert {
   background: rgba(227, 229, 236, 1);
   width: 400px;

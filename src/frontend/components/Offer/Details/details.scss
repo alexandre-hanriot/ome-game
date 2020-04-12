@@ -4,6 +4,30 @@
   display: flex;
   margin-bottom: $gutter;
 }
+.modal {
+  position: fixed;
+  &__bookGame {
+    &__content {
+      &__p1{
+        margin-bottom: $gutter/2;
+      }
+      &__p2{
+
+      }
+      &__p3 {
+        margin-top: $gutter;
+      }
+    }
+    &__button {
+      display: flex;
+      justify-content: space-evenly;
+      margin-top: $gutter;
+      &__validate {
+        background-color: $green;
+      }
+    }
+  }
+}
 
 .offer-detail {
 

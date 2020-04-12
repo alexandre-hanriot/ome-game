@@ -4,8 +4,10 @@ import { useTitle } from 'src/hooks/useTitle';
 
 import './offer.scss';
 
+
 const Offer = () => {
   useTitle('Trouver un jeu');
+
 
   return (
     <div className="offer">

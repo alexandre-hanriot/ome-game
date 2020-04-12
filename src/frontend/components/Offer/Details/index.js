@@ -3,15 +3,27 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './details.scss';
 import Alert from 'src/frontend/containers/Alert';
+import Modal from 'src/frontend/containers/Modal';
+import BookGame from 'src/frontend/containers/Offer/Details/BookGame';
 
-const Details = ({ showAlert, displayAlert }) => {
+const Details = ({
+  showAlert,
+  displayAlert,
+  showModal,
+  displayModal,
+}) => {
   const handleFavorite = () => {
     displayAlert('Vous avez bien rajouté cette offre dans vos favoris', true);
+  };
+
+  const handleModal = () => {
+    displayModal('bookGame');
   };
 
   return (
     <article className="wrapper offer-detail">
       {showAlert && <Alert />}
+      {showModal === 'bookGame' && <Modal content={<BookGame />} />}
       <div className="offer-detail__breadcrumb">
         <Link to="/">Accueil ></Link>
         <Link to="/recherche/jeux">Ma recherche ></Link>
@@ -33,23 +45,76 @@ const Details = ({ showAlert, displayAlert }) => {
         <div className="offer-detail__left">
           <div className="offer-detail__left__description">
             <h1 className="offer-detail__left__description__title">Description</h1>
-            <p className="offer-detail__left__description__content">Lorem ipsum dolor
-              Etiam dapibus libero in mi commodo, at mattis nisi hendrerit. Donec ligula eros, dapibus ac sapien vitae, mattis sollicitudin nibh. Vestibulum accumsan eu urna vel fermentum. Ut egestas justo tellus, et condimentum nisl sodales et. Praesent vel maximus odio. Ut faucibus, urna sit amet pharetra imperdiet, orci est cursus tortor, et viverra risus arcu a nunc. Maecenas ipsum arcu, pulvinar eu aliquet in, maximus eu est. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam pretium luctus metus, a commodo felis fermentum et. Vestibulum malesuada leo at scelerisque venenatis. Pellentesque dapibus faucibus pellentesque. Vestibulum pulvinar venenatis ipsum ac tempus. Etiam sed egestas lacus, a viverra leo.
+            <p className="offer-detail__left__description__content">
+              Lorem ipsum dolor
+              Etiam dapibus libero in mi commodo, at mattis nisi hendrerit.
+              Donec ligula eros, dapibus ac sapien vitae, mattis sollicitudin
+              nibh. Vestibulum accumsan eu urna vel fermentum. Ut egestas justo
+              tellus, et condimentum nisl sodales et. Praesent vel maximus
+              odio. Ut faucibus, urna sit amet pharetra imperdiet, orci est
+              cursus tortor, et viverra risus arcu a nunc. Maecenas ipsum arcu,
+              pulvinar eu aliquet in, maximus eu est. Vestibulum ante ipsum
+              primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+              Nullam pretium luctus metus, a commodo felis fermentum et.
+              Vestibulum malesuada leo at scelerisque venenatis. Pellentesque
+              dapibus faucibus pellentesque. Vestibulum pulvinar venenatis
+              ipsum ac tempus. Etiam sed egestas lacus, a viverra leo.
             </p><br />
-            <p className="offer-detail__left__description__content">Lorem ipsum dolor
-              Etiam dapibus libero in mi commodo, at mattis nisi hendrerit. Donec ligula eros, dapibus ac sapien vitae, mattis sollicitudin nibh. Vestibulum accumsan eu urna vel fermentum. Ut egestas justo tellus, et condimentum nisl sodales et. Praesent vel maximus odio. Ut faucibus, urna sit amet pharetra imperdiet, orci est cursus tortor, et viverra risus arcu a nunc. Maecenas ipsum arcu, pulvinar eu aliquet in, maximus eu est. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam pretium luctus metus, a commodo felis fermentum et. Vestibulum malesuada leo at scelerisque venenatis. Pellentesque dapibus faucibus pellentesque. Vestibulum pulvinar venenatis ipsum ac tempus. Etiam sed egestas lacus, a viverra leo.
+            <p className="offer-detail__left__description__content">
+              Lorem ipsum dolor
+              Etiam dapibus libero in mi commodo, at mattis nisi hendrerit.
+              Donec ligula eros, dapibus ac sapien vitae, mattis sollicitudin
+              nibh. Vestibulum accumsan eu urna vel fermentum. Ut egestas justo
+              tellus, et condimentum nisl sodales et. Praesent vel maximus
+              odio. Ut faucibus, urna sit amet pharetra imperdiet, orci est
+              cursus tortor, et viverra risus arcu a nunc. Maecenas ipsum arcu,
+              pulvinar eu aliquet in, maximus eu est. Vestibulum ante ipsum
+              primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+              Nullam pretium luctus metus, a commodo felis fermentum et.
+              Vestibulum malesuada leo at scelerisque venenatis. Pellentesque
+              dapibus faucibus pellentesque. Vestibulum pulvinar venenatis
+              ipsum ac tempus. Etiam sed egestas lacus, a viverra leo.
             </p><br />
 
-            <p className="offer-detail__left__description__content">Lorem ipsum dolor
-              Etiam dapibus libero in mi commodo, at mattis nisi hendrerit. Donec ligula eros, dapibus ac sapien vitae, mattis sollicitudin nibh. Vestibulum accumsan eu urna vel fermentum. Ut egestas justo tellus, et condimentum nisl sodales et. Praesent vel maximus odio. Ut faucibus, urna sit amet pharetra imperdiet, orci est cursus tortor, et viverra risus arcu a nunc. Maecenas ipsum arcu, pulvinar eu aliquet in, maximus eu est. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam pretium luctus metus, a commodo felis fermentum et. Vestibulum malesuada leo at scelerisque venenatis. Pellentesque dapibus faucibus pellentesque. Vestibulum pulvinar venenatis ipsum ac tempus. Etiam sed egestas lacus, a viverra leo.
+            <p className="offer-detail__left__description__content">
+              Lorem ipsum dolor
+              Etiam dapibus libero in mi commodo, at mattis nisi hendrerit.
+              Donec ligula eros, dapibus ac sapien vitae, mattis sollicitudin
+              nibh. Vestibulum accumsan eu urna vel fermentum. Ut egestas justo
+              tellus, et condimentum nisl sodales et. Praesent vel maximus
+              odio. Ut faucibus, urna sit amet pharetra imperdiet, orci est
+              cursus tortor, et viverra risus arcu a nunc. Maecenas ipsum arcu,
+              pulvinar eu aliquet in, maximus eu est. Vestibulum ante ipsum
+              primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+              Nullam pretium luctus metus, a commodo felis fermentum et.
+              Vestibulum malesuada leo at scelerisque venenatis. Pellentesque
+              dapibus faucibus pellentesque. Vestibulum pulvinar venenatis
+              ipsum ac tempus. Etiam sed egestas lacus, a viverra leo.
             </p><br />
-            <p className="offer-detail__left__description__content">Lorem ipsum dolor
-              Etiam dapibus libero in mi commodo, at mattis nisi hendrerit. Donec ligula eros, dapibus ac sapien vitae, mattis sollicitudin nibh. Vestibulum accumsan eu urna vel fermentum. Ut egestas justo tellus, et condimentum nisl sodales et. Praesent vel maximus odio. Ut faucibus, urna sit amet pharetra imperdiet, orci est cursus tortor, et viverra risus arcu a nunc. Maecenas ipsum arcu, pulvinar eu aliquet in, maximus eu est. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam pretium luctus metus, a commodo felis fermentum et. Vestibulum malesuada leo at scelerisque venenatis. Pellentesque dapibus faucibus pellentesque. Vestibulum pulvinar venenatis ipsum ac tempus. Etiam sed egestas lacus, a viverra leo.
+            <p className="offer-detail__left__description__content">
+              Lorem ipsum dolor
+              Etiam dapibus libero in mi commodo, at mattis nisi hendrerit.
+              Donec ligula eros, dapibus ac sapien vitae, mattis sollicitudin
+              nibh. Vestibulum accumsan eu urna vel fermentum. Ut egestas justo
+              tellus, et condimentum nisl sodales et. Praesent vel maximus
+              odio. Ut faucibus, urna sit amet pharetra imperdiet, orci est
+              cursus tortor, et viverra risus arcu a nunc. Maecenas ipsum arcu,
+              pulvinar eu aliquet in, maximus eu est. Vestibulum ante ipsum
+              primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+              Nullam pretium luctus metus, a commodo felis fermentum et.
+              Vestibulum malesuada leo at scelerisque venenatis. Pellentesque
+              dapibus faucibus pellentesque. Vestibulum pulvinar venenatis
+              ipsum ac tempus. Etiam sed egestas lacus, a viverra leo.
             </p><br />
           </div>
           <div className="offer-detail__left__buttons">
             <button className="offer-detail__left__buttons__button global-button" type="button" onClick={handleFavorite}> <i className="fas fa-star" /></button>
-            <button type="button" className="offer-detail__left__buttons__button global-button">Réserver ce jeu</button>
+            <button
+              type="button"
+              className="offer-detail__left__buttons__button global-button"
+              onClick={handleModal}
+            >Réserver ce jeu
+            </button>
           </div>
           <section className="offer-detail__left__user">
             <p className="offer-detail__left__user__content">A propos de Mme Michu :</p>
@@ -71,6 +136,8 @@ const Details = ({ showAlert, displayAlert }) => {
 Details.propTypes = {
   showAlert: PropTypes.bool.isRequired,
   displayAlert: PropTypes.func.isRequired,
+  displayModal: PropTypes.func.isRequired,
+  showModal: PropTypes.string.isRequired,
 };
 
 export default Details;
