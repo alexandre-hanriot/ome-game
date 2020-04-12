@@ -18,8 +18,8 @@ const BookGame = ({ displayModal, displayAlert, showAlert }) => {
       {showAlert && <Alert />}
       <h1 className="modal__bookGame__title">Demande de réservation</h1>
       <div className="modal__bookGame__content">
-        <p className="modal__bookGame__content__p1">Offre : nom du jeu</p>
-        <p className="modal__bookGame__content__p2">Type : Location (10€)</p>
+        <p className="modal__bookGame__content__p1"><span>Offre :</span> nom du jeu</p>
+        <p className="modal__bookGame__content__p2"><span>Type :</span> Location (10€)</p>
         <p className="modal__bookGame__content__p3">Une demande sera faite auprès du propriétaire du jeu...</p>
       </div>
       <div className="modal__bookGame__button">

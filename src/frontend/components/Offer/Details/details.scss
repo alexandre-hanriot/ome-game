@@ -10,9 +10,14 @@
     &__content {
       &__p1{
         margin-bottom: $gutter/2;
+        span {
+          font-weight: bold;
+        }
       }
       &__p2{
-
+        span {
+          font-weight: bold;
+        }
       }
       &__p3 {
         margin-top: $gutter;
