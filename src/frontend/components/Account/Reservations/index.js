@@ -6,7 +6,6 @@ import Modal from 'src/frontend/containers/Modal';
 import Details from './Details';
 
 const Reservations = ({ showModal, displayModal }) => {
-
   const handleModal = () => {
     displayModal('reservation');
   };

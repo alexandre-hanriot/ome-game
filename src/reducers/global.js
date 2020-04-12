@@ -5,7 +5,7 @@ import {
 const initialState = {
   showModal: '',
   showMenu: false,
-  alertMessage: '',
+  alertMessage: ' ',
   alertSuccess: true,
   showAlert: false,
 };

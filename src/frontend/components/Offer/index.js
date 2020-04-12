@@ -6,7 +6,6 @@ import './offer.scss';
 const Offer = () => (
   <div className="offer">
     <div className="offer__map">
-      
     </div>
 
     <aside className="offer__aside">
