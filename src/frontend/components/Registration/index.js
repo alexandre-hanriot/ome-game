@@ -27,7 +27,7 @@ const Registration = () => (
             className: 'global-input',
             placeholder: 'Mot de passe',
           }}
-          changeCallback={({ password }) => {console.log(`change : ${password}`)}}
+          // changeCallback={({ password }) => {console.log(`change : ${password}`)}}
         />
         <input type="password" placeholder="Confirmer le mot de passe" className="global-input" />
         <label className="registration__form__legalmentions">
@@ -53,5 +53,4 @@ const Registration = () => (
 
   </div>
 );
-
 export default Registration;

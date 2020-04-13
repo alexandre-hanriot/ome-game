@@ -24,6 +24,7 @@ const Offer = ({ changeCoordinates, changeZoom, results }) => {
           <MapAutocomplete
             className="offer__aside__search__input global-input"
             onPlaceSelected={(place) => {
+              // console.log(place.address_components.length);
               changeCoordinates(place.geometry.location.lat(), place.geometry.location.lng());
               changeZoom(15);
             }}
@@ -74,7 +75,7 @@ const Offer = ({ changeCoordinates, changeZoom, results }) => {
 
         <ul className="offer__aside__results">
           {results.map((result) => {
-            const disponibilityClass = classNames('offer__aside__results__result__disponibility', { 'offer__aside__results__result__disponibility--off': result.disponibility });
+            const disponibilityClass = classNames('offer__aside__results__result__disponibility', { 'offer__aside__results__result__disponibility--off': !result.disponibility });
 
             return (
               <Link to="/recherche/jeux/1-toto" key={result.id}>

@@ -19,7 +19,8 @@ const Map = ({
   const points = dataOffers.map((data) => ({
     type: 'Feature',
     properties: {
-      cluster: false, id: data.id, location: data.location, name: data.name,
+      cluster: false,
+      ...data,
     },
     geometry: {
       type: 'Point',
