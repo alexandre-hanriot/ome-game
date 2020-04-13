@@ -8,7 +8,7 @@ import axios from 'axios';
 const authMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case SUBMIT_LOGIN: {
-      const { email, password } = store.getState();
+      const { email, password } = store.getState().authenticate;
       axios({
         method: 'post',
         url: 'http://localhost:3001/login',

@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import globalReducer from './global';
 import AuthenticateReducer from './authenticate';
-import RegistrationReducer from './Registration';
+import RegistrationReducer from './registration';
 
 const rootReducer = combineReducers({
   global: globalReducer,
