@@ -52,6 +52,14 @@ exports.findOne = (model, req, res, returnOption = false) => {
 
 // Création d'une instance d'un modèle
 exports.create = (model, instanceData, res) => {
+    // Avant toute chose on supprime les espaces avant ou après les propriétés qui sont de type string
+    Object.keys(instanceData).map(
+        (data) =>
+            (instanceData[data] =
+                typeof instanceData[data] == "string" ? instanceData[data].trim() : instanceData[data])
+    );
+
+    // Ensuite on créée l'instance
     model
         .create(instanceData)
         .then((data) => {
@@ -66,6 +74,12 @@ exports.create = (model, instanceData, res) => {
 
 // Mise à jour d'une instance de modèle
 exports.update = (model, id, req, res) => {
+    // Avant toute chose on supprime les espaces avant ou après les propriétés qui sont de type string
+    Object.keys(req.body).map(
+        (data) => (req.body[data] = typeof req.body[data] == "string" ? req.body[data].trim() : req.body[data])
+    );
+
+    // Ensuite on met à jour
     model
         .update(req.body, {
             where: { id },

@@ -20,7 +20,4 @@ router.delete("/", offerController.deleteManyByID);
 // Suppression d'une offre en fonction de son id
 router.delete("/:id(\\d+)", offerController.deleteOne);
 
-// Récupération de toutes les offres en fonction des paramètres de recherche complétés par l'utilisateur
-router.get("/results", offerController.findOffersResults);
-
 module.exports = router;

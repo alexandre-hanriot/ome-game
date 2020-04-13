@@ -113,5 +113,10 @@ module.exports = (sequelize, Sequelize) => {
         }
     );
 
+    // Ajout des Hooks
+    User.beforeCreate((user, options) => {
+        user.email = user.email.toLowerCase();
+    });
+
     return User;
 };

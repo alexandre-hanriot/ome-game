@@ -19,3 +19,9 @@ async function changePassword(User, id, oldPassword, newPassword) {
     else return false;
 }
 module.exports.changePassword = changePassword;
+
+// Fonction qui vérifie si une input est bien un email et renvoie true ou false
+exports.validateEmail = (email) => {
+    var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return regex.test(String(email).toLowerCase());
+};
