@@ -10,14 +10,14 @@ const Marker = ({ children }) => children;
 
 const Map = ({ bounds, zoom, coordinates, changeZoom, changeBounds }) => {
 
-  const points = data.map((crime) => ({
+  const points = data.map((data) => ({
     type: 'Feature',
-    properties: { cluster: false, crimeId: crime.id, category: crime.category },
+    properties: { cluster: false, id: data.id, location: data.location, name: data.name },
     geometry: {
       type: 'Point',
       coordinates: [
-        parseFloat(crime.location.longitude),
-        parseFloat(crime.location.latitude),
+        parseFloat(data.coordinates.lng),
+        parseFloat(data.coordinates.lat),
       ],
     },
   }));
@@ -28,8 +28,13 @@ const Map = ({ bounds, zoom, coordinates, changeZoom, changeBounds }) => {
     points,
     bounds,
     zoom,
-    options: { radius: 75, maxZoom: 20 },
+    options: { radius: 75, maxZoom: 14 },
   });
+
+  const handleApiLoaded = (map, maps) => {
+    mapRef.current = map;
+    map.setOptions({ maxZoom: 14 });
+  };
 
   return (
     <div style={{ height: '100vh', width: '100%' }}>
@@ -38,9 +43,10 @@ const Map = ({ bounds, zoom, coordinates, changeZoom, changeBounds }) => {
         // defaultCenter={coordinates}
         // defaultZoom={zoom}
         yesIWantToUseGoogleMapApiInternals
-        onGoogleApiLoaded={({ map }) => {
-          mapRef.current = map;
-        }}
+        // onGoogleApiLoaded={({ map }) => {
+        //   mapRef.current = map;
+        // }}
+        onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
         onChange={({ zoom, bounds }) => {
           changeZoom(zoom);
           changeBounds([
@@ -53,8 +59,10 @@ const Map = ({ bounds, zoom, coordinates, changeZoom, changeBounds }) => {
         center={coordinates}
         zoom={zoom}
       >
+        {console.clear()}
         {clusters.map((cluster) => {
           const [longitude, latitude] = cluster.geometry.coordinates;
+          // console.log(cluster);
           const {
             cluster: isCluster,
             point_count: pointCount,
@@ -63,7 +71,12 @@ const Map = ({ bounds, zoom, coordinates, changeZoom, changeBounds }) => {
           const size = isCluster ? `${10 + (pointCount / points.length) * 20}px` : '20px';
 
           if (isCluster) {
-            // console.log(supercluster.getLeaves(cluster.id)); // voir 10 enfants
+            // console.log(supercluster.getLeaves(cluster.id));
+
+            supercluster.getLeaves(cluster.id).map((cluster) => {
+              console.log(cluster);
+            });
+
             return (
               <Marker
                 key={`cluster-${cluster.id}`}
@@ -79,7 +92,7 @@ const Map = ({ bounds, zoom, coordinates, changeZoom, changeBounds }) => {
                   onClick={() => {
                     const expansionZoom = Math.min(
                       supercluster.getClusterExpansionZoom(cluster.id),
-                      20,
+                      14,
                     );
                     mapRef.current.setZoom(expansionZoom);
                     mapRef.current.panTo({ lat: latitude, lng: longitude });
@@ -91,9 +104,11 @@ const Map = ({ bounds, zoom, coordinates, changeZoom, changeBounds }) => {
             );
           }
 
+          console.log(cluster);
+
           return (
             <Marker
-              key={`crime-${cluster.properties.crimeId}`}
+              key={`cluser-offer-${cluster.properties.id}`}
               lat={latitude}
               lng={longitude}
             >

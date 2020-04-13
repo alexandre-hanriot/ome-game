@@ -19,11 +19,15 @@ const reducer = (state = initialState, action = {}) => {
         bounds: action.bounds,
       };
 
-    case SET_ZOOM:
+    case SET_ZOOM: {
+      const zoom = action.zoom > 14 ? 14 : action.zoom;
+
       return {
         ...state,
-        zoom: action.zoom,
+        zoom,
       };
+    }
+
 
     case SET_COORDINATES:
       return {
