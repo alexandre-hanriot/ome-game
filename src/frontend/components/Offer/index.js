@@ -2,16 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTitle } from 'src/hooks/useTitle';
 
+import Map from 'src/frontend/containers/Map';
 import './offer.scss';
-
 
 const Offer = () => {
   useTitle('Trouver un jeu');
 
-
   return (
     <div className="offer">
-      <div className="offer__map"> </div>
+      <div className="offer__map">
+        <Map />
+      </div>
 
       <aside className="offer__aside">
         <h1 className="offer__aside__title">Trouver un jeu</h1>
