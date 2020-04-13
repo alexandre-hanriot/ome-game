@@ -2,7 +2,6 @@
 import React from 'react';
 import classNames from 'classnames';
 import { Route, Switch, useLocation } from 'react-router-dom';
-import { useTitle } from 'src/hooks/useTitle';
 
 import Header from 'src/frontend/containers/Header';
 import Footer from 'src/frontend/components/Footer';
