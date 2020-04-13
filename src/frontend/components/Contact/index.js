@@ -13,6 +13,7 @@ const Contact = ({ displayAlert, showAlert }) => {
     e.preventDefault();
     displayAlert('Veuillez remplir les champs obligatoires', false);
   };
+
   return (
     <div className="wrapper contact">
       {showAlert && (<Alert />)}

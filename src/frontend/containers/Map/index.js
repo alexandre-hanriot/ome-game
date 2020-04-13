@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Map from 'src/frontend/components/Map';
 
-import { changeBounds, changeZoom } from 'src/actions/map';
+import { changeBounds, changeZoom, saveResults } from 'src/actions/map';
 
 const mapStateToProps = (state) => ({
   zoom: state.map.zoom,
@@ -15,6 +15,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeZoom: (value) => {
     dispatch(changeZoom(value));
+  },
+  saveResults: (results) => {
+    dispatch(saveResults(results));
   },
 });
 

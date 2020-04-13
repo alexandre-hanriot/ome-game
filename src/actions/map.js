@@ -1,6 +1,7 @@
 export const SET_BOUNDS = 'SET_BOUNDS';
 export const SET_ZOOM = 'SET_ZOOM';
 export const SET_COORDINATES = 'SET_COORDINATES';
+export const SET_RESULTS = 'SET_RESULTS';
 
 export const changeBounds = (bounds) => ({
   type: SET_BOUNDS,
@@ -16,4 +17,9 @@ export const changeCoordinates = (lat, lng) => ({
   type: SET_COORDINATES,
   lat,
   lng,
+});
+
+export const saveResults = (results) => ({
+  type: SET_RESULTS,
+  results,
 });

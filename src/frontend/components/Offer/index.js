@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useTitle } from 'src/hooks/useTitle';
 import MapAutocomplete from 'react-google-autocomplete';
+import classNames from 'classnames';
 
 import Map from 'src/frontend/containers/Map';
 import './offer.scss';
 
-const Offer = ({ changeCoordinates, changeZoom }) => {
+const Offer = ({ changeCoordinates, changeZoom, results }) => {
   useTitle('Trouver un jeu');
 
   return (
@@ -24,10 +25,10 @@ const Offer = ({ changeCoordinates, changeZoom }) => {
             className="offer__aside__search__input global-input"
             onPlaceSelected={(place) => {
               changeCoordinates(place.geometry.location.lat(), place.geometry.location.lng());
-              changeZoom(14);
+              changeZoom(15);
             }}
             types={['(regions)']}
-            componentRestrictions={{country: 'fr'}}
+            componentRestrictions={{ country: 'fr' }}
           />
 
           {/* <input type="text" placeholder="Saisissez un lieu" className="offer__aside__search__input global-input" /> */}
@@ -72,6 +73,25 @@ const Offer = ({ changeCoordinates, changeZoom }) => {
         <h2 className="offer__aside__subtitle">Résultat(s)</h2>
 
         <ul className="offer__aside__results">
+          {results.map((result) => {
+            const disponibilityClass = classNames('offer__aside__results__result__disponibility', { 'offer__aside__results__result__disponibility--off': result.disponibility });
+
+            return (
+              <Link to="/recherche/jeux/1-toto" key={result.id}>
+                <li className="offer__aside__results__result">
+                  <img src="https://cdn2.philibertnet.com/372889-large_default/le-parrain-l-empire-de-corleone.jpg" alt="" className="offer__aside__results__result__image" />
+                  <div className="offer__aside__results__result__content">
+                    <h3 className="offer__aside__results__result__name">{result.name}</h3>
+                    <p className="offer__aside__results__result__city">{result.location}</p>
+                    <span className={disponibilityClass}>{result.disponibility ? 'Disponible' : 'Non disponible'}</span>
+                    <span className="offer__aside__results__result__type">{result.type === 'pret' ? 'Prêt' : 'Location'}</span>
+                  </div>
+                </li>
+              </Link>
+            );
+          })}
+
+          {/*
           <Link to="/recherche/jeux/1-toto">
             <li className="offer__aside__results__result">
               <img src="https://cdn2.philibertnet.com/372889-large_default/le-parrain-l-empire-de-corleone.jpg" alt="" className="offer__aside__results__result__image" />
@@ -104,7 +124,7 @@ const Offer = ({ changeCoordinates, changeZoom }) => {
                 <span className="offer__aside__results__result__type">Location</span>
               </div>
             </li>
-          </Link>
+          </Link> */}
         </ul>
 
       </aside>
@@ -115,6 +135,7 @@ const Offer = ({ changeCoordinates, changeZoom }) => {
 Offer.propTypes = {
   changeCoordinates: PropTypes.func.isRequired,
   changeZoom: PropTypes.func.isRequired,
+  results: PropTypes.array.isRequired,
 };
 
 export default Offer;

@@ -3,16 +3,24 @@ import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
 import useSupercluster from 'use-supercluster';
 
-import data from './data';
+import dataOffers from './data';
 import './map.scss';
 
 const Marker = ({ children }) => children;
 
-const Map = ({ bounds, zoom, coordinates, changeZoom, changeBounds }) => {
-
-  const points = data.map((data) => ({
+const Map = ({
+  bounds,
+  zoom,
+  coordinates,
+  changeZoom,
+  changeBounds,
+  saveResults,
+}) => {
+  const points = dataOffers.map((data) => ({
     type: 'Feature',
-    properties: { cluster: false, id: data.id, location: data.location, name: data.name },
+    properties: {
+      cluster: false, id: data.id, location: data.location, name: data.name,
+    },
     geometry: {
       type: 'Point',
       coordinates: [
@@ -28,12 +36,28 @@ const Map = ({ bounds, zoom, coordinates, changeZoom, changeBounds }) => {
     points,
     bounds,
     zoom,
-    options: { radius: 75, maxZoom: 14 },
+    options: { radius: 75, maxZoom: 15 },
   });
 
-  const handleApiLoaded = (map, maps) => {
+  const handleApiLoaded = (map) => {
     mapRef.current = map;
-    map.setOptions({ maxZoom: 14 });
+    map.setOptions({ maxZoom: 15 });
+  };
+
+  const handleChange = () => {
+    const results = [];
+    clusters.map((cluster) => {
+      const { cluster: isCluster } = cluster.properties;
+
+      if (isCluster) {
+        supercluster.getLeaves(cluster.id).map((clusterElement) => results.push(clusterElement.properties));
+      }
+      else {
+        results.push(cluster.properties);
+      }
+    });
+    console.log('res');
+    saveResults(results);
   };
 
   return (
@@ -46,7 +70,7 @@ const Map = ({ bounds, zoom, coordinates, changeZoom, changeBounds }) => {
         // onGoogleApiLoaded={({ map }) => {
         //   mapRef.current = map;
         // }}
-        onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
+        onGoogleApiLoaded={({ map }) => handleApiLoaded(map)}
         onChange={({ zoom, bounds }) => {
           changeZoom(zoom);
           changeBounds([
@@ -55,11 +79,13 @@ const Map = ({ bounds, zoom, coordinates, changeZoom, changeBounds }) => {
             bounds.se.lng,
             bounds.nw.lat,
           ]);
+
+          handleChange();
         }}
         center={coordinates}
         zoom={zoom}
       >
-        {console.clear()}
+        {/* {console.clear()} */}
         {clusters.map((cluster) => {
           const [longitude, latitude] = cluster.geometry.coordinates;
           // console.log(cluster);
@@ -73,9 +99,9 @@ const Map = ({ bounds, zoom, coordinates, changeZoom, changeBounds }) => {
           if (isCluster) {
             // console.log(supercluster.getLeaves(cluster.id));
 
-            supercluster.getLeaves(cluster.id).map((cluster) => {
-              console.log(cluster);
-            });
+            // supercluster.getLeaves(cluster.id).map((cluster) => {
+            //   console.log(cluster.properties);
+            // });
 
             return (
               <Marker
@@ -92,7 +118,7 @@ const Map = ({ bounds, zoom, coordinates, changeZoom, changeBounds }) => {
                   onClick={() => {
                     const expansionZoom = Math.min(
                       supercluster.getClusterExpansionZoom(cluster.id),
-                      14,
+                      15,
                     );
                     mapRef.current.setZoom(expansionZoom);
                     mapRef.current.panTo({ lat: latitude, lng: longitude });
@@ -104,7 +130,7 @@ const Map = ({ bounds, zoom, coordinates, changeZoom, changeBounds }) => {
             );
           }
 
-          console.log(cluster);
+          // console.log(cluster.properties);
 
           return (
             <Marker
@@ -135,6 +161,7 @@ Map.propTypes = {
   zoom: PropTypes.number.isRequired,
   bounds: PropTypes.array.isRequired,
   coordinates: PropTypes.object.isRequired,
+  saveResults: PropTypes.func.isRequired,
 };
 
 export default Map;

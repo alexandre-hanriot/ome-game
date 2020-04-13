@@ -4,6 +4,7 @@ import Offer from 'src/frontend/components/Offer';
 import { changeCoordinates, changeZoom } from 'src/actions/map';
 
 const mapStateToProps = (state) => ({
+  results: state.map.results,
 });
 
 const mapDispatchToProps = (dispatch) => ({

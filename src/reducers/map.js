@@ -1,5 +1,5 @@
 import {
-  SET_BOUNDS, SET_ZOOM, SET_COORDINATES,
+  SET_BOUNDS, SET_ZOOM, SET_COORDINATES, SET_RESULTS,
 } from 'src/actions/map';
 
 const initialState = {
@@ -9,6 +9,7 @@ const initialState = {
     lat: 46.227638,
     lng: 2.213749,
   },
+  results: [],
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -19,15 +20,11 @@ const reducer = (state = initialState, action = {}) => {
         bounds: action.bounds,
       };
 
-    case SET_ZOOM: {
-      const zoom = action.zoom > 14 ? 14 : action.zoom;
-
+    case SET_ZOOM:
       return {
         ...state,
-        zoom,
+        zoom: action.zoom,
       };
-    }
-
 
     case SET_COORDINATES:
       return {
@@ -36,6 +33,12 @@ const reducer = (state = initialState, action = {}) => {
           lat: action.lat,
           lng: action.lng,
         },
+      };
+
+    case SET_RESULTS:
+      return {
+        ...state,
+        results: action.results,
       };
 
     default:
