@@ -2,7 +2,7 @@ import {
   SUBMIT_LOGIN,
   logUser,
 } from 'src/actions/authenticate';
-import { showAlert } from 'src/actions/global';
+import { showAlert, showModal } from 'src/actions/global';
 import axios from 'axios';
 
 const authMiddleware = (store) => (next) => (action) => {
@@ -15,17 +15,19 @@ const authMiddleware = (store) => (next) => (action) => {
       })
         .then((response) => {
           store.dispatch(logUser(response.data));
+          showModal('');
+          store.dispatch(showAlert('vous êtes connecté', true));
         })
         .catch((error) => {
           // handle error
           if (error.status === 404) {
-            showAlert('l\'utilisateur n\'a pas été trouvé', false);
+            store.dispatch(showAlert('l\'utilisateur n\'a pas été trouvé', false));
           }
           else if (error.status === 500) {
-            showAlert('veuillez renseignez tous les champs obligatoires', false);
+            store.dispatch(showAlert('veuillez renseignez tous les champs obligatoires', false));
           }
           else if (error.status === 401) {
-            showAlert('les identifiants sont invalides', false);
+            store.dispatch(showAlert('les identifiants sont invalides', false));
           }
           console.warn(error);
         });

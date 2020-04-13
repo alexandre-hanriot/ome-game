@@ -2,7 +2,9 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { Route, Switch, useLocation, Redirect } from 'react-router-dom';
+import {
+  Route, Switch, useLocation, Redirect,
+} from 'react-router-dom';
 import Header from 'src/frontend/containers/Header';
 import Footer from 'src/frontend/components/Footer';
 import Home from 'src/frontend/components/Home';
