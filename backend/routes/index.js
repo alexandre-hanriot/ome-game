@@ -9,7 +9,7 @@ router.get("/", function (req, res, next) {
 });
 
 // Authentification lors du login utilisateur
-router.get("/login", loginController.login);
+router.post("/login", loginController.login);
 
 // Récupération de toutes les offres en fonction des paramètres de recherche complétés par l'utilisateur
 router.get("/search", searchOffersController.findOffersResults);
