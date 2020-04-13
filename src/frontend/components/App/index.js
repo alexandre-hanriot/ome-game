@@ -3,7 +3,7 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import {
-  Route, Switch, useLocation, Redirect,
+  Route, Switch, useLocation,
 } from 'react-router-dom';
 import Header from 'src/frontend/containers/Header';
 import Footer from 'src/frontend/components/Footer';

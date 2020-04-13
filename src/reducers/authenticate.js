@@ -4,6 +4,7 @@ const initialState = {
   email: '',
   password: '',
   isLogged: false,
+  userData: null,
 };
 
 const authenticateReducer = (state = initialState, action = {}) => {
@@ -26,6 +27,7 @@ const authenticateReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         isLogged: true,
+        userData: action.userData,
       };
     case SUBMIT_LOGIN:
       return {

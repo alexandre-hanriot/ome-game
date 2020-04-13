@@ -9,9 +9,14 @@ const authMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case SUBMIT_LOGIN: {
       const { email, password } = store.getState();
-      axios.post('http://localhost:3000/login', {
-        identifier: email,
-        password,
+      axios({
+        method: 'post',
+        url: 'http://localhost:3001/login',
+        data: {
+          identifier: email,
+          password,
+        },
+        withCredentials: true,
       })
         .then((response) => {
           store.dispatch(logUser(response.data));

@@ -8,8 +8,9 @@ export const changeInputOfLogin = (identifier, newValue) => ({
   newValue,
 });
 
-export const logUser = () => ({
+export const logUser = (userData) => ({
   type: LOG_USER,
+  userData,
 });
 
 export const submitLogin = () => ({
