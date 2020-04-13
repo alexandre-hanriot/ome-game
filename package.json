@@ -52,6 +52,7 @@
     "prop-types": "*",
     "react": "*",
     "react-dom": "*",
+    "react-google-autocomplete": "^1.1.4",
     "react-media-hook": "^0.4.6",
     "react-password-strength": "^2.4.0",
     "react-redux": "^7.2.0",

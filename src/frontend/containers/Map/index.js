@@ -6,6 +6,7 @@ import { changeBounds, changeZoom } from 'src/actions/map';
 const mapStateToProps = (state) => ({
   zoom: state.map.zoom,
   bounds: state.map.bounds,
+  coordinates: state.map.coordinates,
 });
 
 const mapDispatchToProps = (dispatch) => ({

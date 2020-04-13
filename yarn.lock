@@ -6467,7 +6467,7 @@ promise-inflight@^1.0.1:
   resolved "https://registry.yarnpkg.com/promise-inflight/-/promise-inflight-1.0.1.tgz#98472870bf228132fcbdd868129bad12c3c029e3"
   integrity sha1-mEcocL8igTL8vdhoEputEsPAKeM=
 
-prop-types@*, prop-types@^15.5.6, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@*, prop-types@^15.5.0, prop-types@^15.5.6, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -6613,6 +6613,13 @@ react-dom@*:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
     scheduler "^0.19.0"
+
+react-google-autocomplete@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/react-google-autocomplete/-/react-google-autocomplete-1.1.4.tgz#dd2abe20d6c1164ad5085bedbbf15c368beb37a0"
+  integrity sha512-Ogj9wtNbd41BjYwbjYdIHk3X5m1a3cuVXa4si2DdEEMQYk/X1lXXrV2lZW7cFD8afg8MQOfIKltLI1WMLARC8Q==
+  dependencies:
+    prop-types "^15.5.0"
 
 react-is@^16.6.0, react-is@^16.7.0, react-is@^16.9.0:
   version "16.13.1"

@@ -1,11 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useTitle } from 'src/hooks/useTitle';
+import MapAutocomplete from 'react-google-autocomplete';
 
 import Map from 'src/frontend/containers/Map';
 import './offer.scss';
 
-const Offer = () => {
+const Offer = ({ changeCoordinates, changeZoom }) => {
   useTitle('Trouver un jeu');
 
   return (
@@ -18,7 +20,17 @@ const Offer = () => {
         <h1 className="offer__aside__title">Trouver un jeu</h1>
 
         <form className="offer__aside__search">
-          <input type="text" placeholder="Saisissez un lieu" className="offer__aside__search__input global-input" />
+          <MapAutocomplete
+            className="offer__aside__search__input global-input"
+            onPlaceSelected={(place) => {
+              changeCoordinates(place.geometry.location.lat(), place.geometry.location.lng());
+              changeZoom(14);
+            }}
+            types={['(regions)']}
+            componentRestrictions={{country: 'fr'}}
+          />
+
+          {/* <input type="text" placeholder="Saisissez un lieu" className="offer__aside__search__input global-input" /> */}
           <button type="submit" className="offer__aside__search__button" title="Rechercher"><i className="fas fa-search"> </i></button>
         </form>
 
@@ -98,6 +110,11 @@ const Offer = () => {
       </aside>
     </div>
   );
+};
+
+Offer.propTypes = {
+  changeCoordinates: PropTypes.func.isRequired,
+  changeZoom: PropTypes.func.isRequired,
 };
 
 export default Offer;

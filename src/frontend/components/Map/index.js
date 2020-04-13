@@ -8,7 +8,7 @@ import './map.scss';
 
 const Marker = ({ children }) => children;
 
-const Map = ({ defaultCenter, defaultZoom, bounds, zoom, changeZoom, changeBounds }) => {
+const Map = ({ bounds, zoom, coordinates, changeZoom, changeBounds }) => {
 
   const points = data.map((crime) => ({
     type: 'Feature',
@@ -35,8 +35,8 @@ const Map = ({ defaultCenter, defaultZoom, bounds, zoom, changeZoom, changeBound
     <div style={{ height: '100vh', width: '100%' }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: 'AIzaSyAAUPUp27VoZaXgYvRwLCjgn5cZjpRIWjs' }}
-        defaultCenter={defaultCenter}
-        defaultZoom={defaultZoom}
+        // defaultCenter={coordinates}
+        // defaultZoom={zoom}
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={({ map }) => {
           mapRef.current = map;
@@ -50,6 +50,8 @@ const Map = ({ defaultCenter, defaultZoom, bounds, zoom, changeZoom, changeBound
             bounds.nw.lat,
           ]);
         }}
+        center={coordinates}
+        zoom={zoom}
       >
         {clusters.map((cluster) => {
           const [longitude, latitude] = cluster.geometry.coordinates;
@@ -113,20 +115,11 @@ const Map = ({ defaultCenter, defaultZoom, bounds, zoom, changeZoom, changeBound
 };
 
 Map.propTypes = {
-  defaultZoom: PropTypes.number,
-  defaultCenter: PropTypes.object,
   changeBounds: PropTypes.func.isRequired,
   changeZoom: PropTypes.func.isRequired,
   zoom: PropTypes.number.isRequired,
   bounds: PropTypes.array.isRequired,
-};
-
-Map.defaultProps = {
-  defaultCenter: {
-    lat: 46.227638,
-    lng: 2.213749,
-  },
-  defaultZoom: 6,
+  coordinates: PropTypes.object.isRequired,
 };
 
 export default Map;
