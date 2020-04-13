@@ -1,6 +1,6 @@
 import {
   SHOW_MODAL, SHOW_MENU, SHOW_ALERT,
-} from '../actions/global';
+} from 'src/actions/global';
 
 const initialState = {
   showModal: '',

@@ -1,11 +1,10 @@
 // == Import npm
 import React from 'react';
 import classNames from 'classnames';
-import { Route, Switch, useLocation } from 'react-router-dom';
-
+import PropTypes from 'prop-types';
+import { Route, Switch, useLocation, Redirect } from 'react-router-dom';
 import Header from 'src/frontend/containers/Header';
 import Footer from 'src/frontend/components/Footer';
-
 import Home from 'src/frontend/components/Home';
 import About from 'src/frontend/components/About';
 import Offer from 'src/frontend/components/Offer';
@@ -20,7 +19,7 @@ import Reservations from 'src/frontend/containers/Account/Reservations';
 import NotFound from 'src/frontend/components/NotFound';
 
 // == Composant
-const App = () => {
+const App = ({ isLogged }) => {
   const location = useLocation();
   // return the current pathname
   const currentPath = location.pathname;
@@ -33,6 +32,25 @@ const App = () => {
       <Header />
       <main>
         <Switch>
+          {isLogged && (
+            <>
+              <Route exact path="/compte">
+                <Account />
+              </Route>
+              <Route exact path="/compte/profil">
+                <AccountProfil />
+              </Route>
+              <Route exact path="/compte/reservations">
+                <Reservations />
+              </Route>
+              <Route exact path="/compte/offres">
+                <AccountOffers />
+              </Route>
+              <Route exact path="/compte/offres/ajouter">
+                <AccountOffersAdd />
+              </Route>
+            </>
+          )}
           <Route exact path="/">
             <Home />
           </Route>
@@ -42,15 +60,6 @@ const App = () => {
           <Route exact path="/recherche/jeux">
             <Offer />
           </Route>
-          <Route exact path="/compte/profil">
-            <AccountProfil />
-          </Route>
-          <Route exact path="/compte/offres">
-            <AccountOffers />
-          </Route>
-          <Route exact path="/compte/offres/ajouter">
-            <AccountOffersAdd />
-          </Route>
           <Route exact path="/mentions-legales">
             <LegalMentions />
           </Route>
@@ -59,12 +68,6 @@ const App = () => {
           </Route>
           <Route exact path="/contact">
             <Contact />
-          </Route>
-          <Route exact path="/compte">
-            <Account />
-          </Route>
-          <Route exact path="/compte/reservations">
-            <Reservations />
           </Route>
           <Route>
             <NotFound />
@@ -76,5 +79,8 @@ const App = () => {
   );
 };
 
+App.propTypes = {
+  isLogged: PropTypes.bool.isRequired,
+};
 // == Export
 export default App;

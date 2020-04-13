@@ -2,19 +2,15 @@ import {
   SUBMIT_LOGIN,
   logUser,
 } from 'src/actions/authenticate';
+import { showAlert } from 'src/actions/global';
 import axios from 'axios';
 
 const authMiddleware = (store) => (next) => (action) => {
-  // console.log('On a intercepté une action dans authMiddleware', action);
-
   switch (action.type) {
     case SUBMIT_LOGIN: {
       const { email, password } = store.getState();
-
-      // envoi d'une requête POST vers le serveur d'authentification
-      // on fournit des informations sous forme d'objet
-      axios.post('http://localhost:3001/login', {
-        email,
+      axios.post('http://localhost:3000/login', {
+        identifier: email,
         password,
       })
         .then((response) => {
@@ -22,6 +18,15 @@ const authMiddleware = (store) => (next) => (action) => {
         })
         .catch((error) => {
           // handle error
+          if (error.status === 404) {
+            showAlert('l\'utilisateur n\'a pas été trouvé', false);
+          }
+          else if (error.status === 500) {
+            showAlert('veuillez renseignez tous les champs obligatoires', false);
+          }
+          else if (error.status === 401) {
+            showAlert('les identifiants sont invalides', false);
+          }
           console.warn(error);
         });
       next(action);

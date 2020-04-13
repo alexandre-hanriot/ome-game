@@ -1,9 +1,9 @@
 import { CHANGE_INPUT_OF_LOGIN, LOG_USER, SUBMIT_LOGIN } from 'src/actions/authenticate';
 
 const initialState = {
-  email: 'toto@toto.toto',
-  password: 'yoloswag',
-  islogged: false,
+  email: '',
+  password: '',
+  isLogged: false,
 };
 
 const authenticateReducer = (state = initialState, action = {}) => {

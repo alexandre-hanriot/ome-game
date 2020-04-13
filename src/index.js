@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 // == Import : local
-import App from 'src/frontend/components/App';
+import App from 'src/frontend/containers/App';
 import store from 'src/store';
 
 // == Render
