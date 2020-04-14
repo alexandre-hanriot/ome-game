@@ -44,42 +44,32 @@ exports.findOffersResults = (req, res) => {
                 [Op.iLike]: `%${city}%`, // case insensitive
             },
         },
-        include: [
-            {
-                model: Game,
+        include: {
+            model: Game,
+            where: {
+                name: {
+                    [Op.iLike]: `%${game_name}%`, // case insensitive
+                },
+                nb_players_min: {
+                    [Op.lte]: nb_players_min, // On renvoie les résultats dont nb_players_min <= nb_players
+                },
+                nb_players_max: {
+                    [Op.gte]: nb_players_max, // On renvoie les résultats dont nb_players_max >= nb_players
+                },
+                age_min: {
+                    [Op.lte]: age_min,
+                },
+            },
+            include: {
+                model: Game_category,
                 where: {
                     name: {
-                        [Op.iLike]: `%${game_name}%`, // case insensitive
-                    },
-                    nb_players_min: {
-                        [Op.lte]: nb_players_min, // On renvoie les résultats dont nb_players_min <= nb_players
-                    },
-                    nb_players_max: {
-                        [Op.gte]: nb_players_max, // On renvoie les résultats dont nb_players_max >= nb_players
-                    },
-                    age_min: {
-                        [Op.lte]: age_min,
-                    },
-                },
-                include: {
-                    model: Game_category,
-                    where: {
-                        name: {
-                            [Op.iLike]: `%${game_category_name}%`, // case insensitive
-                        },
+                        [Op.iLike]: `%${game_category_name}%`, // case insensitive
                     },
                 },
             },
-            // {
-            //     model: User,
-            //     where: {
-            //         postal_code: {
-            //             [Op.substring]: postal_code, // Si postal_code = "" on ne filtre pas
-            //         },
-            //     },
-            //     attributes: ["postal_code"],
-            // },
-        ],
+        },
+
         order: [["id", "ASC"]],
     })
         .then((data) => {
