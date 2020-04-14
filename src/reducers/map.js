@@ -1,9 +1,15 @@
 import {
-  SET_BOUNDS, SET_ZOOM, SET_COORDINATES, SET_RESULTS,
+  SET_MAP_LOADED, SET_BOUNDS, SET_ZOOM, SET_COORDINATES, SET_RESULTS,
 } from 'src/actions/map';
 
 const initialState = {
-  bounds: [],
+  mapLoaded: false,
+  defaultZoom: 6,
+  defaultCoordinates: {
+    lat: 46.227638,
+    lng: 2.213749,
+  },
+  bounds: [-13.276973656249993, 41.76547338746258, 17.704471656250007, 50.35448621080039],
   zoom: 6,
   coordinates: {
     lat: 46.227638,
@@ -14,6 +20,12 @@ const initialState = {
 
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
+    case SET_MAP_LOADED:
+      return {
+        ...state,
+        mapLoaded: true,
+      };
+
     case SET_BOUNDS:
       return {
         ...state,

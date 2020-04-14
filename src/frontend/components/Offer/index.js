@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useTitle } from 'src/hooks/useTitle';
@@ -10,11 +10,12 @@ import './offer.scss';
 
 const Offer = ({ changeCoordinates, changeZoom, results }) => {
   useTitle('Trouver un jeu');
+  const mapRef = useRef();
 
   return (
     <div className="offer">
       <div className="offer__map">
-        <Map />
+        <Map mapRef={mapRef} />
       </div>
 
       <aside className="offer__aside">
@@ -25,8 +26,34 @@ const Offer = ({ changeCoordinates, changeZoom, results }) => {
             className="offer__aside__search__input global-input"
             onPlaceSelected={(place) => {
               // console.log(place.address_components.length);
-              changeCoordinates(place.geometry.location.lat(), place.geometry.location.lng());
-              changeZoom(15);
+              /*
+              5 = ville     15
+              3 = departement  9
+              2 = region    8
+              1 = pays      6
+              */
+              let zoom = 15;
+              switch (place.address_components.length) {
+                case 3:
+                  zoom = 10;
+                  break;
+                case 2:
+                  zoom = 8;
+                  break;
+                case 1:
+                  zoom = 6;
+                  break;
+                default:
+                  zoom = 15;
+              }
+
+              mapRef.current.setZoom(zoom);
+              mapRef.current.panTo({ lat: place.geometry.location.lat(), lng: place.geometry.location.lng() });
+
+              const timeout = setTimeout(() => {
+                mapRef.current.panTo({ lat: place.geometry.location.lat() + 0.00001, lng: place.geometry.location.lng() + 0.00001 });
+                clearTimeout(timeout);
+              }, 500);
             }}
             types={['(regions)']}
             componentRestrictions={{ country: 'fr' }}
@@ -91,41 +118,6 @@ const Offer = ({ changeCoordinates, changeZoom, results }) => {
               </Link>
             );
           })}
-
-          {/*
-          <Link to="/recherche/jeux/1-toto">
-            <li className="offer__aside__results__result">
-              <img src="https://cdn2.philibertnet.com/372889-large_default/le-parrain-l-empire-de-corleone.jpg" alt="" className="offer__aside__results__result__image" />
-              <div className="offer__aside__results__result__content">
-                <h3 className="offer__aside__results__result__name">Le parrain (2018)</h3>
-                <p className="offer__aside__results__result__city">Rixheim (68170)</p>
-                <span className="offer__aside__results__result__disponibility">Disponible</span>
-                <span className="offer__aside__results__result__type">Location</span>
-              </div>
-            </li>
-          </Link>
-          <Link to="/recherche/jeux/1-toto">
-            <li className="offer__aside__results__result">
-              <img src="https://cdn2.philibertnet.com/372889-large_default/le-parrain-l-empire-de-corleone.jpg" alt="" className="offer__aside__results__result__image" />
-              <div className="offer__aside__results__result__content">
-                <h3 className="offer__aside__results__result__name">Le parrain (2018)</h3>
-                <p className="offer__aside__results__result__city">Habsheim (68440)</p>
-                <span className="offer__aside__results__result__disponibility">Disponible</span>
-                <span className="offer__aside__results__result__type">Prêt</span>
-              </div>
-            </li>
-          </Link>
-          <Link to="/recherche/jeux/1-toto">
-            <li className="offer__aside__results__result">
-              <img src="https://cdn2.philibertnet.com/372889-large_default/le-parrain-l-empire-de-corleone.jpg" alt="" className="offer__aside__results__result__image" />
-              <div className="offer__aside__results__result__content">
-                <h3 className="offer__aside__results__result__name">Le parrain (2006)</h3>
-                <p className="offer__aside__results__result__city">Mulhouse (68100)</p>
-                <span className="offer__aside__results__result__disponibility offer__aside__results__result__disponibility--off">Non disponible</span>
-                <span className="offer__aside__results__result__type">Location</span>
-              </div>
-            </li>
-          </Link> */}
         </ul>
 
       </aside>

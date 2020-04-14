@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
 import useSupercluster from 'use-supercluster';
@@ -9,9 +9,14 @@ import './map.scss';
 const Marker = ({ children }) => children;
 
 const Map = ({
+  mapRef,
+  mapIsLoaded,
+  defaultCoordinates,
+  defaultZoom,
   bounds,
   zoom,
-  coordinates,
+  mapCoordinates,
+  mapLoaded,
   changeZoom,
   changeBounds,
   saveResults,
@@ -31,8 +36,7 @@ const Map = ({
     },
   }));
 
-  const mapRef = useRef();
-
+  // const mapRef = useRef();
   const { clusters, supercluster } = useSupercluster({
     points,
     bounds,
@@ -40,25 +44,27 @@ const Map = ({
     options: { radius: 75, maxZoom: 15 },
   });
 
+  const handleChange = () => {
+    if (mapIsLoaded) {
+      const results = [];
+      clusters.map((cluster) => {
+        const { cluster: isCluster } = cluster.properties;
+
+        if (isCluster) {
+          supercluster.getLeaves(cluster.id).map((clusterElement) => results.push(clusterElement.properties));
+        }
+        else {
+          results.push(cluster.properties);
+        }
+      });
+      saveResults(results);
+    }
+  };
+
   const handleApiLoaded = (map) => {
     mapRef.current = map;
     map.setOptions({ maxZoom: 15 });
-  };
-
-  const handleChange = () => {
-    const results = [];
-    clusters.map((cluster) => {
-      const { cluster: isCluster } = cluster.properties;
-
-      if (isCluster) {
-        supercluster.getLeaves(cluster.id).map((clusterElement) => results.push(clusterElement.properties));
-      }
-      else {
-        results.push(cluster.properties);
-      }
-    });
-    console.log('res');
-    saveResults(results);
+    mapLoaded();
   };
 
   return (
@@ -80,14 +86,12 @@ const Map = ({
             bounds.se.lng,
             bounds.nw.lat,
           ]);
-
           handleChange();
         }}
-        center={coordinates}
-        zoom={zoom}
+        defaultCenter={defaultCoordinates}
+        defaultZoom={defaultZoom}
       >
-        {/* {console.clear()} */}
-        {clusters.map((cluster) => {
+        {mapIsLoaded && (clusters.map((cluster) => {
           const [longitude, latitude] = cluster.geometry.coordinates;
           // console.log(cluster);
           const {
@@ -150,18 +154,21 @@ const Map = ({
               </div>
             </Marker>
           );
-        })}
+        }))}
       </GoogleMapReact>
     </div>
   );
 };
 
 Map.propTypes = {
+  mapRef: PropTypes.object.isRequired,
+  mapIsLoaded: PropTypes.bool.isRequired,
+  mapLoaded: PropTypes.func.isRequired,
   changeBounds: PropTypes.func.isRequired,
   changeZoom: PropTypes.func.isRequired,
   zoom: PropTypes.number.isRequired,
   bounds: PropTypes.array.isRequired,
-  coordinates: PropTypes.object.isRequired,
+  mapCoordinates: PropTypes.object.isRequired,
   saveResults: PropTypes.func.isRequired,
 };
 
