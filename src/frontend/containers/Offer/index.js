@@ -1,18 +1,16 @@
 import { connect } from 'react-redux';
 import Offer from 'src/frontend/components/Offer';
 
-import { changeCoordinates, changeZoom } from 'src/actions/map';
+import { fetchGames } from 'src/actions/map';
 
 const mapStateToProps = (state) => ({
   results: state.map.results,
+  games: state.map.games,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeCoordinates: (lat, lng) => {
-    dispatch(changeCoordinates(lat, lng));
-  },
-  changeZoom: (value) => {
-    dispatch(changeZoom(value));
+  fetchGames: () => {
+    dispatch(fetchGames());
   },
 });
 

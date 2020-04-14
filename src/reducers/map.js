@@ -1,5 +1,5 @@
 import {
-  SET_MAP_LOADED, SET_BOUNDS, SET_ZOOM, SET_COORDINATES, SET_RESULTS,
+  SET_MAP_LOADED, SET_BOUNDS, SET_ZOOM, SET_COORDINATES, SET_RESULTS, SAVE_OFFERS, SAVE_GAMES,
 } from 'src/actions/map';
 
 const initialState = {
@@ -15,7 +15,9 @@ const initialState = {
     lat: 46.227638,
     lng: 2.213749,
   },
+  offers: [],
   results: [],
+  games: [],
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -51,6 +53,18 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         results: action.results,
+      };
+
+    case SAVE_OFFERS:
+      return {
+        ...state,
+        offers: action.offers,
+      };
+
+    case SAVE_GAMES:
+      return {
+        ...state,
+        games: action.games,
       };
 
     default:

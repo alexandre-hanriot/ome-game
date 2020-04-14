@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
 import useSupercluster from 'use-supercluster';
 
-import dataOffers from './data';
+import Marker from './Marker';
 import './map.scss';
-
-const Marker = ({ children }) => children;
 
 const Map = ({
   mapRef,
@@ -15,13 +13,15 @@ const Map = ({
   defaultZoom,
   bounds,
   zoom,
-  mapCoordinates,
   mapLoaded,
   changeZoom,
   changeBounds,
   saveResults,
+  fetchOffers,
+  offers,
 }) => {
-  const points = dataOffers.map((data) => ({
+  // format data for supercluster dependancy
+  const points = offers.map((data) => ({
     type: 'Feature',
     properties: {
       cluster: false,
@@ -36,7 +36,7 @@ const Map = ({
     },
   }));
 
-  // const mapRef = useRef();
+  // load points and create clusters with supercluster dependancy
   const { clusters, supercluster } = useSupercluster({
     points,
     bounds,
@@ -44,6 +44,7 @@ const Map = ({
     options: { radius: 75, maxZoom: 15 },
   });
 
+  // Save results in state
   const handleChange = () => {
     if (mapIsLoaded) {
       const results = [];
@@ -61,22 +62,21 @@ const Map = ({
     }
   };
 
+  // when API is loaded
   const handleApiLoaded = (map) => {
     mapRef.current = map;
     map.setOptions({ maxZoom: 15 });
     mapLoaded();
+    fetchOffers();
   };
 
   return (
-    <div style={{ height: '100vh', width: '100%' }}>
+    <div className="map">
       <GoogleMapReact
         bootstrapURLKeys={{ key: 'AIzaSyAAUPUp27VoZaXgYvRwLCjgn5cZjpRIWjs' }}
-        // defaultCenter={coordinates}
-        // defaultZoom={zoom}
+        defaultCenter={defaultCoordinates}
+        defaultZoom={defaultZoom}
         yesIWantToUseGoogleMapApiInternals
-        // onGoogleApiLoaded={({ map }) => {
-        //   mapRef.current = map;
-        // }}
         onGoogleApiLoaded={({ map }) => handleApiLoaded(map)}
         onChange={({ zoom, bounds }) => {
           changeZoom(zoom);
@@ -88,79 +88,33 @@ const Map = ({
           ]);
           handleChange();
         }}
-        defaultCenter={defaultCoordinates}
-        defaultZoom={defaultZoom}
       >
-        {mapIsLoaded && (clusters.map((cluster) => {
-          const [longitude, latitude] = cluster.geometry.coordinates;
-          // console.log(cluster);
-          const {
-            cluster: isCluster,
-            point_count: pointCount,
-          } = cluster.properties;
-
-          const size = isCluster ? `${10 + (pointCount / points.length) * 20}px` : '20px';
-
-          if (isCluster) {
-            // console.log(supercluster.getLeaves(cluster.id));
-
-            // supercluster.getLeaves(cluster.id).map((cluster) => {
-            //   console.log(cluster.properties);
-            // });
-
+        {mapIsLoaded && (
+          clusters.map((cluster) => {
+            const [longitude, latitude] = cluster.geometry.coordinates;
+            const { cluster: isCluster, id } = cluster.properties;
+            const key = isCluster ? cluster.id : id;
             return (
               <Marker
-                key={`cluster-${cluster.id}`}
+                key={`map-cluster-${key}`}
                 lat={latitude}
                 lng={longitude}
-              >
-                <div
-                  className="cluster-marker"
-                  style={{
-                    width: size,
-                    height: size,
-                  }}
-                  onClick={() => {
-                    const expansionZoom = Math.min(
-                      supercluster.getClusterExpansionZoom(cluster.id),
-                      15,
-                    );
-                    mapRef.current.setZoom(expansionZoom);
-                    mapRef.current.panTo({ lat: latitude, lng: longitude });
-                  }}
-                >
-                  {pointCount}
-                </div>
-              </Marker>
+                supercluster={supercluster}
+                cluster={cluster}
+                pointsLength={points.length}
+                mapRef={mapRef}
+              />
             );
-          }
-
-          // console.log(cluster.properties);
-
-          return (
-            <Marker
-              key={`cluser-offer-${cluster.properties.id}`}
-              lat={latitude}
-              lng={longitude}
-            >
-              <div
-                className="cluster-marker"
-                style={{
-                  width: size,
-                  height: size,
-                }}
-              >
-                1
-              </div>
-            </Marker>
-          );
-        }))}
+          })
+        )}
       </GoogleMapReact>
     </div>
   );
 };
 
 Map.propTypes = {
+  defaultCoordinates: PropTypes.object.isRequired,
+  defaultZoom: PropTypes.number.isRequired,
   mapRef: PropTypes.object.isRequired,
   mapIsLoaded: PropTypes.bool.isRequired,
   mapLoaded: PropTypes.func.isRequired,
@@ -168,8 +122,9 @@ Map.propTypes = {
   changeZoom: PropTypes.func.isRequired,
   zoom: PropTypes.number.isRequired,
   bounds: PropTypes.array.isRequired,
-  mapCoordinates: PropTypes.object.isRequired,
   saveResults: PropTypes.func.isRequired,
+  fetchOffers: PropTypes.func.isRequired,
+  offers: PropTypes.array.isRequired,
 };
 
 export default Map;

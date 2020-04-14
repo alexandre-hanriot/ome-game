@@ -2,11 +2,13 @@
 
 .offer {
   display: flex;
-  min-height: inherit;
+  // min-height: inherit;
+  height: calc(100vh - 200px);
 
   &__map {
     flex-grow: 3;
     min-height: 400px;
+    // height: 100%;
   }
 
   &__aside {
@@ -15,6 +17,7 @@
     background-color: $lightBlue;
     color: $darkBlue;
     padding: $gutter;
+    overflow-y: auto;
 
     &__title {
       font-size: 1.6em;
@@ -163,6 +166,7 @@
 
 @media (max-width: 1200px) {
   .offer {
+    height: auto;
     flex-direction: column;
 
     &__aside {
