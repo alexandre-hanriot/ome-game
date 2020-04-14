@@ -5,6 +5,7 @@ import { useMediaPredicate } from 'react-media-hook';
 import Modal from 'src/frontend/containers/Modal';
 import Authentification from 'src/frontend/containers/Header/Authentification';
 import Menu from './Menu';
+import UserMenu from './UserMenu';
 import './header.scss';
 
 const Header = ({
@@ -15,8 +16,17 @@ const Header = ({
   const handleModal = () => {
     displayModal('login');
   };
-  const handleConnectedModal = () => {
-    displayModal('connectedUser');
+
+  const handleMenuBurger = () => {
+    displayMenu('burger');
+  };
+
+  const handleMenuUser = () => {
+    displayMenu('userMenu');
+  };
+
+  const handleMenuClose = () => {
+    displayMenu();
   };
 
   return (
@@ -32,11 +42,11 @@ const Header = ({
           {!isMobile && <Menu />}
           {isMobile && (
             <>
-              <button type="button" className="header__nav__menu__burger" onClick={displayMenu}><i className="fas fa-bars"> </i></button>
-              {showMenu && (
+              <button type="button" className="header__nav__menu__burger" onClick={handleMenuBurger}><i className="fas fa-bars"> </i></button>
+              {showMenu === 'burger' && (
                 <>
-                  <div className="menu-background"> </div>
-                  <div className="header__nav__menu__container" onClick={displayMenu}>
+                  <div className="menu-background" onClick={handleMenuClose}> </div>
+                  <div className="header__nav__menu__container" onClick={handleMenuClose}>
                     <Menu showIcon />
                   </div>
                 </>
@@ -48,9 +58,18 @@ const Header = ({
         {isLogged && (
         <div className="header__nav__account">
           <div className="header__nav__account__hi">
-            <p>Bienvenue ${pseudo}</p>
+            <p>Bienvenue {pseudo}</p>
           </div>
-          <button type="button" className="header__nav__account__button" title="Naviguer / Se deconnecter" onClick={handleConnectedModal}><i className="fas fa-user"> </i></button>
+          <button type="button" className="header__nav__account__button" title="Mon compte / Se deconnecter" onClick={handleMenuUser}><i className="fas fa-user"> </i></button>
+            {showMenu === 'userMenu'
+            && (
+              <>
+                <div className="menu-background" onClick={handleMenuClose}> </div>
+                <div className="header__nav__menu__user" onClick={handleMenuClose}>
+                  <UserMenu />
+                </div>
+              </>
+            )}
         </div>
         )}
         {!isLogged && (
@@ -64,7 +83,7 @@ const Header = ({
 };
 
 Header.propTypes = {
-  showMenu: PropTypes.bool.isRequired,
+  showMenu: PropTypes.string.isRequired,
   displayMenu: PropTypes.func.isRequired,
   showModal: PropTypes.string.isRequired,
   displayModal: PropTypes.func.isRequired,

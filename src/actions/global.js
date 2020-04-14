@@ -9,8 +9,9 @@ export const showModal = (name = '') => ({
 });
 
 // burger menu
-export const showMenu = () => ({
+export const showMenu = (name = '') => ({
   type: SHOW_MENU,
+  name,
 });
 
 // windows Alert

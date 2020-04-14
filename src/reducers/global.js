@@ -4,7 +4,7 @@ import {
 
 const initialState = {
   showModal: '',
-  showMenu: false,
+  showMenu: '',
   alertMessage: ' ',
   alertSuccess: true,
   showAlert: false,
@@ -21,7 +21,7 @@ const reducer = (state = initialState, action = {}) => {
     case SHOW_MENU:
       return {
         ...state,
-        showMenu: !state.showMenu,
+        showMenu: action.name,
       };
     case SHOW_ALERT:
       return {

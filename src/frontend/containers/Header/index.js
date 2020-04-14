@@ -11,8 +11,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  displayMenu: () => {
-    dispatch(showMenu());
+  displayMenu: (name) => {
+    dispatch(showMenu(name));
   },
   displayModal: (name) => {
     dispatch(showModal(name));
