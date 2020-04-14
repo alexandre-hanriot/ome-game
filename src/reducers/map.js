@@ -18,6 +18,13 @@ const initialState = {
   offers: [],
   results: [],
   games: [],
+  gameField: '',
+  playersField: '',
+  filterGame: [],
+  filterType: 'all',
+  filterDisponibility: 'all',
+  filterCategory: [],
+  filterPlayers: 0,
 };
 
 const reducer = (state = initialState, action = {}) => {

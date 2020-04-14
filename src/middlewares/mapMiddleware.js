@@ -52,7 +52,8 @@ const mapMiddleware = (store) => (next) => (action) => {
       axios
         .get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/games')
         .then((response) => {
-          store.dispatch(saveGames(response.data));
+          const games = response.data.map((game) => game.name);
+          store.dispatch(saveGames(games));
         })
         .catch((error) => {
           console.error(error);
@@ -61,6 +62,9 @@ const mapMiddleware = (store) => (next) => (action) => {
       next(action);
       break;
     }
+
+    // http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/game_categories
+
     default:
       next(action);
   }

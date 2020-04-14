@@ -1,5 +1,15 @@
 @import 'src/styles/_vars.scss';
 
+.react-autocomplete-input {
+  top: 46px !important;
+  left: 0 !important;
+  width: 100%;
+  font-size: .8em;
+}
+.react-autocomplete-input > li.active {
+  background-color: $secondaryColor;
+}
+
 .offer {
   display: flex;
   // min-height: inherit;
@@ -57,7 +67,7 @@
         }
       }
     }
-
+    
     &__options {
       &__button {
         font-size: inherit;
@@ -82,6 +92,40 @@
 
         &__game {
           width: 100%;
+          height: 46px;
+          resize: none;
+          margin-bottom: .25rem;
+          outline: none;
+          background-color: transparent;
+        }
+        &__autocomplete {
+          height: 46px;
+          position: relative;
+          display: flex;
+          align-items: center;
+          background-color: #fff;
+          border: 1px solid #8199b7;
+          border-radius: .4rem;
+          margin-bottom: .5rem;
+
+          & > span {
+            display: block;
+            height: 46px;
+            flex-grow: 1;
+            background-color: transparent;
+          }
+
+          &__button {
+            font-size: inherit;
+            padding: .5rem 1rem;
+            border: 0;
+            background-color: transparent;
+            color: inherit;
+    
+            &:hover {
+              color: $secondaryColor;
+            }
+          }
         }
         &__disponibility {
           width: 50%;

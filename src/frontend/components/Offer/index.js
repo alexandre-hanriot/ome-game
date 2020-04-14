@@ -5,6 +5,9 @@ import { useTitle } from 'src/hooks/useTitle';
 import MapAutocomplete from 'react-google-autocomplete';
 import classNames from 'classnames';
 
+import TextInput from 'react-autocomplete-input';
+import 'react-autocomplete-input/dist/bundle.css';
+
 import Map from 'src/frontend/containers/Map';
 import './offer.scss';
 
@@ -71,7 +74,20 @@ const Offer = ({ results, games, fetchGames }) => {
         <div className="offer__aside__options">
           <button type="button" className="offer__aside__options__button">Options <i className="fas fa-sort-down"> </i></button>
           <div className="offer__aside__options__fields">
-            <input type="text" placeholder="Nom du jeu" className="offer__aside__options__fields__game global-input" />
+            <div className="offer__aside__options__fields__autocomplete">
+              <TextInput
+                placeholder="Nom du jeu"
+                className="offer__aside__options__fields__game global-input"
+                options={games}
+                trigger=""
+                spacer=""
+                maxOptions={10}
+                onChange={(value) => {
+                  console.log(value);
+                }}
+              />
+              <button type="submit" className="offer__aside__options__fields__autocomplete__button" title="Rechercher"><i className="fas fa-search"> </i></button>
+            </div>
             <div className="offer__aside__options__fields__group">
               <select className="offer__aside__options__fields__disponibility global-select">
                 <option value="">Disponibilité</option>
