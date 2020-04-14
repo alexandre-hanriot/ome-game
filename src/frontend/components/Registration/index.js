@@ -3,12 +3,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ReactPasswordStrength from 'react-password-strength';
 import PropTypes from 'prop-types';
-import Alert from 'src/frontend/containers/Alert';
 
 import './registration.scss';
 
 const Registration = ({
-  email, inputPassword, confirmPassword, pseudo, showAlert, changeValue,
+  email, inputPassword, confirmPassword, pseudo, changeValue,
 }) => {
   const handleChange = (identifier, newValue) => {
     changeValue(identifier, newValue);
@@ -20,7 +19,6 @@ const Registration = ({
   };
   return (
     <div className="registration">
-      {showAlert && (<Alert />)}
       <h1>Inscription</h1>
       <p className="registration__text">Vous n'avez pas encore de compte ? Créez en un ci-dessous.</p>
 
@@ -75,7 +73,6 @@ Registration.propTypes = {
   inputPassword: PropTypes.string.isRequired,
   confirmPassword: PropTypes.string.isRequired,
   pseudo: PropTypes.string.isRequired,
-  showAlert: PropTypes.bool.isRequired,
   changeValue: PropTypes.func.isRequired,
 };
 

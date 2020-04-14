@@ -8,7 +8,6 @@ const mapStateToProps = (state) => ({
   inputPassword: state.registration.password,
   pseudo: state.registration.pseudo,
   confirmPassword: state.registration.confirmPassword,
-  showAlert: state.global.showAlert,
 });
 
 const mapDispatchToProps = (dispatch) => ({

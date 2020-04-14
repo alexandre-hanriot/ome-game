@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Login from 'src/frontend/containers/Login';
 import Registration from 'src/frontend/containers/Registration';
 import ForgotPassword from 'src/frontend/components/ForgotPassword';
+import UserMenu from 'src/frontend/components/UserMenu';
 
 const Authentification = ({ showModal, displayModal }) => {
   const handleLogin = () => {
@@ -26,6 +27,7 @@ const Authentification = ({ showModal, displayModal }) => {
       {showModal === 'login' && (<Login />)}
       {showModal === 'registration' && (<Registration />)}
       {showModal === 'forgotPassword' && (<ForgotPassword />)}
+      {showModal === 'connectedUser' && (<UserMenu />)}
     </>
   );
 };

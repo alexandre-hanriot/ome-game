@@ -20,7 +20,7 @@ import Details from 'src/frontend/containers/Offer/Details';
 import Reservations from 'src/frontend/containers/Account/Reservations';
 import NotFound from 'src/frontend/components/NotFound';
 import Alert from 'src/frontend/containers/Alert';
-// TODO : créer un menu lorsqu'on est connecté, message d'erreur dans la modal et pas avec alert, afficher bonjour ${pseudo} dans le header
+// TODO : créer un menu lorsqu'on est connecté
 // == Composant
 const App = ({ isLogged, showAlert }) => {
   const location = useLocation();
