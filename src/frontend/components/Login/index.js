@@ -1,11 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import PropTypes from 'prop-types';
-import Alert from 'src/frontend/containers/Alert';
 import './login.scss';
 // use Sanitize on inputs for increase security
 const Login = ({
-  displayModal, changeValue, email, password, submitLogin, showAlert,
+  displayModal, changeValue, email, password, submitLogin,
 }) => {
   const handlePassword = () => {
     displayModal('forgotPassword');
@@ -27,7 +26,6 @@ const Login = ({
 
   return (
     <div className="login">
-      {showAlert && (<Alert />)}
       <h1>Connexion</h1>
       <p className="login__text">Vous avez déjà un compte ? Connectez-vous ci-dessous.</p>
       <form className="login__form" onSubmit={handleSubmit}>
@@ -49,7 +47,6 @@ Login.propTypes = {
   submitLogin: PropTypes.func.isRequired,
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
-  showAlert: PropTypes.bool.isRequired,
 };
 
 export default Login;

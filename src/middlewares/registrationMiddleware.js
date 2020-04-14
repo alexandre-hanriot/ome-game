@@ -14,15 +14,10 @@ const registrationMiddleware = (store) => (next) => (action) => {
         // TODO traitement de la confirmation du mot de passe
         email, password, pseudo,
       } = store.getState().registration;
-      axios({
-        method: 'post',
-        url: 'http://localhost:3001/register',
-        data: {
-          identifier: email,
-          password,
-          pseudo,
-        },
-        withCredentials: true,
+      axios.post('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users', {
+        email,
+        password,
+        username: pseudo,
       })
         .then((response) => {
           store.dispatch(saveUser(response.data));

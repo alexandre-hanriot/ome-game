@@ -8,7 +8,9 @@ import Authentification from 'src/frontend/containers/Header/Authentification';
 import Menu from './Menu';
 import './header.scss';
 
-const Header = ({ showMenu, displayMenu, showModal, displayModal }) => {
+const Header = ({
+  showMenu, displayMenu, showModal, displayModal,
+}) => {
   const isMobile = useMediaPredicate('(max-width: 1024px)');
 
   const handleModal = () => {
