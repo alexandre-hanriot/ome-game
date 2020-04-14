@@ -2,7 +2,9 @@ import { connect } from 'react-redux';
 import Login from 'src/frontend/components/Login';
 
 import { showModal, showAlert } from 'src/actions/global';
-import { changeInputOfLogin, submitLogin, changeLoginError } from 'src/actions/user';
+import {
+  changeInputOfLogin, submitLogin, changeLoginError, clearLoginError,
+} from 'src/actions/user';
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
@@ -26,6 +28,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeLoginError: (message) => {
     dispatch(changeLoginError(message));
+  },
+  clearLoginError: () => {
+    dispatch(clearLoginError());
   },
 });
 

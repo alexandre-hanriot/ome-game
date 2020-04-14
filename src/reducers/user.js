@@ -1,5 +1,5 @@
 import {
-  CHANGE_INPUT_OF_LOGIN, LOG_USER, SUBMIT_LOGIN, CHANGE_LOGIN_ERROR,
+  CHANGE_INPUT_OF_LOGIN, LOG_USER, SUBMIT_LOGIN, CHANGE_LOGIN_ERROR, CLEAR_LOGIN_ERROR,
 } from 'src/actions/user';
 
 const initialState = {
@@ -41,6 +41,11 @@ const userReducer = (state = initialState, action = {}) => {
         ...state,
         loginError: action.message,
       };
+    case CLEAR_LOGIN_ERROR:
+      return {
+        ...state,
+        loginError: '',
+      }
     default:
       return state;
   }

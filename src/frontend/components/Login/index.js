@@ -1,11 +1,14 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './login.scss';
 // use Sanitize on inputs for increase security
 const Login = ({
-  displayModal, changeValue, email, password, submitLogin, loginError,
+  displayModal, changeValue, email, password, submitLogin, loginError, clearLoginError,
 }) => {
+  useEffect(() => () => {
+    clearLoginError();
+  }, []);
   const handlePassword = () => {
     displayModal('forgotPassword');
   };
@@ -53,6 +56,7 @@ Login.propTypes = {
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   loginError: PropTypes.string.isRequired,
+  clearLoginError: PropTypes.func.isRequired,
 };
 
 export default Login;
