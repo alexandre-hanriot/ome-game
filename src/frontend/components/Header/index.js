@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { useMediaPredicate } from 'react-media-hook';
 import Modal from 'src/frontend/containers/Modal';
 import Authentification from 'src/frontend/containers/Header/Authentification';
+import UserMenu from 'src/frontend/containers/Header/UserMenu';
 import Menu from './Menu';
-import UserMenu from './UserMenu';
 import './header.scss';
 
 const Header = ({

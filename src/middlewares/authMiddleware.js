@@ -27,7 +27,7 @@ const authMiddleware = (store) => (next) => (action) => {
           if (error.response.status === 404) {
             store.dispatch(changeLoginError('l\'utilisateur n\'a pas été trouvé'));
           }
-          else if (error.response.status === 500) {
+          else if (error.response.status === 400) {
             store.dispatch(changeLoginError('veuillez renseignez tous les champs obligatoires'));
           }
           else if (error.response.status === 401) {

@@ -1,5 +1,5 @@
 import {
-  CHANGE_INPUT_OF_LOGIN, LOG_USER, SUBMIT_LOGIN, CHANGE_LOGIN_ERROR, CLEAR_LOGIN_ERROR,
+  CHANGE_INPUT_OF_LOGIN, LOG_USER, SUBMIT_LOGIN, CHANGE_LOGIN_ERROR, CLEAR_LOGIN_ERROR, LOG_OUT,
 } from 'src/actions/user';
 
 const initialState = {
@@ -45,7 +45,12 @@ const userReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         loginError: '',
-      }
+      };
+    case LOG_OUT:
+      return {
+        ...state,
+        isLogged: false,
+      };
     default:
       return state;
   }
