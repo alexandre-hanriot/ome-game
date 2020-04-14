@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './login.scss';
 // use Sanitize on inputs for increase security
 const Login = ({
-  displayModal, changeValue, email, password, submitLogin,
+  displayModal, changeValue, email, password, submitLogin, loginError,
 }) => {
   const handlePassword = () => {
     displayModal('forgotPassword');
@@ -27,6 +27,11 @@ const Login = ({
   return (
     <div className="login">
       <h1>Connexion</h1>
+      {loginError !== '' && (
+        <div className="login__error">
+          {loginError}
+        </div>
+      )}
       <p className="login__text">Vous avez déjà un compte ? Connectez-vous ci-dessous.</p>
       <form className="login__form" onSubmit={handleSubmit}>
         <input type="email" placeholder="Adresse email" className="global-input" onChange={changeInput} value={email} />
@@ -47,6 +52,7 @@ Login.propTypes = {
   submitLogin: PropTypes.func.isRequired,
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
+  loginError: PropTypes.string.isRequired,
 };
 
 export default Login;

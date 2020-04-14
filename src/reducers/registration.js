@@ -7,7 +7,7 @@ const initialState = {
   confirmPassword: 'toto',
 };
 
-const RegistrationReducer = (state = initialState, action = {}) => {
+const registrationReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case CHANGE_INPUT: {
       const target = action.identifier;
@@ -33,4 +33,4 @@ const RegistrationReducer = (state = initialState, action = {}) => {
   }
 };
 
-export default RegistrationReducer;
+export default registrationReducer;

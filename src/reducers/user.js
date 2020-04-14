@@ -1,10 +1,13 @@
-import { CHANGE_INPUT_OF_LOGIN, LOG_USER, SUBMIT_LOGIN } from 'src/actions/user';
+import {
+  CHANGE_INPUT_OF_LOGIN, LOG_USER, SUBMIT_LOGIN, CHANGE_LOGIN_ERROR,
+} from 'src/actions/user';
 
 const initialState = {
   email: '',
   password: '',
   isLogged: false,
   userData: null,
+  loginError: '',
 };
 
 const userReducer = (state = initialState, action = {}) => {
@@ -32,6 +35,11 @@ const userReducer = (state = initialState, action = {}) => {
     case SUBMIT_LOGIN:
       return {
         ...state,
+      };
+    case CHANGE_LOGIN_ERROR:
+      return {
+        ...state,
+        loginError: action.message,
       };
     default:
       return state;

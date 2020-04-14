@@ -1,6 +1,7 @@
 import {
   SUBMIT_LOGIN,
   logUser,
+  changeLoginError,
 } from 'src/actions/user';
 import { showAlert, showModal } from 'src/actions/global';
 import axios from 'axios';
@@ -19,19 +20,20 @@ const authMiddleware = (store) => (next) => (action) => {
           store.dispatch(logUser(response.data));
           store.dispatch(showAlert('vous êtes connecté', true));
           store.dispatch(showModal());
+          store.dispatch(changeLoginError(''));
         })
         .catch((error) => {
           // handle error
           if (error.response.status === 404) {
-            store.dispatch(showAlert('l\'utilisateur n\'a pas été trouvé', false));
+            store.dispatch(changeLoginError('l\'utilisateur n\'a pas été trouvé'));
           }
           else if (error.response.status === 500) {
-            store.dispatch(showAlert('veuillez renseignez tous les champs obligatoires', false));
+            store.dispatch(changeLoginError('veuillez renseignez tous les champs obligatoires'));
           }
           else if (error.response.status === 401) {
-            store.dispatch(showAlert('les identifiants sont invalides', false));
+            store.dispatch(changeLoginError('les identifiants sont invalides'));
           }
-          console.warn(error.toJSON);
+          console.warn(error);
         });
       next(action);
       break;
