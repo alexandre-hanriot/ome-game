@@ -22,7 +22,7 @@ exports.findOne = (req, res) => {
 
 // Création d'un utilisateur
 exports.create = async (req, res) => {
-    // Gestion des erreurs => A COMPLETER
+    // Gestion des erreurs
     const { email = "", username = "", password = "" } = req.body;
     const is_email = utils.validateEmail(email);
 
@@ -36,14 +36,12 @@ exports.create = async (req, res) => {
         else return true;
     });
 
-    console.log(email_is_already_used);
-
     if (email === "") res.status(400).json({ error: "Email non renseigné" });
     else if (!is_email) res.status(400).json({ error: "Format de l'email incorrect" });
     else if (password === "") res.status(400).json({ error: "Mot de passe non renseigné" });
     else if (username === "") res.status(400).json({ error: "Pseudo non renseigné" });
-    else if (email_is_already_used === true) res.status(400).json({ error: "Cet email est déjà utilisé" });
-    else if (username_is_already_used === true) res.status(400).json({ error: "Ce pseudo est déjà utilisé" });
+    else if (email_is_already_used === true) res.status(409).json({ error: "Cet email est déjà utilisé" });
+    else if (username_is_already_used === true) res.status(409).json({ error: "Ce pseudo est déjà utilisé" });
     // Si pas d'erreur
     else {
         // On lance le hashage du mot de passe avant la création d'une instance User
@@ -57,28 +55,51 @@ exports.create = async (req, res) => {
     }
 };
 
-// Modification d'un utilisateur
-exports.update = (req, res) => {
+// Modification d'un utilisateur (hors mot de passe)
+exports.update = async (req, res) => {
     const id = req.params.id;
+
+    // Sécurité : on supprime la data password au cas où elle ait été saisie
+    delete req.body.password;
+
+    // Gestion des erreurs
+    const { email = "", username = "" } = req.body;
+    const is_email = utils.validateEmail(email);
+
+    const email_is_already_used = await User.findOne({ where: { email } }).then((data) => {
+        if (data === null) return false;
+        else if (data.dataValues.id.toString() === id) return false;
+        else return true;
+    });
+
+    const username_is_already_used = await User.findOne({ where: { username } }).then((data) => {
+        if (data === null) return false;
+        else if (data.dataValues.id.toString() === id) return false;
+        else return true;
+    });
+
+    if (email === "") res.status(400).json({ error: "Email non renseigné" });
+    else if (!is_email) res.status(400).json({ error: "Format de l'email incorrect" });
+    else if (username === "") res.status(400).json({ error: "Pseudo non renseigné" });
+    else if (email_is_already_used === true) res.status(409).json({ error: "Cet email est déjà utilisé" });
+    else if (username_is_already_used === true) res.status(409).json({ error: "Ce pseudo est déjà utilisé" });
+    // Si pas d'erreur
+    else coreController.update(User, id, req, res);
+};
+
+// Mise à jour du mot de passe
+exports.updatePassword = (req, res) => {
+    const id = req.params.id;
+
+    // Sécurité : on supprime la data password au cas où elle ait été saisie
+    delete req.body.password;
 
     // si oldpassword ou newpassword n'est pas défini alors sa valeur est une chaine vide
     const { oldPassword = "", newPassword = "" } = req.body;
 
-    // si on essaie de modifier directement le champ password
-    if (req.body.password) {
-        res.status(500).json({
-            error: "Pour modifier le mdp veuillez renseigner oldPassword et newPassword",
-        });
-    }
-
-    // si les données de changement de mot de passe ne sont pas renseignées on met à jour les autres données
-    else if (oldPassword.length === 0 && newPassword.length === 0) {
-        coreController.update(User, id, req, res);
-    }
-
     // si une des données de changement de mot de passe est manquante
-    else if (oldPassword.length === 0 || newPassword.length === 0) {
-        res.status(500).json({ error: "L'ancien ou le nouveau mot de passe est manquant" });
+    if (oldPassword.length === 0 || newPassword.length === 0) {
+        res.status(400).json({ error: "L'ancien ou le nouveau mot de passe est manquant" });
     }
 
     // si les données de changement de mot de passe sont renseignées
@@ -86,12 +107,12 @@ exports.update = (req, res) => {
         // On lance la fonction qui vérifie l'ancien mot de passe et renvoie le hash du nouveau mot de passe
         utils.changePassword(User, id, oldPassword, newPassword).then((newHashedPassword) => {
             if (!newHashedPassword) {
-                res.status(500).json({
+                res.status(401).json({
                     error: "Ancien mot de passe incorrect. Echec mise à jour mot de passe",
                 });
             } else {
                 // On récupère le contenu du body de la requête en modifiant le mot de passe
-                req.body = { ...req.body, password: newHashedPassword };
+                req.body = { password: newHashedPassword };
 
                 // On fait la mise à jour
                 coreController.update(User, id, req, res);

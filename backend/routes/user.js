@@ -14,6 +14,9 @@ router.post("/", userController.create);
 // Modification d'un utilisateur
 router.put("/:id(\\d+)", userController.update);
 
+// Modification du mot de passe d'un utilisateur
+router.put("/:id(\\d+)/password", userController.updatePassword);
+
 // Suppression de plusieurs utilisateurs en fonction de leur id
 router.delete("/", userController.deleteManyByID);
 
