@@ -13,11 +13,11 @@ exports.login = (req, res) => {
     if (is_email) identifier = identifier.toLowerCase(); // Si l'utilisateur s'authentifie par son mail on passe tout en lowercase
 
     if (password === "")
-        res.status(500).json({
+        res.status(400).json({
             error: "Mot de passe non renseigné",
         });
     else if (identifier === "")
-        res.status(500).json({
+        res.status(400).json({
             error: "Merci de renseigner l'email ou le username",
         });
     // Si l'identifier est un email

@@ -21,23 +21,40 @@ exports.findOne = (req, res) => {
 };
 
 // Création d'un utilisateur
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
     // Gestion des erreurs => A COMPLETER
-    // if (!req.body.email) {
-    //     res.status(400).send({
-    //         message: "L'email doit être renseigné",
-    //     });
-    //     return;
-    // }
+    const { email = "", username = "", password = "" } = req.body;
+    const is_email = utils.validateEmail(email);
 
-    // On lance le hashage du mot de passe avant la création d'une instance User
-    bcrypt.hash(req.body.password, bcrypt.genSaltSync(8)).then((hashedPassword) => {
-        // Création d'une instance avec les données renseignées et le hash du mot de passe
-        const user = { ...req.body, password: hashedPassword };
-
-        // Sauvegarde de l'instance dans la bdd
-        coreController.create(User, user, res);
+    const email_is_already_used = await User.findOne({ where: { email } }).then((data) => {
+        if (data === null) return false;
+        else return true;
     });
+
+    const username_is_already_used = await User.findOne({ where: { username } }).then((data) => {
+        if (data === null) return false;
+        else return true;
+    });
+
+    console.log(email_is_already_used);
+
+    if (email === "") res.status(400).json({ error: "Email non renseigné" });
+    else if (!is_email) res.status(400).json({ error: "Format de l'email incorrect" });
+    else if (password === "") res.status(400).json({ error: "Mot de passe non renseigné" });
+    else if (username === "") res.status(400).json({ error: "Pseudo non renseigné" });
+    else if (email_is_already_used === true) res.status(400).json({ error: "Cet email est déjà utilisé" });
+    else if (username_is_already_used === true) res.status(400).json({ error: "Ce pseudo est déjà utilisé" });
+    // Si pas d'erreur
+    else {
+        // On lance le hashage du mot de passe avant la création d'une instance User
+        bcrypt.hash(password, bcrypt.genSaltSync(8)).then((hashedPassword) => {
+            // Création d'une instance avec les données renseignées et le hash du mot de passe
+            const user = { ...req.body, password: hashedPassword };
+
+            // Sauvegarde de l'instance dans la bdd
+            coreController.create(User, user, res);
+        });
+    }
 };
 
 // Modification d'un utilisateur
@@ -45,8 +62,7 @@ exports.update = (req, res) => {
     const id = req.params.id;
 
     // si oldpassword ou newpassword n'est pas défini alors sa valeur est une chaine vide
-    const oldPassword = typeof req.body.oldPassword === "undefined" ? "" : req.body.oldPassword;
-    const newPassword = typeof req.body.newPassword === "undefined" ? "" : req.body.newPassword;
+    const { oldPassword = "", newPassword = "" } = req.body;
 
     // si on essaie de modifier directement le champ password
     if (req.body.password) {
@@ -107,8 +123,7 @@ exports.deleteOne = (req, res) => {
 // Récupération des offres d'un utilisateur et tri par date de création décroissante
 exports.findAllOffers = (req, res) => {
     const userId = req.params.id;
-    const limit = typeof req.query.limit === "undefined" ? null : req.query.limit; // Pour afficher uniquement les X premiers résultats
-    const resultPage = typeof req.query.resultPage === "undefined" ? null : req.query.resultPage; // Pour afficher une certaine page de résultats
+    const { limit = null, resultPage = null } = req.query; // Pour afficher uniquement X résultats de la Nième page
 
     const offset = resultPage > 0 ? limit * (resultPage - 1) : 0;
 
@@ -135,12 +150,11 @@ exports.findAllOffers = (req, res) => {
 // Récupération des réservations d'un utilisateur et tri par date de création décroissante
 exports.findAllReservations = (req, res) => {
     const userId = req.params.id;
-    const limit = typeof req.query.limit === "undefined" ? null : req.query.limit; // Pour afficher uniquement les X premiers résultats
-    const resultPage = typeof req.query.resultPage === "undefined" ? null : req.query.resultPage; // Pour afficher une certaine page de résultats
+    const { limit = null, resultPage = null } = req.query; // Pour afficher uniquement X résultats de la Nième page
 
     const offset = resultPage > 0 ? limit * (resultPage - 1) : 0;
 
-    Reservations.findAll({
+    Reservation.findAll({
         where: { userId },
         include: {
             model: Offer,
@@ -166,8 +180,7 @@ exports.findAllReservations = (req, res) => {
 // Récupération des favoris d'un utilisateur et tri par date de création décroissante
 exports.findAllFavorites = (req, res) => {
     const userId = req.params.id;
-    const limit = typeof req.query.limit === "undefined" ? null : req.query.limit; // Pour afficher uniquement les X premiers résultats
-    const resultPage = typeof req.query.resultPage === "undefined" ? null : req.query.resultPage; // Pour afficher une certaine page de résultats
+    const { limit = null, resultPage = null } = req.query; // Pour afficher uniquement X résultats de la Nième page
 
     const offset = resultPage > 0 ? limit * (resultPage - 1) : 0;
 

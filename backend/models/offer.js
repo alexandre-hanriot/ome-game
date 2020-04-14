@@ -36,6 +36,22 @@ module.exports = (sequelize, Sequelize) => {
                 type: Sequelize.TEXT,
                 defaultValue: null,
             },
+            postal_code: {
+                type: Sequelize.STRING(5),
+                defaultValue: null,
+            },
+            city: {
+                type: Sequelize.STRING,
+                defaultValue: null,
+            },
+            latitude: {
+                type: Sequelize.STRING(30),
+                defaultValue: null,
+            },
+            longitude: {
+                type: Sequelize.STRING(30),
+                defaultValue: null,
+            },
         },
         {
             indexes: [
@@ -60,6 +76,18 @@ module.exports = (sequelize, Sequelize) => {
                 },
                 {
                     fields: ["description"],
+                },
+                {
+                    fields: ["postal_code"],
+                },
+                {
+                    fields: ["city"],
+                },
+                {
+                    fields: ["latitude"],
+                },
+                {
+                    fields: ["longitude"],
                 },
                 // On crée les index des foreign key automatiquement générées par les associations dans models/index.js
                 {

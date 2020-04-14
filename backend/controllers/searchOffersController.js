@@ -8,16 +8,20 @@ const User = db.users;
 // Récupération des offres en fonction d'une recherche de l'utilisateur
 exports.findOffersResults = (req, res) => {
     const status = "0"; // on affiche que les offres actives
-    const client_id = req.query.client_id; // on récupère l'id de l'utilisateur qui fait la requête
+
+    const {
+        client_id = null, // on récupère l'id de l'utilisateur qui fait la requête
+        game_name = "", // par défaut on recherche tous les jeux
+        age_min = 999,
+        game_category_name = "",
+        postal_code = "",
+        city = "",
+        nb_players = "",
+    } = req.query;
 
     const is_available = typeof req.query.is_available === "undefined" ? [true, false] : [req.query.is_available]; // par défaut on affiche tous les résultats
     const type = typeof req.query.type === "undefined" ? ["0", "1"] : [req.query.type]; // prêt/location, par défaut pas de filtre
-    const game_name = typeof req.query.game_name === "undefined" ? "" : req.query.game_name; // par défaut on recherche tous les jeux
-    const age_min = typeof req.query.age_min === "undefined" ? 999 : req.query.age_min;
-    const game_category_name = typeof req.query.game_category_name === "undefined" ? "" : req.query.game_category_name;
-    const postal_code = typeof req.query.postal_code === "undefined" ? "" : req.query.postal_code;
 
-    const nb_players = typeof req.query.nb_players === "undefined" ? "" : req.query.nb_players;
     const nb_players_min = nb_players === "" ? 999 : nb_players;
     const nb_players_max = nb_players === "" ? 0 : nb_players;
 
@@ -32,6 +36,12 @@ exports.findOffersResults = (req, res) => {
             },
             type: {
                 [Op.or]: type,
+            },
+            postal_code: {
+                [Op.substring]: postal_code, // Si postal_code = "" on ne filtre pas
+            },
+            city: {
+                [Op.iLike]: `%${city}%`, // case insensitive
             },
         },
         include: [
@@ -60,15 +70,15 @@ exports.findOffersResults = (req, res) => {
                     },
                 },
             },
-            {
-                model: User,
-                where: {
-                    postal_code: {
-                        [Op.substring]: postal_code, // Si postal_code = "" on ne filtre pas
-                    },
-                },
-                attributes: ["postal_code"],
-            },
+            // {
+            //     model: User,
+            //     where: {
+            //         postal_code: {
+            //             [Op.substring]: postal_code, // Si postal_code = "" on ne filtre pas
+            //         },
+            //     },
+            //     attributes: ["postal_code"],
+            // },
         ],
         order: [["id", "ASC"]],
     })

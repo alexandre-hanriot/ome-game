@@ -1,3 +1,5 @@
+const db = require("../models/index");
+const User = db.users;
 const bcrypt = require("bcrypt");
 
 // Fonction qui génère un nouveau password hashé en cas de changement de mot de passe
@@ -25,3 +27,21 @@ exports.validateEmail = (email) => {
     var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return regex.test(String(email).toLowerCase());
 };
+
+// Fonction qui vérifie si l'email d'un utilisateur est déjà présent dans la bdd
+function checkIfEmailExists(email) {
+    User.findOne({ where: { email } }).then((data) => {
+        if (data === null) return false;
+        else return true;
+    });
+}
+module.exports.checkIfEmailExists = checkIfEmailExists;
+
+// Fonction qui vérifie si l'email d'un utilisateur est déjà présent dans la bdd
+async function checkIfUsernamelExists(username) {
+    User.findOne({ where: { username } }).then((data) => {
+        if (data === null) return false;
+        else return true;
+    });
+}
+module.exports.checkIfUsernamelExists = checkIfUsernamelExists;
