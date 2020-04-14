@@ -106,10 +106,42 @@ exports.deleteOne = (req, res) => {
 
 // Récupération des offres d'un utilisateur et tri par date de création décroissante
 exports.findAllOffers = (req, res) => {
-    const id = req.params.id;
+    const userId = req.params.id;
+    const limit = typeof req.query.limit === "undefined" ? null : req.query.limit; // Pour afficher uniquement les X premiers résultats
+    const resultPage = typeof req.query.resultPage === "undefined" ? null : req.query.resultPage; // Pour afficher une certaine page de résultats
 
-    User.findOne({
-        where: { id },
+    const offset = resultPage > 0 ? limit * (resultPage - 1) : 0;
+
+    Offer.findAll({
+        where: { userId },
+        include: {
+            model: Game,
+            include: Game_category,
+        },
+        offset,
+        limit,
+        order: [["createdAt", "DESC"]],
+    })
+        .then((data) => {
+            res.send(data);
+        })
+        .catch((err) => {
+            res.status(500).json({
+                error: `Une erreur est survenue pendant la récupération des offres de l'utilisateur id=${userId} : ${err}`,
+            });
+        });
+};
+
+// Récupération des réservations d'un utilisateur et tri par date de création décroissante
+exports.findAllReservations = (req, res) => {
+    const userId = req.params.id;
+    const limit = typeof req.query.limit === "undefined" ? null : req.query.limit; // Pour afficher uniquement les X premiers résultats
+    const resultPage = typeof req.query.resultPage === "undefined" ? null : req.query.resultPage; // Pour afficher une certaine page de résultats
+
+    const offset = resultPage > 0 ? limit * (resultPage - 1) : 0;
+
+    Reservations.findAll({
+        where: { userId },
         include: {
             model: Offer,
             include: {
@@ -117,70 +149,47 @@ exports.findAllOffers = (req, res) => {
                 include: Game_category,
             },
         },
-        order: [[Offer, "createdAt", "DESC"]],
+        offset,
+        limit,
+        order: [["createdAt", "DESC"]],
     })
         .then((data) => {
             res.send(data);
         })
         .catch((err) => {
             res.status(500).json({
-                error: `Une erreur est survenue pendant la récupération des offres de l'utilisateur id=${id} : ${err}`,
-            });
-        });
-};
-
-// Récupération des réservations d'un utilisateur et tri par date de création décroissante
-exports.findAllReservations = (req, res) => {
-    const id = req.params.id;
-
-    User.findOne({
-        where: { id },
-        include: {
-            model: Reservation,
-            include: {
-                model: Offer,
-                include: {
-                    model: Game,
-                    include: Game_category,
-                },
-            },
-        },
-        order: [[Reservation, "createdAt", "DESC"]],
-    })
-        .then((data) => {
-            res.send(data);
-        })
-        .catch((err) => {
-            res.status(500).json({
-                error: `Une erreur est survenue pendant la récupération des réservations de l'utilisateur id=${id} : ${err}`,
+                error: `Une erreur est survenue pendant la récupération des réservations de l'utilisateur id=${userId} : ${err}`,
             });
         });
 };
 
 // Récupération des favoris d'un utilisateur et tri par date de création décroissante
 exports.findAllFavorites = (req, res) => {
-    const id = req.params.id;
+    const userId = req.params.id;
+    const limit = typeof req.query.limit === "undefined" ? null : req.query.limit; // Pour afficher uniquement les X premiers résultats
+    const resultPage = typeof req.query.resultPage === "undefined" ? null : req.query.resultPage; // Pour afficher une certaine page de résultats
 
-    User.findOne({
-        where: { id },
+    const offset = resultPage > 0 ? limit * (resultPage - 1) : 0;
+
+    Favorite.findAll({
+        where: { userId },
         include: {
-            model: Favorite,
+            model: Offer,
             include: {
-                model: Offer,
-                include: {
-                    model: Game,
-                    include: Game_category,
-                },
+                model: Game,
+                include: Game_category,
             },
         },
-        order: [[Favorite, "createdAt", "DESC"]],
+        offset,
+        limit,
+        order: [["createdAt", "DESC"]],
     })
         .then((data) => {
             res.send(data);
         })
         .catch((err) => {
             res.status(500).json({
-                error: `Une erreur est survenue pendant la récupération des favoris de l'utilisateur id=${id} : ${err}`,
+                error: `Une erreur est survenue pendant la récupération des favoris de l'utilisateur id=${userId} : ${err}`,
             });
         });
 };

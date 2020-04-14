@@ -27,11 +27,6 @@ db.sequelize.sync().then(() => {
 
 const app = express();
 
-app.use(function (req, res, next) {
-    console.log("XXXXXXXXXXXXX");
-    next();
-});
-
 app.use(logger("dev"));
 
 // Paramérage des CORS : A CONFIGURER
