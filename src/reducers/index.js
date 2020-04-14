@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 
 import globalReducer from './global';
-import AuthenticateReducer from './authenticate';
+import userReducer from './user';
 import RegistrationReducer from './registration';
 
 const rootReducer = combineReducers({
   global: globalReducer,
-  authenticate: AuthenticateReducer,
+  user: userReducer,
   registration: RegistrationReducer,
 });
 

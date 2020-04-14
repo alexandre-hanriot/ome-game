@@ -1,14 +1,14 @@
 import {
   SUBMIT_LOGIN,
   logUser,
-} from 'src/actions/authenticate';
+} from 'src/actions/user';
 import { showAlert, showModal } from 'src/actions/global';
 import axios from 'axios';
 
 const authMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case SUBMIT_LOGIN: {
-      const { email, password } = store.getState().authenticate;
+      const { email, password } = store.getState().user;
       axios
         .post('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/login', {
           identifier: email,

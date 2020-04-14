@@ -1,4 +1,4 @@
-import { CHANGE_INPUT_OF_LOGIN, LOG_USER, SUBMIT_LOGIN } from 'src/actions/authenticate';
+import { CHANGE_INPUT_OF_LOGIN, LOG_USER, SUBMIT_LOGIN } from 'src/actions/user';
 
 const initialState = {
   email: '',
@@ -7,7 +7,7 @@ const initialState = {
   userData: null,
 };
 
-const authenticateReducer = (state = initialState, action = {}) => {
+const userReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case CHANGE_INPUT_OF_LOGIN:
       if (action.inputIdentifier === 'email') {
@@ -38,4 +38,4 @@ const authenticateReducer = (state = initialState, action = {}) => {
   }
 };
 
-export default authenticateReducer;
+export default userReducer;
