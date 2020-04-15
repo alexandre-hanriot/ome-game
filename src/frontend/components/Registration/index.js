@@ -21,7 +21,7 @@ const Registration = ({
   };
   const handleRegisterSubmit = (event) => {
     event.preventDefault();
-    if (inputPassword === confirmPassword && inputPassword !== '' && confirmPassword !== '') {
+    if (inputPassword === confirmPassword && inputPassword !== '' && confirmPassword !== '' && pseudo.length >= 3) {
       submitRegistration();
     }
     if (inputPassword !== confirmPassword) {
@@ -30,6 +30,10 @@ const Registration = ({
     }
     if (email === '' || inputPassword === '' || confirmPassword === '' || pseudo === '') {
       changeRegistrationError('veuillez renseignez tous les champs');
+      reactInputPassword.clear();
+    }
+    if (pseudo.length < 3) {
+      changeRegistrationError('le pseudo doit contenir au moins 3 caractères');
       reactInputPassword.clear();
     }
   };
