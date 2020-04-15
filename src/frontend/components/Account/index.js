@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Modal from 'src/frontend/containers/Modal';
@@ -7,12 +7,28 @@ import ConfirmSupp from 'src/frontend/containers/Account/Modal';
 import { useTitle } from 'src/hooks/useTitle';
 import './account.scss';
 
-const Account = ({ displayModal, showModal, showAlert }) => {
+const Account = ({
+  displayModal,
+  showModal,
+  showAlert,
+  offersData,
+  data,
+  data2,
+  favoritesData,
+  fetchParamsReservations,
+  fetchParamsOffers,
+}) => {
   useTitle('Mon compte');
+
+  useEffect(() => {
+    fetchParamsReservations();
+    fetchParamsOffers();
+  }, []);
 
   const handleModal = () => {
     displayModal('confirmSupp');
   };
+  console.log(data2);
   return (
     <div className="wrapper account">
       {showModal === 'confirmSupp' && (
@@ -29,55 +45,53 @@ const Account = ({ displayModal, showModal, showAlert }) => {
           <h2 className="account__general__subtitle">Mes réservations</h2>
           <table className="account__general__table">
             <tbody className="account__general__table__body">
-              <tr className="account__general__table__body__tr">
-                <td className="account__general__table__body__td account__general__table__body__td--left">Nom de l'offre</td>
-                <td className="account__general__table__body__td">
-                  <button
-                    className="account__general__table__body__td__button__remove"
-                    type="button"
-                    title="annuler"
-                    onClick={handleModal}
-                  >
-                    <i className="far fa-times" />
-                  </button>
-                </td>
-              </tr>
-              <tr className="account__general__table__body__tr">
-                <td className="account__general__table__body__td account__general__table__body__td--left">Nom de l'offre</td>
-                <td className="account__general__table__body__td">
-                  <button
-                    className="account__general__table__body__td__button__remove"
-                    type="button"
-                    title="annuler"
-                  >
-                    <i className="far fa-times" />
-                  </button>
-                </td>
-              </tr>
-              <tr className="account__general__table__body__tr">
-                <td className="account__general__table__body__td account__general__table__body__td--left">Nom de l'offre</td>
-                <td className="account__general__table__body__td">
-                  <button
-                    className="account__general__table__body__td__button__remove"
-                    type="button"
-                    title="annuler"
-                  >
-                    <i className="far fa-times" />
-                  </button>
-                </td>
-              </tr>
-              <tr className="account__general__table__body__tr">
-                <td className="account__general__table__body__td account__general__table__body__td--left">Nom de l'offre</td>
-                <td className="account__general__table__body__td">
-                  <button
-                    className="account__general__table__body__td__button__remove"
-                    type="button"
-                    title="annuler"
-                  >
-                    <i className="far fa-times" />
-                  </button>
-                </td>
-              </tr>
+              {data.map((reservation) => (
+                <tr className="account__general__table__body__tr">
+                  <td className="account__general__table__body__td account__general__table__body__td--left">{reservation.offer.title}</td>
+                  <td className="account__general__table__body__td">
+                    {reservation.status === '0' && (
+                      <span
+                        className="account__general__table__body__td__disponible"
+                      >en attente de validation
+                      </span>
+                    )}
+                    {reservation.status === '1' && (
+                      <span
+                        className="account__general__table__body__td__disponible"
+                      >validée
+                      </span>
+                    )}
+                    {reservation.status === '2' && (
+                      <span
+                        className="account__general__table__body__td__disponible"
+                      >en cours
+                      </span>
+                    )}
+                    {reservation.status === '3' && (
+                      <span
+                        className="account__general__table__body__td__disponible"
+                      >terminée
+                      </span>
+                    )}
+                    {reservation.status === '4' && (
+                      <span
+                        className="account__general__table__body__td__disponible"
+                      >annulée
+                      </span>
+                    )}
+                  </td>
+                  <td className="account__general__table__body__td">
+                    <button
+                      className="account__general__table__body__td__button__remove"
+                      type="button"
+                      title="annuler"
+                      onClick={handleModal}
+                    >
+                      <i className="far fa-times" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
           <Link to="/compte/reservations" className="account__general__button global-button global-button--light"><i className="far fa-eye" /> Voir plus</Link>
@@ -88,105 +102,36 @@ const Account = ({ displayModal, showModal, showAlert }) => {
           <h2 className="account__general__subtitle">Mes offres</h2>
           <table className="account__general__table">
             <tbody className="account__general__table__body">
-              <tr className="account__general__table__body__tr">
-                <td className="account__general__table__body__td account__general__table__body__td--left">Nom de l'offre</td>
-                <td className="account__general__table__body__td">
-                  <span
-                    className="account__general__table__body__td__disponible"
-                  >
-                    disponible
-                  </span>
-                </td>
-                <td className="account__general__table__body__td">
-                  <Link
-                    className="account__general__table__body__td__button__pencil"
-                    to="/compte/offres/ajouter"
-                  >
-                    <i className="far fa-pencil-alt" />
-                  </Link>
-                  <button
-                    className="account__general__table__body__td__button__remove"
-                    type="button"
-                    onClick={handleModal}
-                  >
-                    <i className="far fa-times" />
-                  </button>
-                </td>
-              </tr>
-              <tr className="account__general__table__body__tr">
-                <td className="account__general__table__body__td account__general__table__body__td--left">Nom de l'offre</td>
-                <td className="account__general__table__body__td">
-                  <span
-                    className="account__general__table__body__td__disponible"
-                  >
-                    disponible
-                  </span>
-                </td>
-                <td className="account__general__table__body__td">
-                  <Link
-                    className="account__general__table__body__td__button__pencil"
-                    to="/compte/offres/ajouter"
-                  >
-                    <i className="far fa-pencil-alt" />
-                  </Link>
-                  <button
-                    className="account__general__table__body__td__button__remove"
-                    type="button"
-                  >
-                    <i className="far fa-times" />
-                  </button>
-                </td>
-              </tr>
-              <tr className="account__general__table__body__tr">
-                <td className="account__general__table__body__td account__general__table__body__td--left">Nom de l'offre</td>
-                <td className="account__general__table__body__td">
-                  <span
-                    className="account__general__table__body__td__disponible"
-                  >
-                    disponible
-                  </span>
-                </td>
-                <td className="account__general__table__body__td">
-                  <Link
-                    className="account__general__table__body__td__button__pencil"
-                    to="/compte/offres/ajouter"
-                  >
-                    <i className="far fa-pencil-alt" />
-                  </Link>
-                  <button
-                    className="account__general__table__body__td__button__remove"
-                    type="button"
-                    onClick={handleModal}
-                  >
-                    <i className="far fa-times" />
-                  </button>
-                </td>
-              </tr>
-              <tr className="account__general__table__body__tr">
-                <td className="account__general__table__body__td account__general__table__body__td--left">Nom de l'offre</td>
-                <td className="account__general__table__body__td">
-                  <span
-                    className="account__general__table__body__td__disponible"
-                  >
-                    disponible
-                  </span>
-                </td>
-                <td className="account__general__table__body__td">
-                  <Link
-                    className="account__general__table__body__td__button__pencil"
-                    to="/compte/offres/ajouter"
-                  >
-                    <i className="far fa-pencil-alt" />
-                  </Link>
-                  <button
-                    className="account__general__table__body__td__button__remove"
-                    type="button"
-                    onClick={handleModal}
-                  >
-                    <i className="far fa-times" />
-                  </button>
-                </td>
-              </tr>
+              {data2.map((offerData) => (
+                <tr className="account__general__table__body__tr">
+                  <td
+                    className="account__general__table__body__td account__general__table__body__td--left"
+                  >{offerData.title}
+                  </td>
+                  <td className="account__general__table__body__td">
+                    <span
+                      className="account__general__table__body__td__disponible"
+                    >
+                      {offerData.is_available ? 'disponible' : 'indisponible'}
+                    </span>
+                  </td>
+                  <td className="account__general__table__body__td account__general__table__body__td--button">
+                    <Link
+                      className="account__general__table__body__td__button__pencil"
+                      to="/compte/offres/ajouter"
+                    >
+                      <i className="far fa-pencil-alt" />
+                    </Link>
+                    <button
+                      className="account__general__table__body__td__button__remove"
+                      type="button"
+                      onClick={handleModal}
+                    >
+                      <i className="far fa-times" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
           <Link to="/compte/offres" className="account__general__button global-button global-button--light"><i className="far fa-eye" /> Voir plus</Link>
@@ -195,143 +140,50 @@ const Account = ({ displayModal, showModal, showAlert }) => {
         {/* Ma liste de souhait */}
         <div className="account__general wish-list">
           <h2 className="account__general__subtitle">Ma liste de souhait</h2>
-          <table className="account__general__table">
-            <tbody className="account__general__table__body">
-              <tr className="account__general__table__body__tr">
-                <td className="account__general__table__body__td account__general__table__body__td--left">Nom de l'offre</td>
-                <td className="account__general__table__body__td">
-                  <span
-                    className="account__general__table__body__td__disponible"
-                  >
-                    disponible
-                  </span>
-                </td>
-                <td className="account__general__table__body__td">
-                  <button
-                    className="account__general__table__body__td__button__bell--inactive"
-                    type="button"
-                  >
-                    <i className="fas fa-bell" />
-                  </button>
-                  <button
-                    className="account__general__table__body__td__button__bellslash account__general__table__body__td__button__bellslash--active"
-                    type="button"
-                  >
-                    <i className="fas fa-bell-slash" />
-                  </button>
-                  <button
-                    className="account__general__table__body__td__button__remove"
-                    type="button"
-                    title="annuler"
-                    onClick={handleModal}
-                  >
-                    <i className="fas fa-times" />
-                  </button>
-                </td>
-              </tr>
-              <tr className="account__general__table__body__tr">
-                <td className="account__general__table__body__td account__general__table__body__td--left">Nom de l'offre</td>
-                <td className="account__general__table__body__td">
-                  <span
-                    className="account__general__table__body__td__disponible--inactive"
-                  >
-                    disponible
-                  </span>
-                  <span
-                    className="account__general__table__body__td__indisponible--active account__general__table__body__td__indisponible"
-                  >
-                    indisponible
-                  </span>
-                </td>
-                <td className="account__general__table__body__td">
-                  <button
-                    className="account__general__table__body__td__button__bell"
-                    type="button"
-                  >
-                    <i className="fas fa-bell" />
-                  </button>
-                  <button
-                    className="account__general__table__body__td__button__bellslash account__general__table__body__td__button__bellslash--inactive"
-                    type="button"
-                  >
-                    <i className="fas fa-bell-slash" />
-                  </button>
-                  <button
-                    className="account__general__table__body__td__button__remove"
-                    type="button"
-                    title="annuler"
-                    onClick={handleModal}
-                  >
-                    <i className="fas fa-times" />
-                  </button>
-                </td>
-              </tr>
-              <tr className="account__general__table__body__tr">
-                <td className="account__general__table__body__td account__general__table__body__td--left">Nom de l'offre</td>
-                <td className="account__general__table__body__td">
-                  <span
-                    className="account__general__table__body__td__disponible"
-                  >
-                    disponible
-                  </span>
-                </td>
-                <td className="account__general__table__body__td">
-                  <button
-                    className="account__general__table__body__td__button__bell"
-                    type="button"
-                  >
-                    <i className="fas fa-bell" />
-                  </button>
-                  <button
-                    className="account__general__table__body__td__button__bellslash account__general__table__body__td__button__bellslash--inactive"
-                    type="button"
-                  >
-                    <i className="fas fa-bell-slash" />
-                  </button>
-                  <button
-                    className="account__general__table__body__td__button__remove"
-                    type="button"
-                    title="annuler"
-                    onClick={handleModal}
-                  >
-                    <i className="fas fa-times" />
-                  </button>
-                </td>
-              </tr>
-              <tr className="account__general__table__body__tr">
-                <td className="account__general__table__body__td account__general__table__body__td--left">Nom de l'offre</td>
-                <td className="account__general__table__body__td">
-                  <span
-                    className="account__general__table__body__td__disponible"
-                  >
-                    disponible
-                  </span>
-                </td>
-                <td className="account__general__table__body__td">
-                  <button
-                    className="account__general__table__body__td__button__bell"
-                    type="button"
-                  >
-                    <i className="fas fa-bell" />
-                  </button>
-                  <button
-                    className="account__general__table__body__td__button__bellslash account__general__table__body__td__button__bellslash--inactive"
-                    type="button"
-                  >
-                    <i className="fas fa-bell-slash" />
-                  </button>
-                  <button
-                    className="account__general__table__body__td__button__remove"
-                    type="button"
-                    title="annuler"
-                    onClick={handleModal}
-                  >
-                    <i className="fas fa-times" />
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div className="account__general__table__test">
+            <table className="account__general__table">
+              <tbody className="account__general__table__body">
+                {favoritesData.map((favoriteData) => (
+                  <tr className="account__general__table__body__tr">
+                    <td className="account__general__table__body__td
+                        account__general__table__body__td--left"
+                    >
+                      {favoriteData.offerId}
+                    </td>
+                    <td className="account__general__table__body__td">
+                      <span
+                        className="account__general__table__body__td__disponible"
+                      >
+                        {favoriteData.notify_when_available ? 'disponible' : 'non disponible'}
+                      </span>
+                    </td>
+                    <td className="account__general__table__body__td">
+                      <button
+                        className="account__general__table__body__td__button__bell--inactive"
+                        type="button"
+                      >
+                        <i className="fas fa-bell" />
+                      </button>
+                      <button
+                        className="account__general__table__body__td__button__bellslash account__general__table__body__td__button__bellslash--active"
+                        type="button"
+                      >
+                        <i className="fas fa-bell-slash" />
+                      </button>
+                      <button
+                        className="account__general__table__body__td__button__remove"
+                        type="button"
+                        title="annuler"
+                        onClick={handleModal}
+                      >
+                        <i className="fas fa-times" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
         {/* Profil */}
         <div className="account__general profil">
@@ -361,6 +213,28 @@ Account.propTypes = {
   displayModal: PropTypes.func.isRequired,
   showModal: PropTypes.string.isRequired,
   showAlert: PropTypes.bool.isRequired,
+  fetchParamsReservations: PropTypes.func.isRequired,
+  fetchParamsOffers: PropTypes.func.isRequired,
+  data2: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      is_available: PropTypes.bool.isRequired,
+    }).isRequired,
+  ).isRequired,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isrequired,
+      offerId: PropTypes.number.isRequired,
+    }).isRequired,
+  ).isRequired,
+  favoritesData: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      offerId: PropTypes.string.isRequired,
+      notify_when_available: PropTypes.bool.isRequired,
+    }).isRequired,
+  ).isRequired,
 };
 
 export default Account;
