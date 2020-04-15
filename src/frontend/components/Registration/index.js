@@ -26,6 +26,7 @@ const Registration = ({
     event.preventDefault();
     if (inputPassword === confirmPassword && inputPassword !== '' && confirmPassword !== '' && pseudo.length >= 3 && isLegalMentionsChecked) {
       submitRegistration();
+      reactInputPassword.clear();
     }
     if (inputPassword !== confirmPassword) {
       changeRegistrationError('les mots de passe ne correspondent pas');
