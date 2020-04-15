@@ -17,6 +17,7 @@ export const SET_FILTER_TYPE = 'SET_FILTER_TYPE';
 export const SET_FILTER_CATEGORIES = 'SET_FILTER_CATEGORIES';
 export const SET_FILTER_GAMES = 'SET_FILTER_GAMES';
 export const SET_FILTER_PLAYERS = 'SET_FILTER_PLAYERS';
+export const REMOVE_FILTER = 'REMOVE_FILTER';
 
 export const mapLoaded = () => ({
   type: SET_MAP_LOADED,
@@ -80,19 +81,22 @@ export const changeFieldPlayers = (value) => ({
   value,
 });
 
-export const changeFilterDisponibility = (value) => ({
+export const changeFilterDisponibility = (value, name) => ({
   type: SET_FILTER_DISPONIBILITY,
   value,
+  name,
 });
 
-export const changeFilterType = (value) => ({
+export const changeFilterType = (value, name) => ({
   type: SET_FILTER_TYPE,
   value,
+  name,
 });
 
-export const changeFilterCategories = (value) => ({
+export const changeFilterCategories = (value, name) => ({
   type: SET_FILTER_CATEGORIES,
   value,
+  name,
 });
 
 export const changeFilterGames = () => ({
@@ -101,4 +105,10 @@ export const changeFilterGames = () => ({
 
 export const changeFilterPlayers = () => ({
   type: SET_FILTER_PLAYERS,
+});
+
+export const removeFilter = (name, value) => ({
+  type: REMOVE_FILTER,
+  name,
+  value,
 });

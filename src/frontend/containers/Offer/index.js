@@ -11,6 +11,7 @@ import {
   changeFilterCategories,
   changeFilterGames,
   changeFilterPlayers,
+  removeFilter,
 } from 'src/actions/map';
 
 const mapStateToProps = (state) => ({
@@ -19,12 +20,8 @@ const mapStateToProps = (state) => ({
   gamesCategories: state.map.gamesCategories,
   fieldGame: state.map.fieldGame,
   fieldPlayers: state.map.fieldPlayers,
-  filterLastUpdate: state.map.filterLastUpdate,
-  filterDisponibility: state.map.filterDisponibility,
-  filterType: state.map.filterType,
-  filterCategories: state.map.filterCategories,
-  filterGames: state.map.filterGames,
-  filterPlayers: state.map.filterPlayers,
+  filters: state.map.filters,
+  tags: state.map.tags,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -34,14 +31,14 @@ const mapDispatchToProps = (dispatch) => ({
   fetchGamesCategories: () => {
     dispatch(fetchGamesCategories());
   },
-  changeFilterDisponibility: (value) => {
-    dispatch(changeFilterDisponibility(value));
+  changeFilterDisponibility: (value, name) => {
+    dispatch(changeFilterDisponibility(value, name));
   },
-  changeFilterType: (value) => {
-    dispatch(changeFilterType(value));
+  changeFilterType: (value, name) => {
+    dispatch(changeFilterType(value, name));
   },
-  changeFilterCategories: (value) => {
-    dispatch(changeFilterCategories(value));
+  changeFilterCategories: (value, name) => {
+    dispatch(changeFilterCategories(value, name));
   },
   changeFieldGame: (value) => {
     dispatch(changeFieldGame(value));
@@ -54,6 +51,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeFilterPlayers: () => {
     dispatch(changeFilterPlayers());
+  },
+  removeFilter: (name, value) => {
+    dispatch(removeFilter(name, value));
   },
 });
 

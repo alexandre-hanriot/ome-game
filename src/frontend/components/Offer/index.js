@@ -20,17 +20,14 @@ const Offer = ({
   fieldPlayers,
   changeFieldGame,
   changeFieldPlayers,
-  filterLastUpdate,
-  filterDisponibility,
-  filterType,
-  filterCategories,
-  filterGames,
-  filterPlayers,
+  filters,
+  tags,
   changeFilterDisponibility,
   changeFilterType,
   changeFilterCategories,
   changeFilterGames,
   changeFilterPlayers,
+  removeFilter,
 }) => {
   useTitle('Trouver un jeu');
   const mapRef = useRef();
@@ -45,28 +42,29 @@ const Offer = ({
   const history = useHistory();
 
   // generate url with filters
-  const updateFilter = () => {
+  const generateUrl = () => {
     let { pathname } = history.location;
 
-    if (filterDisponibility !== 'all') {
-      pathname += `?disponibility=${filterDisponibility}`;
+    if (filters.disponibility !== 'all') {
+      pathname += `?disponibility=${filters.disponibility}`;
     }
 
-    if (filterType !== 'all') {
-      pathname += `?type=${filterType}`;
+    if (filters.type !== 'all') {
+      pathname += `?type=${filters.type}`;
     }
 
-    if (filterCategories.length > 0) {
-      pathname += `?categories=${filterCategories.join('-')}`;
+    if (filters.categories.length > 0) {
+      const ids = filters.categories.map((category) => category.id);
+      pathname += `?categories=${ids.join('-')}`;
     }
 
-    if (filterGames.length > 0) {
-      const gamesList = filterGames.map((game) => encodeURIComponent(game));
+    if (filters.games.length > 0) {
+      const gamesList = filters.games.map((game) => encodeURIComponent(game));
       pathname += `?games=${gamesList.join('|')}`;
     }
 
-    if (filterPlayers > 0) {
-      pathname += `?players=${filterPlayers}`;
+    if (filters.players > 0) {
+      pathname += `?players=${filters.players}`;
     }
 
     history.replace(pathname);
@@ -74,22 +72,26 @@ const Offer = ({
 
   // updatefilter when filter is modified
   useEffect(() => {
-    updateFilter();
-  }, [filterLastUpdate]);
+    generateUrl();
+  }, [filters]);
 
   // update disponibility filter
   const handleChangeDisponibility = (e) => {
-    const { value } = e.target;
+    const { value, options } = e.target;
     if (value !== '') {
-      changeFilterDisponibility(value);
+      const name = options[e.target.selectedIndex].text;
+      changeFilterDisponibility(value, name);
+      options.selectedIndex = '0';
     }
   };
 
   // update type filter
   const handleChangeType = (e) => {
-    const { value } = e.target;
+    const { value, options } = e.target;
     if (value !== '') {
-      changeFilterType(value);
+      const name = options[e.target.selectedIndex].text;
+      changeFilterType(value, name);
+      options.selectedIndex = '0';
     }
   };
 
@@ -97,7 +99,10 @@ const Offer = ({
   const handleChangeCategories = (e) => {
     const { value } = e.target;
     if (value !== '') {
-      changeFilterCategories(value);
+      const { options } = e.target;
+      const name = options[e.target.selectedIndex].text;
+      changeFilterCategories(value, name);
+      options.selectedIndex = '0';
     }
   };
 
@@ -114,6 +119,11 @@ const Offer = ({
   // update players filter
   const handleClickPlayers = () => {
     changeFilterPlayers();
+  };
+
+  const handleRemoveTag = (e) => {
+    const { type, value } = e.target.dataset;
+    removeFilter(type, value);
   };
 
   return (
@@ -213,9 +223,9 @@ const Offer = ({
         </div>
 
         <div className="offer__aside__tags">
-          <button type="button" className="offer__aside__tags__tag" title="Supprimer">68170</button>
-          <button type="button" className="offer__aside__tags__tag" title="Supprimer">Rixheim</button>
-          <button type="button" className="offer__aside__tags__tag" title="Supprimer">le parrain</button>
+          {tags.map((tag) => (
+            <button type="button" className="offer__aside__tags__tag" title="Supprimer" key={`${tag.type}-${tag.value}`} data-type={tag.type} data-value={tag.value} onClick={handleRemoveTag}>{tag.name}</button>
+          ))}
         </div>
 
         <h2 className="offer__aside__subtitle">{nbResults} {nbResults > 1 ? 'résultats' : 'résultat'}</h2>
@@ -254,17 +264,14 @@ Offer.propTypes = {
   fieldPlayers: PropTypes.string.isRequired,
   changeFieldGame: PropTypes.func.isRequired,
   changeFieldPlayers: PropTypes.func.isRequired,
-  filterLastUpdate: PropTypes.number.isRequired,
-  filterDisponibility: PropTypes.string.isRequired,
-  filterType: PropTypes.string.isRequired,
-  filterCategories: PropTypes.array.isRequired,
-  filterGames: PropTypes.array.isRequired,
-  filterPlayers: PropTypes.number.isRequired,
+  filters: PropTypes.object.isRequired,
+  tags: PropTypes.array.isRequired,
   changeFilterDisponibility: PropTypes.func.isRequired,
   changeFilterType: PropTypes.func.isRequired,
   changeFilterCategories: PropTypes.func.isRequired,
   changeFilterGames: PropTypes.func.isRequired,
   changeFilterPlayers: PropTypes.func.isRequired,
+  removeFilter: PropTypes.func.isRequired,
 };
 
 export default Offer;

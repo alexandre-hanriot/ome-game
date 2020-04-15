@@ -14,6 +14,7 @@ import {
   SET_FILTER_CATEGORIES,
   SET_FILTER_GAMES,
   SET_FILTER_PLAYERS,
+  REMOVE_FILTER,
 } from 'src/actions/map';
 
 const initialState = {
@@ -35,19 +36,21 @@ const initialState = {
   gamesCategories: [],
   fieldGame: '',
   fieldPlayers: '',
-  filterLastUpdate: 0,
-  filterPlace: {
-    coordinates: {
-      lat: 0,
-      lng: 0,
+  filters: {
+    place: {
+      coordinates: {
+        lat: 0,
+        lng: 0,
+      },
+      name: '',
     },
-    name: '',
+    games: [],
+    type: 'all',
+    disponibility: 'all',
+    categories: [],
+    players: 0,
   },
-  filterGames: [],
-  filterType: 'all',
-  filterDisponibility: 'all',
-  filterCategories: [],
-  filterPlayers: 0,
+  tags: [],
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -115,38 +118,94 @@ const reducer = (state = initialState, action = {}) => {
         fieldPlayers: action.value,
       };
 
-    case SET_FILTER_DISPONIBILITY:
-      return {
-        ...state,
-        filterDisponibility: action.value,
-        filterLastUpdate: new Date().getTime(),
-      };
+    case SET_FILTER_DISPONIBILITY: {
+      let isExist = false;
+      let tags = state.tags.map((tag) => {
+        if (tag.type === 'disponibility') {
+          isExist = true;
+          return {
+            type: 'disponibility',
+            value: action.value,
+            name: action.name,
+          };
+        }
+        return tag;
+      });
 
-    case SET_FILTER_TYPE:
+      if (!isExist) {
+        tags = [...state.tags, { type: 'disponibility', value: action.value, name: action.name }];
+      }
+
       return {
         ...state,
-        filterType: action.value,
-        filterLastUpdate: new Date().getTime(),
+        filters: {
+          ...state.filters,
+          disponibility: action.value,
+        },
+        tags,
       };
+    }
+
+    case SET_FILTER_TYPE: {
+      let isExist = false;
+      let tags = state.tags.map((tag) => {
+        if (tag.type === 'type') {
+          isExist = true;
+          return {
+            type: 'type',
+            value: action.value,
+            name: action.name,
+          };
+        }
+        return tag;
+      });
+
+      if (!isExist) {
+        tags = [...state.tags, { type: 'type', value: action.value, name: action.name }];
+      }
+
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          type: action.value,
+        },
+        tags,
+      };
+    }
 
     case SET_FILTER_CATEGORIES: {
-      const value = Number(action.value);
-      if (!state.filterCategories.includes(value)) {
+      const id = Number(action.value);
+      const isExist = state.filters.categories.find((category) => category.id === id);
+
+      if (!isExist) {
+        const value = {
+          id,
+          name: action.name,
+        };
+
         return {
           ...state,
-          filterCategories: [...state.filterCategories, value],
-          filterLastUpdate: new Date().getTime(),
+          filters: {
+            ...state.filters,
+            categories: [...state.filters.categories, value],
+          },
+          tags: [...state.tags, { type: 'categories', value: id, name: action.name }],
         };
       }
       return state;
     }
 
     case SET_FILTER_GAMES: {
-      if (state.fieldGame !== '' && !state.filterGames.includes(state.fieldGame)) {
+      if (state.fieldGame !== '' && !state.filters.games.includes(state.fieldGame)) {
+        const value = state.fieldGame.trim();
         return {
           ...state,
-          filterGames: [...state.filterGames, state.fieldGame.trim()],
-          filterLastUpdate: new Date().getTime(),
+          filters: {
+            ...state.filters,
+            games: [...state.filters.games, value],
+          },
+          tags: [...state.tags, { type: 'games', value, name: value }],
           fieldGame: '',
         };
       }
@@ -156,18 +215,92 @@ const reducer = (state = initialState, action = {}) => {
       };
     }
 
-    case SET_FILTER_PLAYERS:
+    case SET_FILTER_PLAYERS: {
       if (isNaN(state.fieldPlayers)) {
         return {
           ...state,
         };
       }
+
+      const value = Number(state.fieldPlayers);
+
+      let isExist = false;
+      let tags = state.tags.map((tag) => {
+        if (tag.type === 'players') {
+          isExist = true;
+          return {
+            type: 'players',
+            value,
+            name: `Joueurs: ${value}`,
+          };
+        }
+        return tag;
+      });
+
+      if (!isExist) {
+        tags = [...state.tags, { type: 'players', value, name: `Joueurs: ${value}` }];
+      }
+
       return {
         ...state,
-        filterPlayers: Number(state.fieldPlayers),
-        filterLastUpdate: new Date().getTime(),
+        filters: {
+          ...state.filters,
+          players: value,
+        },
+        tags,
         fieldPlayers: '',
       };
+    }
+
+    case REMOVE_FILTER: {
+      const tags = state.tags.filter((tag) => (tag.type !== action.name || tag.value.toString() !== action.value.toString()));
+      let { filters } = state;
+
+      switch (action.name) {
+        case 'disponibility':
+          filters = {
+            ...state.filters,
+            disponibility: 'all',
+          };
+          break;
+
+        case 'type':
+          filters = {
+            ...state.filters,
+            type: 'all',
+          };
+          break;
+
+        case 'players':
+          filters = {
+            ...state.filters,
+            players: 0,
+          };
+          break;
+
+        case 'categories':
+          filters = {
+            ...state.filters,
+            categories: state.filters.categories.filter((category) => (category.id.toString() !== action.value.toString())),
+          };
+          break;
+
+        case 'games':
+          filters = {
+            ...state.filters,
+            games: state.filters.games.filter((game) => (game.id.toString() !== action.value.toString())),
+          };
+          break;
+
+        default:
+      }
+
+      return {
+        ...state,
+        filters,
+        tags,
+      };
+    }
 
     default:
       return state;
