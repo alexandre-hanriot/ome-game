@@ -11,11 +11,9 @@ async function changePassword(User, id, oldPassword, newPassword) {
     // On vérifie que l'ancien mot de passe correspond bien
     const passwordCheck = await bcrypt.compare(oldPassword, data.password);
 
-    // Si correspondance alors on retourne le hash du nouveau mot de passe
+    // Si correspondance alors on retourne true
     if (passwordCheck) {
-        // On attend que le hash soit généré
-        const newHashedPassword = await bcrypt.hash(newPassword, bcrypt.genSaltSync(8));
-        return newHashedPassword;
+        return true;
     }
     // Sinon on retourne false
     else return false;

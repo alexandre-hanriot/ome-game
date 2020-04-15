@@ -67,33 +67,25 @@ exports.create = (model, instanceData, res) => {
         })
         .catch((err) => {
             res.status(500).json({
-                error: `Une erreur est survenue pendant la création de l'instance de ${model} : ${err}`,
+                error: `Une erreur est survenue pendant la création de l'instance de ${model.getTableName()} : ${err}`,
             });
         });
 };
 
 // Mise à jour d'une instance de modèle
-exports.update = (model, id, req, res) => {
+exports.update = async (model, id, req, res) => {
     // Avant toute chose on supprime les espaces avant ou après les propriétés qui sont de type string
     Object.keys(req.body).map(
         (data) => (req.body[data] = typeof req.body[data] == "string" ? req.body[data].trim() : req.body[data])
     );
 
-    // Ensuite on met à jour
-    model
-        .update(req.body, {
-            where: { id },
-            returning: true, // pour retourner l'instance
-            plain: true, // dans son intégralité
-        })
-        .then((data) => {
-            res.send(data);
-        })
-        .catch((err) => {
-            res.status(500).json({
-                error: `Erreur dans la mise à jour de ${model.getTableName()} id=${id} : ${err}`,
-            });
-        });
+    let instance = await model.findByPk(id);
+    if (instance === null) res.status(404).json({ error: `${model.getTableName()} id=${id} non trouvé` });
+    else {
+        instance.dataValues = { ...instance.dataValues, ...req.body }; // On met à jour les data de l'instance récupérée avec les nouvelles data issues de la requête
+        await instance.save(); // On sauvegarde l'instance
+        res.send(instance); // On renvoie l'instance à jour en réponse
+    }
 };
 
 // Suppression de plusieurs instances d'un modèle en fonction de leurs ID

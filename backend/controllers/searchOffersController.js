@@ -6,14 +6,14 @@ const Game_category = db.game_categories;
 const User = db.users;
 
 // Récupération des offres en fonction d'une recherche de l'utilisateur
-exports.findOffersResults = (req, res) => {
+exports.findOffersResults = async (req, res) => {
     const status = "0"; // on affiche que les offres actives
 
     const {
         client_id = null, // on récupère l'id de l'utilisateur qui fait la requête
         game_name = "", // par défaut on recherche tous les jeux
         age_min = 999,
-        game_category_name = "",
+        game_category_id = 0,
         postal_code = "",
         city = "",
         nb_players = "",
@@ -24,6 +24,13 @@ exports.findOffersResults = (req, res) => {
 
     const nb_players_min = nb_players === "" ? 999 : nb_players;
     const nb_players_max = nb_players === "" ? 0 : nb_players;
+
+    // On recherche le nom de game_catégorie en fonction de l'id
+    const checkGameCategory = await Game_category.findByPk(game_category_id).then((data) => {
+        if (data === null) return false;
+        else return data.dataValues.name;
+    });
+    const game_category_name = !checkGameCategory ? "" : checkGameCategory;
 
     Offer.findAll({
         where: {

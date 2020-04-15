@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt");
+
 module.exports = (sequelize, Sequelize) => {
     const User = sequelize.define(
         "users",
@@ -113,9 +115,35 @@ module.exports = (sequelize, Sequelize) => {
         }
     );
 
+    // Ajout des méthode d'instance
+    User.prototype.comparePassword = async function (oldPassword) {
+        // On vérifie que l'ancien mot de passe correspond bien
+        const passwordCheck = await bcrypt.compare(oldPassword, this.password);
+
+        // Si correspondance alors on retourne true
+        if (passwordCheck) {
+            return true;
+        }
+        // Sinon on retourne false
+        else return false;
+    };
+
     // Ajout des Hooks
-    User.beforeCreate((user, options) => {
+    User.beforeCreate(async (user, options) => {
         user.email = user.email.toLowerCase();
+
+        // On hash le mot de passe avant la création d'une instance User
+        const hash = await bcrypt.hash(user.password, bcrypt.genSaltSync(8));
+        user.password = hash;
+    });
+
+    User.beforeSave(async (user, options) => {
+        // Si on met à jour le password il faut le hasher
+        if (user.dataValues.password !== user._previousDataValues.password) {
+            // On hash le mot de passe après la mise à jour
+            const hash = await bcrypt.hash(user.password, bcrypt.genSaltSync(8));
+            user.password = hash;
+        }
     });
 
     return User;

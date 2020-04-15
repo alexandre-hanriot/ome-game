@@ -1,4 +1,3 @@
-const bcrypt = require("bcrypt");
 const db = require("../models/index");
 const User = db.users;
 const Offer = db.offers;
@@ -44,14 +43,10 @@ exports.create = async (req, res) => {
     else if (username_is_already_used === true) res.status(409).json({ error: "Ce pseudo est déjà utilisé" });
     // Si pas d'erreur
     else {
-        // On lance le hashage du mot de passe avant la création d'une instance User
-        bcrypt.hash(password, bcrypt.genSaltSync(8)).then((hashedPassword) => {
-            // Création d'une instance avec les données renseignées et le hash du mot de passe
-            const user = { ...req.body, password: hashedPassword };
+        const user = { ...req.body };
 
-            // Sauvegarde de l'instance dans la bdd
-            coreController.create(User, user, res);
-        });
+        // Sauvegarde de l'instance dans la bdd
+        coreController.create(User, user, res);
     }
 };
 
@@ -88,7 +83,7 @@ exports.update = async (req, res) => {
 };
 
 // Mise à jour du mot de passe
-exports.updatePassword = (req, res) => {
+exports.updatePassword = async (req, res) => {
     const id = req.params.id;
 
     // Sécurité : on supprime la data password au cas où elle ait été saisie
@@ -104,20 +99,25 @@ exports.updatePassword = (req, res) => {
 
     // si les données de changement de mot de passe sont renseignées
     else if (oldPassword.length > 0 && newPassword.length > 0) {
-        // On lance la fonction qui vérifie l'ancien mot de passe et renvoie le hash du nouveau mot de passe
-        utils.changePassword(User, id, oldPassword, newPassword).then((newHashedPassword) => {
-            if (!newHashedPassword) {
-                res.status(401).json({
-                    error: "Ancien mot de passe incorrect. Echec mise à jour mot de passe",
-                });
-            } else {
-                // On récupère le contenu du body de la requête en modifiant le mot de passe
-                req.body = { password: newHashedPassword };
+        // On recherche l'utilisateur concerné
+        const user = await User.findByPk(id);
+        if (user === null) res.status(404).json({ error: "Utilisateur non trouvé" });
+        else {
+            // On lance la fonction qui vérifie l'ancien mot de passe et renvoie le hash du nouveau mot de passe
+            user.comparePassword(oldPassword).then((check) => {
+                if (!check) {
+                    res.status(401).json({
+                        error: "Ancien mot de passe incorrect. Echec mise à jour mot de passe",
+                    });
+                } else {
+                    // On envoie le nouveau mot de passe
+                    req.body = { password: newPassword };
 
-                // On fait la mise à jour
-                coreController.update(User, id, req, res);
-            }
-        });
+                    // On fait la mise à jour
+                    coreController.update(User, id, req, res);
+                }
+            });
+        }
     }
 
     // si la mise à jour a échoué
