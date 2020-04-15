@@ -106,3 +106,13 @@ main {
     color: #fff;
   }
 }
+
+.global-error {
+  text-align: center;
+  margin: $gutter;
+  padding: $gutter/3;
+  background-color: #c74c4f;
+  color: white;
+  font-weight: bold;
+  border-radius: .6rem;
+}

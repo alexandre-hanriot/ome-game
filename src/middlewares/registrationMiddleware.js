@@ -1,6 +1,6 @@
 import {
   saveUser,
-  SAVE_USER,
+  SUBMIT_REGISTRATION,
 } from 'src/actions/registration';
 import axios from 'axios';
 import { showAlert, showModal } from 'src/actions/global';
@@ -9,11 +9,12 @@ import { showAlert, showModal } from 'src/actions/global';
 const registrationMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     // waiting the route
-    case SAVE_USER: {
+    case SUBMIT_REGISTRATION: {
       const {
-        // TODO traitement de la confirmation du mot de passe
+        // TODO traitement de la confirmation du mot de passe, style global pour les erreurs
         email, password, pseudo,
       } = store.getState().registration;
+
       axios.post('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users', {
         email,
         password,
@@ -21,13 +22,16 @@ const registrationMiddleware = (store) => (next) => (action) => {
       })
         .then((response) => {
           store.dispatch(saveUser(response.data));
-          showModal('');
+          store.dispatch(showModal(''));
           store.dispatch(showAlert('votre compte à été crée', true));
         })
         .catch((error) => {
           // handle error
-          if (error.status === 500) {
-            store.dispatch(showAlert('veuillez renseignez tous les champs', false));
+          if (error.response.status === 400) {
+            store.dispatch(showAlert(`${error.response.data.error}`, false));
+          }
+          if (error.response.status === 409) {
+            store.dispatch(showAlert(`${error.response.data.error}`, false));
           }
           console.warn(error);
         });

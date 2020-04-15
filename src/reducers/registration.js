@@ -1,10 +1,13 @@
-import { CHANGE_INPUT, SAVE_USER } from 'src/actions/registration';
+import {
+  CHANGE_INPUT, SUBMIT_REGISTRATION, SAVE_USER, CHANGE_REGISTRATION_ERROR,
+} from 'src/actions/registration';
 
 const initialState = {
-  email: 'toto@toto.toto',
-  pseudo: 'toto',
-  password: 'toto',
-  confirmPassword: 'toto',
+  email: '',
+  pseudo: '',
+  password: '',
+  confirmPassword: '',
+  errorMessage: '',
 };
 
 const registrationReducer = (state = initialState, action = {}) => {
@@ -16,18 +19,26 @@ const registrationReducer = (state = initialState, action = {}) => {
         [target]: action.newValue,
       };
     }
-    case SAVE_USER: {
-      if (action.password === action.confirmPassword) {
-        return {
-          ...state,
-          email: action.email,
-          pseudo: action.pseudo,
-          password: action.password,
-          confirmPassword: '',
-        };
-      }
-      break;
-    }
+    case SAVE_USER:
+      return {
+        ...state,
+      };
+    case SUBMIT_REGISTRATION:
+      return {
+        ...state,
+        password: '',
+        confirmPassword: '',
+        email: '',
+        pseudo: '',
+        errorMessage: '',
+      };
+    case CHANGE_REGISTRATION_ERROR:
+      return {
+        ...state,
+        errorMessage: action.message,
+        password: '',
+        confirmPassword: '',
+      };
     default:
       return state;
   }
