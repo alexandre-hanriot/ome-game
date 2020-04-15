@@ -7,7 +7,7 @@ const mapStateToProps = (state) => ({
   mapIsLoaded: state.map.mapLoaded,
   zoom: state.map.zoom,
   bounds: state.map.bounds,
-  mapCoordinates: state.map.coordinates,
+  coordinates: state.map.coordinates,
   defaultZoom: state.map.defaultZoom,
   defaultCoordinates: state.map.defaultCoordinates,
   offers: state.map.offers,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
 import useSupercluster from 'use-supercluster';
@@ -7,6 +7,7 @@ import Marker from './Marker';
 import './map.scss';
 
 const Map = ({
+  coordinates,
   mapRef,
   mapIsLoaded,
   defaultCoordinates,
@@ -20,25 +21,9 @@ const Map = ({
   fetchOffers,
   offers,
 }) => {
-  // format data for supercluster dependancy
-  const points = offers.map((data) => ({
-    type: 'Feature',
-    properties: {
-      cluster: false,
-      ...data,
-    },
-    geometry: {
-      type: 'Point',
-      coordinates: [
-        parseFloat(data.longitude),
-        parseFloat(data.latitude),
-      ],
-    },
-  }));
-
   // load points and create clusters with supercluster dependancy
-  const { clusters, supercluster } = useSupercluster({
-    points,
+  let { clusters, supercluster } = useSupercluster({
+    points: offers,
     bounds,
     zoom,
     options: { radius: 75, maxZoom: 15 },
@@ -46,11 +31,11 @@ const Map = ({
 
   // Save results in state
   const handleChange = () => {
+    console.log('handleChange');
     if (mapIsLoaded) {
       const results = [];
       clusters.map((cluster) => {
         const { cluster: isCluster } = cluster.properties;
-
         if (isCluster) {
           supercluster.getLeaves(cluster.id, 20).map((clusterElement) => results.push(clusterElement.properties));
         }
@@ -69,6 +54,18 @@ const Map = ({
     mapLoaded();
     fetchOffers();
   };
+
+  // update results when offers is load
+  useEffect(() => {
+    if (mapIsLoaded) {
+      const timeout = setTimeout(() => {
+        mapRef.current.panTo({ lat: coordinates.lat + 0.00001, lng: coordinates.lng + 0.00001 });
+        // mapRef.current.setZoom(15);
+        handleChange();
+        clearTimeout(timeout);
+      }, 500);
+    }
+  }, [offers]);
 
   return (
     <div className="map">
@@ -101,7 +98,7 @@ const Map = ({
                 lng={longitude}
                 supercluster={supercluster}
                 cluster={cluster}
-                pointsLength={points.length}
+                pointsLength={offers.length}
                 mapRef={mapRef}
               />
             );

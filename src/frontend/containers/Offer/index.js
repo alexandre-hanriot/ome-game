@@ -12,6 +12,7 @@ import {
   changeFilterGames,
   changeFilterPlayers,
   removeFilter,
+  updateResults,
 } from 'src/actions/map';
 
 const mapStateToProps = (state) => ({
@@ -54,6 +55,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   removeFilter: (name, value) => {
     dispatch(removeFilter(name, value));
+  },
+  updateResults: () => {
+    dispatch(updateResults());
   },
 });
 

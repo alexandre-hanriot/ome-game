@@ -28,6 +28,7 @@ const Offer = ({
   changeFilterGames,
   changeFilterPlayers,
   removeFilter,
+  updateResults,
 }) => {
   useTitle('Trouver un jeu');
   const mapRef = useRef();
@@ -70,9 +71,10 @@ const Offer = ({
     history.replace(pathname);
   };
 
-  // updatefilter when filter is modified
+  // launch when filter is modified
   useEffect(() => {
     generateUrl();
+    updateResults();
   }, [filters]);
 
   // update disponibility filter
@@ -121,6 +123,7 @@ const Offer = ({
     changeFilterPlayers();
   };
 
+  // remove filter + tag
   const handleRemoveTag = (e) => {
     const { type, value } = e.target.dataset;
     removeFilter(type, value);
@@ -272,6 +275,7 @@ Offer.propTypes = {
   changeFilterGames: PropTypes.func.isRequired,
   changeFilterPlayers: PropTypes.func.isRequired,
   removeFilter: PropTypes.func.isRequired,
+  updateResults: PropTypes.func.isRequired,
 };
 
 export default Offer;

@@ -18,6 +18,7 @@ export const SET_FILTER_CATEGORIES = 'SET_FILTER_CATEGORIES';
 export const SET_FILTER_GAMES = 'SET_FILTER_GAMES';
 export const SET_FILTER_PLAYERS = 'SET_FILTER_PLAYERS';
 export const REMOVE_FILTER = 'REMOVE_FILTER';
+export const UPDATE_RESULTS = 'UPDATE_RESULTS';
 
 export const mapLoaded = () => ({
   type: SET_MAP_LOADED,
@@ -111,4 +112,8 @@ export const removeFilter = (name, value) => ({
   type: REMOVE_FILTER,
   name,
   value,
+});
+
+export const updateResults = () => ({
+  type: UPDATE_RESULTS,
 });

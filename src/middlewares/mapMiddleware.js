@@ -1,12 +1,18 @@
 /* eslint-disable default-case */
 import axios from 'axios';
-import { FETCH_OFFERS, saveOffers, FETCH_GAMES, saveGames, FETCH_GAMES_CATEGORIES, saveGamesCategories } from 'src/actions/map';
+import {
+  FETCH_OFFERS,
+  saveOffers,
+  FETCH_GAMES,
+  saveGames,
+  FETCH_GAMES_CATEGORIES,
+  saveGamesCategories,
+  UPDATE_RESULTS,
+} from 'src/actions/map';
 
 const mapMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case FETCH_OFFERS: {
-      // const { email, password } = store.getState().map;
-
       axios
         .get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/search', {
           params: {
@@ -14,7 +20,21 @@ const mapMiddleware = (store) => (next) => (action) => {
           },
         })
         .then((response) => {
-          store.dispatch(saveOffers(response.data));
+          const points = response.data.map((data) => ({
+            type: 'Feature',
+            properties: {
+              cluster: false,
+              ...data,
+            },
+            geometry: {
+              type: 'Point',
+              coordinates: [
+                parseFloat(data.longitude),
+                parseFloat(data.latitude),
+              ],
+            },
+          }));
+          store.dispatch(saveOffers(points));
         })
         .catch((error) => {
           console.error(error);
@@ -23,6 +43,47 @@ const mapMiddleware = (store) => (next) => (action) => {
       next(action);
       break;
     }
+
+    case UPDATE_RESULTS: {
+      const { filters } = store.getState().map;
+
+      let params = { client_id: 0 };
+      if (filters.disponibility !== 'all') {
+        params = {
+          ...params,
+          is_available: Boolean(Number(filters.disponibility)),
+        };
+      }
+
+      axios
+        .get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/search', {
+          params,
+        })
+        .then((response) => {
+          const points = response.data.map((data) => ({
+            type: 'Feature',
+            properties: {
+              cluster: false,
+              ...data,
+            },
+            geometry: {
+              type: 'Point',
+              coordinates: [
+                parseFloat(data.longitude),
+                parseFloat(data.latitude),
+              ],
+            },
+          }));
+          store.dispatch(saveOffers(points));
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
+      next(action);
+      break;
+    }
+
     case FETCH_GAMES: {
       axios
         .get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/games')
