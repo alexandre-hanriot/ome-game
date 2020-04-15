@@ -46,7 +46,24 @@
             color: #fff;
             font-size: 2em;
           }
+          &__user {
+            z-index: 99;
+            position: absolute;
+            top: 80px;
+            right: 0;
+            background-color: #E3E5EC;
+            color: $darkBlue;
+            padding: $gutter/2;
+            min-width: 20%;
+            border-radius: 0 0 0 1rem;
 
+            &__link {
+              display: block;
+              line-height: 3;
+              text-decoration: underline;
+              text-align: right;
+            }
+          }
           &__container {
             z-index: 99;
             position: absolute;
@@ -96,6 +113,12 @@
           }
         }
         &__account {
+          display: flex;
+          align-items: center;
+
+          &__hi {
+            margin: 0 $gutter/2;
+          }
           &__button {
             border: 0;
             border-radius: 50%;
@@ -145,6 +168,20 @@
       &:last-child {
         border-radius: 0 .4rem .4rem 0;
       }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .header {
+    &__nav {
+      &__account {
+            
+        &__hi {
+          display: none;
+        }
+      }
+      
     }
   }
 }
