@@ -31,8 +31,6 @@ const registrationReducer = (state = initialState, action = {}) => {
         ...state,
         password: '',
         confirmPassword: '',
-        email: '',
-        pseudo: '',
         errorMessage: '',
       };
     case CHANGE_REGISTRATION_ERROR:
