@@ -16,7 +16,6 @@ const authMiddleware = (store) => (next) => (action) => {
           password,
         })
         .then((response) => {
-          console.log(response);
           store.dispatch(logUser(response.data));
           store.dispatch(showAlert('vous êtes connecté', true));
           store.dispatch(showModal());

@@ -31,7 +31,7 @@ const Login = ({
     <div className="login">
       <h1>Connexion</h1>
       {loginError !== '' && (
-        <div className="login__error">
+        <div className="global-error">
           {loginError}
         </div>
       )}
