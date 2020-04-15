@@ -30,8 +30,8 @@ const Map = ({
     geometry: {
       type: 'Point',
       coordinates: [
-        parseFloat(data.coordinates.lng),
-        parseFloat(data.coordinates.lat),
+        parseFloat(data.longitude),
+        parseFloat(data.latitude),
       ],
     },
   }));
@@ -52,7 +52,7 @@ const Map = ({
         const { cluster: isCluster } = cluster.properties;
 
         if (isCluster) {
-          supercluster.getLeaves(cluster.id).map((clusterElement) => results.push(clusterElement.properties));
+          supercluster.getLeaves(cluster.id, 20).map((clusterElement) => results.push(clusterElement.properties));
         }
         else {
           results.push(cluster.properties);

@@ -1,24 +1,120 @@
 import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useTitle } from 'src/hooks/useTitle';
 import MapAutocomplete from 'react-google-autocomplete';
 import classNames from 'classnames';
-
 import TextInput from 'react-autocomplete-input';
 import 'react-autocomplete-input/dist/bundle.css';
 
 import Map from 'src/frontend/containers/Map';
 import './offer.scss';
 
-const Offer = ({ results, games, fetchGames }) => {
+const Offer = ({
+  results,
+  fetchGames,
+  fetchGamesCategories,
+  games,
+  gamesCategories,
+  fieldGame,
+  fieldPlayers,
+  changeFieldGame,
+  changeFieldPlayers,
+  filterLastUpdate,
+  filterDisponibility,
+  filterType,
+  filterCategories,
+  filterGames,
+  filterPlayers,
+  changeFilterDisponibility,
+  changeFilterType,
+  changeFilterCategories,
+  changeFilterGames,
+  changeFilterPlayers,
+}) => {
   useTitle('Trouver un jeu');
   const mapRef = useRef();
   const nbResults = results.length;
 
+  // load data games and games categories
   useEffect(() => {
     fetchGames();
+    fetchGamesCategories();
   }, []);
+
+  const history = useHistory();
+
+  // generate url with filters
+  const updateFilter = () => {
+    let { pathname } = history.location;
+
+    if (filterDisponibility !== 'all') {
+      pathname += `?disponibility=${filterDisponibility}`;
+    }
+
+    if (filterType !== 'all') {
+      pathname += `?type=${filterType}`;
+    }
+
+    if (filterCategories.length > 0) {
+      pathname += `?categories=${filterCategories.join('-')}`;
+    }
+
+    if (filterGames.length > 0) {
+      const gamesList = filterGames.map((game) => encodeURIComponent(game));
+      pathname += `?games=${gamesList.join('|')}`;
+    }
+
+    if (filterPlayers > 0) {
+      pathname += `?players=${filterPlayers}`;
+    }
+
+    history.replace(pathname);
+  };
+
+  // updatefilter when filter is modified
+  useEffect(() => {
+    updateFilter();
+  }, [filterLastUpdate]);
+
+  // update disponibility filter
+  const handleChangeDisponibility = (e) => {
+    const { value } = e.target;
+    if (value !== '') {
+      changeFilterDisponibility(value);
+    }
+  };
+
+  // update type filter
+  const handleChangeType = (e) => {
+    const { value } = e.target;
+    if (value !== '') {
+      changeFilterType(value);
+    }
+  };
+
+  // update categories filter
+  const handleChangeCategories = (e) => {
+    const { value } = e.target;
+    if (value !== '') {
+      changeFilterCategories(value);
+    }
+  };
+
+  // save value players field
+  const handleChangePlayers = (e) => {
+    changeFieldPlayers(e.target.value);
+  };
+
+  // update games filter
+  const handleClickGame = () => {
+    changeFilterGames();
+  };
+
+  // update players filter
+  const handleClickPlayers = () => {
+    changeFilterPlayers();
+  };
 
   return (
     <div className="offer">
@@ -76,6 +172,7 @@ const Offer = ({ results, games, fetchGames }) => {
           <div className="offer__aside__options__fields">
             <div className="offer__aside__options__fields__autocomplete">
               <TextInput
+                value={fieldGame}
                 placeholder="Nom du jeu"
                 className="offer__aside__options__fields__game global-input"
                 options={games}
@@ -83,32 +180,34 @@ const Offer = ({ results, games, fetchGames }) => {
                 spacer=""
                 maxOptions={10}
                 onChange={(value) => {
-                  console.log(value);
+                  changeFieldGame(value);
                 }}
               />
-              <button type="submit" className="offer__aside__options__fields__autocomplete__button" title="Rechercher"><i className="fas fa-search"> </i></button>
+              <button type="submit" className="offer__aside__options__fields__autocomplete__button" title="Rechercher" onClick={handleClickGame}><i className="fas fa-plus-circle"> </i></button>
             </div>
             <div className="offer__aside__options__fields__group">
-              <select className="offer__aside__options__fields__disponibility global-select">
+              <select className="offer__aside__options__fields__disponibility global-select" onChange={handleChangeDisponibility}>
                 <option value="">Disponibilité</option>
                 <option value="1">Disponible</option>
                 <option value="0">Non disponible</option>
               </select>
-              <select className="offer__aside__options__fields__types global-select">
+              <select className="offer__aside__options__fields__types global-select" onChange={handleChangeType}>
                 <option value="">Type d'offre</option>
                 <option value="1">Location</option>
                 <option value="0">Prêt</option>
               </select>
             </div>
             <div className="offer__aside__options__fields__group">
-              <select className="offer__aside__options__fields__categories global-select">
+              <select className="offer__aside__options__fields__categories global-select" onChange={handleChangeCategories}>
                 <option value="">Catégorie</option>
-                <option value="1">Jeux de rôle</option>
-                <option value="2">Jeux de carte</option>
-                <option value="3">Jeux de plateau</option>
-                <option value="4">...</option>
+                {gamesCategories.map((category) => (
+                  <option value={category.id} key={category.id}>{category.name}</option>
+                ))}
               </select>
-              <input type="text" placeholder="Nombre de joueurs" className="offer__aside__options__fields__range global-input" />
+              <div className="offer__aside__options__fields__players">
+                <input type="text" placeholder="Nombre de joueurs" className="offer__aside__options__fields__players__input" onChange={handleChangePlayers} value={fieldPlayers} />
+                <button type="submit" className="offer__aside__options__fields__players__button" title="Rechercher" onClick={handleClickPlayers}><i className="fas fa-plus-circle"> </i></button>
+              </div>
             </div>
           </div>
         </div>
@@ -131,7 +230,7 @@ const Offer = ({ results, games, fetchGames }) => {
                   <img src="https://cdn2.philibertnet.com/372889-large_default/le-parrain-l-empire-de-corleone.jpg" alt="" className="offer__aside__results__result__image" />
                   <div className="offer__aside__results__result__content">
                     <h3 className="offer__aside__results__result__name">{result.title}</h3>
-                    <p className="offer__aside__results__result__city">{result.user.postal_code}</p>
+                    <p className="offer__aside__results__result__city">{result.city} ({result.postal_code})</p>
                     <span className={disponibilityClass}>{result.is_available ? 'Disponible' : 'Non disponible'}</span>
                     <span className="offer__aside__results__result__type">{result.type === '0' ? 'Prêt' : 'Location'}</span>
                   </div>
@@ -148,7 +247,24 @@ const Offer = ({ results, games, fetchGames }) => {
 Offer.propTypes = {
   results: PropTypes.array.isRequired,
   games: PropTypes.array.isRequired,
+  gamesCategories: PropTypes.array.isRequired,
   fetchGames: PropTypes.func.isRequired,
+  fetchGamesCategories: PropTypes.func.isRequired,
+  fieldGame: PropTypes.string.isRequired,
+  fieldPlayers: PropTypes.string.isRequired,
+  changeFieldGame: PropTypes.func.isRequired,
+  changeFieldPlayers: PropTypes.func.isRequired,
+  filterLastUpdate: PropTypes.number.isRequired,
+  filterDisponibility: PropTypes.string.isRequired,
+  filterType: PropTypes.string.isRequired,
+  filterCategories: PropTypes.array.isRequired,
+  filterGames: PropTypes.array.isRequired,
+  filterPlayers: PropTypes.number.isRequired,
+  changeFilterDisponibility: PropTypes.func.isRequired,
+  changeFilterType: PropTypes.func.isRequired,
+  changeFilterCategories: PropTypes.func.isRequired,
+  changeFilterGames: PropTypes.func.isRequired,
+  changeFilterPlayers: PropTypes.func.isRequired,
 };
 
 export default Offer;

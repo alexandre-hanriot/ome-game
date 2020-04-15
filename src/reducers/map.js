@@ -1,5 +1,19 @@
 import {
-  SET_MAP_LOADED, SET_BOUNDS, SET_ZOOM, SET_COORDINATES, SET_RESULTS, SAVE_OFFERS, SAVE_GAMES,
+  SET_MAP_LOADED,
+  SET_BOUNDS,
+  SET_ZOOM,
+  SET_COORDINATES,
+  SET_RESULTS,
+  SAVE_OFFERS,
+  SAVE_GAMES,
+  SAVE_GAMES_CATEGORIES,
+  SET_FIELD_GAME,
+  SET_FIELD_PLAYERS,
+  SET_FILTER_DISPONIBILITY,
+  SET_FILTER_TYPE,
+  SET_FILTER_CATEGORIES,
+  SET_FILTER_GAMES,
+  SET_FILTER_PLAYERS,
 } from 'src/actions/map';
 
 const initialState = {
@@ -18,12 +32,21 @@ const initialState = {
   offers: [],
   results: [],
   games: [],
-  gameField: '',
-  playersField: '',
-  filterGame: [],
+  gamesCategories: [],
+  fieldGame: '',
+  fieldPlayers: '',
+  filterLastUpdate: 0,
+  filterPlace: {
+    coordinates: {
+      lat: 0,
+      lng: 0,
+    },
+    name: '',
+  },
+  filterGames: [],
   filterType: 'all',
   filterDisponibility: 'all',
-  filterCategory: [],
+  filterCategories: [],
   filterPlayers: 0,
 };
 
@@ -72,6 +95,78 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         games: action.games,
+      };
+
+    case SAVE_GAMES_CATEGORIES:
+      return {
+        ...state,
+        gamesCategories: action.categories,
+      };
+
+    case SET_FIELD_GAME:
+      return {
+        ...state,
+        fieldGame: action.value,
+      };
+
+    case SET_FIELD_PLAYERS:
+      return {
+        ...state,
+        fieldPlayers: action.value,
+      };
+
+    case SET_FILTER_DISPONIBILITY:
+      return {
+        ...state,
+        filterDisponibility: action.value,
+        filterLastUpdate: new Date().getTime(),
+      };
+
+    case SET_FILTER_TYPE:
+      return {
+        ...state,
+        filterType: action.value,
+        filterLastUpdate: new Date().getTime(),
+      };
+
+    case SET_FILTER_CATEGORIES: {
+      const value = Number(action.value);
+      if (!state.filterCategories.includes(value)) {
+        return {
+          ...state,
+          filterCategories: [...state.filterCategories, value],
+          filterLastUpdate: new Date().getTime(),
+        };
+      }
+      return state;
+    }
+
+    case SET_FILTER_GAMES: {
+      if (state.fieldGame !== '' && !state.filterGames.includes(state.fieldGame)) {
+        return {
+          ...state,
+          filterGames: [...state.filterGames, state.fieldGame.trim()],
+          filterLastUpdate: new Date().getTime(),
+          fieldGame: '',
+        };
+      }
+      return {
+        ...state,
+        fieldGame: '',
+      };
+    }
+
+    case SET_FILTER_PLAYERS:
+      if (isNaN(state.fieldPlayers)) {
+        return {
+          ...state,
+        };
+      }
+      return {
+        ...state,
+        filterPlayers: Number(state.fieldPlayers),
+        filterLastUpdate: new Date().getTime(),
+        fieldPlayers: '',
       };
 
     default:

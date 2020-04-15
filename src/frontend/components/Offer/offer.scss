@@ -104,7 +104,6 @@
           display: flex;
           align-items: center;
           background-color: #fff;
-          border: 1px solid #8199b7;
           border-radius: .4rem;
           margin-bottom: .5rem;
 
@@ -127,6 +126,42 @@
             }
           }
         }
+        &__players {
+          width: 50%;
+          height: 46px;
+          display: flex;
+          align-items: center;
+          background-color: #fff;
+          border-radius: .4rem;
+          margin-bottom: .5rem;
+          margin-left: .25rem; 
+
+          &__input {
+            background-color: transparent;
+            border: 0;
+            width: calc(100% - 32px);
+            padding: .6rem 1rem;
+            font-size: inherit;
+            font-family: inherit;
+            color: $darkBlue;
+            margin-bottom: 0 !important;
+          }
+          &__button {
+            background-color: transparent;
+            font-size: inherit;
+            border: 0;
+            color: $darkBlue;
+            width: 32px;
+          }
+        }
+        &__range {
+          flex-grow: 1;
+          border: 0;
+          background-color: transparent;
+          padding: .6rem 1rem;
+          // font-size: inherit;
+          // font-family: inherit;
+        }
         &__disponibility {
           width: 50%;
           margin-right: .25rem;
@@ -139,10 +174,6 @@
           width: 50%;
           margin-right: .25rem;
         } 
-        &__range {
-          width: 50%;
-          margin-left: .25rem; 
-        }
       }
     }
 
