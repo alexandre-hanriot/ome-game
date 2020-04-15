@@ -50,6 +50,7 @@ const userReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         isLogged: false,
+        userData: '',
       };
     default:
       return state;

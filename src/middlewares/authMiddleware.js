@@ -25,7 +25,7 @@ const authMiddleware = (store) => (next) => (action) => {
         .catch((error) => {
           // handle error
           if (error.response.status === 404) {
-            store.dispatch(changeLoginError('l\'utilisateur n\'a pas été trouvé'));
+            store.dispatch(changeLoginError('les identifiants sont invalides'));
           }
           else if (error.response.status === 400) {
             store.dispatch(changeLoginError('veuillez renseignez tous les champs obligatoires'));
