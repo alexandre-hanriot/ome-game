@@ -27,7 +27,7 @@ const registrationMiddleware = (store) => (next) => (action) => {
         .catch((error) => {
           // handle error
           if (error.status === 500) {
-            store.dispatch(showAlert('veuillez renseignez tous les champs obligatoires', false));
+            store.dispatch(showAlert('veuillez renseignez tous les champs', false));
           }
           console.warn(error);
         });

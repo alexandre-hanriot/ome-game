@@ -31,6 +31,8 @@ const userReducer = (state = initialState, action = {}) => {
         ...state,
         isLogged: true,
         userData: action.userData,
+        password: '',
+        email: '',
       };
     case SUBMIT_LOGIN:
       return {
@@ -40,6 +42,7 @@ const userReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         loginError: action.message,
+        password: '',
       };
     case CLEAR_LOGIN_ERROR:
       return {
