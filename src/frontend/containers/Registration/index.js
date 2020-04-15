@@ -1,6 +1,9 @@
 import { connect } from 'react-redux';
 import { showModal } from 'src/actions/global';
-import { changeInput, submitRegistration, changeRegistrationError } from 'src/actions/registration';
+import {
+  changeInput, submitRegistration, changeRegistrationError, checkLegalMentions,
+  clearModalInputs,
+} from 'src/actions/registration';
 import Registration from 'src/frontend/components/Registration';
 
 const mapStateToProps = (state) => ({
@@ -9,6 +12,7 @@ const mapStateToProps = (state) => ({
   pseudo: state.registration.pseudo,
   confirmPassword: state.registration.confirmPassword,
   errorMessage: state.registration.errorMessage,
+  isLegalMentionsChecked: state.registration.isLegalMentionsChecked,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -24,6 +28,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeRegistrationError: (message) => {
     dispatch(changeRegistrationError(message));
+  },
+  checkLegalMentions: () => {
+    dispatch(checkLegalMentions());
+  },
+  clearModalInputs: () => {
+    dispatch(clearModalInputs());
   },
 });
 

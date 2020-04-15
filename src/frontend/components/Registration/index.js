@@ -1,15 +1,18 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ReactPasswordStrength from 'react-password-strength';
 import PropTypes from 'prop-types';
-
 import './registration.scss';
 
 const Registration = ({
   email, inputPassword, confirmPassword, pseudo, changeValue,
   submitRegistration, changeRegistrationError, errorMessage,
+  isLegalMentionsChecked, checkLegalMentions, clearModalInputs,
 }) => {
+  useEffect(() => () => {
+    clearModalInputs();
+  }, []);
   let reactInputPassword = useRef(null);
   const handleChange = (identifier, newValue) => {
     changeValue(identifier, newValue);
@@ -21,7 +24,7 @@ const Registration = ({
   };
   const handleRegisterSubmit = (event) => {
     event.preventDefault();
-    if (inputPassword === confirmPassword && inputPassword !== '' && confirmPassword !== '' && pseudo.length >= 3) {
+    if (inputPassword === confirmPassword && inputPassword !== '' && confirmPassword !== '' && pseudo.length >= 3 && isLegalMentionsChecked) {
       submitRegistration();
     }
     if (inputPassword !== confirmPassword) {
@@ -34,6 +37,10 @@ const Registration = ({
     }
     if (pseudo.length < 3) {
       changeRegistrationError('le pseudo doit contenir au moins 3 caractères');
+      reactInputPassword.clear();
+    }
+    if (!isLegalMentionsChecked) {
+      changeRegistrationError('veuillez accepter les mentions légales');
       reactInputPassword.clear();
     }
   };
@@ -63,7 +70,6 @@ const Registration = ({
               autoComplete: 'off',
               className: 'global-input',
               placeholder: 'Mot de passe',
-              // value: { inputPassword },
             }}
             changeCallback={({ password }) => {
               changeValue('password', password);
@@ -74,7 +80,7 @@ const Registration = ({
           />
           <input name="confirmPassword" type="password" placeholder="Confirmer le mot de passe" className="global-input" value={confirmPassword} onChange={changeInput} />
           <label className="registration__form__legalmentions">
-            <input name="confirmPassword" type="checkbox" /> J'ai lu et j'accepte les <Link to="/mentions-legales" target="_blank" className="">mentions légales</Link>
+            <input name="confirmPassword" type="checkbox" onClick={checkLegalMentions} /> J'ai lu et j'accepte les <Link to="/mentions-legales" target="_blank" className="">mentions légales</Link>
           </label>
           <button type="submit" className="global-button">S'inscrire</button>
         </form>
@@ -106,6 +112,9 @@ Registration.propTypes = {
   submitRegistration: PropTypes.func.isRequired,
   changeRegistrationError: PropTypes.func.isRequired,
   errorMessage: PropTypes.string.isRequired,
+  isLegalMentionsChecked: PropTypes.bool.isRequired,
+  checkLegalMentions: PropTypes.func.isRequired,
+  clearModalInputs: PropTypes.func.isRequired,
 };
 
 export default Registration;

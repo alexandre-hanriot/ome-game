@@ -1,6 +1,6 @@
 import {
   saveUser,
-  SUBMIT_REGISTRATION,
+  SUBMIT_REGISTRATION, changeRegistrationError,
 } from 'src/actions/registration';
 import axios from 'axios';
 import { showAlert, showModal } from 'src/actions/global';
@@ -28,10 +28,10 @@ const registrationMiddleware = (store) => (next) => (action) => {
         .catch((error) => {
           // handle error
           if (error.response.status === 400) {
-            store.dispatch(showAlert(`${error.response.data.error}`, false));
+            store.dispatch(changeRegistrationError(`${error.response.data.error}`, false));
           }
           if (error.response.status === 409) {
-            store.dispatch(showAlert(`${error.response.data.error}`, false));
+            store.dispatch(changeRegistrationError(`${error.response.data.error}`, false));
           }
           console.warn(error);
         });
