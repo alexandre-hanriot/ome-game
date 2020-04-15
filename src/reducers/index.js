@@ -2,9 +2,10 @@ import { combineReducers } from 'redux';
 
 import globalReducer from './global';
 
-import listReducer from './list';
+
 import userReducer from './user';
 import registrationReducer from './registration';
+import listReducer from './list';
 
 const rootReducer = combineReducers({
   global: globalReducer,

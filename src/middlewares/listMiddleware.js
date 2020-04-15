@@ -3,9 +3,11 @@ import { FETCH_OFFERS, FETCH_PARAMS_OFFERS, saveOffers } from 'src/actions/offer
 import { FETCH_RESERVATIONS, FETCH_PARAMS_RESERVATIONS, saveReservations } from 'src/actions/reservations';
 
 const listMiddleware = (store) => (next) => (action) => {
+  const { userData } = store.getState().user;
   switch (action.type) {
-    case FETCH_OFFERS:
-      axios.get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/12/offers')
+    case FETCH_OFFERS: {
+      // const { userData } = store.getState().user;
+      axios.get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.id}/offers`)
         .then((response) => {
           store.dispatch(saveOffers(response.data));
           console.log(response.data);
@@ -15,9 +17,9 @@ const listMiddleware = (store) => (next) => (action) => {
         });
       next(action);
       break;
-
+    }
     case FETCH_PARAMS_OFFERS:
-      axios.get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/12/offers', {
+      axios.get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.id}/offers`, {
         params: {
           limit: 4,
           resultPage: 1,
@@ -34,7 +36,8 @@ const listMiddleware = (store) => (next) => (action) => {
       break;
 
     case FETCH_RESERVATIONS:
-      axios.get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/10/reservations')
+
+      axios.get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.id}/reservations`)
         .then((response) => {
           store.dispatch(saveReservations(response.data));
         })
@@ -45,7 +48,7 @@ const listMiddleware = (store) => (next) => (action) => {
       break;
 
     case FETCH_PARAMS_RESERVATIONS:
-      axios.get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/27/reservations', {
+      axios.get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.id}/reservations`, {
         params: {
           limit: 4,
           resultPage: 1,

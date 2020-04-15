@@ -10,6 +10,7 @@ const mapStateToProps = (state) => ({
   showAlert: state.global.showAlert,
   data: state.data.listReservations,
   data2: state.data.listOffers,
+  user: state.user.userData,
 });
 
 const mapDispatchToProps = (dispatch) => ({

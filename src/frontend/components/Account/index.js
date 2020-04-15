@@ -11,12 +11,12 @@ const Account = ({
   displayModal,
   showModal,
   showAlert,
-  offersData,
   data,
   data2,
   favoritesData,
   fetchParamsReservations,
   fetchParamsOffers,
+  user,
 }) => {
   useTitle('Mon compte');
 
@@ -28,7 +28,6 @@ const Account = ({
   const handleModal = () => {
     displayModal('confirmSupp');
   };
-  console.log(data2);
   return (
     <div className="wrapper account">
       {showModal === 'confirmSupp' && (
@@ -41,12 +40,13 @@ const Account = ({
       </div>
       <h1 className="account__title">Mon Compte</h1>
       <div className="account__dashboard">
+        {/* Reservations */}
         <div className="account__general reservation">
           <h2 className="account__general__subtitle">Mes réservations</h2>
           <table className="account__general__table">
             <tbody className="account__general__table__body">
               {data.map((reservation) => (
-                <tr className="account__general__table__body__tr">
+                <tr className="account__general__table__body__tr" key={reservation.id}>
                   <td className="account__general__table__body__td account__general__table__body__td--left">{reservation.offer.title}</td>
                   <td className="account__general__table__body__td">
                     {reservation.status === '0' && (
@@ -94,7 +94,7 @@ const Account = ({
               ))}
             </tbody>
           </table>
-          <Link to="/compte/reservations" className="account__general__button global-button global-button--light"><i className="far fa-eye" /> Voir plus</Link>
+          {data.length === 0 ? <i className="fas fa-chess-rook account__general__icon" /> : <Link to="/compte/reservations" className="account__general__button global-button global-button--light"><i className="far fa-eye" /> Voir plus</Link>}
         </div>
 
         {/* Mes Offres */}
@@ -103,7 +103,7 @@ const Account = ({
           <table className="account__general__table">
             <tbody className="account__general__table__body">
               {data2.map((offerData) => (
-                <tr className="account__general__table__body__tr">
+                <tr className="account__general__table__body__tr" key={offerData.id}>
                   <td
                     className="account__general__table__body__td account__general__table__body__td--left"
                   >{offerData.title}
@@ -134,7 +134,7 @@ const Account = ({
               ))}
             </tbody>
           </table>
-          <Link to="/compte/offres" className="account__general__button global-button global-button--light"><i className="far fa-eye" /> Voir plus</Link>
+          {data2.length === 0 ? <i className="fas fa-chess-bishop" /> : <Link to="/compte/offres" className="account__general__button global-button global-button--light"><i className="far fa-eye" /> Voir plus</Link>}
         </div>
 
         {/* Ma liste de souhait */}
@@ -191,11 +191,14 @@ const Account = ({
           <div className="account__profil">
             <div className="account__profil__left">
               <ul className="account__profil__left__list">
-                <li className="account__profil__left__list__content">Nom Prénom :</li>
-                <li className="account__profil__left__list__content">Pseudo :</li>
-                <li className="account__profil__left__list__content">Adresse email :</li>
-                <li className="account__profil__left__list__content">Téléphone :</li>
-                <li className="account__profil__left__list__content">Adresse Postale :</li>
+                <li className="account__profil__left__list__content">Nom Prénom :{user.firstname}</li>
+                <li className="account__profil__left__list__content">Pseudo : {user.username}</li>
+                <li className="account__profil__left__list__content">Adresse email : {user.email}</li>
+                <li className="account__profil__left__list__content">Téléphone : {user.phone}</li>
+                <ul className="account__profil__left__list__content">Adresse Postale :
+                  <li>{user.adress}</li>
+                  <li>{user.postal_code}, {user.city}</li>
+                </ul>
               </ul>
               <Link to="/compte/profil" className="account__profil__left__link ">Modifier</Link>
             </div>
@@ -228,6 +231,7 @@ Account.propTypes = {
       offerId: PropTypes.number.isRequired,
     }).isRequired,
   ).isRequired,
+  user: PropTypes.array.isRequired,
   favoritesData: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,

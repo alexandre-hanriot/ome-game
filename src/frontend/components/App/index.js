@@ -22,8 +22,8 @@ import NotFound from 'src/frontend/components/NotFound';
 
 
 // Data
-import offerData from 'src/data/offersData';
-import reservationsData from 'src/data/reservationsData';
+// import offerData from 'src/data/offersData';
+// import reservationsData from 'src/data/reservationsData';
 import favoritesData from 'src/data/favoritesData';
 
 
@@ -37,6 +37,7 @@ const App = ({ isLogged, showAlert }) => {
   const currentPath = location.pathname;
   const isHome = currentPath === '/';
   const appClass = classNames('app', { 'app--light': isHome });
+  console.log(favoritesData);
   return (
     <div className={appClass}>
       <Header />
@@ -45,7 +46,7 @@ const App = ({ isLogged, showAlert }) => {
         <Switch>
           {isLogged && (
           <Route exact path="/compte">
-            <Account />
+            <Account favoritesData={favoritesData} />
           </Route>
           )}
           {isLogged && (
@@ -86,18 +87,6 @@ const App = ({ isLogged, showAlert }) => {
           <Route exact path="/contact">
             <Contact />
           </Route>
-
-          <Route exact path="/compte">
-            <Account
-              offersData={offerData}
-              reservationsData={reservationsData}
-              favoritesData={favoritesData}
-            />
-          </Route>
-          <Route exact path="/compte/reservations">
-            <Reservations />
-          </Route>
-
           <Route>
             <NotFound />
           </Route>

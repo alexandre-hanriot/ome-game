@@ -73,6 +73,8 @@
     padding: $gutter;
     margin: $gutter/2;
     text-align: center;
+    height: 427px;
+    position: relative;
 
     &__subtitle {
       text-align: center;
@@ -181,10 +183,17 @@
         }
       }
     }
+    &__icon {
+      color: $lightBlue;
+      font-size: $gutter*8;
+    }
     &__button {
       display: inline-block;
-      margin: 0 auto;
+      // margin: 0 auto;
       margin-top: $gutter/2;
+      bottom: 20px;
+      position: absolute;
+      right: 37%;
     }
   }
 
