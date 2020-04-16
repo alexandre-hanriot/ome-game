@@ -183,7 +183,7 @@ const Offer = ({
 
   const optionsClass = classNames('offer__aside__options__fields', { 'offer__aside__options__fields--show': showOptions });
   const optionsButtonClass = classNames('offer__aside__options__button', { 'offer__aside__options__button--show': showOptions });
- 
+
   return (
     <div className="offer">
       <div className="offer__map">
