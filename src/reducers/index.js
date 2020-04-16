@@ -6,14 +6,18 @@ import mapReducer from './map';
 
 import userReducer from './user';
 import registrationReducer from './registration';
-import listReducer from './list';
+import offersReducer from './offers';
+import reservationsReducer from './reservations';
+import favoritesReducer from './favorites';
 
 const rootReducer = combineReducers({
   global: globalReducer,
   map: mapReducer,
   user: userReducer,
   registration: registrationReducer,
-  data: listReducer,
+  offers: offersReducer,
+  reservations: reservationsReducer,
+  favorites: favoritesReducer,
 });
 
 export default rootReducer;

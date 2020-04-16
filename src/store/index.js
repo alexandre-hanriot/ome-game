@@ -5,7 +5,9 @@ import reducer from 'src/reducers';
 import mapMiddleware from 'src/middlewares/mapMiddleware';
 import authMiddleware from 'src/middlewares/authMiddleware';
 import registrationMiddleware from 'src/middlewares/registrationMiddleware';
-import listMiddleware from 'src/middlewares/listMiddleware';
+import offersMiddleware from 'src/middlewares/offersMiddleware';
+import reservationsMiddleware from 'src/middlewares/reservationsMiddleware';
+import favoritesMiddleware from 'src/middlewares/favoritesMiddleware';
 
 // on combine plusieurs enhancers : devTools et chaque middleware
 const enhancers = composeWithDevTools(
@@ -13,7 +15,9 @@ const enhancers = composeWithDevTools(
     mapMiddleware,
     authMiddleware,
     registrationMiddleware,
-    listMiddleware,
+    offersMiddleware,
+    reservationsMiddleware,
+    favoritesMiddleware,
   ),
 );
 

@@ -11,19 +11,23 @@ const Account = ({
   displayModal,
   showModal,
   showAlert,
-  data,
-  data2,
-  favoritesData,
+  reservations,
+  offers,
+  favorites,
   fetchParamsReservations,
   fetchParamsOffers,
+  fetchFavorites,
   user,
+
 }) => {
   useTitle('Mon compte');
 
   useEffect(() => {
     fetchParamsReservations();
     fetchParamsOffers();
+    fetchFavorites();
   }, []);
+
 
   const handleModal = () => {
     displayModal('confirmSupp');
@@ -45,39 +49,36 @@ const Account = ({
           <h2 className="account__general__subtitle">Mes réservations</h2>
           <table className="account__general__table">
             <tbody className="account__general__table__body">
-              {data.map((reservation) => (
+              {reservations.map((reservation) => (
                 <tr className="account__general__table__body__tr" key={reservation.id}>
                   <td className="account__general__table__body__td account__general__table__body__td--left">{reservation.offer.title}</td>
                   <td className="account__general__table__body__td">
                     {reservation.status === '0' && (
                       <span
-                        className="account__general__table__body__td__disponible"
-                      >en attente de validation
-                      </span>
+                        className="account__general__table__body__td__circle__pending"
+                      />
                     )}
-                    {reservation.status === '1' && (
+                    {/* {reservation.status === '1' && (
                       <span
                         className="account__general__table__body__td__disponible"
-                      >validée
+                      >validée / vert
                       </span>
-                    )}
+                    )} */}
                     {reservation.status === '2' && (
-                      <span
-                        className="account__general__table__body__td__disponible"
-                      >en cours
-                      </span>
+                      <div
+                        className="account__general__table__body__td__circle--available"
+                      />
                     )}
-                    {reservation.status === '3' && (
+                    {/* {reservation.status === '3' && (
                       <span
                         className="account__general__table__body__td__disponible"
                       >terminée
                       </span>
-                    )}
+                    )} */}
                     {reservation.status === '4' && (
                       <span
-                        className="account__general__table__body__td__disponible"
-                      >annulée
-                      </span>
+                        className="account__general__table__body__td__circle--refused"
+                      />
                     )}
                   </td>
                   <td className="account__general__table__body__td">
@@ -94,7 +95,7 @@ const Account = ({
               ))}
             </tbody>
           </table>
-          {data.length === 0 ? <i className="fas fa-chess-rook account__general__icon" /> : <Link to="/compte/reservations" className="account__general__button global-button global-button--light"><i className="far fa-eye" /> Voir plus</Link>}
+          {reservations.length === 0 ? <i className="fas fa-chess-rook account__general__icon" /> : <Link to="/compte/reservations" className="account__general__button global-button global-button--light"><i className="far fa-eye" /> Voir plus</Link>}
         </div>
 
         {/* Mes Offres */}
@@ -102,39 +103,41 @@ const Account = ({
           <h2 className="account__general__subtitle">Mes offres</h2>
           <table className="account__general__table">
             <tbody className="account__general__table__body">
-              {data2.map((offerData) => (
-                <tr className="account__general__table__body__tr" key={offerData.id}>
-                  <td
-                    className="account__general__table__body__td account__general__table__body__td--left"
-                  >{offerData.title}
-                  </td>
-                  <td className="account__general__table__body__td">
-                    <span
-                      className="account__general__table__body__td__disponible"
-                    >
-                      {offerData.is_available ? 'disponible' : 'indisponible'}
-                    </span>
-                  </td>
-                  <td className="account__general__table__body__td account__general__table__body__td--button">
-                    <Link
-                      className="account__general__table__body__td__button__pencil"
-                      to="/compte/offres/ajouter"
-                    >
-                      <i className="far fa-pencil-alt" />
-                    </Link>
-                    <button
-                      className="account__general__table__body__td__button__remove"
-                      type="button"
-                      onClick={handleModal}
-                    >
-                      <i className="far fa-times" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
+              {offers.map((offerData) => {
+                return (
+                  <tr className="account__general__table__body__tr" key={offerData.id}>
+                    <td
+                      className="account__general__table__body__td account__general__table__body__td--left"
+                    >{offerData.title}
+                    </td>
+                    <td className="account__general__table__body__td">
+                      {offerData.is_available ? (
+                        <span
+                          className="account__general__table__body__td__status__available"
+                        >disponible
+                        </span>
+                      ) : (
+                        <span
+                          className="account__general__table__body__td__status__unavailable"
+                        >réservée
+                        </span>
+                      )}
+                    </td>
+                    <td className="account__general__table__body__td account__general__table__body__td--button">
+                      <Link
+                        className="account__general__table__body__td__button__pencil"
+                        to={`compte/offre/${offerData.id}`}
+                      >
+                        <i className="far fa-pencil-alt" />
+                      </Link>
+                      <i className="fas fa-trash-alt account__general__table__body__td__button__remove" />
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
-          {data2.length === 0 ? <i className="fas fa-chess-bishop" /> : <Link to="/compte/offres" className="account__general__button global-button global-button--light"><i className="far fa-eye" /> Voir plus</Link>}
+          {offers.length === 0 ? <i className="fas fa-chess-bishop account__general__icon" /> : <Link to="/compte/offres" className="account__general__button global-button global-button--light"><i className="far fa-eye" /> Voir plus</Link>}
         </div>
 
         {/* Ma liste de souhait */}
@@ -143,59 +146,48 @@ const Account = ({
           <div className="account__general__table__test">
             <table className="account__general__table">
               <tbody className="account__general__table__body">
-                {favoritesData.map((favoriteData) => (
-                  <tr className="account__general__table__body__tr">
+                {favorites.map((favorite) => (
+                  <tr className="account__general__table__body__tr" key={favorite.id}>
                     <td className="account__general__table__body__td
                         account__general__table__body__td--left"
                     >
-                      {favoriteData.offerId}
+                      {favorite.offer.title}
                     </td>
                     <td className="account__general__table__body__td">
-                      <span
-                        className="account__general__table__body__td__disponible"
-                      >
-                        {favoriteData.notify_when_available ? 'disponible' : 'non disponible'}
-                      </span>
+                      {favorite.offer.is_available ? (
+                        <span
+                          className="account__general__table__body__td__status__available"
+                        >disponible
+                        </span>
+                      ) : (
+                        <span
+                          className="account__general__table__body__td__status__unavailable"
+                        >non disponible
+                        </span>
+                      )}
                     </td>
-                    <td className="account__general__table__body__td">
-                      <button
-                        className="account__general__table__body__td__button__bell--inactive"
-                        type="button"
-                      >
-                        <i className="fas fa-bell" />
-                      </button>
-                      <button
-                        className="account__general__table__body__td__button__bellslash account__general__table__body__td__button__bellslash--active"
-                        type="button"
-                      >
-                        <i className="fas fa-bell-slash" />
-                      </button>
-                      <button
-                        className="account__general__table__body__td__button__remove"
-                        type="button"
-                        title="annuler"
-                        onClick={handleModal}
-                      >
-                        <i className="fas fa-times" />
-                      </button>
+                    <td className="account__general__table__body__td account__general__table__body__td--button">
+                      {favorite.notify_when_available ? <i className="fas fa-bell account__general__table__body__td__button__bell--active" /> : <i className="fas fa-bell-slash account__general__table__body__td__button__bellslash account__general__table__body__td__button__bellslash--active" />}
+                      <i className="fas fa-times account__general__table__body__td__button__remove" />
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+            {favorites.length === 0 ? <a className="fas fa-chess-queen account__general__icon" /> : ''}
           </div>
         </div>
         {/* Profil */}
         <div className="account__general profil">
-          <h2 className="account__general__subtitle">Profil</h2>
+          <h2 className="account__general__subtitle account__general__subtitle__profil">Profil</h2>
           <div className="account__profil">
             <div className="account__profil__left">
               <ul className="account__profil__left__list">
-                <li className="account__profil__left__list__content">Nom Prénom :{user.firstname}</li>
-                <li className="account__profil__left__list__content">Pseudo : {user.username}</li>
-                <li className="account__profil__left__list__content">Adresse email : {user.email}</li>
-                <li className="account__profil__left__list__content">Téléphone : {user.phone}</li>
-                <ul className="account__profil__left__list__content">Adresse Postale :
+                <li className="account__profil__left__list__content"><span className="account__profil__left__list__content__bold">Nom Prénom :</span>{user.firstname}</li>
+                <li className="account__profil__left__list__content"><span className="account__profil__left__list__content__bold">Pseudo :</span> {user.username}</li>
+                <li className="account__profil__left__list__content"><span className="account__profil__left__list__content__bold">Adresse email :</span> {user.email}</li>
+                <li className="account__profil__left__list__content"><span className="account__profil__left__list__content__bold">Téléphone : </span>{user.phone}</li>
+                <ul className="account__profil__left__list__content"><span className="account__profil__left__list__content__bold">Adresse postale : </span>
                   <li>{user.adress}</li>
                   <li>{user.postal_code}, {user.city}</li>
                 </ul>
@@ -218,27 +210,26 @@ Account.propTypes = {
   showAlert: PropTypes.bool.isRequired,
   fetchParamsReservations: PropTypes.func.isRequired,
   fetchParamsOffers: PropTypes.func.isRequired,
-  data2: PropTypes.arrayOf(
+  fetchFavorites: PropTypes.func.isRequired,
+  offers: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
       is_available: PropTypes.bool.isRequired,
     }).isRequired,
   ).isRequired,
-  data: PropTypes.arrayOf(
+  reservations: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isrequired,
       offerId: PropTypes.number.isRequired,
     }).isRequired,
   ).isRequired,
-  user: PropTypes.array.isRequired,
-  favoritesData: PropTypes.arrayOf(
+  favorites: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      offerId: PropTypes.string.isRequired,
-      notify_when_available: PropTypes.bool.isRequired,
+      id: PropTypes.string.isrequired,
     }).isRequired,
   ).isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 export default Account;

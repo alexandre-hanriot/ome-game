@@ -3,14 +3,16 @@ import { showModal } from 'src/actions/global';
 import Account from 'src/frontend/components/Account';
 import { fetchParamsReservations } from 'src/actions/reservations';
 import { fetchParamsOffers } from 'src/actions/offers';
+import { fetchFavorites } from 'src/actions/favorites';
 
 const mapStateToProps = (state) => ({
   // nom de la prop à remplir: donnée à récupérer dans le state
   showModal: state.global.showModal,
   showAlert: state.global.showAlert,
-  data: state.data.listReservations,
-  data2: state.data.listOffers,
+  reservations: state.reservations.allReservations,
+  offers: state.offers.allOffers,
   user: state.user.userData,
+  favorites: state.favorites.allFavorites,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -24,6 +26,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   fetchParamsOffers: () => {
     dispatch(fetchParamsOffers());
+  },
+  fetchFavorites: () => {
+    dispatch(fetchFavorites());
   },
 });
 

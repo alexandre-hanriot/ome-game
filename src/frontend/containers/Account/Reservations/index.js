@@ -7,7 +7,7 @@ import { fetchReservations } from 'src/actions/reservations';
 const mapStateToProps = (state) => ({
   // nom de la prop à remplir: donnée à récupérer dans le state
   showModal: state.global.showModal,
-  data: state.data.listReservations,
+  data: state.reservations.allReservations,
 });
 
 const mapDispatchToProps = (dispatch) => ({
