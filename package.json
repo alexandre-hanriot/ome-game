@@ -53,6 +53,7 @@
     "react": "*",
     "react-autocomplete-input": "^1.0.13",
     "react-dom": "*",
+    "react-geocode": "^0.2.1",
     "react-google-autocomplete": "^1.1.4",
     "react-media-hook": "^0.4.6",
     "react-password-strength": "^2.4.0",

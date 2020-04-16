@@ -11,6 +11,7 @@ export const MAP_FETCH_GAMES_CATEGORIES = 'MAP_FETCH_GAMES_CATEGORIES';
 export const MAP_SAVE_GAMES_CATEGORIES = 'MAP_SAVE_GAMES_CATEGORIES';
 export const MAP_SET_FIELD_GAME = 'MAP_SET_FIELD_GAME';
 export const MAP_SET_FIELD_PLAYERS = 'MAP_SET_FIELD_PLAYERS';
+export const MAP_SET_FIELD_PLACE = 'MAP_SET_FIELD_PLACE';
 export const MAP_SET_FILTER_UPDATE = 'MAP_SET_FILTER_UPDATE';
 export const MAP_SET_FILTER_DISPONIBILITY = 'MAP_SET_FILTER_DISPONIBILITY';
 export const MAP_SET_FILTER_TYPE = 'MAP_SET_FILTER_TYPE';
@@ -72,6 +73,11 @@ export const fetchGamesCategories = () => ({
 export const saveGamesCategories = (categories) => ({
   type: MAP_SAVE_GAMES_CATEGORIES,
   categories,
+});
+
+export const changeFieldPlace = (value) => ({
+  type: MAP_SET_FIELD_PLACE,
+  value,
 });
 
 export const changeFieldGame = (value) => ({

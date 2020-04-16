@@ -9,6 +9,7 @@ import {
   MAP_SAVE_GAMES_CATEGORIES,
   MAP_SET_FIELD_GAME,
   MAP_SET_FIELD_PLAYERS,
+  MAP_SET_FIELD_PLACE,
   MAP_SET_FILTER_DISPONIBILITY,
   MAP_SET_FILTER_TYPE,
   MAP_SET_FILTER_CATEGORIES,
@@ -37,6 +38,7 @@ const initialState = {
   results: [],
   games: [],
   gamesCategories: [],
+  fieldPlace: '',
   fieldGame: '',
   fieldPlayers: '',
   filters: {
@@ -122,6 +124,12 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         fieldPlayers: action.value,
+      };
+
+    case MAP_SET_FIELD_PLACE:
+      return {
+        ...state,
+        fieldPlace: action.value,
       };
 
     case MAP_SET_FILTER_DISPONIBILITY: {

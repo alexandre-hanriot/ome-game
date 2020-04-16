@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import Header from 'src/frontend/containers/Header';
 import Footer from 'src/frontend/components/Footer';
-import Home from 'src/frontend/components/Home';
+import Home from 'src/frontend/containers/Home';
 import About from 'src/frontend/components/About';
 import Offer from 'src/frontend/containers/Offer';
 import AccountProfil from 'src/frontend/components/Account/Profil';

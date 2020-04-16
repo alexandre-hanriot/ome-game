@@ -193,7 +193,7 @@ const Offer = ({
       <aside className="offer__aside">
         <h1 className="offer__aside__title">Trouver un jeu</h1>
 
-        <form className="offer__aside__search">
+        <div className="offer__aside__search">
           <MapAutocomplete
             className="offer__aside__search__input global-input"
             onPlaceSelected={(place) => {
@@ -204,7 +204,7 @@ const Offer = ({
                 2 = region
                 1 = pays
               */
-              let zoom = 15;
+              let zoom = 14;
               switch (place.address_components.length) {
                 case 3:
                   zoom = 10;
@@ -216,7 +216,7 @@ const Offer = ({
                   zoom = 6;
                   break;
                 default:
-                  zoom = 15;
+                  zoom = 14;
               }
 
               const lat = place.geometry.location.lat();
@@ -234,7 +234,7 @@ const Offer = ({
             componentRestrictions={{ country: 'fr' }}
           />
           <button type="submit" className="offer__aside__search__button" title="Rechercher"><i className="fas fa-search"> </i></button>
-        </form>
+        </div>
 
         <div className="offer__aside__options">
           <button type="button" className={optionsButtonClass} onClick={changeShowOptions}>Options</button>
