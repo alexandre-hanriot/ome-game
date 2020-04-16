@@ -6,7 +6,8 @@ import {
   changeZoom,
 } from 'src/actions/map';
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+});
 
 const mapDispatchToProps = (dispatch) => ({
   changeCoordinates: (lat, lng) => {
