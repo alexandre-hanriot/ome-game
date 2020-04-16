@@ -9,7 +9,7 @@ import Header from 'src/frontend/containers/Header';
 import Footer from 'src/frontend/components/Footer';
 import Home from 'src/frontend/components/Home';
 import About from 'src/frontend/components/About';
-import Offer from 'src/frontend/components/Offer';
+import Offer from 'src/frontend/containers/Offer';
 import AccountProfil from 'src/frontend/components/Account/Profil';
 import AccountOffers from 'src/frontend/containers/Account/Offers';
 import AccountOffersAdd from 'src/frontend/components/Account/Offers/Form';
