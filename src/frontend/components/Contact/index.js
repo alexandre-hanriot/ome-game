@@ -3,10 +3,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './contact.scss';
-import Alert from 'src/frontend/containers/Alert';
 import { useTitle } from 'src/hooks/useTitle';
 
-const Contact = ({ displayAlert, showAlert }) => {
+const Contact = ({ displayAlert }) => {
   useTitle('Contact');
 
   const handleSubmit = (e) => {
@@ -16,7 +15,6 @@ const Contact = ({ displayAlert, showAlert }) => {
 
   return (
     <div className="wrapper contact">
-      {showAlert && (<Alert />)}
       <h1 className="contact__title">Contact</h1>
       <form className="contact__form">
         <input className="contact__form__input global-input" placeholder="Nom" />
@@ -36,7 +34,6 @@ const Contact = ({ displayAlert, showAlert }) => {
 
 Contact.propTypes = {
   displayAlert: PropTypes.func.isRequired,
-  showAlert: PropTypes.bool.isRequired,
 };
 
 export default Contact;

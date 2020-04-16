@@ -68,12 +68,13 @@
 
   &__general {
     width: 47%;
-    // height: 40%;
     background-color: $darkBlue;
     display: inline-block;
     padding: $gutter;
     margin: $gutter/2;
     text-align: center;
+    height: 427px;
+    position: relative;
 
     &__subtitle {
       text-align: center;
@@ -85,16 +86,36 @@
     &__table {
         margin: auto;
         width: 85%;
+        overflow: auto;
+        &__test {
+          max-height: 306px;
+          overflow-y: scroll;
+          &::-webkit-scrollbar {
+            width: 7px;
+            background-color: $darkBlue;
+          }
+          &::-webkit-scrollbar-thumb {
+            background-color: $lightBlue;
+            border-radius: 15px;
+          }
+        }
       &__body {
         // border: $lightBlue solid 1px;
         border-top: $lightBlue solid 1px;
+      
+        overflow: auto;
+        &__tr {
+          border-bottom: 1px solid $lightBlue;
+        }
         &__td {
           // border: $lightBlue solid 1px;
-          border-bottom: $lightBlue solid 1px;
           padding: .5rem 1rem;
           text-align: center;
           margin: auto auto;
           line-height: 1.2em;
+          &--button {
+            display: flex;
+          }
 
           &__disponible {
             margin-left: $gutter/2;
@@ -130,6 +151,7 @@
             background-color: #E3E5EC;
             margin: 0.3rem;
             font-size: $gutter/2;
+
             
           }
           &__button__pencil{
@@ -161,10 +183,17 @@
         }
       }
     }
+    &__icon {
+      color: $lightBlue;
+      font-size: $gutter*8;
+    }
     &__button {
       display: inline-block;
-      margin: 0 auto;
+      // margin: 0 auto;
       margin-top: $gutter/2;
+      bottom: 20px;
+      position: absolute;
+      right: 37%;
     }
   }
 

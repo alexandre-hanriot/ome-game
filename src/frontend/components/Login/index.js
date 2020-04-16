@@ -1,21 +1,44 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-
 import './login.scss';
-
-const Login = ({ displayModal }) => {
+// use Sanitize on inputs for increase security
+const Login = ({
+  displayModal, changeValue, email, password, submitLogin, loginError, clearLoginError,
+}) => {
+  useEffect(() => () => {
+    clearLoginError();
+  }, []);
   const handlePassword = () => {
     displayModal('forgotPassword');
+  };
+  const handleChange = (identifier, newValue) => {
+    changeValue(identifier, newValue);
+  };
+  const changeInput = (event) => {
+    const identifier = event.target.type;
+    const newValue = event.target.value;
+    handleChange(identifier, newValue);
+  };
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    submitLogin();
   };
 
   return (
     <div className="login">
       <h1>Connexion</h1>
+      {loginError !== '' && (
+        <div className="global-error">
+          {loginError}
+        </div>
+      )}
       <p className="login__text">Vous avez déjà un compte ? Connectez-vous ci-dessous.</p>
-      <form className="login__form">
-        <input type="text" placeholder="Adresse email" className="global-input" />
-        <input type="password" placeholder="Mot de passe" className="global-input" />
+      <form className="login__form" onSubmit={handleSubmit}>
+        <input type="email" placeholder="Adresse email" className="global-input" onChange={changeInput} value={email} />
+        <input type="password" placeholder="Mot de passe" className="global-input" onChange={changeInput} value={password} />
         <label className="login__form__remember">
           <input type="checkbox" /> Se souvenir de moi
         </label>
@@ -28,6 +51,12 @@ const Login = ({ displayModal }) => {
 
 Login.propTypes = {
   displayModal: PropTypes.func.isRequired,
+  changeValue: PropTypes.func.isRequired,
+  submitLogin: PropTypes.func.isRequired,
+  email: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  loginError: PropTypes.string.isRequired,
+  clearLoginError: PropTypes.func.isRequired,
 };
 
 export default Login;

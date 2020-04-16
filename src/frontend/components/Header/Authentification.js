@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Login from 'src/frontend/containers/Login';
-import Registration from 'src/frontend/components/Registration';
+import Registration from 'src/frontend/containers/Registration';
 import ForgotPassword from 'src/frontend/components/ForgotPassword';
 
 const Authentification = ({ showModal, displayModal }) => {
