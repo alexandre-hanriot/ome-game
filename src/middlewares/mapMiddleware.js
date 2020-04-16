@@ -1,11 +1,11 @@
 /* eslint-disable default-case */
 import axios from 'axios';
 import {
-  FETCH_OFFERS,
+  MAP_FETCH_OFFERS,
   saveOffers,
-  FETCH_GAMES,
+  MAP_FETCH_GAMES,
   saveGames,
-  FETCH_GAMES_CATEGORIES,
+  MAP_FETCH_GAMES_CATEGORIES,
   saveGamesCategories,
   requestLoad,
 } from 'src/actions/map';
@@ -13,7 +13,7 @@ import {
 const mapMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     // load all offers
-    case FETCH_OFFERS: {
+    case MAP_FETCH_OFFERS: {
       const { filters } = store.getState().map;
 
       // filters
@@ -70,7 +70,7 @@ const mapMiddleware = (store) => (next) => (action) => {
     }
 
     // load all games
-    case FETCH_GAMES: {
+    case MAP_FETCH_GAMES: {
       axios
         .get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/games')
         .then((response) => {
@@ -87,7 +87,7 @@ const mapMiddleware = (store) => (next) => (action) => {
     }
 
     // load all games categories
-    case FETCH_GAMES_CATEGORIES: {
+    case MAP_FETCH_GAMES_CATEGORIES: {
       axios
         .get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/game_categories')
         .then((response) => {

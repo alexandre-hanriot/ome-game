@@ -20,7 +20,6 @@ import Details from 'src/frontend/containers/Offer/Details';
 import Reservations from 'src/frontend/containers/Account/Reservations';
 import NotFound from 'src/frontend/components/NotFound';
 
-
 // Data
 // import offerData from 'src/data/offersData';
 // import reservationsData from 'src/data/reservationsData';
@@ -37,7 +36,7 @@ const App = ({ isLogged, showAlert }) => {
   const currentPath = location.pathname;
   const isHome = currentPath === '/';
   const appClass = classNames('app', { 'app--light': isHome });
-  console.log(favoritesData);
+
   return (
     <div className={appClass}>
       <Header />

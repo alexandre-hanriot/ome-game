@@ -1,23 +1,23 @@
 import {
-  SET_MAP_LOADED,
-  SET_BOUNDS,
-  SET_ZOOM,
-  SET_COORDINATES,
-  SET_RESULTS,
-  SAVE_OFFERS,
-  SAVE_GAMES,
-  SAVE_GAMES_CATEGORIES,
-  SET_FIELD_GAME,
-  SET_FIELD_PLAYERS,
-  SET_FILTER_DISPONIBILITY,
-  SET_FILTER_TYPE,
-  SET_FILTER_CATEGORIES,
-  SET_FILTER_GAMES,
-  SET_FILTER_PLAYERS,
-  REMOVE_FILTER,
-  SET_FILTER_LOAD,
-  SET_REQUEST_LOAD,
-  SET_SHOW_OPTION,
+  MAP_SET_MAP_LOADED,
+  MAP_SET_BOUNDS,
+  MAP_SET_ZOOM,
+  MAP_SET_COORDINATES,
+  MAP_SET_RESULTS,
+  MAP_SAVE_OFFERS,
+  MAP_SAVE_GAMES,
+  MAP_SAVE_GAMES_CATEGORIES,
+  MAP_SET_FIELD_GAME,
+  MAP_SET_FIELD_PLAYERS,
+  MAP_SET_FILTER_DISPONIBILITY,
+  MAP_SET_FILTER_TYPE,
+  MAP_SET_FILTER_CATEGORIES,
+  MAP_SET_FILTER_GAMES,
+  MAP_SET_FILTER_PLAYERS,
+  MAP_REMOVE_FILTER,
+  MAP_SET_FILTER_LOAD,
+  MAP_SET_REQUEST_LOAD,
+  MAP_SET_SHOW_OPTION,
 } from 'src/actions/map';
 
 const initialState = {
@@ -61,25 +61,25 @@ const initialState = {
 
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case SET_MAP_LOADED:
+    case MAP_SET_MAP_LOADED:
       return {
         ...state,
         mapLoaded: true,
       };
 
-    case SET_BOUNDS:
+    case MAP_SET_BOUNDS:
       return {
         ...state,
         bounds: action.bounds,
       };
 
-    case SET_ZOOM:
+    case MAP_SET_ZOOM:
       return {
         ...state,
         zoom: action.zoom,
       };
 
-    case SET_COORDINATES:
+    case MAP_SET_COORDINATES:
       return {
         ...state,
         coordinates: {
@@ -88,43 +88,43 @@ const reducer = (state = initialState, action = {}) => {
         },
       };
 
-    case SET_RESULTS:
+    case MAP_SET_RESULTS:
       return {
         ...state,
         results: action.results,
       };
 
-    case SAVE_OFFERS:
+    case MAP_SAVE_OFFERS:
       return {
         ...state,
         offers: action.offers,
       };
 
-    case SAVE_GAMES:
+    case MAP_SAVE_GAMES:
       return {
         ...state,
         games: action.games,
       };
 
-    case SAVE_GAMES_CATEGORIES:
+    case MAP_SAVE_GAMES_CATEGORIES:
       return {
         ...state,
         gamesCategories: action.categories,
       };
 
-    case SET_FIELD_GAME:
+    case MAP_SET_FIELD_GAME:
       return {
         ...state,
         fieldGame: action.value,
       };
 
-    case SET_FIELD_PLAYERS:
+    case MAP_SET_FIELD_PLAYERS:
       return {
         ...state,
         fieldPlayers: action.value,
       };
 
-    case SET_FILTER_DISPONIBILITY: {
+    case MAP_SET_FILTER_DISPONIBILITY: {
       let isExist = false;
       let tags = state.tags.map((tag) => {
         if (tag.type === 'disponibility') {
@@ -152,7 +152,7 @@ const reducer = (state = initialState, action = {}) => {
       };
     }
 
-    case SET_FILTER_TYPE: {
+    case MAP_SET_FILTER_TYPE: {
       let isExist = false;
       let tags = state.tags.map((tag) => {
         if (tag.type === 'type') {
@@ -180,7 +180,7 @@ const reducer = (state = initialState, action = {}) => {
       };
     }
 
-    case SET_FILTER_CATEGORIES: {
+    case MAP_SET_FILTER_CATEGORIES: {
       const id = Number(action.value);
       const isExist = state.filters.categories.find((category) => category.id === id);
 
@@ -202,7 +202,7 @@ const reducer = (state = initialState, action = {}) => {
       return state;
     }
 
-    case SET_FILTER_GAMES: {
+    case MAP_SET_FILTER_GAMES: {
       if (state.fieldGame !== '' && !state.filters.games.includes(state.fieldGame)) {
         const value = state.fieldGame.trim();
         return {
@@ -221,7 +221,7 @@ const reducer = (state = initialState, action = {}) => {
       };
     }
 
-    case SET_FILTER_PLAYERS: {
+    case MAP_SET_FILTER_PLAYERS: {
       if (Number.isNaN(Number(state.fieldPlayers))) {
         return {
           ...state,
@@ -258,7 +258,7 @@ const reducer = (state = initialState, action = {}) => {
       };
     }
 
-    case REMOVE_FILTER: {
+    case MAP_REMOVE_FILTER: {
       const tags = state.tags.filter(
         (tag) => (tag.type !== action.name || tag.value.toString() !== action.value.toString()),
       );
@@ -314,19 +314,19 @@ const reducer = (state = initialState, action = {}) => {
       };
     }
 
-    case SET_FILTER_LOAD:
+    case MAP_SET_FILTER_LOAD:
       return {
         ...state,
         filtersIsLoad: !state.filtersIsLoad,
       };
 
-    case SET_REQUEST_LOAD:
+    case MAP_SET_REQUEST_LOAD:
       return {
         ...state,
         requestsLoad: state.requestsLoad + 1,
       };
 
-    case SET_SHOW_OPTION:
+    case MAP_SET_SHOW_OPTION:
       return {
         ...state,
         showOptions: !state.showOptions,
