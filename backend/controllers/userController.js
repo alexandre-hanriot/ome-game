@@ -8,6 +8,22 @@ const Game_category = db.game_categories;
 const coreController = require("./coreController");
 const utils = require("../utils");
 
+// Récupération d'un User par son ID
+exports.getUserById = async (id) => {
+    user = await User.findOne({
+        where: { id },
+    });
+    return user;
+};
+
+// Récupération d'un User par son email
+exports.getUserByEmail = async (email) => {
+    user = await User.findOne({
+        where: { email },
+    });
+    return user;
+};
+
 // Récupération de tous les utilisateurs
 exports.findAll = (req, res) => {
     const defaultOrderby = "username";

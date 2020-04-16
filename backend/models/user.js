@@ -129,18 +129,10 @@ module.exports = (sequelize, Sequelize) => {
     };
 
     // Ajout des Hooks
-    User.beforeCreate(async (user, options) => {
-        user.email = user.email.toLowerCase();
-
-        // On hash le mot de passe avant la création d'une instance User
-        const hash = await bcrypt.hash(user.password, bcrypt.genSaltSync(8));
-        user.password = hash;
-    });
-
     User.beforeSave(async (user, options) => {
-        // Si on met à jour le password il faut le hasher
+        user.email = user.email.toLowerCase();
+        // Si on créée ou met à jour le password il faut le hasher
         if (user.dataValues.password !== user._previousDataValues.password) {
-            // On hash le mot de passe après la mise à jour
             const hash = await bcrypt.hash(user.password, bcrypt.genSaltSync(8));
             user.password = hash;
         }

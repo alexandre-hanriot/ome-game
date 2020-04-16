@@ -1,10 +1,19 @@
 const express = require("express");
+
+// Pour ce qui concerne les sesions
+const session = require("express-session");
+const passport = require("passport");
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
+const passportConfig = require("./bin/passport");
+
+// Autres imports
 const path = require("path");
 var cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 
+// Importation des routes
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/user");
 const offersRouter = require("./routes/offer");
@@ -35,7 +44,31 @@ app.use(logger("dev"));
 //     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 // };
 // app.use(cors(corsOptions));
-app.use(cors());
+app.use(
+    cors({
+        credentials: true,
+        origin: "http://localhost:8080",
+    })
+);
+
+// Paramétrage des sessions
+passportConfig(passport);
+app.use(
+    session({
+        secret: "MAPHRASESECRETE",
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            maxAge: 30 * 24 * 60 * 60 * 1000, // 1 month
+        },
+        store: new SequelizeStore({
+            db: db,
+            table: "sessions",
+        }),
+    })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Paramétrage des requêtes et réponses
 app.use(bodyParser.urlencoded({ extended: false }));
