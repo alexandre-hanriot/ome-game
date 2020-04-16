@@ -20,13 +20,8 @@ const LegalMentions = () => {
           par O'me game
           57000 Metz
           France
-          Tél. : + 33 (0)6 00 00 00 00
-          Fax : + 33 (0)5 00 00 00 00
           https://notre-site.fr
         </p>
-        O'me game est une entreprise au capital de TODO
-        RCS B 497 553 71 - Siret : TODO - APE : TODO
-        N° déclaration CNIL : TODO
         <h2>Conditions d'utilisation</h2>
         <p>
           Le site accessible par les url suivants : www.notre-site.fr est

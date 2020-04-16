@@ -204,7 +204,7 @@ const Offer = ({
                 2 = region
                 1 = pays
               */
-              let zoom = 15;
+              let zoom = 14;
               switch (place.address_components.length) {
                 case 3:
                   zoom = 10;
@@ -216,7 +216,7 @@ const Offer = ({
                   zoom = 6;
                   break;
                 default:
-                  zoom = 15;
+                  zoom = 14;
               }
 
               const lat = place.geometry.location.lat();
