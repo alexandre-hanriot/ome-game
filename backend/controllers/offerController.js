@@ -1,5 +1,7 @@
 const db = require("../models/index");
 const Offer = db.offers;
+const Game = db.games;
+const Game_category = db.game_categories;
 const coreController = require("./coreController");
 
 // Récupération de toutes les offres
@@ -22,7 +24,6 @@ exports.findOne = (req, res) => {
             res.status(404).json({
                 error: `Offre id=${id} non trouvée`,
             });
-        else if (returnOption === true) return data;
         else res.send(data);
     });
 };

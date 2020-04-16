@@ -166,18 +166,12 @@ exports.findAllOffers = (req, res) => {
 
     Offer.findAll({
         where: { userId },
-        include: [
-            {
-                model: Game,
-                include: Game_category,
-            },
-            {
-                model: Reservation,
-                attributes: ["id", "status"],
-                include: User,
-            },
-        ],
-        attributes: ["id", "status", "is_available", "title"],
+        include: {
+            model: Reservation,
+            attributes: ["id", "status"],
+        },
+
+        attributes: ["id", "status", "is_available", "title", "createdAt"],
         offset,
         limit,
         order: [["createdAt", "DESC"]],
