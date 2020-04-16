@@ -48,15 +48,21 @@
   "dependencies": {
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
+    "google-map-react": "^1.1.7",
     "prop-types": "*",
     "react": "*",
+    "react-autocomplete-input": "^1.0.13",
     "react-dom": "*",
+    "react-geocode": "^0.2.1",
+    "react-google-autocomplete": "^1.1.4",
     "react-media-hook": "^0.4.6",
     "react-password-strength": "^2.4.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-slugify": "^2.0.1",
     "redux": "^4.0.5",
-    "redux-devtools-extension": "^2.13.8"
+    "redux-devtools-extension": "^2.13.8",
+    "supercluster": "^7.0.0",
+    "use-supercluster": "^0.2.6"
   }
 }

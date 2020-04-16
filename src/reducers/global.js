@@ -1,5 +1,8 @@
 import {
-  SHOW_MODAL, SHOW_MENU, SHOW_ALERT,
+  SHOW_MODAL,
+  SHOW_MENU,
+  SHOW_ALERT,
+  SET_IS_ERROR,
 } from 'src/actions/global';
 
 const initialState = {
@@ -8,6 +11,7 @@ const initialState = {
   alertMessage: ' ',
   alertSuccess: true,
   showAlert: false,
+  isError: false,
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -30,6 +34,13 @@ const reducer = (state = initialState, action = {}) => {
         alertSuccess: action.success,
         showAlert: !state.showAlert,
       };
+
+    case SET_IS_ERROR:
+      return {
+        ...state,
+        isError: !state.isError,
+      };
+
     default:
       return state;
   }

@@ -7,9 +7,9 @@ import {
 } from 'react-router-dom';
 import Header from 'src/frontend/containers/Header';
 import Footer from 'src/frontend/components/Footer';
-import Home from 'src/frontend/components/Home';
+import Home from 'src/frontend/containers/Home';
 import About from 'src/frontend/components/About';
-import Offer from 'src/frontend/components/Offer';
+import Offer from 'src/frontend/containers/Offer';
 import AccountProfil from 'src/frontend/components/Account/Profil';
 import AccountOffers from 'src/frontend/containers/Account/Offers';
 import AccountOffersAdd from 'src/frontend/containers/Account/Offers/Form';
@@ -18,18 +18,24 @@ import Contact from 'src/frontend/containers/Contact';
 import Account from 'src/frontend/containers/Account';
 import Details from 'src/frontend/containers/Offer/Details';
 import Reservations from 'src/frontend/containers/Account/Reservations';
-import NotFound from 'src/frontend/components/NotFound';
+
+import NotFound from 'src/frontend/containers/NotFound';
 
 import Alert from 'src/frontend/containers/Alert';
 // TODO : créer un menu lorsqu'on est connecté
 
 // == Composant
-const App = ({ isLogged, showAlert }) => {
+const App = ({ isLogged, showAlert, isError }) => {
   const location = useLocation();
   // return the current pathname
   const currentPath = location.pathname;
   const isHome = currentPath === '/';
-  const appClass = classNames('app', { 'app--light': isHome });
+
+  const appClass = classNames('app', {
+    'app--light': isHome,
+    'app--error': isError,
+  });
+
   return (
     <div className={appClass}>
       <Header />
@@ -97,6 +103,7 @@ const App = ({ isLogged, showAlert }) => {
 App.propTypes = {
   isLogged: PropTypes.bool.isRequired,
   showAlert: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
 };
 // == Export
 export default App;

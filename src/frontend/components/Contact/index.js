@@ -12,6 +12,7 @@ const Contact = ({ displayAlert }) => {
     e.preventDefault();
     displayAlert('Veuillez remplir les champs obligatoires', false);
   };
+
   return (
     <div className="wrapper contact">
       <h1 className="contact__title">Contact</h1>

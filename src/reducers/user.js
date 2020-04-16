@@ -48,6 +48,8 @@ const userReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         loginError: '',
+        email: '',
+        password: '',
       };
     case LOG_OUT:
       return {
