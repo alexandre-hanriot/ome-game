@@ -14,5 +14,5 @@ export const fetchParamsReservations = () => ({
 
 export const saveReservations = (reservations) => ({
   type: SAVE_RESERVATIONS,
-  data: reservations,
+  reservations,
 });

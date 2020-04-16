@@ -12,7 +12,7 @@
 
 .modal {
   width: 800px;
-  position: fixed;
+  position: relative;
   left: calc(50% - 400px);
   top: 100px;
   z-index: 99;

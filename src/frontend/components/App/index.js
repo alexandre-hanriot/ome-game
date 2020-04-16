@@ -12,20 +12,13 @@ import About from 'src/frontend/components/About';
 import Offer from 'src/frontend/components/Offer';
 import AccountProfil from 'src/frontend/components/Account/Profil';
 import AccountOffers from 'src/frontend/containers/Account/Offers';
-import AccountOffersAdd from 'src/frontend/components/Account/Offers/Form';
+import AccountOffersAdd from 'src/frontend/containers/Account/Offers/Form';
 import LegalMentions from 'src/frontend/components/Legal-mentions';
 import Contact from 'src/frontend/containers/Contact';
 import Account from 'src/frontend/containers/Account';
 import Details from 'src/frontend/containers/Offer/Details';
 import Reservations from 'src/frontend/containers/Account/Reservations';
 import NotFound from 'src/frontend/components/NotFound';
-
-
-// Data
-// import offerData from 'src/data/offersData';
-// import reservationsData from 'src/data/reservationsData';
-import favoritesData from 'src/data/favoritesData';
-
 
 import Alert from 'src/frontend/containers/Alert';
 // TODO : créer un menu lorsqu'on est connecté
@@ -37,7 +30,6 @@ const App = ({ isLogged, showAlert }) => {
   const currentPath = location.pathname;
   const isHome = currentPath === '/';
   const appClass = classNames('app', { 'app--light': isHome });
-  console.log(favoritesData);
   return (
     <div className={appClass}>
       <Header />
@@ -46,7 +38,7 @@ const App = ({ isLogged, showAlert }) => {
         <Switch>
           {isLogged && (
           <Route exact path="/compte">
-            <Account favoritesData={favoritesData} />
+            <Account />
           </Route>
           )}
           {isLogged && (
@@ -66,6 +58,11 @@ const App = ({ isLogged, showAlert }) => {
           )}
           {isLogged && (
           <Route exact path="/compte/offres/ajouter">
+            <AccountOffersAdd />
+          </Route>
+          )}
+          {isLogged && (
+          <Route exact path="/compte/offre/:slug">
             <AccountOffersAdd />
           </Route>
           )}

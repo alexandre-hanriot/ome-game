@@ -1,16 +1,18 @@
 import axios from 'axios';
-import { FETCH_OFFERS, FETCH_PARAMS_OFFERS, saveOffers } from 'src/actions/offers';
-import { FETCH_RESERVATIONS, FETCH_PARAMS_RESERVATIONS, saveReservations } from 'src/actions/reservations';
+import {
+  FETCH_OFFERS, FETCH_PARAMS_OFFERS, GET_OFFER, saveOffers, saveOneOffer,
+} from 'src/actions/offers';
 
-const listMiddleware = (store) => (next) => (action) => {
+
+const offersMiddleware = (store) => (next) => (action) => {
   const { userData } = store.getState().user;
+  const { urlId } = store.getState().offers;
   switch (action.type) {
     case FETCH_OFFERS: {
       // const { userData } = store.getState().user;
       axios.get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.id}/offers`)
         .then((response) => {
           store.dispatch(saveOffers(response.data));
-          console.log(response.data);
         })
         .catch((error) => {
           console.warn(error);
@@ -27,7 +29,6 @@ const listMiddleware = (store) => (next) => (action) => {
       })
         .then((response) => {
           store.dispatch(saveOffers(response.data));
-          console.log(response.data);
         })
         .catch((error) => {
           console.warn(error);
@@ -35,37 +36,22 @@ const listMiddleware = (store) => (next) => (action) => {
       next(action);
       break;
 
-    case FETCH_RESERVATIONS:
-
-      axios.get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.id}/reservations`)
+    case GET_OFFER: {
+      // const { userData } = store.getState().user;
+      axios.get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`)
         .then((response) => {
-          store.dispatch(saveReservations(response.data));
+          store.dispatch(saveOneOffer(response.data));
         })
         .catch((error) => {
           console.warn(error);
         });
       next(action);
       break;
-
-    case FETCH_PARAMS_RESERVATIONS:
-      axios.get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.id}/reservations`, {
-        params: {
-          limit: 4,
-          resultPage: 1,
-        },
-      })
-        .then((response) => {
-          store.dispatch(saveReservations(response.data));
-        })
-        .catch((error) => {
-          console.warn(error);
-        });
-      next(action);
-      break;
+    }
 
     default:
       next(action);
   }
 };
 
-export default listMiddleware;
+export default offersMiddleware;

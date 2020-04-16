@@ -35,7 +35,7 @@ const Reservations = ({
       <h1 className="reservations__title">Mes réservations</h1>
       <ul>
         {data.map((reservation) => (
-          <li className="reservations__container">
+          <li className="reservations__container" key={reservation.id}>
             <div className="reservations__container__item">
               <div className="reservations__container__item__left">
                 <img className="reservations__container__item__left__picture" src="https://cdn3.trictrac.net/documents/formats/thumb_300_300/documents/originals/29/2c/676d3ba08cf231daf0fc67c709bc0ba8a6468f2fb878061c99c16e6f751d.jpeg" alt="" />
@@ -57,7 +57,7 @@ const Reservations = ({
                       <span className="reservations__container__item__left__text__status">Annulée</span>
                     )}
                   </h2>
-                  <h3 className="reservations__container__item__left__text__third">Nom du jeu</h3>
+                  <h3 className="reservations__container__item__left__text__third">{reservation.offer.game.name}</h3>
                 </div>
               </div>
               <div className="reservations__container__item__right">

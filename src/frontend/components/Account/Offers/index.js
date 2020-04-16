@@ -9,7 +9,7 @@ const AccountOffers = ({ data, fetchOffers }) => {
   useEffect(() => {
     fetchOffers();
   }, []);
-  console.log(data);
+
   return (
     <div className="wrapper accountOffers">
       <div className="reservations__breadcrumb">
