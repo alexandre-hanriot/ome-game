@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
 import useSupercluster from 'use-supercluster';
 
-import Marker from './Marker';
+import Marker from 'src/frontend/containers/Map/Marker';
 import './map.scss';
 
 const Map = ({
+  changeCoordinates,
   coordinates,
-  mapRef,
   mapIsLoaded,
   defaultCoordinates,
   defaultZoom,
@@ -22,7 +22,7 @@ const Map = ({
   offers,
 }) => {
   // load points and create clusters with supercluster dependancy
-  let { clusters, supercluster } = useSupercluster({
+  const { clusters, supercluster } = useSupercluster({
     points: offers,
     bounds,
     zoom,
@@ -31,13 +31,13 @@ const Map = ({
 
   // Save results in state
   const handleChange = () => {
-    console.log('handleChange');
     if (mapIsLoaded) {
       const results = [];
       clusters.map((cluster) => {
         const { cluster: isCluster } = cluster.properties;
         if (isCluster) {
-          supercluster.getLeaves(cluster.id, 20).map((clusterElement) => results.push(clusterElement.properties));
+          supercluster.getLeaves(cluster.id, 20).map((clusterElement) => (
+            results.push(clusterElement.properties)));
         }
         else {
           results.push(cluster.properties);
@@ -49,7 +49,7 @@ const Map = ({
 
   // when API is loaded
   const handleApiLoaded = (map) => {
-    mapRef.current = map;
+    // mapRef.current = map;
     map.setOptions({ maxZoom: 15 });
     mapLoaded();
     fetchOffers();
@@ -58,12 +58,7 @@ const Map = ({
   // update results when offers is load
   useEffect(() => {
     if (mapIsLoaded) {
-      const timeout = setTimeout(() => {
-        mapRef.current.panTo({ lat: coordinates.lat + 0.00001, lng: coordinates.lng + 0.00001 });
-        // mapRef.current.setZoom(15);
-        handleChange();
-        clearTimeout(timeout);
-      }, 500);
+      changeCoordinates(coordinates.lat + 0.00001, coordinates.lng + 0.00001);
     }
   }, [offers]);
 
@@ -73,9 +68,11 @@ const Map = ({
         bootstrapURLKeys={{ key: 'AIzaSyAAUPUp27VoZaXgYvRwLCjgn5cZjpRIWjs' }}
         defaultCenter={defaultCoordinates}
         defaultZoom={defaultZoom}
+        center={coordinates}
+        zoom={zoom}
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={({ map }) => handleApiLoaded(map)}
-        onChange={({ zoom, bounds }) => {
+        onChange={({ zoom, bounds, center }) => {
           changeZoom(zoom);
           changeBounds([
             bounds.nw.lng,
@@ -83,6 +80,7 @@ const Map = ({
             bounds.se.lng,
             bounds.nw.lat,
           ]);
+          changeCoordinates(center.lat, center.lng);
           handleChange();
         }}
       >
@@ -99,7 +97,7 @@ const Map = ({
                 supercluster={supercluster}
                 cluster={cluster}
                 pointsLength={offers.length}
-                mapRef={mapRef}
+                // mapRef={mapRef}
               />
             );
           })
@@ -110,9 +108,10 @@ const Map = ({
 };
 
 Map.propTypes = {
+  changeCoordinates: PropTypes.func.isRequired,
+  coordinates: PropTypes.object.isRequired,
   defaultCoordinates: PropTypes.object.isRequired,
   defaultZoom: PropTypes.number.isRequired,
-  mapRef: PropTypes.object.isRequired,
   mapIsLoaded: PropTypes.bool.isRequired,
   mapLoaded: PropTypes.func.isRequired,
   changeBounds: PropTypes.func.isRequired,

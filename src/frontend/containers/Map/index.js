@@ -1,7 +1,14 @@
 import { connect } from 'react-redux';
 import Map from 'src/frontend/components/Map';
 
-import { mapLoaded, changeBounds, changeZoom, saveResults, fetchOffers } from 'src/actions/map';
+import {
+  changeCoordinates,
+  mapLoaded,
+  changeBounds,
+  changeZoom,
+  saveResults,
+  fetchOffers,
+} from 'src/actions/map';
 
 const mapStateToProps = (state) => ({
   mapIsLoaded: state.map.mapLoaded,
@@ -14,6 +21,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  changeCoordinates: (lat, lng) => {
+    dispatch(changeCoordinates(lat, lng));
+  },
   changeBounds: (value) => {
     dispatch(changeBounds(value));
   },

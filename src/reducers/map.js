@@ -15,7 +15,9 @@ import {
   SET_FILTER_GAMES,
   SET_FILTER_PLAYERS,
   REMOVE_FILTER,
-  UPDATE_RESULTS,
+  SET_FILTER_LOAD,
+  SET_REQUEST_LOAD,
+  SET_SHOW_OPTION,
 } from 'src/actions/map';
 
 const initialState = {
@@ -52,6 +54,9 @@ const initialState = {
     players: 0,
   },
   tags: [],
+  filtersIsLoad: false,
+  requestsLoad: 0,
+  showOptions: false,
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -217,7 +222,7 @@ const reducer = (state = initialState, action = {}) => {
     }
 
     case SET_FILTER_PLAYERS: {
-      if (isNaN(state.fieldPlayers)) {
+      if (Number.isNaN(Number(state.fieldPlayers))) {
         return {
           ...state,
         };
@@ -254,7 +259,9 @@ const reducer = (state = initialState, action = {}) => {
     }
 
     case REMOVE_FILTER: {
-      const tags = state.tags.filter((tag) => (tag.type !== action.name || tag.value.toString() !== action.value.toString()));
+      const tags = state.tags.filter(
+        (tag) => (tag.type !== action.name || tag.value.toString() !== action.value.toString()),
+      );
       let { filters } = state;
 
       switch (action.name) {
@@ -282,14 +289,18 @@ const reducer = (state = initialState, action = {}) => {
         case 'categories':
           filters = {
             ...state.filters,
-            categories: state.filters.categories.filter((category) => (category.id.toString() !== action.value.toString())),
+            categories: state.filters.categories.filter(
+              (category) => (category.id.toString() !== action.value.toString()),
+            ),
           };
           break;
 
         case 'games':
           filters = {
             ...state.filters,
-            games: state.filters.games.filter((game) => (game.id.toString() !== action.value.toString())),
+            games: state.filters.games.filter(
+              (game) => (game.toString() !== action.value.toString()),
+            ),
           };
           break;
 
@@ -303,16 +314,23 @@ const reducer = (state = initialState, action = {}) => {
       };
     }
 
-    // case UPDATE_RESULTS: {
-    //   const results = state.results.filter((result) => (
-    //     (state.filters.disponibility !== 'all' && result.is_available === Boolean(Number(state.filters.disponibility)))
-    //   ));
+    case SET_FILTER_LOAD:
+      return {
+        ...state,
+        filtersIsLoad: !state.filtersIsLoad,
+      };
 
-    //   return {
-    //     ...state,
-    //     results,
-    //   };
-    // }
+    case SET_REQUEST_LOAD:
+      return {
+        ...state,
+        requestsLoad: state.requestsLoad + 1,
+      };
+
+    case SET_SHOW_OPTION:
+      return {
+        ...state,
+        showOptions: !state.showOptions,
+      };
 
     default:
       return state;
@@ -320,44 +338,3 @@ const reducer = (state = initialState, action = {}) => {
 };
 
 export default reducer;
-
-
-/*
-cluster(pin): false
-id(pin): 55
-status(pin): "0"
-type(pin): "1"
-is_available(pin): false
-title(pin): "Offre 49"
-price(pin): 0
-description(pin): null
-postal_code(pin): "75011"
-city(pin): "Paris"
-latitude(pin): "47.742939"
-longitude(pin): "7.399070"
-createdAt(pin): "2020-04-15T06:49:00.039Z"
-updatedAt(pin): "2020-04-15T06:49:00.039Z"
-userId(pin): 26
-gameId(pin): 42
-
-game :
-  id(pin): 42
-  status(pin): "0"
-  name(pin): "trivial uno monopoly spiderman"
-  nb_players_min(pin): 3
-  nb_players_max(pin): 6
-  age_min(pin): 15
-  duration(pin): null
-  description(pin): "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia facere quibusdam culpa consectetur eaque officia numquam! Provident hic nostrum vitae architecto ex illo quisquam doloribus illum, quibusdam, beatae blanditiis. Cupiditate cum facere quae tempore maxime odio minus provident eos praesentium a iure itaque cumque enim, quod laboriosam. Ea, omnis ducimus!"
-  year(pin): null
-  image(pin): null
-  createdAt(pin): "2020-04-15T06:48:54.136Z"
-  updatedAt(pin): "2020-04-15T06:48:54.136Z"
-  gameCategoryId(pin): 2
-
-  game_category :
-    id(pin): 2
-    name(pin): "tour à tour"
-    createdAt(pin): "2020-04-15T06:48:49.822Z"
-    updatedAt(pin): "2020-04-15T06:48:49.822Z"
-*/
