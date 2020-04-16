@@ -10,7 +10,21 @@ exports.findAll = (req, res) => {
 
 // Récupération d'une offre en fonction de sa clé primaire
 exports.findOne = (req, res) => {
-    coreController.findOne(Offer, req, res);
+    const id = req.params.id;
+
+    Offer.findByPk(id, {
+        include: {
+            model: Game,
+            include: Game_category,
+        },
+    }).then((data) => {
+        if (data === null)
+            res.status(404).json({
+                error: `Offre id=${id} non trouvée`,
+            });
+        else if (returnOption === true) return data;
+        else res.send(data);
+    });
 };
 
 // Création d'une offre

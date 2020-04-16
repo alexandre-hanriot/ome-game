@@ -173,10 +173,11 @@ exports.findAllOffers = (req, res) => {
             },
             {
                 model: Reservation,
+                attributes: ["id", "status"],
                 include: User,
             },
         ],
-
+        attributes: ["id", "status", "is_available", "title"],
         offset,
         limit,
         order: [["createdAt", "DESC"]],
