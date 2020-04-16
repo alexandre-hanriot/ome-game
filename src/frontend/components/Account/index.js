@@ -179,7 +179,7 @@ const Account = ({
         </div>
         {/* Profil */}
         <div className="account__general profil">
-          <h2 className="account__general__subtitle account__general__subtitle__profil">Profil</h2>
+          <h2 className="account__general__subtitle account__general__subtitle__profil">Mon profil</h2>
           <div className="account__profil">
             <div className="account__profil__left">
               <ul className="account__profil__left__list">

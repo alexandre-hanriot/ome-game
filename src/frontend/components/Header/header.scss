@@ -54,13 +54,13 @@
             background-color: #E3E5EC;
             color: $darkBlue;
             // padding: $gutter/2;
-            min-width: 300px;
+            min-width: 350px;
             border-radius: 0 0 0 1rem;
 
             &__list {
               display: flex;
               align-items: center;
-              height: 4rem;
+              height: 3rem;
               border-bottom: 1px solid $lightBlue;
 
               &:hover {
@@ -86,10 +86,6 @@
             &__link {
               padding-left: 1rem;
               display: block;
-              // display: block;
-              // line-height: 3;
-              // text-decoration: underline;
-              // text-align: left;
             }
           }
           &__container {
