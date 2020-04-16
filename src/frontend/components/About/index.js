@@ -21,17 +21,17 @@ const About = () => {
           <p className="about__team__member__job">Product Owner</p>
         </li>
         <li className="about__team__member">
-          <img className="about__team__member__image" src="https://resize-parismatch.lanmedia.fr/img/var/news/storage/images/paris-match/people-a-z/emmanuel-macron/14862769-13-fre-FR/Emmanuel-Macron.jpg" alt="" />
+          <img className="about__team__member__image" src="https://www.pokebip.com/pokedex-images/artworks/175.png" alt="" />
           <h2 className="about__team__member__name">Alexandre</h2>
           <p className="about__team__member__job">Scrum master</p>
         </li>
         <li className="about__team__member">
-          <img className="about__team__member__image" src="https://resize-parismatch.lanmedia.fr/img/var/news/storage/images/paris-match/people-a-z/emmanuel-macron/14862769-13-fre-FR/Emmanuel-Macron.jpg" alt="" />
+          <img className="about__team__member__image" src="https://1.bp.blogspot.com/-r0cTt2GRxz0/XM7x8R-OgSI/AAAAAAAAAZ4/AIHmlA1f-58fw2ovkrVt8y4s9E76oCXVACPcBGAYYCw/s1600/mew_image.png" alt="" />
           <h2 className="about__team__member__name">Jules</h2>
           <p className="about__team__member__job">Lead dev front</p>
         </li>
         <li className="about__team__member">
-          <img className="about__team__member__image" src="https://resize-parismatch.lanmedia.fr/img/var/news/storage/images/paris-match/people-a-z/emmanuel-macron/14862769-13-fre-FR/Emmanuel-Macron.jpg" alt="" />
+          <img className="about__team__member__image" src="https://www.pokebip.com/pokedex-images/artworks/37.png" alt="" />
           <h2 className="about__team__member__name">Stephane</h2>
           <p className="about__team__member__job">Lead dev back</p>
         </li>

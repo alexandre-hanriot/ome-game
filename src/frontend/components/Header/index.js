@@ -58,7 +58,7 @@ const Header = ({
         {isLogged && (
         <div className="header__nav__account">
           <div className="header__nav__account__hi">
-            <p>Bienvenue {pseudo}</p>
+            <p>{pseudo}</p>
           </div>
           <button type="button" className="header__nav__account__button" title="Mon compte / Se deconnecter" onClick={handleMenuUser}><i className="fas fa-user"> </i></button>
             {showMenu === 'userMenu'

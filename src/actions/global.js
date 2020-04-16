@@ -1,6 +1,7 @@
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const SHOW_MENU = 'SHOW_MENU';
 export const SHOW_ALERT = 'SHOW_ALERT';
+export const SET_IS_ERROR = 'SET_IS_ERROR';
 
 // Modal
 export const showModal = (name = '') => ({
@@ -19,4 +20,8 @@ export const showAlert = (message = '', success = true) => ({
   type: SHOW_ALERT,
   message,
   success,
+});
+
+export const changeIsError = () => ({
+  type: SET_IS_ERROR,
 });
