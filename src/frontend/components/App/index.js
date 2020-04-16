@@ -18,7 +18,7 @@ import Contact from 'src/frontend/containers/Contact';
 import Account from 'src/frontend/containers/Account';
 import Details from 'src/frontend/containers/Offer/Details';
 import Reservations from 'src/frontend/containers/Account/Reservations';
-import NotFound from 'src/frontend/components/NotFound';
+import NotFound from 'src/frontend/containers/NotFound';
 
 // Data
 // import offerData from 'src/data/offersData';
@@ -30,12 +30,15 @@ import Alert from 'src/frontend/containers/Alert';
 // TODO : créer un menu lorsqu'on est connecté
 
 // == Composant
-const App = ({ isLogged, showAlert }) => {
+const App = ({ isLogged, showAlert, isError }) => {
   const location = useLocation();
   // return the current pathname
   const currentPath = location.pathname;
   const isHome = currentPath === '/';
-  const appClass = classNames('app', { 'app--light': isHome });
+  const appClass = classNames('app', {
+    'app--light': isHome,
+    'app--error': isError,
+  });
 
   return (
     <div className={appClass}>
@@ -99,6 +102,7 @@ const App = ({ isLogged, showAlert }) => {
 App.propTypes = {
   isLogged: PropTypes.bool.isRequired,
   showAlert: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
 };
 // == Export
 export default App;

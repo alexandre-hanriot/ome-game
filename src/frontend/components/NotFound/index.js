@@ -1,35 +1,36 @@
-import React from 'react';
-import './notFound.scss';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useTitle } from 'src/hooks/useTitle';
 
-const NotFound = () => (
-  <div className="wrapper not-found">
-    <div className="not-found__content">
-      <h1 className="not-found__content__title">
-        <span className="not-found__content__title__item--one">p</span>
-        <span className="not-found__content__title__item--two">a</span>
-        <span className="not-found__content__title__item--three">g</span>
-        <span className="not-found__content__title__item--one">e </span>
-        <span className="not-found__content__title__item--two">n</span>
-        <span className="not-found__content__title__item--three">o</span>
-        <span className="not-found__content__title__item--one">n </span>
-        <span className="not-found__content__title__item--two">t</span>
-        <span className="not-found__content__title__item--three">r</span>
-        <span className="not-found__content__title__item--one">o</span>
-        <span className="not-found__content__title__item--two">u</span>
-        <span className="not-found__content__title__item--three">v</span>
-        <span className="not-found__content__title__item--one">é</span>
-        <span className="not-found__content__title__item--two">e</span>
-      </h1>
-      <p className="not-found__content__text">Oops ! Mais pourquoi vous êtes ici ?</p>
-      <p className="not-found__content__text">Nous sommes désolé pour le désagrément, il semblerait que vous avez essayé d'accéder à une page qui à été supprimé ou qui n'a jamais existé.
-      </p>
-      <Link className="not-found__content__link global-button" to="/"> Retourner à l'accueil </Link>
+import './notFound.scss';
+
+const NotFound = ({ isError, changeIsError }) => {
+  useTitle('Page introuvable');
+
+  useEffect(() => {
+    changeIsError();
+
+    return function cleanup() {
+      changeIsError();
+    };
+  }, []);
+
+
+  return (
+    <div className="wrapper wrapper-error-404">
+      <div className="error-404">
+        <h1 className="error-404__title">Oops !</h1>
+        <p className="error-404__text">Nous sommes désolé pour le désagrément, il semblerait que vous avez essayé d'accéder à une page qui n'éxiste pas ou qui n'existe plus.</p>
+        <Link className="error-404__link global-button global-button--light" to="/">Retourner à l'accueil</Link>
+      </div>
     </div>
-    <div className="not-found__image">
-      <img src="https://cdn.pixabay.com/photo/2017/03/09/12/31/error-2129569_960_720.jpg" alt="" />
-    </div>
-  </div>
-);
+  );
+};
+
+NotFound.propTypes = {
+  isError: PropTypes.bool.isRequired,
+  changeIsError: PropTypes.func.isRequired,
+};
 
 export default NotFound;

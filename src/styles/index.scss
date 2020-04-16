@@ -33,6 +33,11 @@ body {
   background-position: bottom;
 }
 
+.app--error {
+  background-image: url(../assets/images/background_404.jpg);
+  background-position: bottom;
+}
+
 main {
   min-height: calc(100vh - 200px); // header: 80px / footer: 120px
   /* width */
