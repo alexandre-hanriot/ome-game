@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import './alert.scss';
 
-const Alert = ({ message, success, displayAlert }) => {
+const Alert = ({ message, isSuccess, displayAlert }) => {
   useEffect(() => {
     const timeoutId = setTimeout(
       () => {
@@ -15,19 +15,21 @@ const Alert = ({ message, success, displayAlert }) => {
       clearTimeout(timeoutId);
     };
   }, []);
-  const isSuccess = classNames('alert__content__message', { 'alert__content__message--success': success });
+  const alertClass = classNames('alert__icon', { 'alert__icon--success': isSuccess });
   return (
-    <div className="wrapper alert">
-      <div className="alert__content">
-        <p className={isSuccess}>{success && <span className="fas fa-chess-knight knight" />} {message} {success && <span className="fas fa-chess-knight knight" />}</p>
+    <div className="alert">
+      <div className={alertClass}>
+        {!isSuccess && <i className="fas fa-exclamation" />}
+        {isSuccess && <i className="fas fa-check" />}
       </div>
+      <p>{message}</p>
     </div>
   );
 };
 
 Alert.propTypes = {
   message: PropTypes.string.isRequired,
-  success: PropTypes.bool.isRequired,
+  isSuccess: PropTypes.bool.isRequired,
   displayAlert: PropTypes.func.isRequired,
 };
 

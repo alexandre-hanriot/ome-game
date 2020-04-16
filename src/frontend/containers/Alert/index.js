@@ -5,7 +5,7 @@ import { showAlert } from 'src/actions/global';
 const mapStateToProps = (state) => ({
   // nom de la prop à remplir: donnée à récupérer dans le state
   message: state.global.alertMessage,
-  success: state.global.alertSuccess,
+  isSuccess: state.global.alertSuccess,
 });
 
 const mapDispatchToProps = (dispatch) => ({
