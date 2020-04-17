@@ -1,17 +1,17 @@
 @import 'src/styles/_vars.scss';
 
-@mixin profil-input {
-  font-size: inherit;
-  color: $darkBlue;
-  padding: .6rem 1rem;
-  // border-radius: .4rem;
-  border: 1px solid #8199b7;
-  background-color: #fff;
-  width: 60%;
-  display: block;
-  margin: 0 auto;
-  margin-bottom: .3rem;
-}
+// @mixin profil-input {
+//   font-size: inherit;
+//   color: $darkBlue;
+//   padding: .6rem 1rem;
+//   // border-radius: .4rem;
+//   border: 1px solid #8199b7;
+//   background-color: #fff;
+//   width: 60%;
+//   display: block;
+//   margin: 0 auto;
+//   margin-bottom: .3rem;
+// }
 
 .account-profil {
   &__breadcrumb {
@@ -115,20 +115,23 @@
 
   &__infos {
     &__field {
-      @include profil-input;
+      // @include profil-input;
+      margin-bottom: .3rem;
     }
   }
   &__address {
     margin-bottom: $gutter;
 
     &__field {
-      @include profil-input;
+      // @include profil-input;
+      margin-bottom: .3rem;
     }
   }
   &__password {
     margin-bottom: $gutter;
     &__field {
-      @include profil-input;
+      // @include profil-input;
+      margin-bottom: .3rem;
     }
   }
   &__params {

@@ -17,20 +17,20 @@ const authMiddleware = (store) => (next) => (action) => {
         })
         .then((response) => {
           store.dispatch(logUser(response.data));
-          store.dispatch(showAlert('vous êtes connecté', true));
+          store.dispatch(showAlert('Connexion effectuée avec succès', true));
           store.dispatch(showModal());
           store.dispatch(changeLoginError(''));
         })
         .catch((error) => {
           // handle error
           if (error.response.status === 404) {
-            store.dispatch(changeLoginError('les identifiants sont invalides'));
+            store.dispatch(changeLoginError('Les identifiants sont invalides'));
           }
           else if (error.response.status === 400) {
-            store.dispatch(changeLoginError('veuillez renseignez tous les champs obligatoires'));
+            store.dispatch(changeLoginError('Veuillez renseignez tous les champs obligatoires'));
           }
           else if (error.response.status === 401) {
-            store.dispatch(changeLoginError('les identifiants sont invalides'));
+            store.dispatch(changeLoginError('Les identifiants sont invalides'));
           }
           console.warn(error);
         });

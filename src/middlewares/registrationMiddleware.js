@@ -23,7 +23,7 @@ const registrationMiddleware = (store) => (next) => (action) => {
         .then((response) => {
           store.dispatch(saveUser(response.data));
           store.dispatch(showModal(''));
-          store.dispatch(showAlert('votre compte à été crée', true));
+          store.dispatch(showAlert('Inscription effectuée avec succès', true));
         })
         .catch((error) => {
           // handle error

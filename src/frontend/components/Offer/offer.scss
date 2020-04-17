@@ -277,8 +277,12 @@
 
 @media (max-width: 500px) {
   .offer {
+    h1 {
+      text-align: center;
+    }
     &__aside {
       width: 100%;
+      padding: $gutter/2;
     }
   }
 }

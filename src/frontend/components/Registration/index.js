@@ -29,19 +29,19 @@ const Registration = ({
       reactInputPassword.clear();
     }
     if (inputPassword !== confirmPassword) {
-      changeRegistrationError('les mots de passe ne correspondent pas');
+      changeRegistrationError('La confirmation du mot de passe est incorrecte');
       reactInputPassword.clear();
     }
     if (email === '' || inputPassword === '' || confirmPassword === '' || pseudo === '') {
-      changeRegistrationError('veuillez renseignez tous les champs');
+      changeRegistrationError('Veuillez renseigner tous les champs');
       reactInputPassword.clear();
     }
     if (pseudo.length < 3) {
-      changeRegistrationError('le pseudo doit contenir au moins 3 caractères');
+      changeRegistrationError('Le pseudo doit contenir au moins 3 caractères');
       reactInputPassword.clear();
     }
     if (!isLegalMentionsChecked) {
-      changeRegistrationError('veuillez accepter les mentions légales');
+      changeRegistrationError('Veuillez accepter les mentions légales');
       reactInputPassword.clear();
     }
   };
@@ -98,6 +98,9 @@ const Registration = ({
             <li>- 1 chiffre minimum</li>
             <li>- 1 caractère spécial minimum</li>
           </ul>
+          <p>
+            Tous les champs sont obligatoires
+          </p>
         </div>
       </div>
     </div>

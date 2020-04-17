@@ -30,11 +30,11 @@ const Profil = () => {
           <div className="account-profil__infos">
             <h2 className="account-profil__subtitle">Informations personnelles</h2>
 
-            <input type="text" placeholder="Nom" className="account-profil__infos__field" />
-            <input type="text" placeholder="Prénom" className="account-profil__infos__field" />
-            <input type="text" placeholder="Pseudo" className="account-profil__infos__field" />
-            <input type="email" placeholder="Adresse email" className="account-profil__infos__field" />
-            <input type="text" placeholder="Téléphone" className="account-profil__infos__field" />
+            <input type="text" placeholder="Nom" className="account-profil__infos__field global-input" />
+            <input type="text" placeholder="Prénom" className="account-profil__infos__field global-input" />
+            <input type="text" placeholder="Pseudo" className="account-profil__infos__field global-input" />
+            <input type="email" placeholder="Adresse email" className="account-profil__infos__field global-input" />
+            <input type="text" placeholder="Téléphone" className="account-profil__infos__field global-input" />
           </div>
         </div>
 
@@ -42,17 +42,17 @@ const Profil = () => {
           <div className="account-profil__address">
             <h2 className="account-profil__subtitle">Adresse postale</h2>
 
-            <input type="text" placeholder="Code postal" className="account-profil__address__field" />
-            <input type="text" placeholder="Ville" className="account-profil__address__field" />
-            <input type="text" placeholder="Adresse" className="account-profil__address__field" />
+            <input type="text" placeholder="Code postal" className="account-profil__address__field global-input" />
+            <input type="text" placeholder="Ville" className="account-profil__address__field global-input" />
+            <input type="text" placeholder="Adresse" className="account-profil__address__field global-input" />
           </div>
 
           <div className="account-profil__password">
             <h2 className="account-profil__subtitle">Mot de passe</h2>
 
-            <input type="password" placeholder="Ancien mot de passe" className="account-profil__password__field" />
-            <input type="password" placeholder="Nouveau mot de passe" className="account-profil__password__field" />
-            <input type="password" placeholder="Confirmer le nouveau mot de passe" className="account-profil__password__field" />
+            <input type="password" placeholder="Ancien mot de passe" className="account-profil__password__field global-input" />
+            <input type="password" placeholder="Nouveau mot de passe" className="account-profil__password__field global-input" />
+            <input type="password" placeholder="Confirmer le nouveau mot de passe" className="account-profil__password__field global-input" />
           </div>
 
           <div className="account-profil__params">
