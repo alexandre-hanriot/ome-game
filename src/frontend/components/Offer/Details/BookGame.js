@@ -9,7 +9,7 @@ const BookGame = ({ displayModal, displayAlert, showAlert }) => {
   };
 
   const validateAlert = () => {
-    displayAlert('La demande a été enregistrée, et sera traité dans les plus bref délais', true);
+    displayAlert('La demande a été enregistrée et sera traitée dans les plus brefs délais', true);
     displayModal('');
   };
 
@@ -25,13 +25,13 @@ const BookGame = ({ displayModal, displayAlert, showAlert }) => {
       <div className="modal__bookGame__button">
         <button
           type="button"
-          className="global-button modal__bookGame__button__cancel"
+          className="modal__bookGame__button__cancel global-button"
           onClick={closeModal}
         >Annuler
         </button>
         <button
           type="button"
-          className="global-button modal__bookGame__button__validate"
+          className="modal__bookGame__button__validate global-button"
           onClick={validateAlert}
         >Valider
         </button>

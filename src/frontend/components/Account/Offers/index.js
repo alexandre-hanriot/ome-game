@@ -40,7 +40,7 @@ const AccountOffers = ({ data, fetchOffers }) => {
               </div>
               <div
                 className={offer.is_available ? 'accountOffers__listOffers__offer__left__status' : 'accountOffers__listOffers__offer__left__status accountOffers__listOffers__offer__left__status--off'}
-              >{offer.is_available ? 'disponible' : 'indisponible'}
+              >{offer.is_available ? 'disponible' : 'réservée'}
               </div>
             </div>
             <div className="accountOffers__listOffers__offer__right">

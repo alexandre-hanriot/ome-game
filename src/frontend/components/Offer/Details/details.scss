@@ -109,6 +109,23 @@
   }
 }
 
+.modal__bookGame {
+  p {
+    line-height: 2;
+  }
+  &__button {
+    margin-top: $gutter;
+
+    button {
+      margin-right: 1rem;
+      padding: .6rem $gutter;
+    }
+    &__validate {
+      background-color: $green;
+    }
+  }
+}
+
 @media (max-width: 1200px) {
   .offer-detail {
 
