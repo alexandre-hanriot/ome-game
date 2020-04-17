@@ -284,7 +284,7 @@ const Offer = ({
 
         <div className="offer__aside__tags">
           {tags.map((tag) => (
-            <button type="button" className="offer__aside__tags__tag" title="Supprimer" key={`${tag.type}-${tag.value}`} data-type={tag.type} data-value={tag.value} onClick={handleRemoveTag}>{tag.name}</button>
+            <button type="button" className="offer__aside__tags__tag" title="Supprimer" key={`${tag.type}-${tag.value}`} data-type={tag.type} data-value={tag.value} onClick={handleRemoveTag}><i className="far fa-times" /> {tag.name}</button>
           ))}
         </div>
 
