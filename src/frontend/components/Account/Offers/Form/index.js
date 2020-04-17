@@ -17,7 +17,7 @@ const Form = ({ offer, getOfferId, getOffer }) => {
     <div className="wrapper account-offers-form">
 
       <div className="account-offers-form__breadcrumb">
-        <Link to="/">Accueil</Link> > <Link to="/compte">Mon compte</Link> > <Link to="/compte/offres">Mon offres</Link> > Ajouter
+        <Link to="/">Accueil</Link> > <Link to="/compte">Mon compte</Link> > <Link to="/compte/offres">Mes offres</Link> > Ajouter
       </div>
 
       <h1 className="account-offers-form__title">Ajouter une offre</h1>
@@ -58,8 +58,8 @@ const Form = ({ offer, getOfferId, getOffer }) => {
             className="account-offers-form__description global-input"
             value={offer.game.description === '' ? 'non défini' : offer.game.description}
           />
-          <p className="account-offers-form__dates">Créer le {offer.createdAt}</p>
-          <p className="account-offers-form__dates">Modifier le {offer.updatedAt}</p>
+          <p className="account-offers-form__dates">Créée le {offer.createdAt}</p>
+          <p className="account-offers-form__dates">Modifiée le {offer.updatedAt}</p>
           <button type="submit" className="account-offers-form__submit">Ajouter</button>
         </div>
 

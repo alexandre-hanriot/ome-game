@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTitle } from 'src/hooks/useTitle';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import './offers.scss';
 
 const AccountOffers = ({ data, fetchOffers }) => {
@@ -38,7 +39,7 @@ const AccountOffers = ({ data, fetchOffers }) => {
                 <h3>Date : {offer.createdAt}</h3>
               </div>
               <div
-                className="accountOffers__listOffers__offer__left__status"
+                className={offer.is_available ? 'accountOffers__listOffers__offer__left__status' : 'accountOffers__listOffers__offer__left__status accountOffers__listOffers__offer__left__status--off'}
               >{offer.is_available ? 'disponible' : 'indisponible'}
               </div>
             </div>

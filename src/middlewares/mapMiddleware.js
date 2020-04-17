@@ -16,6 +16,25 @@ const mapMiddleware = (store) => (next) => (action) => {
     case MAP_FETCH_OFFERS: {
       const { filters } = store.getState().map;
 
+
+      // 3
+      // 54
+      // 41
+      // 87
+
+      /*
+      axios
+        .put('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations/3', {
+          userId: 113,
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+        */
+
       // filters
       let params = { client_id: 0 };
       if (filters.disponibility !== 'all') {

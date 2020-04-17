@@ -53,9 +53,13 @@
           border-radius: 20px;
           padding: ($gutter /6) ($gutter/2);
           background-color: $green;
-          font-size: .4em;
+          font-size: .8em;
           color: $darkBlue;
           display: inline-block;
+
+          &--off {
+            background-color: $backgroundLight;
+          }
         }
       }
       &__right {
@@ -71,7 +75,7 @@
           color: $darkBlue;
         }
         &__trash {
-          color: red;
+          color: $red;
         }
       }
     }
