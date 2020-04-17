@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { useTitle } from 'src/hooks/useTitle';
 
 import './details.scss';
 import Alert from 'src/frontend/containers/Alert';
@@ -36,6 +37,8 @@ const Details = ({
     };
   }, []);
 
+  useTitle(offer.title);
+
   const handleFavorite = () => {
     displayAlert('Vous avez bien rajouté cette offre dans vos favoris', true);
     addFavorite();
@@ -50,7 +53,6 @@ const Details = ({
   return (
     <>
       {!offerIsLoad && <Loader />}
-
       {offerIsLoad && (
         <article className="wrapper offer-detail">
           {showAlert && <Alert />}
