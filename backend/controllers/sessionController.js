@@ -1,5 +1,15 @@
 const passport = require("passport");
 
+const db = require("../models/index");
+const Session = db.sessions;
+const coreController = require("./coreController");
+
+// Récupération de toutes les sessions
+exports.findAll = (req, res) => {
+    const defaultOrderby = "createdAt";
+    coreController.findAll(Session, defaultOrderby, req, res);
+};
+
 // Authentification avec passport.
 // Utilise la stratégie "local" definie dans passport.js
 // Renvoie l'instance User si l'authentification est un succès, false si c'est un échec

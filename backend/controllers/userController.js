@@ -171,7 +171,7 @@ exports.findAllOffers = (req, res) => {
             attributes: ["id", "status"],
         },
 
-        attributes: ["id", "status", "is_available", "title", "createdAt"],
+        attributes: ["id", "status", "is_available", "title", "price", "createdAt"],
         offset,
         limit,
         order: [["createdAt", "DESC"]],

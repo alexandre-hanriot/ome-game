@@ -5,9 +5,23 @@ const loginController = require("../controllers/loginController");
 const sessionController = require("../controllers/sessionController");
 
 /* GET home page. */
-router.get("/", function (req, res, next) {
-    res.send("serveur connecté");
-});
+router.get(
+    "/",
+    function (req, res) {
+        if (req.session.page_views) {
+            req.session.page_views++;
+            req.session.toto = "toto";
+            res.send(req.session);
+        } else {
+            req.session.page_views = 1;
+            res.send("Welcome to this page for the first time!");
+        }
+    }
+    // ,
+    // function (req, res, next) {
+    //     res.send("serveur connecté");
+    // }
+);
 
 // Authentification lors du login utilisateur
 router.post("/login", loginController.login);

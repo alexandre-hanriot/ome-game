@@ -15,6 +15,7 @@ const logger = require("morgan");
 
 // Importation des routes
 const indexRouter = require("./routes/index");
+const sessionsRouter = require("./routes/session");
 const usersRouter = require("./routes/user");
 const offersRouter = require("./routes/offer");
 const reservationsRouter = require("./routes/reservation");
@@ -51,6 +52,13 @@ app.use(
     })
 );
 
+// Paramétrage des requêtes et réponses
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "public")));
+
 // Paramétrage des sessions
 passportConfig(passport);
 app.use(
@@ -70,15 +78,9 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Paramétrage des requêtes et réponses
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
-
 // Définition des routes
 app.use("/", indexRouter);
+app.use("/sessions", sessionsRouter);
 app.use("/users", usersRouter);
 app.use("/offers", offersRouter);
 app.use("/reservations", reservationsRouter);
