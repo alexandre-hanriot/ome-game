@@ -4,7 +4,7 @@ import './reservations.scss';
 import PropTypes from 'prop-types';
 import Modal from 'src/frontend/containers/Modal';
 import { useTitle } from 'src/hooks/useTitle';
-import Details from './Details';
+import Details from 'src/frontend/containers/Account/Reservations/details';
 
 
 const Reservations = ({
@@ -22,6 +22,7 @@ const Reservations = ({
   useEffect(() => {
     fetchReservations();
   }, []);
+  console.log(data);
   return (
     <div className="wrapper reservations">
       {showModal === 'reservation' && (

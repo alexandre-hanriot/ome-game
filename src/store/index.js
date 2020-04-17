@@ -8,6 +8,7 @@ import registrationMiddleware from 'src/middlewares/registrationMiddleware';
 import offersMiddleware from 'src/middlewares/offersMiddleware';
 import reservationsMiddleware from 'src/middlewares/reservationsMiddleware';
 import favoritesMiddleware from 'src/middlewares/favoritesMiddleware';
+import gameMiddleware from 'src/middlewares/gameMiddleware';
 
 // on combine plusieurs enhancers : devTools et chaque middleware
 const enhancers = composeWithDevTools(
@@ -18,6 +19,7 @@ const enhancers = composeWithDevTools(
     offersMiddleware,
     reservationsMiddleware,
     favoritesMiddleware,
+    gameMiddleware,
   ),
 );
 

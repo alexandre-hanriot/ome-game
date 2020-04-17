@@ -9,6 +9,7 @@ import registrationReducer from './registration';
 import offersReducer from './offers';
 import reservationsReducer from './reservations';
 import favoritesReducer from './favorites';
+import gameReducer from './game';
 
 const rootReducer = combineReducers({
   global: globalReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   offers: offersReducer,
   reservations: reservationsReducer,
   favorites: favoritesReducer,
+  game: gameReducer,
 });
 
 export default rootReducer;

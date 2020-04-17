@@ -2,116 +2,184 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
-// import { getOfferBySlug } from 'src/utils/selectors';
+import Loader from 'src/frontend/components/Loader';
 
 import './form.scss';
 
-const Form = ({ offer, getOfferId, getOffer }) => {
+const Form = ({
+  offer, getOfferId,
+  getOffer, clearOffer, handleFormInput,
+  categories, getGameCategories, getGames, games, changeCategoriesIsLoad,
+  changeGameIsLoad, gamesIsLoad, categoriesIsLoad,
+}) => {
   const { slug } = useParams();
   useEffect(() => {
     getOfferId(slug);
     getOffer();
+    getGameCategories();
+    getGames();
+    return () => {
+      clearOffer();
+      changeCategoriesIsLoad();
+      changeGameIsLoad();
+    };
   }, []);
+  const changeInput = (event) => {
+    const identifier = event.target.name;
+    const newValue = event.target.value;
+    handleFormInput(identifier, newValue);
+  };
 
   return (
-    <div className="wrapper account-offers-form">
+    <>
+      {(!gamesIsLoad || !categoriesIsLoad) && <Loader />}
+      {(gamesIsLoad && categoriesIsLoad) && (
+        <div className="wrapper account-offers-form">
 
-      <div className="account-offers-form__breadcrumb">
-        <Link to="/">Accueil</Link> > <Link to="/compte">Mon compte</Link> > <Link to="/compte/offres">Mes offres</Link> > Ajouter
-      </div>
-
-      <h1 className="account-offers-form__title">Ajouter une offre</h1>
-
-      <div className="account-offers-form__container">
-        <div className="account-offers-form__container__left">
-          <input
-            type="text"
-            placeholder="Nom de l'offre"
-            className="account-offers-form__name global-input"
-            value={offer.title}
-          />
-          <h2 className="account-offers-form__subtitle">Jeu</h2>
-
-          <input
-            type="text"
-            placeholder="Nom du jeu"
-            className="account-offers-form__game__name global-input"
-            value={offer.game.name}
-          />
-          <div className="account-offers-form__game">
-            <select className="global-select">
-              <option value="role">Jeu de rôle</option>
-              <option value="cartes">Jeu de carte</option>
-              <option value="plateau">Jeu de plateau</option>
-            </select>
-            <input type="text" placeholder="Nb de joueurs" className="global-input" value={offer.game.nb_players_min} />
-          </div>
-          <div className="account-offers-form__game">
-            <input type="text" placeholder="Durée d'une partie" className="global-input" value={offer.game.duration === null ? 'non défini' : offer.game.duration} />
-            <input type="text" placeholder="Age minimum" className="global-input" value={offer.game.age_min} />
+          <div className="account-offers-form__breadcrumb">
+            <Link to="/">Accueil</Link> > <Link to="/compte">Mon compte</Link> > <Link to="/compte/offres">Mes offres</Link> > { offer.id === 0 ? 'Ajouter' : 'Modifier' }
           </div>
 
-          <h2 className="account-offers-form__subtitle">Description</h2>
+          <h1 className="account-offers-form__title">{ offer.id === 0 ? 'Ajouter' : 'Modifier' } une offre</h1>
+          <form>
+            <div className="account-offers-form__container">
+              <div className="account-offers-form__container__left">
+                <input
+                  type="text"
+                  name="title"
+                  placeholder="Nom de l'offre"
+                  className="account-offers-form__name global-input"
+                  value={offer.title}
+                  onChange={changeInput}
+                />
+                <h2 className="account-offers-form__subtitle">Jeu</h2>
 
-          <textarea
-            placeholder="Description"
-            className="account-offers-form__description global-input"
-            value={offer.game.description === '' ? 'non défini' : offer.game.description}
-          />
-          <p className="account-offers-form__dates">Créée le {offer.createdAt}</p>
-          <p className="account-offers-form__dates">Modifiée le {offer.updatedAt}</p>
-          <button type="submit" className="account-offers-form__submit">Ajouter</button>
-        </div>
+                <input
+                  type="text"
+                  name="game_name"
+                  placeholder="Nom du jeu"
+                  className="account-offers-form__game__name global-input"
+                  value={offer.game.name}
+                  onChange={changeInput}
+                />
+                <div className="account-offers-form__game">
+                  <select className="global-select">
+                    {categories.map((category) => (
+                      <option key={category.id} value={category.id}>{category.name}</option>
+                    ))}
+                  </select>
+                  <input
+                    type="text"
+                    placeholder="Nb de joueurs minimum"
+                    className="global-input"
+                    value={offer.game.nb_players_min}
+                    onChange={changeInput}
+                    name="game_nb_players_min"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Nb de joueurs maximum"
+                    className="global-input"
+                    value={offer.game.nb_players_max}
+                    onChange={changeInput}
+                    name="game_nb_players_max"
+                  />
+                </div>
+                <div className="account-offers-form__game">
+                  <input
+                    type="text"
+                    placeholder="Durée d'une partie"
+                    className="global-input"
+                    value={offer.game.duration === null ? 'non défini' : offer.game.duration}
+                    onChange={changeInput}
+                    name="game_duration"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Age minimum"
+                    className="global-input"
+                    value={offer.game.age_min}
+                    onChange={changeInput}
+                    name="game_age_min"
+                  />
+                </div>
 
-        <div className="account-offers-form__container__right">
+                <h2 className="account-offers-form__subtitle">Description</h2>
 
-          <div className="account-offers-form__block account-offers-form__block--flex50">
-            <div className="account-offers-form__status">
-              <h2 className="account-offers-form__subtitle">Etat</h2>
-              <div>
-                <label>
-                  <input type="radio" name="status" checked /> Actif
-                </label>
+                <textarea
+                  placeholder="Description"
+                  className="account-offers-form__description global-input"
+                  value={offer.game.description === '' ? 'non défini' : offer.game.description}
+                  onChange={changeInput}
+                  name="game_description"
+                />
+                <p className="account-offers-form__dates">Créée le {offer.createdAt}</p>
+                <p className="account-offers-form__dates">Modifiée le {offer.updatedAt}</p>
+                <button type="submit" className="account-offers-form__submit">{ offer.id === 0 ? 'Ajouter' : 'Modifier' }</button>
               </div>
-              <div><label><input type="radio" name="status" /> Inactif</label></div>
+
+              <div className="account-offers-form__container__right">
+
+                <div className="account-offers-form__block account-offers-form__block--flex50">
+                  <div className="account-offers-form__status">
+                    <h2 className="account-offers-form__subtitle">Etat</h2>
+                    <div>
+                      <label>
+                        <input type="radio" name="status" checked /> Actif
+                      </label>
+                    </div>
+                    <div><label><input type="radio" name="status" /> Inactif</label></div>
+                  </div>
+                  <div className="account-offers-form__disponibility">
+                    <h2 className="account-offers-form__subtitle">Disponibilité</h2>
+                    <div><label><input type="radio" name="disponibility" checked /> Disponible</label></div>
+                    <div><label><input type="radio" name="disponibility" /> Non disponible</label></div>
+                  </div>
+                </div>
+
+                <div className="account-offers-form__block">
+                  <h2 className="account-offers-form__subtitle">Type</h2>
+                  <div className="account-offers-form__type">
+                    <select className="global-select">
+                      <option value="">Location</option>
+                      <option value="">Prêt</option>
+                    </select>
+                    <input
+                      type="text"
+                      placeholder="Prix (€)"
+                      className="global-input"
+                      value={offer.price}
+                      onChange={changeInput}
+                      name="price"
+                    />
+                  </div>
+                </div>
+
+                <div className="account-offers-form__block">
+                  <h2 className="account-offers-form__subtitle">Image</h2>
+                  <button type="button" className="account-offers-form__game__image__define">Définir une image</button>
+                </div>
+
+                <div className="account-offers-form__block">
+                  <h2 className="account-offers-form__subtitle">Localisation</h2>
+                  <input
+                    type="text"
+                    placeholder="Saisissez un lieu"
+                    className="account-offers-form__location global-input"
+                    value={offer.city}
+                    onChange={changeInput}
+                    name="city"
+                  />
+                  <div className="account-offers-form__map"> </div>
+                </div>
+
+              </div>
             </div>
-            <div className="account-offers-form__disponibility">
-              <h2 className="account-offers-form__subtitle">Disponibilité</h2>
-              <div><label><input type="radio" name="disponibility" checked /> Disponible</label></div>
-              <div><label><input type="radio" name="disponibility" /> Non disponible</label></div>
-            </div>
-          </div>
-
-          <div className="account-offers-form__block">
-            <h2 className="account-offers-form__subtitle">Type</h2>
-            <div className="account-offers-form__type">
-              <select className="global-select">
-                <option value="">Location</option>
-                <option value="">Prêt</option>
-              </select>
-              <input
-                type="text"
-                placeholder="Prix (€)"
-                className="global-input"
-                value={offer.price}
-              />
-            </div>
-          </div>
-
-          <div className="account-offers-form__block">
-            <h2 className="account-offers-form__subtitle">Image</h2>
-            <button type="button" className="account-offers-form__game__image__define">Définir une image</button>
-          </div>
-
-          <div className="account-offers-form__block">
-            <h2 className="account-offers-form__subtitle">Localisation</h2>
-            <input type="text" placeholder="Saisissez un lieu" className="account-offers-form__location global-input" value={offer.city} />
-            <div className="account-offers-form__map"> </div>
-          </div>
-
+          </form>
         </div>
-      </div>
-    </div>
+      )}
+    </>
+
   );
 };
 
@@ -119,6 +187,16 @@ Form.propTypes = {
   getOfferId: PropTypes.func.isRequired,
   getOffer: PropTypes.func.isRequired,
   offer: PropTypes.object.isRequired,
+  clearOffer: PropTypes.func.isRequired,
+  handleFormInput: PropTypes.func.isRequired,
+  categories: PropTypes.array.isRequired,
+  getGameCategories: PropTypes.func.isRequired,
+  getGames: PropTypes.func.isRequired,
+  games: PropTypes.array.isRequired,
+  changeGameIsLoad: PropTypes.func.isRequired,
+  changeCategoriesIsLoad: PropTypes.func.isRequired,
+  gamesIsLoad: PropTypes.bool.isRequired,
+  categoriesIsLoad: PropTypes.bool.isRequired,
 };
 
 export default Form;
