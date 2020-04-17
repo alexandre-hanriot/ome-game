@@ -52,6 +52,10 @@ module.exports = (sequelize, Sequelize) => {
                 type: Sequelize.STRING(30),
                 defaultValue: null,
             },
+            image: {
+                type: Sequelize.STRING,
+                defaultValue: null,
+            },
         },
         {
             indexes: [
@@ -88,6 +92,9 @@ module.exports = (sequelize, Sequelize) => {
                 },
                 {
                     fields: ["longitude"],
+                },
+                {
+                    fields: ["image"],
                 },
                 // On crée les index des foreign key automatiquement générées par les associations dans models/index.js
                 {

@@ -40,6 +40,7 @@ db.reservations = require("./reservation")(sequelize, Sequelize);
 db.favorites = require("./favorite")(sequelize, Sequelize);
 db.games = require("./game")(sequelize, Sequelize);
 db.game_categories = require("./game_category")(sequelize, Sequelize);
+db.messages = require("./message")(sequelize, Sequelize);
 
 // Chargement des relations
 // Par défaut si on supprime un élément parent la foreign key de l'enfant passe à NULL
@@ -65,5 +66,8 @@ db.offers.belongsTo(db.games);
 
 db.game_categories.hasMany(db.games);
 db.games.belongsTo(db.game_categories);
+
+db.users.belongsToMany(db.messages, { through: "UserMessages" });
+db.messages.belongsToMany(db.users, { through: "UserMessages" });
 
 module.exports = db;

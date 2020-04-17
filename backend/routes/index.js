@@ -10,7 +10,7 @@ router.get(
     function (req, res) {
         if (req.session.page_views) {
             req.session.page_views++;
-            req.session.toto = "toto";
+            req.session.cookie.toto = "tata";
             res.send(req.session);
         } else {
             req.session.page_views = 1;

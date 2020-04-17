@@ -22,6 +22,7 @@ const reservationsRouter = require("./routes/reservation");
 const gamesRouter = require("./routes/game");
 const game_categoriesRouter = require("./routes/game_category");
 const favoritesRouter = require("./routes/favorite");
+const messagesRouter = require("./routes/message");
 
 // Synchronisation des modèles avec la bdd
 const db = require("./models/index");
@@ -67,7 +68,7 @@ app.use(
         resave: false,
         saveUninitialized: false,
         cookie: {
-            maxAge: 30 * 24 * 60 * 60 * 1000, // 1 month
+            maxAge: 30 * 24 * 60 * 60 * 1000, // 1 month,
         },
         store: new SequelizeStore({
             db: db,
@@ -87,5 +88,6 @@ app.use("/reservations", reservationsRouter);
 app.use("/games", gamesRouter);
 app.use("/game_categories", game_categoriesRouter);
 app.use("/favorites", favoritesRouter);
+app.use("/messages", messagesRouter);
 
 module.exports = app;

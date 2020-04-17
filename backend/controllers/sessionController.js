@@ -76,15 +76,14 @@ exports.signin = async (req, res, next) => {
     }
 
     await login(req, user);
-    const temp = req.session.passport;
-    console.log("temp : " + temp);
+    const temp = req.session.passport; // temp stock un objet {"user": 16}
 
     await regenerateSession(req);
     req.session.passport = temp;
 
     await saveSession(req);
 
-    return res.send();
+    return res.send(user);
 };
 
 // Méthdde pour le logout
