@@ -6,7 +6,7 @@ const reservationController = require("../controllers/reservationController");
 router.get("/", reservationController.findAll);
 
 // Récupération d'une réservation en fonction de son id
-router.get("/:id(\\d+)", reservationController.findOne);
+router.post("/:id(\\d+)", reservationController.findOne);
 
 // Création d'une réservation
 router.post("/", reservationController.create);

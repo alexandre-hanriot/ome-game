@@ -6,7 +6,7 @@ const offerController = require("../controllers/offerController");
 router.get("/", offerController.findAll);
 
 // Récupération d'une offre en fonction de son id
-router.get("/:id(\\d+)", offerController.findOne);
+router.post("/:id(\\d+)", offerController.findOne);
 
 // Création d'une offre
 router.post("/", offerController.create);

@@ -6,7 +6,7 @@ const game_categoryController = require("../controllers/game_categoryController"
 router.get("/", game_categoryController.findAll);
 
 // Récupération d'une catégorie de jeu en fonction de son id
-router.get("/:id(\\d+)", game_categoryController.findOne);
+router.post("/:id(\\d+)", game_categoryController.findOne);
 
 // Création d'une catégorie de jeu
 router.post("/", game_categoryController.create);

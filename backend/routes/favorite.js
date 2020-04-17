@@ -6,7 +6,7 @@ const favoriteController = require("../controllers/favoriteController");
 router.get("/", favoriteController.findAll);
 
 // Récupération d'un favori en fonction de son id
-router.get("/:id(\\d+)", favoriteController.findOne);
+router.post("/:id(\\d+)", favoriteController.findOne);
 
 // Création d'un favori
 router.post("/", favoriteController.create);

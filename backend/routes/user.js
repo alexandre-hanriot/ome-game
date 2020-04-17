@@ -6,7 +6,7 @@ const userController = require("../controllers/userController");
 router.get("/", userController.findAll);
 
 // Récupération d'un utilisateur en fonction de son id
-router.get("/:id(\\d+)", userController.findOne);
+router.post("/:id(\\d+)", userController.findOne);
 
 // Création d'un utilisateur
 router.post("/", userController.create);

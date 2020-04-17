@@ -6,7 +6,7 @@ const gameController = require("../controllers/gameController");
 router.get("/", gameController.findAll);
 
 // Récupération d'un jeu en fonction de son id
-router.get("/:id(\\d+)", gameController.findOne);
+router.post("/:id(\\d+)", gameController.findOne);
 
 // Création d'un jeu
 router.post("/", gameController.create);
