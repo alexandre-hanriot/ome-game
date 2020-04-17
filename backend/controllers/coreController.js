@@ -42,8 +42,6 @@ exports.findOne = (model, req, res, returnOption = false) => {
 
     const attributes =
         typeof req.body.attributes === "undefined" ? Object.keys(model.rawAttributes) : req.body.attributes.split(", ");
-    console.log(attributes);
-    console.log(typeof attributes);
 
     model
         .findOne({

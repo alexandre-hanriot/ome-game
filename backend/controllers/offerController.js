@@ -14,11 +14,15 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
+    const attributes =
+        typeof req.body.attributes === "undefined" ? Object.keys(Offer.rawAttributes) : req.body.attributes.split(", ");
+
     Offer.findByPk(id, {
         include: {
             model: Game,
             include: Game_category,
         },
+        attributes,
     }).then((data) => {
         if (data === null)
             res.status(404).json({
