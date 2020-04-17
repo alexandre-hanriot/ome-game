@@ -1,6 +1,11 @@
 import axios from 'axios';
 
-import { FETCH_RESERVATIONS, FETCH_PARAMS_RESERVATIONS, saveReservations } from 'src/actions/reservations';
+import {
+  FETCH_RESERVATIONS,
+  FETCH_PARAMS_RESERVATIONS,
+  saveReservations,
+  ADD_RESERVATION,
+} from 'src/actions/reservations';
 
 const reservationsMiddleware = (store) => (next) => (action) => {
   const { userData } = store.getState().user;
@@ -32,6 +37,23 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         });
       next(action);
       break;
+
+    // Add reservation for user and an offer
+    case ADD_RESERVATION: {
+      const { offer } = store.getState().offers;
+
+      axios.post('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations', {
+        userId: userData.id,
+        offerId: offer.id,
+      })
+        .then((response) => {
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+      next(action);
+      break;
+    }
 
     default:
       next(action);

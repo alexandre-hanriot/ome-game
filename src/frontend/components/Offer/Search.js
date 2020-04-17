@@ -5,8 +5,9 @@ import MapAutocomplete from 'react-google-autocomplete';
 import classNames from 'classnames';
 import TextInput from 'react-autocomplete-input';
 import 'react-autocomplete-input/dist/bundle.css';
+import slugify from 'react-slugify';
 
-import Map from 'src/frontend/containers/Map';
+import Cluster from 'src/frontend/containers/Cluster';
 
 const Offer = ({
   changeCoordinates,
@@ -187,7 +188,7 @@ const Offer = ({
   return (
     <div className="offer">
       <div className="offer__map">
-        <Map />
+        <Cluster />
       </div>
 
       <aside className="offer__aside">
@@ -294,7 +295,7 @@ const Offer = ({
             const disponibilityClass = classNames('offer__aside__results__result__disponibility', { 'offer__aside__results__result__disponibility--off': !result.is_available });
 
             return (
-              <Link to="/recherche/jeux/1-toto" key={result.id}>
+              <Link to={`/recherche/jeux/${result.id}/${slugify(result.title, { lower: true })}`} key={result.id}>
                 <li className="offer__aside__results__result">
                   <img src="https://cdn2.philibertnet.com/372889-large_default/le-parrain-l-empire-de-corleone.jpg" alt="" className="offer__aside__results__result__image" />
                   <div className="offer__aside__results__result__content">

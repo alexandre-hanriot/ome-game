@@ -1,12 +1,16 @@
 import axios from 'axios';
-import {
-  FETCH_OFFERS, FETCH_PARAMS_OFFERS, GET_OFFER, saveOffers, saveOneOffer,
-} from 'src/actions/offers';
 
+import {
+  FETCH_OFFERS,
+  FETCH_PARAMS_OFFERS,
+  GET_OFFER, saveOffers,
+  saveOneOffer,
+  changeOfferIsLoad,
+} from 'src/actions/offers';
 
 const offersMiddleware = (store) => (next) => (action) => {
   const { userData } = store.getState().user;
-  const { urlId } = store.getState().offers;
+
   switch (action.type) {
     case FETCH_OFFERS: {
       // const { userData } = store.getState().user;
@@ -37,10 +41,12 @@ const offersMiddleware = (store) => (next) => (action) => {
       break;
 
     case GET_OFFER: {
+      const { urlId } = store.getState().offers;
       // const { userData } = store.getState().user;
-      axios.get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`)
+      axios.post(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`)
         .then((response) => {
           store.dispatch(saveOneOffer(response.data));
+          store.dispatch(changeOfferIsLoad());
         })
         .catch((error) => {
           console.warn(error);
