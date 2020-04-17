@@ -82,7 +82,9 @@ exports.update = async (model, id, req, res) => {
     let instance = await model.findByPk(id);
     if (instance === null) res.status(404).json({ error: `${model.getTableName()} id=${id} non trouvé` });
     else {
-        instance.dataValues = { ...instance.dataValues, ...req.body }; // On met à jour les data de l'instance récupérée avec les nouvelles data issues de la requête
+        for (property in req.body) {
+            instance[property] = req.body[property];
+        }
         await instance.save(); // On sauvegarde l'instance
         res.send(instance); // On renvoie l'instance à jour en réponse
     }
