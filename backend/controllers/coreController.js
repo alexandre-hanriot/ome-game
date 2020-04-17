@@ -40,14 +40,24 @@ exports.findAll = (model, defaultOrderby, req, res) => {
 exports.findOne = (model, req, res, returnOption = false) => {
     const id = req.params.id;
 
-    model.findOne({ where: { id } }).then((data) => {
-        if (data === null)
-            res.status(404).json({
-                error: `${model.getTableName()} id=${id} non trouvé`,
-            });
-        else if (returnOption === true) return data;
-        else res.send(data);
-    });
+    const attributes =
+        typeof req.body.attributes === "undefined" ? Object.keys(model.rawAttributes) : req.body.attributes.split(", ");
+    console.log(attributes);
+    console.log(typeof attributes);
+
+    model
+        .findOne({
+            where: { id },
+            attributes,
+        })
+        .then((data) => {
+            if (data === null)
+                res.status(404).json({
+                    error: `${model.getTableName()} id=${id} non trouvé`,
+                });
+            else if (returnOption === true) return data;
+            else res.send(data);
+        });
 };
 
 // Création d'une instance d'un modèle
