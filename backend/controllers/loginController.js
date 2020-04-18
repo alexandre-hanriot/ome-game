@@ -2,6 +2,7 @@ const db = require("../models/index");
 const User = db.users;
 const utils = require("../utils");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 // Vérification du couple email + paswword ou username + password pour l'opération de login
 exports.login = (req, res) => {
@@ -22,18 +23,38 @@ exports.login = (req, res) => {
         });
     // Si l'identifier est un email
     else if (is_email === true) {
-        User.findOne({ where: { email: identifier } }).then((data) => {
-            if (data === null)
+        User.findOne({ where: { email: identifier } }).then((user) => {
+            if (user === null)
                 res.status(404).json({
                     error: `L'email ${identifier} n'existe pas`,
                 });
             else {
-                bcrypt.compare(password, data.password).then((passwordCheck) => {
-                    if (passwordCheck) res.send(data);
-                    else
+                bcrypt.compare(password, user.password).then((passwordCheck) => {
+                    if (!passwordCheck)
                         res.status(401).json({
                             error: "Mot de passe incorrect",
                         });
+
+                    const xsrfToken = "iujdiuhfiruhfiuerhgiughi"; // A modifier pour générer un token aléatoire (uid?)
+                    const JWTtoken = jwt.sign({ userId: user.id, xsrfToken: xsrfToken }, "RANDOM_TOKEN_SECRET", {
+                        expiresIn: "24h",
+                    });
+
+                    console.log(JWTtoken);
+
+                    // On charge le JWT token dans un cookie http only
+                    res.cookie("access_token", JWTtoken, {
+                        httpOnly: true, // pour un cookie non accessible par du code client js
+                        // secure: true // true pour forcer le https
+                    });
+
+                    // On envoie la réponse avec notamment le token xsrf. En front on pourra stocker ces données soit
+                    // dans le session storage (expiration à fermeture du navigateur)
+                    // ou dans le local storage (persistence à fermeture du navigateur)
+                    res.status(200).send({
+                        user, // A modifier pour n'envoyer que certaines données
+                        xsrfToken,
+                    });
                 });
             }
         });
@@ -41,18 +62,38 @@ exports.login = (req, res) => {
 
     // Sinon c'est que l'identifier est un username
     else {
-        User.findOne({ where: { username: identifier } }).then((data) => {
-            if (data === null)
+        User.findOne({ where: { username: identifier } }).then((user) => {
+            if (user === null)
                 res.status(404).json({
                     error: `L'utilisateur ${identifier} n'existe pas`,
                 });
             else {
-                bcrypt.compare(password, data.password).then((passwordCheck) => {
-                    if (passwordCheck) res.send(data);
-                    else
+                bcrypt.compare(password, user.password).then((passwordCheck) => {
+                    if (!passwordCheck)
                         res.status(401).json({
                             error: "Mot de passe incorrect",
                         });
+
+                    const xsrfToken = "iujdiuhfiruhfiuerhgiughi"; // A modifier pour générer un token aléatoire (uid?)
+                    const JWTtoken = jwt.sign({ userId: user.id, xsrfToken: xsrfToken }, "RANDOM_TOKEN_SECRET", {
+                        expiresIn: "24h",
+                    });
+
+                    console.log(JWTtoken);
+
+                    // On charge le JWT token dans un cookie http only
+                    res.cookie("access_token", JWTtoken, {
+                        httpOnly: true, // pour un cookie non accessible par du code client js
+                        // secure: true // true pour forcer le https
+                    });
+
+                    // On envoie la réponse avec notamment le token xsrf. En front on pourra stocker ces données soit
+                    // dans le session storage (expiration à fermeture du navigateur)
+                    // ou dans le local storage (persistence à fermeture du navigateur)
+                    res.status(200).send({
+                        user, // A modifier pour n'envoyer que certaines données
+                        xsrfToken,
+                    });
                 });
             }
         });

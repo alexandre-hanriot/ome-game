@@ -93,9 +93,9 @@ module.exports = (sequelize, Sequelize) => {
                 {
                     fields: ["longitude"],
                 },
-                // {
-                //     fields: ["image"],
-                // },
+                {
+                    fields: ["image"],
+                },
                 // On crée les index des foreign key automatiquement générées par les associations dans models/index.js
                 {
                     fields: ["userId"],

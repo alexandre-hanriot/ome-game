@@ -1,11 +1,5 @@
 const express = require("express");
 
-// Pour ce qui concerne les sesions
-const session = require("express-session");
-const passport = require("passport");
-const SequelizeStore = require("connect-session-sequelize")(session.Store);
-const passportConfig = require("./bin/passport");
-
 // Autres imports
 const path = require("path");
 var cors = require("cors");
@@ -15,7 +9,6 @@ const logger = require("morgan");
 
 // Importation des routes
 const indexRouter = require("./routes/index");
-const sessionsRouter = require("./routes/session");
 const usersRouter = require("./routes/user");
 const offersRouter = require("./routes/offer");
 const reservationsRouter = require("./routes/reservation");
@@ -60,28 +53,8 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-// Paramétrage des sessions
-passportConfig(passport);
-app.use(
-    session({
-        secret: "MAPHRASESECRETE",
-        resave: false,
-        saveUninitialized: false,
-        cookie: {
-            maxAge: 30 * 24 * 60 * 60 * 1000, // 1 month,
-        },
-        store: new SequelizeStore({
-            db: db,
-            table: "sessions",
-        }),
-    })
-);
-app.use(passport.initialize());
-app.use(passport.session());
-
 // Définition des routes
 app.use("/", indexRouter);
-app.use("/sessions", sessionsRouter);
 app.use("/users", usersRouter);
 app.use("/offers", offersRouter);
 app.use("/reservations", reservationsRouter);

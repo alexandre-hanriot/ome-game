@@ -33,7 +33,6 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 // Chargement des modèles
-db.sessions = require("./session")(sequelize, Sequelize);
 db.users = require("./user")(sequelize, Sequelize);
 db.offers = require("./offer")(sequelize, Sequelize);
 db.reservations = require("./reservation")(sequelize, Sequelize);

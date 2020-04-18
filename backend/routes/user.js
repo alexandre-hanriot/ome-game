@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController");
+const auth = require("../middleware/auth");
 
 // Récupération de tous les utilisateurs avec en option filtrage et tri
-router.get("/", userController.findAll);
+router.post("/", auth, userController.findAll);
 
 // Récupération d'un utilisateur en fonction de son id
 router.post("/:id(\\d+)", userController.findOne);
