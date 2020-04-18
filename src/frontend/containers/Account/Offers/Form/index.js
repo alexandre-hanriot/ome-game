@@ -11,7 +11,6 @@ const mapStateToProps = (state) => ({
   // nom de la prop à remplir: donnée à récupérer dans le state
   offer: state.offers.offer,
   categories: state.game.categories,
-  games: state.game.games,
   gamesIsLoad: state.game.gamesIsLoad,
   categoriesIsLoad: state.game.categoriesIsLoad,
 });

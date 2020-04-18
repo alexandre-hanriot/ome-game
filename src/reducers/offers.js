@@ -122,7 +122,10 @@ const offersReducer = (state = initialState, action = {}) => {
           ...state,
           offer: {
             ...state.offer,
-            game: { [target]: action.newValue },
+            game: {
+              ...state.offer.game,
+              [target]: action.newValue,
+            },
           },
         };
       }

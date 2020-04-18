@@ -9,7 +9,7 @@ import './form.scss';
 const Form = ({
   offer, getOfferId,
   getOffer, clearOffer, handleFormInput,
-  categories, getGameCategories, getGames, games, changeCategoriesIsLoad,
+  categories, getGameCategories, getGames, changeCategoriesIsLoad,
   changeGameIsLoad, gamesIsLoad, categoriesIsLoad,
 }) => {
   const { slug } = useParams();
@@ -26,7 +26,14 @@ const Form = ({
   }, []);
   const changeInput = (event) => {
     const identifier = event.target.name;
-    const newValue = event.target.value;
+    let newValue = event.target.value;
+    // convert
+    if (identifier === 'is_available') {
+      newValue = Boolean(Number(newValue));
+    }
+    if (identifier === 'game_gameCategoryId') {
+      newValue = Number(newValue);
+    }
     handleFormInput(identifier, newValue);
   };
 
@@ -63,9 +70,14 @@ const Form = ({
                   onChange={changeInput}
                 />
                 <div className="account-offers-form__game">
-                  <select className="global-select">
+                  <select className="global-select" name="game_gameCategoryId" onChange={changeInput}>
                     {categories.map((category) => (
-                      <option key={category.id} value={category.id}>{category.name}</option>
+                      <option
+                        key={category.id}
+                        value={category.id}
+                        selected={category.id === offer.game.gameCategoryId}
+                      >{category.name}
+                      </option>
                     ))}
                   </select>
                   <input
@@ -117,7 +129,6 @@ const Form = ({
                 <p className="account-offers-form__dates">Modifiée le {offer.updatedAt}</p>
                 <button type="submit" className="account-offers-form__submit">{ offer.id === 0 ? 'Ajouter' : 'Modifier' }</button>
               </div>
-
               <div className="account-offers-form__container__right">
 
                 <div className="account-offers-form__block account-offers-form__block--flex50">
@@ -125,24 +136,68 @@ const Form = ({
                     <h2 className="account-offers-form__subtitle">Etat</h2>
                     <div>
                       <label>
-                        <input type="radio" name="status" checked /> Actif
+                        <input
+                          type="radio"
+                          name="status"
+                          checked={offer.status === '0'}
+                          onChange={changeInput}
+                          value="0"
+                        /> Actif
                       </label>
                     </div>
-                    <div><label><input type="radio" name="status" /> Inactif</label></div>
+                    <div>
+                      <label>
+                        <input
+                          type="radio"
+                          name="status"
+                          checked={offer.status === '1'}
+                          onChange={changeInput}
+                          value="1"
+                        /> Inactif
+                      </label>
+                    </div>
                   </div>
                   <div className="account-offers-form__disponibility">
                     <h2 className="account-offers-form__subtitle">Disponibilité</h2>
-                    <div><label><input type="radio" name="disponibility" checked /> Disponible</label></div>
-                    <div><label><input type="radio" name="disponibility" /> Non disponible</label></div>
+                    <div>
+                      <label>
+                        <input
+                          type="radio"
+                          name="is_available"
+                          checked={offer.is_available === true}
+                          onChange={changeInput}
+                          value="1"
+                        /> Disponible
+                      </label>
+                    </div>
+                    <div>
+                      <label>
+                        <input
+                          type="radio"
+                          name="is_available"
+                          checked={offer.is_available === false}
+                          onChange={changeInput}
+                          value="0"
+                        /> Non disponible
+                      </label>
+                    </div>
                   </div>
                 </div>
 
                 <div className="account-offers-form__block">
                   <h2 className="account-offers-form__subtitle">Type</h2>
                   <div className="account-offers-form__type">
-                    <select className="global-select">
-                      <option value="">Location</option>
-                      <option value="">Prêt</option>
+                    <select className="global-select" name="type" onChange={changeInput}>
+                      <option
+                        value="1"
+                        selected={offer.type === '1'}
+                      >Location
+                      </option>
+                      <option
+                        value="0"
+                        selected={offer.type === '0'}
+                      >Prêt
+                      </option>
                     </select>
                     <input
                       type="text"
@@ -192,7 +247,6 @@ Form.propTypes = {
   categories: PropTypes.array.isRequired,
   getGameCategories: PropTypes.func.isRequired,
   getGames: PropTypes.func.isRequired,
-  games: PropTypes.array.isRequired,
   changeGameIsLoad: PropTypes.func.isRequired,
   changeCategoriesIsLoad: PropTypes.func.isRequired,
   gamesIsLoad: PropTypes.bool.isRequired,
