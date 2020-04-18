@@ -11,13 +11,15 @@ exports.findOffersResults = async (req, res) => {
 
     const {
         client_id = null, // on récupère l'id de l'utilisateur qui fait la requête
-        game_name = "", // par défaut on recherche tous les jeux
         age_min = 999,
-        game_category_id = 0,
         postal_code = "",
         city = "",
         nb_players = "",
     } = req.query;
+
+    const game_names = typeof req.query.game_names === "undefined" ? null : req.query.game_names.split(", "); // on passe de "x, y, z" à ["x", "y", "z"]
+    const game_category_ids =
+        typeof req.query.game_category_ids === "undefined" ? null : req.query.game_category_ids.split(", "); // idem
 
     const is_available = typeof req.query.is_available === "undefined" ? [true, false] : [req.query.is_available]; // par défaut on affiche tous les résultats
     const type = typeof req.query.type === "undefined" ? ["0", "1"] : [req.query.type]; // prêt/location, par défaut pas de filtre
@@ -25,12 +27,79 @@ exports.findOffersResults = async (req, res) => {
     const nb_players_min = nb_players === "" ? 999 : nb_players;
     const nb_players_max = nb_players === "" ? 0 : nb_players;
 
-    // On recherche le nom de game_catégorie en fonction de l'id
-    const checkGameCategory = await Game_category.findByPk(game_category_id).then((data) => {
-        if (data === null) return false;
-        else return data.dataValues.name;
-    });
-    const game_category_name = !checkGameCategory ? "" : checkGameCategory;
+    // Gestion du paramètre noms de jeux
+    let game_names_conditions = [];
+    // Par défaut aucun filtre sur le nom de jeu
+    if (game_names === null)
+        game_names_conditions.push({
+            name: {
+                [Op.iLike]: "%",
+            },
+        });
+    // Si au moins un jeu est renseigné
+    else {
+        // On transforme les noms de jeu pour ajouter les % et $
+        const mapped_game_names = game_names.map((name) => {
+            return `%${name}%`;
+        });
+
+        // On push dans le trableau conditon les paramètres que Op.or devra prendre en compte
+        for (name of mapped_game_names) {
+            game_names_conditions.push({
+                name: {
+                    [Op.iLike]: name, // Case insensitive
+                },
+            });
+        }
+    }
+
+    // Gestion du paramètre noms de catégories
+    let category_conditions = [];
+    // Par défaut aucun filtre sur le nom de jeu
+    if (game_category_ids === null)
+        category_conditions.push({
+            name: {
+                [Op.iLike]: "%",
+            },
+        });
+    // Si au moins un id de catégorie est renseigné
+    else {
+        let category_names = [];
+        // Pour chaque id on recherche le nom de la catégorie correspondant
+        for (id of game_category_ids) {
+            let test = await Game_category.findByPk(id).then((data) => {
+                if (data === null)
+                    res.status(404).json({
+                        error: `Catégorie id=${id} non trouvée`,
+                    });
+                else {
+                    category_names.push(data.name);
+                    return true;
+                }
+            });
+        }
+
+        // On transforme les noms de catégories pour ajouter les % et $
+        const mapped_categories = category_names.map((name) => {
+            return `%${name}%`;
+        });
+
+        // On push dans le trableau conditon les paramètres que Op.or devra prendre en compte
+        for (name of mapped_categories) {
+            category_conditions.push({
+                name: {
+                    [Op.iLike]: name, // Case insensitive
+                },
+            });
+        }
+    }
+
+    // // On recherche le nom de game_catégorie en fonction de l'id
+    // const checkGameCategory = await Game_category.findByPk(game_category_ids).then((data) => {
+    //     if (data === null) return false;
+    //     else return data.name;
+    // });
+    // const game_category_name = !checkGameCategory ? "" : checkGameCategory;
 
     Offer.findAll({
         where: {
@@ -54,9 +123,7 @@ exports.findOffersResults = async (req, res) => {
         include: {
             model: Game,
             where: {
-                name: {
-                    [Op.iLike]: `%${game_name}%`, // case insensitive
-                },
+                [Op.or]: game_names_conditions,
                 nb_players_min: {
                     [Op.lte]: nb_players_min, // On renvoie les résultats dont nb_players_min <= nb_players
                 },
@@ -70,9 +137,7 @@ exports.findOffersResults = async (req, res) => {
             include: {
                 model: Game_category,
                 where: {
-                    name: {
-                        [Op.iLike]: `%${game_category_name}%`, // case insensitive
-                    },
+                    [Op.or]: category_conditions,
                 },
             },
         },
