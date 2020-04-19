@@ -1,16 +1,17 @@
 import axios from 'axios';
 import {
   FETCH_OFFERS, FETCH_PARAMS_OFFERS, GET_OFFER, saveOffers, saveOneOffer,
-  changeOfferIsLoad,
+  changeOfferIsLoad, HANDLE_ADD_OFFER, HANDLE_MODIFY_OFFER,
 } from 'src/actions/offers';
+
 
 
 const offersMiddleware = (store) => (next) => (action) => {
   const { userData } = store.getState().user;
-  const { urlId } = store.getState().offers;
+  const { urlId, offer } = store.getState().offers;
+  console.log(offer);
   switch (action.type) {
     case FETCH_OFFERS: {
-      // const { userData } = store.getState().user;
       axios.post(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.id}/offers`)
         .then((response) => {
           store.dispatch(saveOffers(response.data));
@@ -38,7 +39,6 @@ const offersMiddleware = (store) => (next) => (action) => {
       break;
 
     case GET_OFFER: {
-      // const { userData } = store.getState().user;
       axios.post(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`)
         .then((response) => {
           store.dispatch(saveOneOffer(response.data));
@@ -50,7 +50,47 @@ const offersMiddleware = (store) => (next) => (action) => {
       next(action);
       break;
     }
-
+    case HANDLE_ADD_OFFER: {
+      axios.post(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers`, {
+        status: offer.status,
+        userId: userData.id,
+        type: offer.type,
+        is_available: offer.is_available,
+        title: offer.title,
+        price: offer.price,
+        gameId: offer.gameId,
+        description: offer.description,
+      })
+        .then((response) => {
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+      next(action);
+      break;
+    }
+    case HANDLE_MODIFY_OFFER: {
+      const { id } = store.getState().offers.offer;
+      axios.put(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${id}`, {
+        id: offer.id,
+        status: offer.status,
+        userId: offer.userId,
+        type: offer.type,
+        is_available: offer.is_available,
+        title: offer.title,
+        price: offer.price,
+        gameId: offer.gameId,
+        description: offer.description,
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+      next(action);
+      break;
+    }
     default:
       next(action);
   }

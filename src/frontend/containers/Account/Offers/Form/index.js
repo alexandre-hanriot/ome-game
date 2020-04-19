@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import {
-  getOfferId, getOffer, clearOffer, handleFormInput,
+  getOfferId, getOffer, clearOffer, handleFormInput, handleAddOffer, handleModifyOffer,
 } from 'src/actions/offers';
 import {
   getGameCategories, getGames, changeCategoriesIsLoad, changeGameIsLoad,
@@ -40,6 +40,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeGameIsLoad: () => {
     dispatch(changeGameIsLoad());
+  },
+  handleAddOffer: () => {
+    dispatch(handleAddOffer());
+  },
+  handleModifyOffer: () => {
+    dispatch(handleModifyOffer());
   },
 });
 

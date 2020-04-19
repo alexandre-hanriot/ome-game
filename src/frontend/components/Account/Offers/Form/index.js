@@ -10,7 +10,8 @@ const Form = ({
   offer, getOfferId,
   getOffer, clearOffer, handleFormInput,
   categories, getGameCategories, getGames, changeCategoriesIsLoad,
-  changeGameIsLoad, gamesIsLoad, categoriesIsLoad,
+  changeGameIsLoad, gamesIsLoad, categoriesIsLoad, handleAddOffer,
+  handleModifyOffer,
 }) => {
   const { slug } = useParams();
   useEffect(() => {
@@ -36,6 +37,15 @@ const Form = ({
     }
     handleFormInput(identifier, newValue);
   };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (offer.id === 0) {
+      handleAddOffer();
+    }
+    else {
+      handleModifyOffer();
+    }
+  };
 
   return (
     <>
@@ -48,7 +58,7 @@ const Form = ({
           </div>
 
           <h1 className="account-offers-form__title">{ offer.id === 0 ? 'Ajouter' : 'Modifier' } une offre</h1>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="account-offers-form__container">
               <div className="account-offers-form__container__left">
                 <input
@@ -251,6 +261,8 @@ Form.propTypes = {
   changeCategoriesIsLoad: PropTypes.func.isRequired,
   gamesIsLoad: PropTypes.bool.isRequired,
   categoriesIsLoad: PropTypes.bool.isRequired,
+  handleModifyOffer: PropTypes.func.isRequired,
+  handleAddOffer: PropTypes.func.isRequired,
 };
 
 export default Form;
