@@ -197,7 +197,12 @@ exports.findAllReservations = (req, res) => {
     const offset = resultPage > 0 ? limit * (resultPage - 1) : 0;
 
     Reservation.findAll({
-        where: { userId },
+        where: {
+            userId,
+            status: {
+                [Op.or]: ["0", "1", "2"], // On affiche pas les terminées et annulées
+            },
+        },
         include: {
             model: Offer,
             include: {
@@ -215,6 +220,39 @@ exports.findAllReservations = (req, res) => {
         .catch((err) => {
             res.status(500).json({
                 error: `Une erreur est survenue pendant la récupération des réservations de l'utilisateur id=${userId} : ${err}`,
+            });
+        });
+};
+
+// Récupération de la réservation d'un utilisateur
+exports.findOneReservation = (req, res) => {
+    const userId = req.params.userId;
+    const offerId = req.params.offerId;
+
+    Reservation.findByPk(offerId, {
+        include: {
+            model: Offer,
+            attributes: ["title"],
+            include: {
+                model: User,
+                attributes: ["username", "firstname", "lastname"],
+            },
+        },
+    })
+        .then((data) => {
+            if (data === null || data.status === "3" || data.status === "4")
+                res.status(404).json({
+                    error: `Aucune réservation n'a été trouvée`,
+                });
+            else if (userId !== data.userId)
+                res.status(401).json({
+                    error: `Cet utilisateur n'est pas autorisé à consulter cette réservation`,
+                });
+            else res.send(data);
+        })
+        .catch((err) => {
+            res.status(500).json({
+                error: `Une erreur est survenue pendant la récupération de la réservation id=${offerId} de l'utilisateur id=${userId} : ${err}`,
             });
         });
 };
@@ -245,6 +283,28 @@ exports.findAllFavorites = (req, res) => {
         .catch((err) => {
             res.status(500).json({
                 error: `Une erreur est survenue pendant la récupération des favoris de l'utilisateur id=${userId} : ${err}`,
+            });
+        });
+};
+
+// Récupération d'un favori d'un utilisateur
+exports.findOneFavorite = (req, res) => {
+    const userId = req.params.userId;
+    const offerId = req.params.offerId;
+
+    Favorite.findOne({
+        where: { userId, offerId },
+    })
+        .then((data) => {
+            if (data === null)
+                res.status(404).json({
+                    error: `Aucun favori n'a été trouvé`,
+                });
+            res.send(data);
+        })
+        .catch((err) => {
+            res.status(500).json({
+                error: `Une erreur est survenue pendant la récupération du favori : ${err}`,
             });
         });
 };

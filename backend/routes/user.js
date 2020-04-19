@@ -30,7 +30,13 @@ router.get("/:id(\\d+)/offers", userController.findAllOffers);
 // Récupération des réservations d'un utilisateur en fonction de son id
 router.get("/:id(\\d+)/reservations", userController.findAllReservations);
 
+// Récupération d'une réservation spécifique d'un utilisateur en fonction de son id et l'id de la réservation
+router.get("/:userId(\\d+)/reservations/:offerId(\\d+)", userController.findOneReservation);
+
 // Récupération des favoris d'un utilisateur en fonction de son id
 router.get("/:id(\\d+)/favorites", userController.findAllFavorites);
+
+// Récupération d'un favori en fonction de l'id user et l'id de l'offre
+router.get("/:userId(\\d+)/favorites/:offerId(\\d+)", userController.findOneFavorite);
 
 module.exports = router;

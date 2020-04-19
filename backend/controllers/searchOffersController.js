@@ -94,13 +94,6 @@ exports.findOffersResults = async (req, res) => {
         }
     }
 
-    // // On recherche le nom de game_catégorie en fonction de l'id
-    // const checkGameCategory = await Game_category.findByPk(game_category_ids).then((data) => {
-    //     if (data === null) return false;
-    //     else return data.name;
-    // });
-    // const game_category_name = !checkGameCategory ? "" : checkGameCategory;
-
     Offer.findAll({
         where: {
             userId: {
