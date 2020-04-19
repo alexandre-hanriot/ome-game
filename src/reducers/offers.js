@@ -1,9 +1,6 @@
 import {
-  GET_OFFER_ID,
-  SAVE_OFFERS,
-  SAVE_ONE_OFFER,
+  GET_OFFER_ID, SAVE_OFFERS, SAVE_ONE_OFFER, CLEAR_OFFER, HANDLE_FORM_INPUT,
   SET_OFFER_IS_LOAD,
-  CLEAR_OFFER,
 } from 'src/actions/offers';
 
 const initialState = {
@@ -57,7 +54,6 @@ const offersReducer = (state = initialState, action = {}) => {
         ...state,
         urlId: action.offerId,
       };
-
     case SAVE_OFFERS:
       return {
         ...state,
@@ -69,13 +65,11 @@ const offersReducer = (state = initialState, action = {}) => {
         ...state,
         offer: action.offer,
       };
-
     case SET_OFFER_IS_LOAD:
       return {
         ...state,
         offerIsLoad: !state.offerIsLoad,
       };
-
     case CLEAR_OFFER:
       return {
         ...state,
@@ -118,7 +112,30 @@ const offersReducer = (state = initialState, action = {}) => {
           },
         },
       };
-
+    case HANDLE_FORM_INPUT: {
+      let target = action.identifier;
+      if (target.includes('game')) {
+        const sanitizeName = target.slice(5);
+        target = sanitizeName;
+        return {
+          ...state,
+          offer: {
+            ...state.offer,
+            game: {
+              ...state.offer.game,
+              [target]: action.newValue,
+            },
+          },
+        };
+      }
+      return {
+        ...state,
+        offer: {
+          ...state.offer,
+          [target]: action.newValue,
+        },
+      };
+    }
     default: return state;
   }
 };

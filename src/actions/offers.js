@@ -6,7 +6,11 @@ export const SAVE_ONE_OFFER = 'SAVE_ONE_OFFER';
 export const GET_OFFER_ID = 'GET_OFFER_ID';
 export const GET_OFFER = 'GET_OFFER';
 export const CLEAR_OFFER = 'CLEAR_OFFER';
+
+export const HANDLE_FORM_INPUT = 'HANDLE_FORM_INPUT';
 export const SET_OFFER_IS_LOAD = 'SET_OFFER_IS_LOAD';
+export const HANDLE_ADD_OFFER = 'HANDLE_ADD_OFFER';
+export const HANDLE_MODIFY_OFFER = 'HANDLE_MODIFY_OFFER';
 
 // action creators
 export const fetchOffers = () => ({
@@ -42,4 +46,18 @@ export const changeOfferIsLoad = () => ({
 
 export const clearOffer = () => ({
   type: CLEAR_OFFER,
+});
+
+export const handleFormInput = (identifier, newValue) => ({
+  type: HANDLE_FORM_INPUT,
+  identifier,
+  newValue,
+});
+
+export const handleAddOffer = () => ({
+  type: HANDLE_ADD_OFFER,
+});
+
+export const handleModifyOffer = () => ({
+  type: HANDLE_MODIFY_OFFER,
 });

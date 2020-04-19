@@ -1,8 +1,9 @@
 
-import { SAVE_RESERVATIONS } from 'src/actions/reservations';
+import { SAVE_RESERVATIONS, FIND_THE_RESERVATION } from 'src/actions/reservations';
 
 const initialState = {
   allReservations: [],
+  reservation: {},
 };
 
 const reservationsReducer = (state = initialState, action = {}) => {
@@ -12,7 +13,11 @@ const reservationsReducer = (state = initialState, action = {}) => {
         ...state,
         allReservations: action.reservations,
       };
-
+    case FIND_THE_RESERVATION:
+      return {
+        ...state,
+        reservation: action.reservation,
+      };
     default: return state;
   }
 };
