@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Marker from 'src/frontend/components/Map/Marker';
+import Marker from 'src/frontend/components/Cluster/Marker';
 
 import {
   changeCoordinates,

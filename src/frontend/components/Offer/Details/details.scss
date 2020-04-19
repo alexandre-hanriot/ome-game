@@ -6,7 +6,6 @@
 }
 
 .offer-detail {
-
   &__breadcrumb {
     margin: $gutter 0;
     & > a {
@@ -31,6 +30,10 @@
       background-color: $green;
       font-size: .8em;
       color: $darkBlue;
+
+      &--off {
+        background-color: $backgroundLight;
+      }
     }
   }
   &__stats {
@@ -61,7 +64,8 @@
 
     &__description {
       margin: 0 $gutter $gutter 0;
-  
+      line-height: 1.6;
+      
       &__title {
         font-size: 1.5em;
         margin-bottom: ($gutter /2);
@@ -80,6 +84,15 @@
   
       &__button {
         font-size: 1.2em;
+
+        &:disabled {
+          opacity: 0.6;
+
+          &:hover {
+            background-color: $darkBlue;
+            cursor: default;
+          }
+        }
       }
     }
     &__user {
@@ -105,6 +118,17 @@
       width: 450px;
       height: 450px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
+
+      &__text {
+        position: absolute;
+        z-index: 2;
+        top: 5px;
+        left: 5px;
+        background-color: rgba(22,35,53,0.6);
+        padding: $gutter/3 $gutter/2;
+      }
     }
   }
 }

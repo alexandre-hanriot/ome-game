@@ -1,21 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Alert from 'src/frontend/containers/Alert';
 import './details.scss';
 
-const BookGame = ({ displayModal, displayAlert, showAlert }) => {
+const BookGame = ({
+  displayModal,
+  displayAlert,
+  addReservation,
+  isLogged,
+}) => {
   const closeModal = () => {
     displayModal('');
   };
 
   const validateAlert = () => {
-    displayAlert('La demande a été enregistrée et sera traitée dans les plus brefs délais', true);
+    if (isLogged) {
+      addReservation();
+      displayAlert('La demande a été enregistrée et sera traitée dans les plus brefs délais', true);
+    }
+    else {
+      displayAlert('Vous devez être connecté');
+    }
     displayModal('');
   };
 
   return (
     <div className="modal__bookGame">
-      {showAlert && <Alert />}
       <h1 className="modal__bookGame__title">Demande de réservation</h1>
       <div className="modal__bookGame__content">
         <p className="modal__bookGame__content__p1"><span>Offre :</span> nom du jeu</p>
@@ -43,7 +52,8 @@ const BookGame = ({ displayModal, displayAlert, showAlert }) => {
 BookGame.propTypes = {
   displayModal: PropTypes.func.isRequired,
   displayAlert: PropTypes.func.isRequired,
-  showAlert: PropTypes.bool.isRequired,
+  addReservation: PropTypes.func.isRequired,
+  isLogged: PropTypes.bool.isRequired,
 };
 
 export default BookGame;
