@@ -14,7 +14,7 @@ const Map = ({ lat, lng }) => {
           lat: Number(lat),
           lng: Number(lng),
         }}
-        defaultZoom={14}
+        defaultZoom={13}
       >
         <Marker
           lat={Number(lat)}
