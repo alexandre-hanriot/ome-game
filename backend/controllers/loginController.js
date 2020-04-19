@@ -43,15 +43,15 @@ exports.login = (req, res) => {
                     console.log(JWTtoken);
 
                     // On charge le JWT token dans un cookie http only
-                    res.cookie("access_token", JWTtoken, {
-                        httpOnly: true, // pour un cookie non accessible par du code client js
-                        // secure: true // true pour forcer le https
-                    });
+                    // res.cookie("access_token", JWTtoken, {
+                    //     httpOnly: true, // pour un cookie non accessible par du code client js
+                    //     // secure: true // true pour forcer le https
+                    // });
 
                     // On envoie la réponse avec notamment le token xsrf. En front on pourra stocker ces données soit
                     // dans le session storage (expiration à fermeture du navigateur)
                     // ou dans le local storage (persistence à fermeture du navigateur)
-                    res.status(200).send({
+                    res.send({
                         user, // A modifier pour n'envoyer que certaines données
                         xsrfToken,
                     });

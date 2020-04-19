@@ -46,6 +46,10 @@ app.use(
     })
 );
 
+// Protège de certaines des vulnérabilités bien connues du Web en configurant de manière appropriée des en-têtes HTTP
+var helmet = require("helmet");
+app.use(helmet());
+
 // Paramétrage des requêtes et réponses
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
