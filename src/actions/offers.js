@@ -6,6 +6,7 @@ export const SAVE_ONE_OFFER = 'SAVE_ONE_OFFER';
 export const GET_OFFER_ID = 'GET_OFFER_ID';
 export const GET_OFFER = 'GET_OFFER';
 export const CLEAR_OFFER = 'CLEAR_OFFER';
+
 export const HANDLE_FORM_INPUT = 'HANDLE_FORM_INPUT';
 export const SET_OFFER_IS_LOAD = 'SET_OFFER_IS_LOAD';
 export const HANDLE_ADD_OFFER = 'HANDLE_ADD_OFFER';

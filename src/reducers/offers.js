@@ -3,7 +3,6 @@ import {
   SET_OFFER_IS_LOAD,
 } from 'src/actions/offers';
 
-
 const initialState = {
   allOffers: [],
   offer: {

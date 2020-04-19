@@ -1,15 +1,14 @@
 import axios from 'axios';
+
 import {
   FETCH_OFFERS, FETCH_PARAMS_OFFERS, GET_OFFER, saveOffers, saveOneOffer,
   changeOfferIsLoad, HANDLE_ADD_OFFER, HANDLE_MODIFY_OFFER,
 } from 'src/actions/offers';
 
-
-
 const offersMiddleware = (store) => (next) => (action) => {
   const { userData } = store.getState().user;
   const { urlId, offer } = store.getState().offers;
-  console.log(offer);
+
   switch (action.type) {
     case FETCH_OFFERS: {
       axios.post(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.id}/offers`)
@@ -38,7 +37,7 @@ const offersMiddleware = (store) => (next) => (action) => {
       next(action);
       break;
 
-    case GET_OFFER: {
+    case GET_OFFER: {  
       axios.post(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`)
         .then((response) => {
           store.dispatch(saveOneOffer(response.data));

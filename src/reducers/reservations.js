@@ -3,8 +3,6 @@ import { SAVE_RESERVATIONS, FIND_THE_RESERVATION } from 'src/actions/reservation
 
 const initialState = {
   allReservations: [],
-  // indique si on est en train de charger des données depuis l'API
-  // loading: true,
   reservation: {},
 };
 
@@ -14,7 +12,6 @@ const reservationsReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         allReservations: action.reservations,
-        // loading: false,
       };
     case FIND_THE_RESERVATION:
       return {
@@ -24,7 +21,5 @@ const reservationsReducer = (state = initialState, action = {}) => {
     default: return state;
   }
 };
-// => Pour accéder au state défini dans le reducer 'recipesReducer', il faudra que je
-// descende dans le tiroir 'recipes' => state.recipes.xxxx
 
 export default reservationsReducer;

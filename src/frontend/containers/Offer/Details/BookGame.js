@@ -1,9 +1,12 @@
 import { connect } from 'react-redux';
-import { showModal, showAlert } from 'src/actions/global';
 import BookGame from 'src/frontend/components/Offer/Details/BookGame';
 
+import { showModal, showAlert } from 'src/actions/global';
+import { addReservation } from 'src/actions/reservations';
+
+
 const mapStateToProps = (state) => ({
-  // nom de la prop à remplir: donnée à récupérer dans le state
+  isLogged: state.user.isLogged,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -13,6 +16,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   displayAlert: (message, success) => {
     dispatch(showAlert(message, success));
+  },
+  addReservation: () => {
+    dispatch(addReservation());
   },
 });
 
