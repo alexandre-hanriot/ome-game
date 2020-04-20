@@ -48,7 +48,7 @@ export const deleteFavorite = (id) => ({
 export const updateFavorites = (id) => ({
   type: UPDATE_FAVORITES,
   id,
-
+});
 export const addFavorite = () => ({
   type: ADD_FAVORITE,
 

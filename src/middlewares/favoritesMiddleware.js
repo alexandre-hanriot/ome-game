@@ -35,6 +35,12 @@ const favoritesMiddleware = (store) => (next) => (action) => {
       })
         .then((response) => {
           store.dispatch(updateNotifyFavorites(idFavorite, notifyfavorite));
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+      next(action);
+      break;
 
     // Add offer in favorite
     case ADD_FAVORITE: {
@@ -52,8 +58,7 @@ const favoritesMiddleware = (store) => (next) => (action) => {
         });
       next(action);
       break;
-
-
+    }
     case DELETE_FAVORITE:
       axios.delete(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/favorites/${idFavorite}`)
         .then((response) => {
@@ -65,8 +70,6 @@ const favoritesMiddleware = (store) => (next) => (action) => {
         });
       next(action);
       break;
-
-    }
 
     default:
       next(action);

@@ -11,7 +11,7 @@ const offersMiddleware = (store) => (next) => (action) => {
 
   switch (action.type) {
     case FETCH_OFFERS: {
-<<<<
+
       // const { userData } = store.getState().user;
       axios.get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/offers`)
         .then((response) => {
