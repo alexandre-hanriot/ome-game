@@ -67,6 +67,15 @@ const userReducer = (state = initialState, action = {}) => {
     case SUBMIT_LOGIN:
       return {
         ...state,
+        userData: {
+          ...state.userData,
+          user: {
+            ...state.userData.user,
+            old_password: '',
+            new_password: '',
+            confirm_new_password: '',
+          },
+        },
       };
     case CHANGE_LOGIN_ERROR:
       return {

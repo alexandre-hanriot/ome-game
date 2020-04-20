@@ -11,6 +11,7 @@ const Profil = ({
   submitProfilUpdate,
   submitProfilChangePassword,
   clearProfilPasswords,
+  displayAlert,
 }) => {
   useTitle('Mon profil');
   useEffect(() => () => {
@@ -20,20 +21,64 @@ const Profil = ({
     // eslint-disable-next-line prefer-const
     let { value, name } = event.currentTarget;
     if (name === 'display_name') {
-      console.log(value);
       value = Boolean(Number((value)));
     }
-    console.log(value);
     changeProfilInput(name, value);
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (userData.user.old_password === '' || userData.user.new_password === '') {
+
+    if (userData.user.new_password === userData.user.confirm_new_password
+        && userData.user.new_password !== ''
+        && userData.user.old_password !== ''
+        && userData.user.confirm_new_password !== ''
+        && userData.user.firstname !== ''
+        && userData.user.lastname !== ''
+        && userData.user.username !== ''
+        && userData.user.email !== ''
+    ) {
+      submitProfilChangePassword();
+    }
+    else if (
+      userData.user.new_password === ''
+      && userData.user.confirm_new_password === ''
+      && userData.user.old_password === ''
+      && userData.user.firstname !== ''
+      && userData.user.lastname !== ''
+      && userData.user.username !== ''
+      && userData.user.email !== ''
+    ) {
       submitProfilUpdate();
     }
-    if (userData.user.old_password !== '' && userData.user.new_password === userData.user.confirm_new_password) {
-      submitProfilChangePassword();
-      submitProfilUpdate();
+
+    if (userData.user.new_password !== userData.user.confirm_new_password) {
+      displayAlert('les mots de passe ne correspondent pas', false);
+    }
+    if (userData.user.username === '') {
+      displayAlert('veuillez renseigner un pseudo', false);
+    }
+    if (userData.user.firstname === '') {
+      displayAlert('veuillez renseigner votre prénom', false);
+    }
+    if (userData.user.lastname === '') {
+      displayAlert('veuillez renseigner votre nom', false);
+    }
+    if (userData.user.email === '') {
+      displayAlert('veuillez renseigner un email', false);
+    }
+    if (
+      userData.user.old_password === ''
+    && userData.user.new_password !== ''
+    && userData.user.new_password === userData.user.confirm_new_password
+    ) {
+      displayAlert('veuillez renseigner votre mot de passe actuel', false);
+    }
+    if (
+      userData.user.old_password !== ''
+      && userData.user.new_password === ''
+      && userData.user.confirm_new_password === ''
+    ) {
+      displayAlert('veuillez renseigner un nouveau mot de passe', false);
     }
   };
 
@@ -204,6 +249,7 @@ Profil.propTypes = {
   submitProfilUpdate: PropTypes.func.isRequired,
   submitProfilChangePassword: PropTypes.func.isRequired,
   clearProfilPasswords: PropTypes.func.isRequired,
+  displayAlert: PropTypes.func.isRequired,
 };
 
 export default Profil;

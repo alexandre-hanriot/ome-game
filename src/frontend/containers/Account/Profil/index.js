@@ -6,6 +6,7 @@ import {
   submitProfilChangePassword,
   clearProfilPasswords,
 } from 'src/actions/user';
+import { showAlert } from 'src/actions/global';
 
 
 
@@ -27,6 +28,9 @@ const mapDispatchToProps = (dispatch) => ({
   clearProfilPasswords: () => {
     dispatch(clearProfilPasswords());
   },
+  displayAlert: (message, success) => {
+    dispatch(showAlert(message, success));
+  }
 });
 
 export default connect(

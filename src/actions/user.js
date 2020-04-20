@@ -63,11 +63,6 @@ export const submitProfilChangePassword = () => ({
   type: SUBMIT_PROFIL_CHANGE_PASSWORD,
 });
 
-export const saveProfilChangePassword = (passwords) => ({
-  type: SAVE_PROFIL_CHANGE_PASSWORD,
-  passwords,
-});
-
 export const clearProfilPasswords = () => ({
   type: CLEAR_PROFIL_PASSWORDS,
 });

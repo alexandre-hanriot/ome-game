@@ -5,7 +5,6 @@ import {
   SUBMIT_PROFIL_UPDATE,
   saveProfilUpdate,
   SUBMIT_PROFIL_CHANGE_PASSWORD,
-  saveProfilChangePassword,
 } from 'src/actions/user';
 import { showAlert, showModal } from 'src/actions/global';
 import axios from 'axios';
@@ -20,8 +19,17 @@ const authMiddleware = (store) => (next) => (action) => {
           password,
         })
         .then((response) => {
-          console.log(response);
-          store.dispatch(logUser(response.data));
+          const data = {
+            ...response.data,
+            user: {
+              ...response.data.user,
+              old_password: '',
+              new_password: '',
+              confirm_new_password: '',
+            },
+          };
+
+          store.dispatch(logUser(data));
           store.dispatch(showAlert('Connexion effectuée avec succès', true));
           store.dispatch(showModal());
           store.dispatch(changeLoginError(''));
@@ -60,8 +68,8 @@ const authMiddleware = (store) => (next) => (action) => {
           gdpr_accepted_at: userData.user.gdpr_accepted_at,
         })
         .then((response) => {
-          console.log(response);
           store.dispatch(saveProfilUpdate(response.data));
+          store.dispatch(showAlert('vos informations ont été mis à jour', true));
         })
         .catch((error) => {
           // handle error
@@ -78,8 +86,7 @@ const authMiddleware = (store) => (next) => (action) => {
           newPassword: userData.user.new_password,
         })
         .then((response) => {
-          console.log(response);
-          store.dispatch(saveProfilChangePassword(response.data));
+          store.dispatch(saveProfilUpdate(response.data));
         })
         .catch((error) => {
           // handle error
