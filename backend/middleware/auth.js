@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-module.exports = (req, res, next) => {
+exports.authorization = (req, res, next) => {
     try {
         // On récupère le token xsrf issue du header de la requête (qui était stocké dans le local storage)
         const xsrfToken = req.headers["x-xsrf-token"];
@@ -24,12 +24,12 @@ module.exports = (req, res, next) => {
 
         if (typeof userId === "undefined")
             res.status(401).json({
-                error: "UserId invalide",
+                error: "UserId manquant",
             });
 
         // On récupère le xsrf token qui est stocké dans le JWT token
         const decodedXsrfToken = decodedToken.xsrfToken;
-        if (typeof userId === "undefined")
+        if (typeof decodedXsrfToken === "undefined")
             res.status(401).json({
                 error: "Token XSRF manquant",
             });
@@ -41,18 +41,18 @@ module.exports = (req, res, next) => {
             });
         }
 
-        // On vérifie que le userId envoyé dans la requête correspond bien au userId présent dan le token JWT
-        console.log(typeof userId);
-        console.log(typeof req.body.userId);
+        // On récupère le status qui est stocké dans le JWT token
+        const status = decodedToken.status;
+        if (status === "1" || status === "2") next(); // Si l'utilisateur est admin ou superadmin alors c'est ok
 
-        if (parseInt(req.body.userId) !== userId) {
+        // On vérifie que le userId envoyé dans la requête correspond bien au userId présent dan le token JWT
+        // Un User n'a pas le droit d'accéder aux informations d'un autre User
+        if (parseInt(req.params.userId) !== userId) {
             // Attention le userId est en format string dans la requête
             res.status(401).json({
-                error: "Erreur attaque csrf",
+                error: "Requêtes non autorisée. Utilisateur ne disposant pas des droits requis",
             });
-        } else {
-            next();
-        }
+        } else next();
     } catch {
         res.status(401).json({
             error: "Invalid request!",

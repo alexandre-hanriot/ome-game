@@ -46,6 +46,10 @@ module.exports = (sequelize, Sequelize) => {
                 type: Sequelize.STRING(50),
                 defaultValue: null,
             },
+            display_name: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: false,
+            },
             phone: {
                 type: Sequelize.STRING(15),
                 defaultValue: null,
@@ -64,6 +68,10 @@ module.exports = (sequelize, Sequelize) => {
             },
             gdpr_accepted_at: {
                 type: Sequelize.DATE,
+                defaultValue: null,
+            },
+            picture: {
+                type: Sequelize.STRING,
                 defaultValue: null,
             },
         },
@@ -97,6 +105,9 @@ module.exports = (sequelize, Sequelize) => {
                     fields: ["lastname"],
                 },
                 {
+                    fields: ["display_name"],
+                },
+                {
                     fields: ["phone"],
                 },
                 {
@@ -110,6 +121,9 @@ module.exports = (sequelize, Sequelize) => {
                 },
                 {
                     fields: ["gdpr_accepted_at"],
+                },
+                {
+                    fields: ["picture"],
                 },
             ],
         }

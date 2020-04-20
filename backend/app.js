@@ -21,13 +21,13 @@ const messagesRouter = require("./routes/message");
 const db = require("./models/index");
 
 // L'option force permet de tout supprimer avant, et donc de tout recréer
-// db.sequelize.sync({ force: true }).then(() => {
-//     console.log("Drop and re-sync db.");
-// });
-
-db.sequelize.sync().then(() => {
-    console.log("Synchronisation avec la bdd réalisée avec succès");
+db.sequelize.sync({ force: true }).then(() => {
+    console.log("Drop and re-sync db.");
 });
+
+// db.sequelize.sync().then(() => {
+//     console.log("Synchronisation avec la bdd réalisée avec succès");
+// });
 
 const app = express();
 

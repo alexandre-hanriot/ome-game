@@ -10,7 +10,9 @@ exports.findAll = (req, res) => {
 
 // Récupération d'une réservation en fonction de sa clé primaire
 exports.findOne = (req, res) => {
-    coreController.findOne(Reservation, req, res);
+    const id = req.params.id;
+
+    coreController.findOne(Reservation, id, req, res);
 };
 
 // Création d'une réservation

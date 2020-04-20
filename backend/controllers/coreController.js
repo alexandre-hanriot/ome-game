@@ -37,9 +37,7 @@ exports.findAll = (model, defaultOrderby, req, res) => {
 
 // Recherche d'une instance de modèle par clé primaire
 // returnOption permet de retourner les données au lieu d'envoyer une réponse http
-exports.findOne = (model, req, res, returnOption = false) => {
-    const id = req.params.id;
-
+exports.findOne = (model, id, req, res, returnOption = false) => {
     const attributes =
         typeof req.body.attributes === "undefined" ? Object.keys(model.rawAttributes) : req.body.attributes.split(", ");
 

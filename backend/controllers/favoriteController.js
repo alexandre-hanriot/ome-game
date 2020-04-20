@@ -10,7 +10,9 @@ exports.findAll = (req, res) => {
 
 // Récupération d'un favori en fonction de sa clé primaire
 exports.findOne = (req, res) => {
-    coreController.findOne(Favorite, req, res);
+    const id = req.params.id;
+
+    coreController.findOne(Favorite, id, req, res);
 };
 
 // Création d'un favori

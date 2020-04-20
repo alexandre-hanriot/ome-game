@@ -10,7 +10,9 @@ exports.findAll = (req, res) => {
 
 // Récupération d'un jeu en fonction de sa clé primaire
 exports.findOne = (req, res) => {
-    coreController.findOne(Game, req, res);
+    const id = req.params.id;
+
+    coreController.findOne(Game, id, req, res);
 };
 
 // Création d'un jeu

@@ -9,22 +9,6 @@ const Game_category = db.game_categories;
 const coreController = require("./coreController");
 const utils = require("../utils");
 
-// Récupération d'un User par son ID
-exports.getUserById = async (id) => {
-    user = await User.findOne({
-        where: { id },
-    });
-    return user;
-};
-
-// Récupération d'un User par son email
-exports.getUserByEmail = async (email) => {
-    user = await User.findOne({
-        where: { email },
-    });
-    return user;
-};
-
 // Récupération de tous les utilisateurs
 exports.findAll = (req, res) => {
     const defaultOrderby = "username";
@@ -33,7 +17,9 @@ exports.findAll = (req, res) => {
 
 // Récupération d'un utilisateur en fonction de sa clé primaire
 exports.findOne = (req, res) => {
-    coreController.findOne(User, req, res);
+    const id = req.params.userId;
+
+    coreController.findOne(User, id, req, res);
 };
 
 // Création d'un utilisateur
@@ -69,7 +55,7 @@ exports.create = async (req, res) => {
 
 // Modification d'un utilisateur (hors mot de passe)
 exports.update = async (req, res) => {
-    const id = req.params.id;
+    const id = req.params.userId;
 
     // Sécurité : on supprime la data password au cas où elle ait été saisie
     delete req.body.password;
@@ -101,7 +87,7 @@ exports.update = async (req, res) => {
 
 // Mise à jour du mot de passe
 exports.updatePassword = async (req, res) => {
-    const id = req.params.id;
+    const id = req.params.userId;
 
     // Sécurité : on supprime la data password au cas où elle ait été saisie
     delete req.body.password;
@@ -153,14 +139,14 @@ exports.deleteManyByID = (req, res) => {
 
 // Suppression d'un utilisateur en fonction de sa clé primaire
 exports.deleteOne = (req, res) => {
-    const id = req.params.id;
+    const id = req.params.userId;
 
     coreController.deleteOne(User, id, res);
 };
 
 // Récupération des offres d'un utilisateur et tri par date de création décroissante
 exports.findAllOffers = (req, res) => {
-    const userId = req.params.id;
+    const userId = req.params.userId;
     const { limit = null, resultPage = null } = req.query; // Pour afficher uniquement X résultats de la Nième page
 
     const offset = resultPage > 0 ? limit * (resultPage - 1) : 0;
@@ -192,7 +178,7 @@ exports.findAllOffers = (req, res) => {
 
 // Récupération des réservations d'un utilisateur et tri par date de création décroissante
 exports.findAllReservations = (req, res) => {
-    const userId = req.params.id;
+    const userId = req.params.userId;
     const { limit = null, resultPage = null } = req.query; // Pour afficher uniquement X résultats de la Nième page
 
     const offset = resultPage > 0 ? limit * (resultPage - 1) : 0;
@@ -260,7 +246,7 @@ exports.findOneReservation = (req, res) => {
 
 // Récupération des favoris d'un utilisateur et tri par date de création décroissante
 exports.findAllFavorites = (req, res) => {
-    const userId = req.params.id;
+    const userId = req.params.userId;
     const { limit = null, resultPage = null } = req.query; // Pour afficher uniquement X résultats de la Nième page
 
     const offset = resultPage > 0 ? limit * (resultPage - 1) : 0;
