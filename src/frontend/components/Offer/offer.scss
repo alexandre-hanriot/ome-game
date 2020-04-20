@@ -212,8 +212,16 @@
         margin-right: .4rem;
         margin-bottom: .4rem;
 
+        i {
+          margin-right: 5px;
+          color: #56677d;
+        }
+
         &:hover {
           background-color: $secondaryColor;
+          i {
+            color: #fff;
+          }
         }
       }
     }

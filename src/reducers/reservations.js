@@ -1,13 +1,18 @@
 
-import { SAVE_RESERVATIONS, SAVE_ID_RESERVATION, SAVE_ONE_RESERVATION } from 'src/actions/reservations';
+
+import { SAVE_RESERVATIONS,
+        SAVE_ID_RESERVATION,
+        SAVE_ONE_RESERVATION,
+        FIND_THE_RESERVATION,
+       } from 'src/actions/reservations';
 
 const initialState = {
   allReservations: [],
   idReservation: '',
   oneReservation: {},
+  reservation: {},
   // indique si on est en train de charger des données depuis l'API
   // loading: true,
-};
 
 const reservationsReducer = (state = initialState, action = {}) => {
   switch (action.type) {
@@ -15,7 +20,6 @@ const reservationsReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         allReservations: action.reservations,
-        // loading: false,
       };
 
     case SAVE_ID_RESERVATION:
@@ -31,10 +35,14 @@ const reservationsReducer = (state = initialState, action = {}) => {
         oneReservation: action.oneReservation,
       };
 
+    case FIND_THE_RESERVATION:
+      return {
+        ...state,
+        reservation: action.reservation,
+      };
+
     default: return state;
   }
 };
-// => Pour accéder au state défini dans le reducer 'recipesReducer', il faudra que je
-// descende dans le tiroir 'recipes' => state.recipes.xxxx
 
 export default reservationsReducer;

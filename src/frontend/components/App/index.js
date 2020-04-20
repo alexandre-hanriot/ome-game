@@ -84,7 +84,7 @@ const App = ({ isLogged, showAlert, isError }) => {
           <Route exact path="/mentions-legales">
             <LegalMentions />
           </Route>
-          <Route exact path="/recherche/jeux/1-toto">
+          <Route exact path="/recherche/jeux/:id/:slug">
             <Details />
           </Route>
           <Route exact path="/contact">

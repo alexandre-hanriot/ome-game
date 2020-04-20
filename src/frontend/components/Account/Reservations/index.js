@@ -6,6 +6,7 @@ import Modal from 'src/frontend/containers/Modal';
 import { useTitle } from 'src/hooks/useTitle';
 import Details from 'src/frontend/containers/Account/Reservations/Details';
 
+
 const Reservations = ({
   showModal,
   displayModal,
@@ -25,6 +26,7 @@ const Reservations = ({
   useEffect(() => {
     fetchReservations();
   }, []);
+  console.log(data);
   return (
     <div className="wrapper reservations">
       {showModal === 'reservation' && (
