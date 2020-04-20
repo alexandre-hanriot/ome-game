@@ -21,6 +21,7 @@ module.exports = (req, res, next) => {
 
         // On récupère le userId qui est stocké dans le JWT token
         const userId = decodedToken.userId;
+
         if (typeof userId === "undefined")
             res.status(401).json({
                 error: "UserId invalide",
@@ -39,11 +40,16 @@ module.exports = (req, res, next) => {
                 error: "Erreur attaque csrf",
             });
         }
-        if (req.body.userId !== userId) {
-            // res.status(401).json({
-            //     error: "Invalid request!",
-            // });
-            throw "Erreur attaque csrf";
+
+        // On vérifie que le userId envoyé dans la requête correspond bien au userId présent dan le token JWT
+        console.log(typeof userId);
+        console.log(typeof req.body.userId);
+
+        if (parseInt(req.body.userId) !== userId) {
+            // Attention le userId est en format string dans la requête
+            res.status(401).json({
+                error: "Erreur attaque csrf",
+            });
         } else {
             next();
         }

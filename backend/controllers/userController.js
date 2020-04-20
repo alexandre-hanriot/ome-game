@@ -1,4 +1,5 @@
 const db = require("../models/index");
+const { Op } = require("sequelize");
 const User = db.users;
 const Offer = db.offers;
 const Favorite = db.favorites;
