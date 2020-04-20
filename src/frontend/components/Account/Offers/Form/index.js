@@ -33,7 +33,7 @@ const Form = ({
   useEffect(() => {
     const id = offer.gameId;
 
-    if (id > 0) {
+    if (id > 0 && !newGameField) {
       if (gamesIsLoad) {
         const currentGame = games.find((g) => g.id === id);
         handleFormInputGame('gameCategoryId', currentGame.gameCategoryId);
@@ -71,15 +71,6 @@ const Form = ({
       newValue = Number(newValue);
     }
     handleFormInput(identifier, newValue);
-
-    if (identifier === 'gameId') {
-      const currentGame = games.find((g) => g.id === newValue);
-      handleFormInputGame('gameCategoryId', currentGame.gameCategoryId);
-      handleFormInputGame('nb_players_min', currentGame.nb_players_min);
-      handleFormInputGame('nb_players_max', currentGame.nb_players_max);
-      handleFormInputGame('age_min', currentGame.age_min);
-      handleFormInputGame('duration', currentGame.duration);
-    }
   };
   const handleSubmit = (event) => {
     event.preventDefault();
