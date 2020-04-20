@@ -16,7 +16,7 @@ const Details = ({
   displayAlert,
   showModal,
   displayModal,
-  getOfferId,
+  saveOfferId,
   getOffer,
   offerIsLoad,
   changeOfferIsLoad,
@@ -24,11 +24,13 @@ const Details = ({
   isLogged,
   clearOffer,
   addFavorite,
+  checkOfferInFavorite,
+  checkOfferInReservation,
 }) => {
   const { id } = useParams();
 
   useEffect(() => {
-    getOfferId(id);
+    saveOfferId(id);
     getOffer();
 
     return function cleanup() {
@@ -49,6 +51,11 @@ const Details = ({
   };
 
   const disponibilityClass = classNames('offer-detail__infos__disponibility', { 'offer-detail__infos__disponibility--off': !offer.is_available });
+
+  if (isLogged) {
+    checkOfferInFavorite();
+    checkOfferInReservation();
+  }
 
   return (
     <>
@@ -109,7 +116,7 @@ Details.propTypes = {
   displayAlert: PropTypes.func.isRequired,
   displayModal: PropTypes.func.isRequired,
   showModal: PropTypes.string.isRequired,
-  getOfferId: PropTypes.func.isRequired,
+  saveOfferId: PropTypes.func.isRequired,
   getOffer: PropTypes.func.isRequired,
   offerIsLoad: PropTypes.bool.isRequired,
   changeOfferIsLoad: PropTypes.func.isRequired,
@@ -117,6 +124,8 @@ Details.propTypes = {
   isLogged: PropTypes.bool.isRequired,
   clearOffer: PropTypes.func.isRequired,
   addFavorite: PropTypes.func.isRequired,
+  checkOfferInFavorite: PropTypes.func.isRequired,
+  checkOfferInReservation: PropTypes.func.isRequired,
 };
 
 export default Details;

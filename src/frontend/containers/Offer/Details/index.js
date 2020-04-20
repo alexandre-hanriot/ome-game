@@ -7,7 +7,7 @@ import {
 } from 'src/actions/global';
 
 import {
-  getOfferId,
+  saveOfferId,
   getOffer,
   changeOfferIsLoad,
   clearOffer,
@@ -15,7 +15,12 @@ import {
 
 import {
   addFavorite,
+  checkOfferInFavorite,
 } from 'src/actions/favorites';
+
+import {
+  checkOfferInReservation,
+} from 'src/actions/reservations';
 
 const mapStateToProps = (state) => ({
   showAlert: state.global.showAlert,
@@ -32,8 +37,8 @@ const mapDispatchToProps = (dispatch) => ({
   displayModal: (name) => {
     dispatch(showModal(name));
   },
-  getOfferId: (id) => {
-    dispatch(getOfferId(id));
+  saveOfferId: (id) => {
+    dispatch(saveOfferId(id));
   },
   getOffer: () => {
     dispatch(getOffer());
@@ -46,6 +51,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   addFavorite: () => {
     dispatch(addFavorite());
+  },
+  checkOfferInFavorite: () => {
+    dispatch(checkOfferInFavorite());
+  },
+  checkOfferInReservation: () => {
+    dispatch(checkOfferInReservation());
   },
 });
 

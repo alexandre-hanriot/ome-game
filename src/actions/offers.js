@@ -3,7 +3,7 @@ export const FETCH_OFFERS = 'FETCH_OFFERS';
 export const FETCH_PARAMS_OFFERS = 'FETCH_PARAMS_OFFERS';
 export const SAVE_OFFERS = 'SAVE_OFFERS';
 export const SAVE_ONE_OFFER = 'SAVE_ONE_OFFER';
-export const GET_OFFER_ID = 'GET_OFFER_ID';
+export const SAVE_OFFER_ID = 'SAVE_OFFER_ID';
 export const GET_OFFER = 'GET_OFFER';
 export const CLEAR_OFFER = 'CLEAR_OFFER';
 
@@ -31,8 +31,8 @@ export const saveOneOffer = (offer) => ({
   offer,
 });
 
-export const getOfferId = (offerId) => ({
-  type: GET_OFFER_ID,
+export const saveOfferId = (offerId) => ({
+  type: SAVE_OFFER_ID,
   offerId,
 });
 

@@ -3,6 +3,7 @@ import {
   SHOW_MENU,
   SHOW_ALERT,
   SET_IS_ERROR,
+  REDIRECT_TO,
 } from 'src/actions/global';
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   alertSuccess: true,
   showAlert: false,
   isError: false,
+  redirectTo: '',
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -39,6 +41,12 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         isError: !state.isError,
+      };
+
+    case REDIRECT_TO:
+      return {
+        ...state,
+        redirectTo: action.url,
       };
 
     default:

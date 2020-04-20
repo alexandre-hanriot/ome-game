@@ -5,10 +5,12 @@ import {
   FETCH_PARAMS_RESERVATIONS,
   saveReservations,
   ADD_RESERVATION,
+  CHECK_OFFER_IN_RESERVATION,
 } from 'src/actions/reservations';
 
 const reservationsMiddleware = (store) => (next) => (action) => {
   const { userData } = store.getState().user;
+
   switch (action.type) {
     case FETCH_RESERVATIONS:
 
@@ -51,6 +53,22 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         .catch((error) => {
           console.warn(error);
         });
+      next(action);
+      break;
+    }
+
+    // check in reservation
+    case CHECK_OFFER_IN_RESERVATION: {
+      const { offer } = store.getState().offers;
+      axios
+        .get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/${userData.id}/reservations/${offer.id}`)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
       next(action);
       break;
     }

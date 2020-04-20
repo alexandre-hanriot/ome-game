@@ -3,7 +3,7 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import {
-  Route, Switch, useLocation,
+  Route, Switch, useLocation, Redirect,
 } from 'react-router-dom';
 import Header from 'src/frontend/containers/Header';
 import Footer from 'src/frontend/components/Footer';
@@ -25,7 +25,13 @@ import Alert from 'src/frontend/containers/Alert';
 // TODO : créer un menu lorsqu'on est connecté
 
 // == Composant
-const App = ({ isLogged, showAlert, isError }) => {
+const App = ({
+  isLogged,
+  showAlert,
+  isError,
+  redirectTo,
+  setRedirectTo,
+}) => {
   const location = useLocation();
   // return the current pathname
   const currentPath = location.pathname;
@@ -36,8 +42,15 @@ const App = ({ isLogged, showAlert, isError }) => {
     'app--error': isError,
   });
 
+  let redirectUrl = '';
+  if (redirectTo.length > 0) {
+    redirectUrl = redirectTo;
+    setRedirectTo('');
+  }
+
   return (
     <div className={appClass}>
+      {redirectTo.length > 0 && <Redirect to={redirectUrl} />}
       <Header />
       <main>
         {showAlert && <Alert />}
@@ -68,7 +81,7 @@ const App = ({ isLogged, showAlert, isError }) => {
           </Route>
           )}
           {isLogged && (
-          <Route exact path="/compte/offre/:slug">
+          <Route exact path="/compte/offres/:slug">
             <AccountOffersAdd />
           </Route>
           )}
@@ -104,6 +117,8 @@ App.propTypes = {
   isLogged: PropTypes.bool.isRequired,
   showAlert: PropTypes.bool.isRequired,
   isError: PropTypes.bool.isRequired,
+  redirectTo: PropTypes.string.isRequired,
+  setRedirectTo: PropTypes.func.isRequired,
 };
 // == Export
 export default App;

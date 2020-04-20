@@ -73,6 +73,10 @@ main {
     border: none;
     outline: none;
   }
+
+  &:disabled {
+    background-color: #c7cad2;
+  }
 }
 
 .global-select {
@@ -89,6 +93,10 @@ main {
     border: none;
     outline: none;
   } 
+
+  &:disabled {
+    background-color: #c7cad2;
+  }
 }
 
 .global-button {

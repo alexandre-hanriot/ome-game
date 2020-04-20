@@ -16,25 +16,6 @@ const mapMiddleware = (store) => (next) => (action) => {
     case MAP_FETCH_OFFERS: {
       const { filters } = store.getState().map;
 
-
-      // 3
-      // 54
-      // 41
-      // 87
-
-      /*
-      axios
-        .put('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations/3', {
-          userId: 113,
-        })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-        */
-
       // filters
       let params = { client_id: 0 };
       if (filters.disponibility !== 'all') {
@@ -57,6 +38,21 @@ const mapMiddleware = (store) => (next) => (action) => {
           nb_players: filters.players,
         };
       }
+
+      // if (filters.categories.length > 0) {
+      //   const ids = filters.categories.map((category) => category.id);
+      //   params = {
+      //     ...params,
+      //     game_category_ids: ids.join(','),
+      //   };
+      // }
+
+      // if (filters.games.length > 0) {
+      //   params = {
+      //     ...params,
+      //     game_names: filters.games.join(','),
+      //   };
+      // }
 
       // ajax request
       axios

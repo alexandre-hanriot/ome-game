@@ -1,5 +1,5 @@
 import {
-  GET_OFFER_ID, SAVE_OFFERS, SAVE_ONE_OFFER, CLEAR_OFFER, HANDLE_FORM_INPUT,
+  SAVE_OFFER_ID, SAVE_OFFERS, SAVE_ONE_OFFER, CLEAR_OFFER, HANDLE_FORM_INPUT,
   SET_OFFER_IS_LOAD,
 } from 'src/actions/offers';
 
@@ -7,8 +7,8 @@ const initialState = {
   allOffers: [],
   offer: {
     id: 0,
-    status: '',
-    type: '',
+    status: '0',
+    type: '0',
     is_available: true,
     title: '',
     price: 0,
@@ -49,7 +49,7 @@ const initialState = {
 
 const offersReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case GET_OFFER_ID:
+    case SAVE_OFFER_ID:
       return {
         ...state,
         urlId: action.offerId,
@@ -75,8 +75,8 @@ const offersReducer = (state = initialState, action = {}) => {
         ...state,
         offer: {
           id: 0,
-          status: '',
-          type: '',
+          status: '0',
+          type: '0',
           is_available: true,
           title: '',
           price: 0,
@@ -114,7 +114,7 @@ const offersReducer = (state = initialState, action = {}) => {
       };
     case HANDLE_FORM_INPUT: {
       let target = action.identifier;
-      if (target.includes('game')) {
+      if (target.includes('game_')) {
         const sanitizeName = target.slice(5);
         target = sanitizeName;
         return {

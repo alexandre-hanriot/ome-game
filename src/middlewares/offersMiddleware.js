@@ -5,6 +5,8 @@ import {
   changeOfferIsLoad, HANDLE_ADD_OFFER, HANDLE_MODIFY_OFFER,
 } from 'src/actions/offers';
 
+import { redirectTo } from 'src/actions/global';
+
 const offersMiddleware = (store) => (next) => (action) => {
   const { userData } = store.getState().user;
   const { urlId, offer } = store.getState().offers;
@@ -37,7 +39,7 @@ const offersMiddleware = (store) => (next) => (action) => {
       next(action);
       break;
 
-    case GET_OFFER: {  
+    case GET_OFFER: {
       axios.post(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`)
         .then((response) => {
           store.dispatch(saveOneOffer(response.data));
@@ -61,6 +63,7 @@ const offersMiddleware = (store) => (next) => (action) => {
         description: offer.description,
       })
         .then((response) => {
+          store.dispatch(redirectTo('/compte/offres'));
         })
         .catch((error) => {
           console.warn(error);
@@ -69,9 +72,7 @@ const offersMiddleware = (store) => (next) => (action) => {
       break;
     }
     case HANDLE_MODIFY_OFFER: {
-      const { id } = store.getState().offers.offer;
-      axios.put(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${id}`, {
-        id: offer.id,
+      axios.put(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${offer.id}`, {
         status: offer.status,
         userId: offer.userId,
         type: offer.type,
@@ -82,7 +83,7 @@ const offersMiddleware = (store) => (next) => (action) => {
         description: offer.description,
       })
         .then((response) => {
-          console.log(response);
+          store.dispatch(redirectTo('/compte/offres'));
         })
         .catch((error) => {
           console.warn(error);

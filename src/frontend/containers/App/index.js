@@ -1,17 +1,19 @@
 import { connect } from 'react-redux';
 import App from 'src/frontend/components/App';
 
+import { redirectTo } from 'src/actions/global';
 
 const mapStateToProps = (state) => ({
-  // nom de la prop à remplir: donnée à récupérer dans le state
   isLogged: state.user.isLogged,
   showAlert: state.global.showAlert,
   isError: state.global.isError,
+  redirectTo: state.global.redirectTo,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  // nom de la prop à remplir: callback qui contient un appel à dispatch
-
+  setRedirectTo: (url) => {
+    dispatch(redirectTo(url));
+  },
 });
 
 export default connect(

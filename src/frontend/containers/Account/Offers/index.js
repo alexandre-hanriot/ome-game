@@ -1,16 +1,19 @@
 import { connect } from 'react-redux';
-import { fetchOffers } from 'src/actions/offers';
 import Offers from 'src/frontend/components/Account/Offers';
 
+import { fetchOffers, changeOfferIsLoad } from 'src/actions/offers';
+
 const mapStateToProps = (state) => ({
-  // nom de la prop à remplir: donnée à récupérer dans le state
   data: state.offers.allOffers,
+  offerIsLoad: state.offers.offerIsLoad,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  // nom de la prop à remplir: callback qui contient un appel à dispatch
   fetchOffers: () => {
     dispatch(fetchOffers());
+  },
+  changeOfferIsLoad: () => {
+    dispatch(changeOfferIsLoad());
   },
 });
 

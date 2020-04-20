@@ -1,9 +1,15 @@
 import axios from 'axios';
 
-import { FETCH_FAVORITES, saveFavorites, ADD_FAVORITE } from 'src/actions/favorites';
+import {
+  FETCH_FAVORITES,
+  saveFavorites,
+  ADD_FAVORITE,
+  CHECK_OFFER_IN_FAVORITE,
+} from 'src/actions/favorites';
 
 const favoritesMiddleware = (store) => (next) => (action) => {
   const { userData } = store.getState().user;
+  
   switch (action.type) {
     case FETCH_FAVORITES:
 
@@ -34,6 +40,21 @@ const favoritesMiddleware = (store) => (next) => (action) => {
       break;
     }
 
+    // check in user favorite
+    case CHECK_OFFER_IN_FAVORITE: {
+      const { offer } = store.getState().offers;
+      axios
+        .get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/${userData.id}/favorites/${offer.id}`)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
+      next(action);
+      break;
+    }
 
     default:
       next(action);
