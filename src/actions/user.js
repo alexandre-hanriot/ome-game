@@ -4,6 +4,7 @@ export const SUBMIT_LOGIN = 'SUBMIT_LOGIN';
 export const CHANGE_LOGIN_ERROR = 'CHANGE_LOGIN_ERROR';
 export const CLEAR_LOGIN_ERROR = 'CLEAR_LOGIN_ERROR';
 export const LOG_OUT = 'LOG_OUT';
+export const SET_REQUEST_LOAD = 'SET_REQUEST_LOAD';
 
 export const changeInputOfLogin = (identifier, newValue) => ({
   type: CHANGE_INPUT_OF_LOGIN,
@@ -31,4 +32,8 @@ export const clearLoginError = () => ({
 
 export const logOut = () => ({
   type: LOG_OUT,
+});
+
+export const setRequestIsLoad = () => ({
+  type: SET_REQUEST_LOAD,
 });

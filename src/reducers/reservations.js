@@ -1,8 +1,10 @@
 
-import { SAVE_RESERVATIONS } from 'src/actions/reservations';
+import { SAVE_RESERVATIONS, SAVE_ID_RESERVATION, SAVE_ONE_RESERVATION } from 'src/actions/reservations';
 
 const initialState = {
   allReservations: [],
+  idReservation: '',
+  oneReservation: {},
   // indique si on est en train de charger des données depuis l'API
   // loading: true,
 };
@@ -14,6 +16,19 @@ const reservationsReducer = (state = initialState, action = {}) => {
         ...state,
         allReservations: action.reservations,
         // loading: false,
+      };
+
+    case SAVE_ID_RESERVATION:
+      return {
+        ...state,
+        idReservation: action.id,
+
+      };
+
+    case SAVE_ONE_RESERVATION:
+      return {
+        ...state,
+        oneReservation: action.oneReservation,
       };
 
     default: return state;

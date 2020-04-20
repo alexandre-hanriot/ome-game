@@ -1,5 +1,5 @@
 import {
-  CHANGE_INPUT_OF_LOGIN, LOG_USER, SUBMIT_LOGIN, CHANGE_LOGIN_ERROR, CLEAR_LOGIN_ERROR, LOG_OUT,
+  CHANGE_INPUT_OF_LOGIN, LOG_USER, SUBMIT_LOGIN, CHANGE_LOGIN_ERROR, CLEAR_LOGIN_ERROR, LOG_OUT, SET_REQUEST_LOAD
 } from 'src/actions/user';
 
 const initialState = {
@@ -8,6 +8,7 @@ const initialState = {
   isLogged: false,
   userData: null,
   loginError: '',
+  requestIsLoad: false,
 };
 
 const userReducer = (state = initialState, action = {}) => {
@@ -56,6 +57,11 @@ const userReducer = (state = initialState, action = {}) => {
         ...state,
         isLogged: false,
         userData: '',
+      };
+    case SET_REQUEST_LOAD:
+      return {
+        ...state,
+        requestIsLoad: !state.requestIsLoad,
       };
     default:
       return state;

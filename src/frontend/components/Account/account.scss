@@ -173,8 +173,23 @@
           &--left {
             text-align: left;
           }
-
-          &__button__remove, &__button__pencil, &__button__bell, &__button__bellslash {
+          &__button {
+            border: none;
+            border-radius: 5px;
+            background-color: #E3E5EC;
+            margin: 0.3rem;
+            // padding: 0;
+            font-size: $gutter/2;
+            &--bell {
+              color: $green;
+              padding: .2rem .2rem;
+            }
+            &--remove {
+              color: $red;
+              padding: .3rem .3rem .3rem .3rem;
+            }
+          }
+           &__button__pencil {
             border: none;
             border-radius: 5px;
             background-color: #E3E5EC;
