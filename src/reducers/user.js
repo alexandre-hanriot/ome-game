@@ -4,13 +4,37 @@ import {
   CHANGE_LOGIN_ERROR,
   CLEAR_LOGIN_ERROR,
   LOG_OUT, SET_REQUEST_LOAD,
+  CHANGE_PROFIL_INPUT,
 } from 'src/actions/user';
 
 const initialState = {
   email: '',
   password: '',
   isLogged: false,
-  userData: null,
+  userData: {
+    user: {
+      id: 0,
+      role: '',
+      status: '',
+      picture: '',
+      email: '',
+      password: '',
+      old_password: '',
+      new_password: '',
+      confirm_new_password: '',
+      username: '',
+      firstname: '',
+      lastname: '',
+      phone: 1234567890,
+      address: '',
+      postal_code: '',
+      city: '',
+      display_name: false,
+      gdpr_accepted_at: '',
+      createdAt: '',
+    },
+    xsrfToken: '',
+  },
   loginError: '',
   requestIsLoad: false,
 };
@@ -67,6 +91,20 @@ const userReducer = (state = initialState, action = {}) => {
         ...state,
         requestIsLoad: !state.requestIsLoad,
       };
+    case CHANGE_PROFIL_INPUT: {
+      console.log(action.identifier, action.newValue);
+      const target = action.identifier;
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          user: {
+            ...state.userData.user,
+            [target]: action.newValue,
+          },
+        },
+      };
+    }
     default:
       return state;
   }
