@@ -3,7 +3,10 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
 import { formatDate } from 'src/utils/selectors';
+import MapAutocomplete from 'react-google-autocomplete';
+
 import Loader from 'src/frontend/components/Loader';
+import Map from 'src/frontend/containers/Map';
 
 import './form.scss';
 
@@ -12,7 +15,7 @@ const Form = ({
   getOffer, clearOffer, handleFormInput,
   categories, games, addGame, getGameCategories, getGames, changeCategoriesIsLoad,
   changeGameIsLoad, gamesIsLoad, categoriesIsLoad, handleAddOffer,
-  handleModifyOffer, changeOfferIsLoad, setNewGameField, newGameField, handleFormInputGame, game,
+  handleModifyOffer, changeOfferIsLoad, setNewGameField, newGameField, handleFormInputGame, game, displayAlert,
 }) => {
   const { slug } = useParams();
   useEffect(() => {
@@ -74,14 +77,42 @@ const Form = ({
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (newGameField) {
-      addGame();
+    let error = false;
+    let errorMessage = '';
+
+    if (offer.title === '') {
+      error = true;
+      errorMessage = 'Vous devez renseigner le nom de l\'offre';
     }
-    else if (offer.id === 0) {
-      handleAddOffer();
+
+    if (!error && (offer.latitude === null || offer.longitude === null)) {
+      error = true;
+      errorMessage = 'Vous devez renseigner une localisation';
+    }
+
+    if (!error && newGameField && (game.name === '' || game.nb_players_max === '' || game.nb_players_min === '' || game.age_min === '' || game.duration === '' || game.gameCategoryId === 0)) {
+      error = true;
+      errorMessage = 'il faut remplir tous les champs concernant le jeu';
+    }
+
+    if (!error && offer.gameId === 0) {
+      error = true;
+      errorMessage = 'Vous devez renseigner le jeu';
+    }
+
+    if (!error) {
+      if (newGameField) {
+        addGame();
+      }
+      else if (offer.id === 0) {
+        handleAddOffer();
+      }
+      else {
+        handleModifyOffer();
+      }
     }
     else {
-      handleModifyOffer();
+      displayAlert(errorMessage, false);
     }
   };
 
@@ -301,17 +332,52 @@ const Form = ({
 
                 <div className="account-offers-form__block">
                   <h2 className="account-offers-form__subtitle">Localisation</h2>
-                  <input
-                    type="text"
-                    placeholder="Saisissez un lieu"
+                  <MapAutocomplete
                     className="account-offers-form__location global-input"
-                    // value={offer.city}
-                    // onChange={changeInput}
-                    name="city"
-                  />
-                  <div className="account-offers-form__map"> </div>
-                </div>
+                    onPlaceSelected={(place) => {
+                      /*
+                      number of element :
+                        5 = ville
+                        3 = departement
+                        2 = region
+                        1 = pays
+                      */
+                      let zoom = 12;
+                      const { length } = place.address_components;
+                      switch (length) {
+                        case 3:
+                          zoom = 9;
+                          break;
+                        case 2:
+                          zoom = 8;
+                          break;
+                        case 1:
+                          zoom = 5;
+                          break;
+                        default:
+                          zoom = 12;
+                      }
 
+                      if (length === 5) {
+                        handleFormInput('city', place.address_components[1].long_name);
+                        handleFormInput('postal_code', place.address_components[0].long_name);
+                      }
+
+                      const lat = place.geometry.location.lat();
+                      const lng = place.geometry.location.lng();
+
+                      handleFormInput('latitude', lat.toString());
+                      handleFormInput('longitude', lng.toString());
+                      handleFormInput('zoom', zoom);
+                    }}
+                    types={['(regions)']}
+                    componentRestrictions={{ country: 'fr' }}
+                    defaultValue={(offer.postal_code !== null && offer.city !== null) ? `${offer.postal_code} ${offer.city}` : ''}
+                  />
+                  <div className="account-offers-form__map">
+                    <Map zoom={offer.zoom} lat={offer.latitude} lng={offer.longitude} />
+                  </div>
+                </div>
               </div>
             </div>
           </form>

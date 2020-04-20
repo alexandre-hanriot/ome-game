@@ -5,26 +5,49 @@ import GoogleMapReact from 'google-map-react';
 import './map.scss';
 
 const Marker = ({ children }) => children;
-const Map = ({ lat, lng }) => {
+const Map = ({ zoom, lat, lng }) => {
+
+  let hasMarker = true;
+
+  if (lat === '' || lng === '' || typeof lat === 'undefined' || typeof lng === 'undefined' || lat === null || lng === null) {
+    lat = '46.227638';
+    lng = '2.213749';
+    hasMarker = false;
+  }
+
   return (
     <div className="map">
       <GoogleMapReact
         bootstrapURLKeys={{ key: 'AIzaSyAAUPUp27VoZaXgYvRwLCjgn5cZjpRIWjs' }}
-        defaultCenter={{
+        center={{
           lat: Number(lat),
           lng: Number(lng),
         }}
-        defaultZoom={13}
+        zoom={zoom}
       >
+        {hasMarker && (
         <Marker
           lat={Number(lat)}
           lng={Number(lng)}
         >
           <i className="fas fa-map-marker-alt map__marker" />
         </Marker>
+        )}
       </GoogleMapReact>
     </div>
   );
+};
+
+Map.propTypes = {
+  zoom: PropTypes.number,
+  lat: PropTypes.string,
+  lng: PropTypes.string,
+};
+
+Map.defaultProps = {
+  zoom: 5,
+  lat: '46.227638',
+  lng: '2.213749',
 };
 
 export default Map;

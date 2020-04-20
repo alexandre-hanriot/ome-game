@@ -9,6 +9,8 @@ import {
   getGameCategories, getGames, changeCategoriesIsLoad, changeGameIsLoad, addGame, setNewGameField, handleFormInputGame,
 } from 'src/actions/game';
 
+import { showAlert } from 'src/actions/global';
+
 const mapStateToProps = (state) => ({
   // nom de la prop à remplir: donnée à récupérer dans le state
   offer: state.offers.offer,
@@ -63,6 +65,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   handleFormInputGame: (name, value) => {
     dispatch(handleFormInputGame(name, value));
+  },
+  displayAlert: (message, success) => {
+    dispatch(showAlert(message, success));
   },
 });
 
