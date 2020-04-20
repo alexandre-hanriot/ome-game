@@ -5,6 +5,7 @@ import {
   CLEAR_LOGIN_ERROR,
   LOG_OUT, SET_REQUEST_LOAD,
   CHANGE_PROFIL_INPUT,
+  CLEAR_PROFIL_PASSWORDS,
 } from 'src/actions/user';
 
 const initialState = {
@@ -92,7 +93,6 @@ const userReducer = (state = initialState, action = {}) => {
         requestIsLoad: !state.requestIsLoad,
       };
     case CHANGE_PROFIL_INPUT: {
-      console.log(action.identifier, action.newValue);
       const target = action.identifier;
       return {
         ...state,
@@ -105,6 +105,19 @@ const userReducer = (state = initialState, action = {}) => {
         },
       };
     }
+    case CLEAR_PROFIL_PASSWORDS:
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          user: {
+            ...state.userData.user,
+            old_password: '',
+            new_password: '',
+            confirm_new_password: '',
+          },
+        },
+      };
     default:
       return state;
   }

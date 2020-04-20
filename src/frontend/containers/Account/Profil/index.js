@@ -1,6 +1,12 @@
 import { connect } from 'react-redux';
 import Profil from 'src/frontend/components/Account/Profil';
-import { changeProfilInput } from 'src/actions/user';
+import {
+  changeProfilInput,
+  submitProfilUpdate,
+  submitProfilChangePassword,
+  clearProfilPasswords,
+} from 'src/actions/user';
+
 
 
 const mapStateToProps = (state) => ({
@@ -11,6 +17,15 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   changeProfilInput: (identifier, newValue) => {
     dispatch(changeProfilInput(identifier, newValue));
+  },
+  submitProfilUpdate: () => {
+    dispatch(submitProfilUpdate());
+  },
+  submitProfilChangePassword: () => {
+    dispatch(submitProfilChangePassword());
+  },
+  clearProfilPasswords: () => {
+    dispatch(clearProfilPasswords());
   },
 });
 

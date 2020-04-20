@@ -3,15 +3,17 @@ import {
   logUser,
   changeLoginError,
   SUBMIT_PROFIL_UPDATE,
+  saveProfilUpdate,
+  SUBMIT_PROFIL_CHANGE_PASSWORD,
+  saveProfilChangePassword,
 } from 'src/actions/user';
 import { showAlert, showModal } from 'src/actions/global';
 import axios from 'axios';
 
-
 const authMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case SUBMIT_LOGIN: {
-      const { email, password } = store.getState().user;
+      const { email, password, userData } = store.getState().user;
       axios
         .post('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/login', {
           identifier: email,
@@ -43,22 +45,41 @@ const authMiddleware = (store) => (next) => (action) => {
     case SUBMIT_PROFIL_UPDATE: {
       const { userData } = store.getState().user;
       axios
-        .post('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/login', {
-          status: '',
+        .put(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}`, {
+          status: userData.user.status,
           picture: '',
-          email: '',
-          password: '',
-          username: '',
-          firstname: '',
-          lastname: '',
-          phone: null,
-          adress: null,
-          postal_code: '',
-          city: '',
-          gdpr_accepted_at: null,
+          display_name: userData.user.display_name,
+          email: userData.user.email,
+          username: userData.user.username,
+          firstname: userData.user.firstname,
+          lastname: userData.user.lastname,
+          phone: userData.user.phone,
+          address: userData.user.address,
+          postal_code: userData.user.postal_code,
+          city: userData.user.city,
+          gdpr_accepted_at: userData.user.gdpr_accepted_at,
         })
         .then((response) => {
           console.log(response);
+          store.dispatch(saveProfilUpdate(response.data));
+        })
+        .catch((error) => {
+          // handle error
+          console.warn(error);
+        });
+      next(action);
+      break;
+    }
+    case SUBMIT_PROFIL_CHANGE_PASSWORD: {
+      const { userData } = store.getState().user;
+      axios
+        .put(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/password`, {
+          oldPassword: userData.user.old_password,
+          newPassword: userData.user.new_password,
+        })
+        .then((response) => {
+          console.log(response);
+          store.dispatch(saveProfilChangePassword(response.data));
         })
         .catch((error) => {
           // handle error
