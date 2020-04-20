@@ -4,18 +4,22 @@ import './reservations.scss';
 import PropTypes from 'prop-types';
 import Modal from 'src/frontend/containers/Modal';
 import { useTitle } from 'src/hooks/useTitle';
-import Details from 'src/frontend/containers/Account/Reservations/details';
+import Details from 'src/frontend/containers/Account/Reservations/Details';
 
 
 const Reservations = ({
   showModal,
   displayModal,
   fetchReservations,
+  saveIdReservation,
   data,
 }) => {
   useTitle('Mes réservations');
 
-  const handleModal = () => {
+  const handleModal = (e) => {
+    const { id } = e.currentTarget.dataset;
+    // action save id in state
+    saveIdReservation(id);
     displayModal('reservation');
   };
 
@@ -62,7 +66,7 @@ const Reservations = ({
                 </div>
               </div>
               <div className="reservations__container__item__right">
-                <button className="reservations__container__item__right__button global-button global-button--light" type="button" onClick={handleModal}> <i className="far fa-eye" /> Voir plus</button>
+                <button className="reservations__container__item__right__button global-button global-button--light" type="button" onClick={handleModal} data-id={reservation.id}> <i className="far fa-eye" /> Voir plus</button>
                 <button className="reservations__container__item__right__button global-button global-button--light" type="button"> <i className="fas fa-times" /> Annuler</button>
               </div>
             </div>
@@ -77,6 +81,7 @@ Reservations.propTypes = {
   showModal: PropTypes.string.isRequired,
   displayModal: PropTypes.func.isRequired,
   fetchReservations: PropTypes.func.isRequired,
+  saveIdReservation: PropTypes.func.isRequired,
   data: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,

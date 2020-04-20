@@ -11,7 +11,9 @@ const offersMiddleware = (store) => (next) => (action) => {
 
   switch (action.type) {
     case FETCH_OFFERS: {
-      axios.post(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.id}/offers`)
+<<<<
+      // const { userData } = store.getState().user;
+      axios.get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/offers`)
         .then((response) => {
           store.dispatch(saveOffers(response.data));
         })
@@ -22,7 +24,7 @@ const offersMiddleware = (store) => (next) => (action) => {
       break;
     }
     case FETCH_PARAMS_OFFERS:
-      axios.get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.id}/offers`, {
+      axios.get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/offers`, {
         params: {
           limit: 4,
           resultPage: 1,

@@ -6,7 +6,7 @@ import { showMenu, showModal } from 'src/actions/global';
 const mapStateToProps = (state) => ({
   showMenu: state.global.showMenu,
   showModal: state.global.showModal,
-  pseudo: state.user.isLogged ? state.user.userData.username : null,
+  pseudo: state.user.isLogged ? state.user.userData.user.username : null,
   isLogged: state.user.isLogged,
 });
 
