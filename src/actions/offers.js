@@ -11,6 +11,8 @@ export const HANDLE_FORM_INPUT = 'HANDLE_FORM_INPUT';
 export const SET_OFFER_IS_LOAD = 'SET_OFFER_IS_LOAD';
 export const HANDLE_ADD_OFFER = 'HANDLE_ADD_OFFER';
 export const HANDLE_MODIFY_OFFER = 'HANDLE_MODIFY_OFFER';
+export const DELETE_OFFER = 'DELETE_OFFER';
+export const UPDATE_LIST_OFFERS = 'UPDATE_LIST_OFFERS';
 
 // action creators
 export const fetchOffers = () => ({
@@ -60,4 +62,13 @@ export const handleAddOffer = () => ({
 
 export const handleModifyOffer = () => ({
   type: HANDLE_MODIFY_OFFER,
+});
+
+export const deleteOffer = () => ({
+  type: DELETE_OFFER,
+});
+
+export const updateListOffers = (id) => ({
+  type: UPDATE_LIST_OFFERS,
+  id,
 });

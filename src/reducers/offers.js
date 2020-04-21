@@ -1,6 +1,6 @@
 import {
   GET_OFFER_ID, SAVE_OFFERS, SAVE_ONE_OFFER, CLEAR_OFFER, HANDLE_FORM_INPUT,
-  SET_OFFER_IS_LOAD,
+  SET_OFFER_IS_LOAD, UPDATE_LIST_OFFERS,
 } from 'src/actions/offers';
 
 const initialState = {
@@ -134,6 +134,23 @@ const offersReducer = (state = initialState, action = {}) => {
           ...state.offer,
           [target]: action.newValue,
         },
+      };
+    }
+
+    case UPDATE_LIST_OFFERS:
+    {
+      console.log('action mise à jour dans le réducers', action.id);
+      const remainOffers = state.allOffers.filter((offer) => {
+        console.log(offer.id);
+        console.log(action.id);
+        if (offer.id.toString() !== action.id.toString()) {
+          return true;
+        }
+      });
+      console.log(remainOffers);
+      return {
+        ...state,
+        allOffers: remainOffers,
       };
     }
     default: return state;

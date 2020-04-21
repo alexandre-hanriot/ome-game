@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import {
   FETCH_OFFERS, FETCH_PARAMS_OFFERS, GET_OFFER, saveOffers, saveOneOffer,
-  changeOfferIsLoad, HANDLE_ADD_OFFER, HANDLE_MODIFY_OFFER,
+  changeOfferIsLoad, updateListOffers, HANDLE_ADD_OFFER, HANDLE_MODIFY_OFFER, DELETE_OFFER,
 } from 'src/actions/offers';
 
 const offersMiddleware = (store) => (next) => (action) => {
@@ -11,7 +11,6 @@ const offersMiddleware = (store) => (next) => (action) => {
 
   switch (action.type) {
     case FETCH_OFFERS: {
-
       // const { userData } = store.getState().user;
       axios.get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/offers`)
         .then((response) => {
@@ -39,7 +38,7 @@ const offersMiddleware = (store) => (next) => (action) => {
       next(action);
       break;
 
-    case GET_OFFER: {  
+    case GET_OFFER: {
       axios.post(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`)
         .then((response) => {
           store.dispatch(saveOneOffer(response.data));
@@ -52,7 +51,7 @@ const offersMiddleware = (store) => (next) => (action) => {
       break;
     }
     case HANDLE_ADD_OFFER: {
-      axios.post(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers`, {
+      axios.post('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers', {
         status: offer.status,
         userId: userData.id,
         type: offer.type,
@@ -92,6 +91,19 @@ const offersMiddleware = (store) => (next) => (action) => {
       next(action);
       break;
     }
+    case DELETE_OFFER: {
+      axios.delete(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`)
+        .then((response) => {
+          console.log(response.data);
+          store.dispatch(updateListOffers(urlId));
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+      next(action);
+      break;
+    }
+
     default:
       next(action);
   }

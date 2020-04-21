@@ -5,6 +5,7 @@ import Modal from 'src/frontend/containers/Modal';
 import Alert from 'src/frontend/containers/Alert';
 import ConfirmSupp from 'src/frontend/containers/Account/Modal';
 import { useTitle } from 'src/hooks/useTitle';
+import slugify from 'react-slugify';
 import Loader from 'src/frontend/components/Loader';
 import './account.scss';
 
@@ -19,11 +20,14 @@ const Account = ({
   fetchParamsOffers,
   fetchFavorites,
   saveIdFavorite,
+  saveIdReservation,
   user,
   requestIsLoad,
   setRequestIsLoad,
   updateNotifyFavorite,
   deleteFavorite,
+  getOfferId,
+  displayAlert,
 }) => {
   useTitle('Mon compte');
 
@@ -45,23 +49,48 @@ const Account = ({
     const { id, notify } = e.currentTarget.dataset;
     saveIdFavorite(id, notify);
     updateNotifyFavorite();
+    if (notify === 'true') {
+      displayAlert('Vous ne serez plus notifié de sa disponibilité');
+    }
+    if (notify === 'false') {
+      displayAlert('Vous serez notifié dès la disponibilité de cette offre');
+    }
   };
+
   const removeFavorite = (e) => {
     const { id } = e.currentTarget.dataset;
-    console.log(id);
     saveIdFavorite(id);
     deleteFavorite();
   };
 
-  const handleModal = () => {
-    displayModal('confirmSupp');
+  const handleModalOffer = (e) => {
+    const { id } = e.currentTarget.dataset;
+    getOfferId(id);
+    displayModal('modalOffer');
+    // deleteOffer();
   };
+
+  const handleModalOfferImpossible = () => {
+    displayModal('modalOfferImpossible');
+  };
+
+  const handleModalReservation = (e) => {
+    const { id, status } = e.currentTarget.dataset;
+    if (status === '0' || status === '4' || status === '3') {
+      saveIdReservation(id);
+      displayModal('modalReservation');
+    }
+    if (status === '1' || status === '2') {
+      displayModal('modalReservationImpossible');
+    }
+  };
+
   return (
     <>
       {!requestIsLoad && <Loader />}
       {requestIsLoad && (
         <div className="wrapper account">
-          {showModal === 'confirmSupp' && (
+          {(showModal === 'modalReservation' || showModal === 'modalOffer' || showModal === 'modalOfferImpossible' || showModal === 'modalReservationImpossible') && (
             <Modal content={<ConfirmSupp />} />
           )}
           {showAlert && (<Alert />)}
@@ -78,11 +107,17 @@ const Account = ({
                 <tbody className="account__general__table__body">
                   {reservations.map((reservation) => (
                     <tr className="account__general__table__body__tr" key={reservation.id}>
-                      <td className="account__general__table__body__td account__general__table__body__td--left">{reservation.offer.title}</td>
+                      <td className="account__general__table__body__td account__general__table__body__td--left">
+                        <Link
+                          to={`/recherche/jeux/${reservation.offer.id}/${slugify(reservation.offer.title, { lower: true })}`}
+                          className="account__general__table__body__td__link"
+                        >{reservation.offer.title}
+                        </Link>
+                      </td>
                       <td className="account__general__table__body__td">
                         {reservation.status === '0' && (
                           <span
-                            className="account__general__table__body__td__circle__pending"
+                            className="account__general__table__body__td__circle--pending"
                           />
                         )}
                         {reservation.status === '1' && (
@@ -112,7 +147,9 @@ const Account = ({
                           className="account__general__table__body__td__button__remove account__general__table__body__td__button"
                           type="button"
                           title="annuler"
-                          onClick={handleModal}
+                          data-id={reservation.id}
+                          data-status={reservation.status}
+                          onClick={handleModalReservation}
                         >
                           <i className="far fa-times" />
                         </button>
@@ -153,12 +190,16 @@ const Account = ({
                           <Link
                             className="account__general__table__body__td__button__pencil"
                             to={`compte/offre/${offerData.id}`}
+                            title="Modifier l'offre"
                           >
                             <i className="far fa-pencil-alt" />
                           </Link>
                           <button
                             type="button"
                             className="account__general__table__body__td__button"
+                            title="Supprimer l'offre"
+                            data-id={offerData.id}
+                            onClick={offerData.is_available ? handleModalOffer : handleModalOfferImpossible}
                           >
                             <i className="fas fa-trash-alt account__general__table__body__td__button--remove" />
                           </button>
@@ -180,9 +221,13 @@ const Account = ({
                     {favorites.map((favorite) => (
                       <tr className="account__general__table__body__tr" key={favorite.id}>
                         <td className="account__general__table__body__td
-                            account__general__table__body__td--left"
+                              account__general__table__body__td--left"
                         >
-                          {favorite.offer.title}
+                          <Link
+                            to={`/recherche/jeux/${favorite.offer.id}/${slugify(favorite.offer.title, { lower: true })}`}
+                            className="account__general__table__body__td__link"
+                          >{favorite.offer.title}
+                          </Link>
                         </td>
                         <td className="account__general__table__body__td">
                           {favorite.offer.is_available ? (
@@ -193,20 +238,30 @@ const Account = ({
                           ) : (
                             <span
                               className="account__general__table__body__td__status__unavailable"
-                            >non disponible{favorite.id}
+                            >non disponible
                             </span>
                           )}
                         </td>
                         <td className="account__general__table__body__td account__general__table__body__td--button">
-                          <button
-                            data-id={favorite.id}
-                            data-notify={favorite.notify_when_available}
-                            type="button"
-                            className="account__general__table__body__td__button"
-                            onClick={handleFavorite}
-                          >
-                            {favorite.notify_when_available ? <i className="fas fa-bell account__general__table__body__td__button--bell" /> : <i className="fas fa-bell-slash account__general__table__body__td__button--bellslash" />}
-                          </button>
+                          {favorite.offer.is_available ? (
+                            <button
+                              type="button"
+                              className="account__general__table__body__td__button"
+                              // onClick={handleFavorite}
+                            >
+                              <i className="fas fa-bell-slash account__general__table__body__td__button__bellslash--grey" />
+                            </button>
+                          ) : (
+                            <button
+                              data-id={favorite.id}
+                              data-notify={favorite.notify_when_available}
+                              type="button"
+                              className="account__general__table__body__td__button"
+                              onClick={handleFavorite}
+                            >
+                              {favorite.notify_when_available ? <i className="fas fa-bell account__general__table__body__td__button--bell" /> : <i className="fas fa-bell-slash account__general__table__body__td__button--bellslash" />}
+                            </button>
+                          )}
                           <button
                             type="button"
                             className="account__general__table__body__td__button account__general__table__body__td__button__remove"
@@ -284,6 +339,9 @@ Account.propTypes = {
   setRequestIsLoad: PropTypes.func.isRequired,
   updateNotifyFavorite: PropTypes.func.isRequired,
   deleteFavorite: PropTypes.func.isRequired,
+  getOfferId: PropTypes.func.isRequired,
+  saveIdReservation: PropTypes.func.isRequired,
+  displayAlert: PropTypes.func.isRequired,
 };
 
 export default Account;

@@ -7,6 +7,8 @@ export const SAVE_RESERVATIONS = 'SAVE_RESERVATIONS';
 export const SAVE_ONE_RESERVATION = 'SAVE_ONE_RESERVATION';
 export const FIND_THE_RESERVATION = 'FIND_THE_RESERVATION';
 export const ADD_RESERVATION = 'ADD_RESERVATION';
+export const DELETE_RESERVATION = 'DELETE_RESERVATION';
+export const UPDATE_LIST_RESERVATIONS = 'UPDATE_LIST_RESERVATIONS';
 
 export const fetchReservations = () => ({
   type: FETCH_RESERVATIONS,
@@ -40,7 +42,16 @@ export const findTheReservation = (reservation) => ({
   type: FIND_THE_RESERVATION,
   reservation,
 });
-  
+
 export const addReservation = () => ({
   type: ADD_RESERVATION,
+});
+
+export const deleteReservation = () => ({
+  type: DELETE_RESERVATION,
+});
+
+export const updateListReservations = (id) => ({
+  type: UPDATE_LIST_RESERVATIONS,
+  id,
 });

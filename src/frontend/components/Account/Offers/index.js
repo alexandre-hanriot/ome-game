@@ -2,17 +2,38 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTitle } from 'src/hooks/useTitle';
 import PropTypes from 'prop-types';
+import Modal from 'src/frontend/containers/Modal';
+import ConfirmSupp from 'src/frontend/containers/Account/Modal';
 import classNames from 'classnames';
 import './offers.scss';
 
-const AccountOffers = ({ data, fetchOffers }) => {
+const AccountOffers = ({
+  data,
+  fetchOffers,
+  getOfferId,
+  displayModal,
+  showModal,
+}) => {
   useTitle('Mes offres');
   useEffect(() => {
     fetchOffers();
   }, []);
 
+  const handleModal = (e) => {
+    const { id } = e.currentTarget.dataset;
+    getOfferId(id);
+    displayModal('modalOffer');
+    // deleteOffer();
+  };
+  const handleModalImpossible = () => {
+    displayModal('modalOfferImpossible');
+  };
+
   return (
     <div className="wrapper accountOffers">
+      {(showModal === 'modalOffer' || showModal === 'modalOfferImpossible') && (
+        <Modal content={<ConfirmSupp />} />
+      )}
       <div className="reservations__breadcrumb">
         <Link to="/">Accueil ></Link>
         <Link to="/compte"> Mon compte > </Link>
@@ -44,8 +65,14 @@ const AccountOffers = ({ data, fetchOffers }) => {
               </div>
             </div>
             <div className="accountOffers__listOffers__offer__right">
-              <Link to="" className="global-button global-button--light"><i className="fas fa-pencil-alt accountOffers__listOffers__offer__right__pencil" /> Modifier</Link>
-              <Link to="" className="global-button global-button--light"><i className="fas fa-trash-alt accountOffers__listOffers__offer__right__trash" /> Supprimer</Link>
+              <Link to={`/compte/offre/${offer.id}`} className="global-button global-button--light"><i className="fas fa-pencil-alt accountOffers__listOffers__offer__right__pencil" /> Modifier</Link>
+              <button
+                type="button"
+                data-id={offer.id}
+                className="global-button global-button--light accountOffers__buttonRemove"
+                onClick={offer.is_available ? handleModal : handleModalImpossible}
+              ><i className="fas fa-trash-alt accountOffers__listOffers__offer__right__trash" /> Supprimer
+              </button>
             </div>
           </li>
         ))}
@@ -63,6 +90,9 @@ AccountOffers.propTypes = {
       price: PropTypes.number.isRequired,
     }).isRequired,
   ).isRequired,
+  getOfferId: PropTypes.func.isRequired,
+  displayModal: PropTypes.func.isRequired,
+  showModal: PropTypes.string.isRequired,
 };
 
 export default AccountOffers;
