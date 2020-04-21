@@ -6,11 +6,12 @@ export const SAVE_ONE_OFFER = 'SAVE_ONE_OFFER';
 export const SAVE_OFFER_ID = 'SAVE_OFFER_ID';
 export const GET_OFFER = 'GET_OFFER';
 export const CLEAR_OFFER = 'CLEAR_OFFER';
-
 export const HANDLE_FORM_INPUT = 'HANDLE_FORM_INPUT';
 export const SET_OFFER_IS_LOAD = 'SET_OFFER_IS_LOAD';
 export const HANDLE_ADD_OFFER = 'HANDLE_ADD_OFFER';
 export const HANDLE_MODIFY_OFFER = 'HANDLE_MODIFY_OFFER';
+export const SET_OFFER_IN_FAVORITE = 'SET_OFFER_IN_FAVORITE';
+export const SET_OFFER_IN_RESERVATION = 'SET_OFFER_IN_RESERVATION';
 
 // action creators
 export const fetchOffers = () => ({
@@ -60,4 +61,14 @@ export const handleAddOffer = () => ({
 
 export const handleModifyOffer = () => ({
   type: HANDLE_MODIFY_OFFER,
+});
+
+export const setOfferInFavorite = (value) => ({
+  type: SET_OFFER_IN_FAVORITE,
+  value,
+});
+
+export const setOfferInReservation = (value) => ({
+  type: SET_OFFER_IN_RESERVATION,
+  value,
 });

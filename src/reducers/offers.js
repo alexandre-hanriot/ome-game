@@ -1,6 +1,12 @@
 import {
-  SAVE_OFFER_ID, SAVE_OFFERS, SAVE_ONE_OFFER, CLEAR_OFFER, HANDLE_FORM_INPUT,
+  SAVE_OFFER_ID,
+  SAVE_OFFERS,
+  SAVE_ONE_OFFER,
+  CLEAR_OFFER,
+  HANDLE_FORM_INPUT,
   SET_OFFER_IS_LOAD,
+  SET_OFFER_IN_FAVORITE,
+  SET_OFFER_IN_RESERVATION,
 } from 'src/actions/offers';
 
 const initialState = {
@@ -46,6 +52,8 @@ const initialState = {
   },
   urlId: '',
   offerIsLoad: false,
+  offerInFavorite: false,
+  offerInReservation: false,
 };
 
 const offersReducer = (state = initialState, action = {}) => {
@@ -138,6 +146,19 @@ const offersReducer = (state = initialState, action = {}) => {
         },
       };
     }
+
+    case SET_OFFER_IN_FAVORITE:
+      return {
+        ...state,
+        offerInFavorite: action.value,
+      };
+
+    case SET_OFFER_IN_RESERVATION:
+      return {
+        ...state,
+        offerInReservation: action.value,
+      };
+
     default: return state;
   }
 };

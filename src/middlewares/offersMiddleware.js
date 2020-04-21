@@ -42,7 +42,7 @@ const offersMiddleware = (store) => (next) => (action) => {
     case GET_OFFER: {
       axios.post(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`)
         .then((response) => {
-          const data = response.data;
+          const { data } = response;
           const hasLocation = data.latitude !== null && data.longitude !== null;
           const currentZoom = hasLocation ? 12 : 5;
           const currentOffer = {
@@ -60,7 +60,7 @@ const offersMiddleware = (store) => (next) => (action) => {
     }
     case HANDLE_ADD_OFFER: {
       axios.post('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers', {
-        status: offer.status,
+        status: 0,
         userId: userData.id,
         type: offer.type,
         is_available: offer.is_available,
@@ -75,7 +75,7 @@ const offersMiddleware = (store) => (next) => (action) => {
       })
         .then((response) => {
           store.dispatch(redirectTo('/compte/offres'));
-          showAlert('Votre offre à été ajoutée avec succès et sera validée dans les plus brefs délais');
+          store.dispatch(showAlert('Votre offre à été ajoutée avec succès et sera validée dans les plus brefs délais'));
         })
         .catch((error) => {
           console.warn(error);
@@ -85,7 +85,7 @@ const offersMiddleware = (store) => (next) => (action) => {
     }
     case HANDLE_MODIFY_OFFER: {
       axios.put(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${offer.id}`, {
-        status: offer.status,
+        status: 0,
         userId: offer.userId,
         type: offer.type,
         is_available: offer.is_available,
@@ -100,7 +100,7 @@ const offersMiddleware = (store) => (next) => (action) => {
       })
         .then((response) => {
           store.dispatch(redirectTo('/compte/offres'));
-          showAlert('Votre offre à été modifiée avec succès et sera validée dans les plus brefs délais');
+          store.dispatch(showAlert('Votre offre à été modifiée avec succès et sera validée dans les plus brefs délais'));
         })
         .catch((error) => {
           console.warn(error);

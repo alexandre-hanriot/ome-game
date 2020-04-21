@@ -95,7 +95,7 @@ const Form = ({
       errorMessage = 'il faut remplir tous les champs concernant le jeu';
     }
 
-    if (!error && offer.gameId === 0) {
+    if (!error && !newGameField && offer.gameId === 0) {
       error = true;
       errorMessage = 'Vous devez renseigner le jeu';
     }
@@ -248,31 +248,6 @@ const Form = ({
               <div className="account-offers-form__container__right">
 
                 <div className="account-offers-form__block account-offers-form__block--flex50">
-                  <div className="account-offers-form__status">
-                    <h2 className="account-offers-form__subtitle">Etat</h2>
-                    <div>
-                      <label>
-                        <input
-                          type="radio"
-                          name="status"
-                          checked={offer.status === '0'}
-                          onChange={changeInput}
-                          value="0"
-                        /> Actif
-                      </label>
-                    </div>
-                    <div>
-                      <label>
-                        <input
-                          type="radio"
-                          name="status"
-                          checked={offer.status === '1'}
-                          onChange={changeInput}
-                          value="1"
-                        /> Inactif
-                      </label>
-                    </div>
-                  </div>
                   <div className="account-offers-form__disponibility">
                     <h2 className="account-offers-form__subtitle">Disponibilité</h2>
                     <div>

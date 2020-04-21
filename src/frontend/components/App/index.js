@@ -1,5 +1,5 @@
 // == Import npm
-import React from 'react';
+import React, { useEffect } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import {
@@ -45,8 +45,11 @@ const App = ({
   let redirectUrl = '';
   if (redirectTo.length > 0) {
     redirectUrl = redirectTo;
-    setRedirectTo('');
   }
+
+  useEffect(() => {
+    setRedirectTo('');
+  }, [redirectTo]);
 
   return (
     <div className={appClass}>

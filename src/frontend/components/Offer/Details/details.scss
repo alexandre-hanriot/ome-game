@@ -36,6 +36,12 @@
       }
     }
   }
+  &__game {
+    text-align: center;
+    padding-top: $gutter;
+    font-size: 1.4em;
+    color: $primaryColor;
+  }
   &__stats {
     margin: $gutter;
     background-color: $darkBlue;
@@ -84,6 +90,10 @@
   
       &__button {
         font-size: 1.2em;
+
+        &.active {
+          color: $primaryColor;
+        }
 
         &:disabled {
           opacity: 0.6;
@@ -136,6 +146,13 @@
 .modal__bookGame {
   p {
     line-height: 2;
+
+    span {
+      font-weight: bold;
+    }
+  }
+  &__content__p3 {
+    margin-top: $gutter/2;
   }
   &__button {
     margin-top: $gutter;

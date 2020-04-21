@@ -24,8 +24,14 @@ const Details = ({
   isLogged,
   clearOffer,
   addFavorite,
+  removeFavorite,
   checkOfferInFavorite,
   checkOfferInReservation,
+  setOfferInFavorite,
+  setOfferInReservation,
+  offerInFavorite,
+  offerInReservation,
+  saveCurrentFavorite,
 }) => {
   const { id } = useParams();
 
@@ -36,14 +42,30 @@ const Details = ({
     return function cleanup() {
       changeOfferIsLoad();
       clearOffer();
+      setOfferInFavorite(false);
+      setOfferInReservation(false);
+      saveCurrentFavorite(0);
     };
   }, []);
+
+  useEffect(() => {
+    if (offer.id !== 0 && isLogged) {
+      checkOfferInFavorite();
+      checkOfferInReservation();
+    }
+  }, [offer]);
 
   useTitle(offer.title);
 
   const handleFavorite = () => {
-    displayAlert('Vous avez bien rajouté cette offre dans vos favoris', true);
-    addFavorite();
+    if (offerInFavorite) {
+      displayAlert('Vous avez bien retiré cette offre de vos favoris', true);
+      removeFavorite();
+    }
+    else {
+      displayAlert('Vous avez bien ajouté cette offre dans vos favoris', true);
+      addFavorite();
+    }
   };
 
   const handleModal = () => {
@@ -51,11 +73,7 @@ const Details = ({
   };
 
   const disponibilityClass = classNames('offer-detail__infos__disponibility', { 'offer-detail__infos__disponibility--off': !offer.is_available });
-
-  if (isLogged) {
-    checkOfferInFavorite();
-    checkOfferInReservation();
-  }
+  const favoriteClass = classNames('offer-detail__left__buttons__button global-button', { 'active': offerInFavorite });
 
   return (
     <>
@@ -63,7 +81,7 @@ const Details = ({
       {offerIsLoad && (
         <article className="wrapper offer-detail">
           {showAlert && <Alert />}
-          {showModal === 'bookGame' && <Modal content={<BookGame id={offer.id} />} />}
+          {showModal === 'bookGame' && <Modal content={<BookGame offer={offer} />} />}
           <div className="offer-detail__breadcrumb">
             <Link to="/">Accueil ></Link>
             <Link to="/recherche/jeux">Ma recherche ></Link>
@@ -73,6 +91,7 @@ const Details = ({
             <h1 className="offer-detail__infos__title">{offer.title}</h1>
             <div className={disponibilityClass}>{offer.is_available ? 'Disponible' : 'Non disponible'}</div>
           </div>
+          <p className="offer-detail__game">{offer.game.name}</p>
           <div className="offer-detail__stats">
             <div className="offer-detail__stats__item"><i className="fas fa-funnel-dollar" /> <span className="offer-detail__stats__item__value">{offer.type === '0' ? 'Prêt' : 'Location'}</span> <div className="offer-detail__stats__item__label">Type</div></div>
             <div className="offer-detail__stats__item"><i className="fas fa-coins" /> <span className="offer-detail__stats__item__value">{offer.price === 0 ? 'Gratuit' : `${offer.price}€`}</span> <div className="offer-detail__stats__item__label">Prix</div></div>
@@ -88,14 +107,14 @@ const Details = ({
                 {offer.description}
               </div>
               <div className="offer-detail__left__buttons">
-                <button className="offer-detail__left__buttons__button global-button" type="button" onClick={handleFavorite} disabled={!isLogged}> <i className="fas fa-star" /></button>
-                <button type="button" className="offer-detail__left__buttons__button global-button" onClick={handleModal} disabled={!offer.is_available || !isLogged}>Réserver ce jeu</button>
+                <button className={favoriteClass} type="button" onClick={handleFavorite} disabled={!isLogged}> <i className="fas fa-star" /></button>
+                <button type="button" className="offer-detail__left__buttons__button global-button" onClick={handleModal} disabled={!offer.is_available || !isLogged || offerInReservation}>Réserver ce jeu</button>
               </div>
-              <section className="offer-detail__left__user">
+              {/* <section className="offer-detail__left__user">
                 <p className="offer-detail__left__user__content">A propos de Mme Michu :</p>
                 <p className="offer-detail__left__user__content">Inscrit depuis ...</p>
                 <p className="offer-detail__left__user__content">Possède 10 jeux ...</p>
-              </section>
+              </section> */}
             </div>
             <div className="offer-detail__right">
               {offer.image !== null && (<img className="offer-detail__right__image" src={offer.image} alt="" />)}
@@ -124,8 +143,14 @@ Details.propTypes = {
   isLogged: PropTypes.bool.isRequired,
   clearOffer: PropTypes.func.isRequired,
   addFavorite: PropTypes.func.isRequired,
+  removeFavorite: PropTypes.func.isRequired,
   checkOfferInFavorite: PropTypes.func.isRequired,
   checkOfferInReservation: PropTypes.func.isRequired,
+  setOfferInFavorite: PropTypes.func.isRequired,
+  setOfferInReservation: PropTypes.func.isRequired,
+  offerInFavorite: PropTypes.bool.isRequired,
+  offerInReservation: PropTypes.bool.isRequired,
+  saveCurrentFavorite: PropTypes.func.isRequired,
 };
 
 export default Details;
