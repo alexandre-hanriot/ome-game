@@ -12,6 +12,8 @@ export const formatDate = (date) => {
   return `${(`0${newDate.getDate()}`).slice(-2)}/${(`0${newDate.getMonth() + 1}`).slice(-2)}/${newDate.getFullYear()} à ${(`0${newDate.getHours()}`).slice(-2)}h${(`0${newDate.getMinutes()}`).slice(-2)}`;
 };
 
+// Truncate long string
+export const truncateText = (text, size = 25) => ((text.length > size) ? `${text.substr(0, size - 2)}..` : text);
 
 // récupérer le slug qui correspond à un id d'une offre
 export const slugifyId = (id) => slugify(id, {
