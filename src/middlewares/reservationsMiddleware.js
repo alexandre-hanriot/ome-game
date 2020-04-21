@@ -24,7 +24,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
 
       axios({
         method: 'post',
-        url: `http://localhost:3000/users/${userData.user.id}/reservations`,
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/reservations`,
         data: {
           userId: userData.user.id,
         },
@@ -46,7 +46,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
       console.log(localStorage.getItem('xsrfToken'));
       axios({
         method: 'post',
-        url: `http://localhost:3000/users/${userData.user.id}/reservations`,
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/reservations`,
         data: {
           userId: userData.user.id,
         },
@@ -72,7 +72,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
     case FETCH_ONE_RESERVATION:
       axios({
         method: 'post',
-        url: `http://localhost:3000/reservations/${idReservation}`,
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations/${idReservation}`,
         data: {
           userId: userData.user.id,
         },
@@ -96,7 +96,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
 
       axios({
         method: 'post',
-        url: 'http://localhost:3000/reservations',
+        url: 'http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations',
         data: {
           userId: userData.user.id,
           offerId: offer.id,
@@ -119,7 +119,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
     case DELETE_RESERVATION: {
       axios({
         method: 'delete',
-        url: `http://localhost:3000/reservations/${idReservation}`,
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations/${idReservation}`,
         data: {
           userId: userData.user.id,
         },
@@ -144,7 +144,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
       if (offer.id !== 0) {
         axios({
           method: 'post',
-          url: `http://localhost:3000/users/${userData.user.id}/reservations/${offer.id}`,
+          url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/reservations/${offer.id}`,
           data: {
             userId: userData.user.id,
           },

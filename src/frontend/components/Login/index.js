@@ -4,7 +4,14 @@ import PropTypes from 'prop-types';
 import './login.scss';
 // use Sanitize on inputs for increase security
 const Login = ({
-  displayModal, changeValue, email, password, submitLogin, loginError, clearLoginError,
+  displayModal,
+  changeValue,
+  email,
+  password,
+  submitLogin,
+  loginError,
+  clearLoginError,
+  rememberMe,
 }) => {
   useEffect(() => () => {
     clearLoginError();
@@ -16,9 +23,12 @@ const Login = ({
     changeValue(identifier, newValue);
   };
   const changeInput = (event) => {
-    const identifier = event.target.type;
-    const newValue = event.target.value;
-    handleChange(identifier, newValue);
+    // eslint-disable-next-line prefer-const
+    let { name, value } = event.target;
+    if (name === 'remember_me') {
+      value = !rememberMe;
+    }
+    handleChange(name, value);
   };
 
 
@@ -37,10 +47,29 @@ const Login = ({
       )}
       <p className="login__text">Vous avez déjà un compte ? Connectez-vous ci-dessous.</p>
       <form className="login__form" onSubmit={handleSubmit}>
-        <input type="email" placeholder="Adresse email" className="global-input" onChange={changeInput} value={email} />
-        <input type="password" placeholder="Mot de passe" className="global-input" onChange={changeInput} value={password} />
+        <input
+          name="email"
+          type="email"
+          placeholder="Adresse email"
+          className="global-input"
+          onChange={changeInput}
+          value={email}
+        />
+        <input
+          name="password"
+          type="password"
+          placeholder="Mot de passe"
+          className="global-input"
+          onChange={changeInput}
+          value={password}
+        />
         <label className="login__form__remember">
-          <input type="checkbox" /> Se souvenir de moi
+          <input
+            type="checkbox"
+            name="remember_me"
+            checked={rememberMe}
+            onChange={changeInput}
+          /> Se souvenir de moi
         </label>
         <button type="submit" className="global-button">Se connecter</button>
       </form>
@@ -57,6 +86,7 @@ Login.propTypes = {
   password: PropTypes.string.isRequired,
   loginError: PropTypes.string.isRequired,
   clearLoginError: PropTypes.func.isRequired,
+  rememberMe: PropTypes.bool.isRequired,
 };
 
 export default Login;

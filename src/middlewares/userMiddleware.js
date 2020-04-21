@@ -15,7 +15,7 @@ const userMiddleware = (store) => (next) => (action) => {
       const { email, password, userData } = store.getState().user;
       axios({
         method: 'post',
-        url: 'http://localhost:3000/login',
+        url: 'http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/login',
         data: {
           identifier: email,
           password,
@@ -62,7 +62,7 @@ const userMiddleware = (store) => (next) => (action) => {
       const { userData } = store.getState().user;
       axios({
         method: 'put',
-        url: `http://localhost:3000/users/${userData.user.id}`,
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}`,
         data: {
           userId: userData.user.id,
           status: userData.user.status,
@@ -98,7 +98,7 @@ const userMiddleware = (store) => (next) => (action) => {
       const { userData } = store.getState().user;
       axios({
         method: 'put',
-        url: `http://localhost:3000/users/${userData.user.id}/password`,
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/password`,
         data: {
           oldPassword: userData.user.old_password,
           newPassword: userData.user.new_password,

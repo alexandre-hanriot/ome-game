@@ -14,7 +14,7 @@ export const CLEAR_PROFIL_PASSWORDS = 'CLEAR_PROFIL_PASSWORDS';
 
 export const changeInputOfLogin = (identifier, newValue) => ({
   type: CHANGE_INPUT_OF_LOGIN,
-  inputIdentifier: identifier,
+  identifier,
   newValue,
 });
 

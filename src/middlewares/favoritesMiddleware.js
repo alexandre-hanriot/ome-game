@@ -23,7 +23,7 @@ const favoritesMiddleware = (store) => (next) => (action) => {
     case FETCH_FAVORITES: {
       axios({
         method: 'post',
-        url: `http://localhost:3000/users/${userData.user.id}/favorites`,
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/favorites`,
         data: {
           userId: userData.user.id,
         },
@@ -45,7 +45,7 @@ const favoritesMiddleware = (store) => (next) => (action) => {
     case UPDATE_NOTIFY_FAVORITE:
       axios({
         method: 'put',
-        url: `http://localhost:3000/favorites/${idFavorite}`,
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/favorites/${idFavorite}`,
         data: {
           notify_when_available: notifyfavorite,
           userId: userData.user.id,
@@ -70,7 +70,7 @@ const favoritesMiddleware = (store) => (next) => (action) => {
 
       axios({
         method: 'post',
-        url: 'http://localhost:3000/favorites',
+        url: 'http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/favorites',
         data: {
           userId: userData.user.id,
           offerId: offer.id,
@@ -95,7 +95,7 @@ const favoritesMiddleware = (store) => (next) => (action) => {
       const { currentFavorite } = store.getState().favorites;
       axios({
         method: 'delete',
-        url: `http://localhost:3000/favorites/${currentFavorite}`,
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/favorites/${currentFavorite}`,
         data: {
           userId: userData.user.id,
         },
@@ -120,7 +120,7 @@ const favoritesMiddleware = (store) => (next) => (action) => {
       if (offer.id !== 0) {
         axios({
           method: 'post',
-          url: `http://localhost:3000/users/${userData.user.id}/favorites/${offer.id}`,
+          url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/favorites/${offer.id}`,
           data: {
             userId: userData.user.id,
           },
@@ -145,7 +145,7 @@ const favoritesMiddleware = (store) => (next) => (action) => {
     case DELETE_FAVORITE:
       axios({
         method: 'delete',
-        url: `http://localhost:3000/favorites/${idFavorite}`,
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/favorites/${idFavorite}`,
         data: {
           userId: userData.user.id,
         },

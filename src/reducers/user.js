@@ -44,20 +44,14 @@ const initialState = {
 
 const userReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case CHANGE_INPUT_OF_LOGIN:
-      if (action.inputIdentifier === 'email') {
-        return {
-          ...state,
-          email: action.newValue,
-        };
-      }
-      if (action.inputIdentifier === 'password') {
-        return {
-          ...state,
-          password: action.newValue,
-        };
-      }
-      break;
+    case CHANGE_INPUT_OF_LOGIN: {
+      console.log(action.identifier, action.newValue);
+      const target = action.identifier;
+      return {
+        ...state,
+        [target]: action.newValue,
+      };
+    }
     case LOG_USER: {
       return {
         ...state,
