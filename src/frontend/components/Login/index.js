@@ -25,7 +25,7 @@ const Login = ({
   const changeInput = (event) => {
     // eslint-disable-next-line prefer-const
     let { name, value } = event.target;
-    if (name === 'remember_me') {
+    if (name === 'rememberMe') {
       value = !rememberMe;
     }
     handleChange(name, value);
@@ -66,7 +66,7 @@ const Login = ({
         <label className="login__form__remember">
           <input
             type="checkbox"
-            name="remember_me"
+            name="rememberMe"
             checked={rememberMe}
             onChange={changeInput}
           /> Se souvenir de moi

@@ -8,7 +8,7 @@ const mapStateToProps = (state) => ({
   showAlert: state.global.showAlert,
   isError: state.global.isError,
   redirectTo: state.global.redirectTo,
-  rememberMe: state.user.remember_me,
+  rememberMe: state.user.rememberMe,
 });
 
 const mapDispatchToProps = (dispatch) => ({

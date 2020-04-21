@@ -11,7 +11,7 @@ import {
 const initialState = {
   email: '',
   password: '',
-  remember_me: false,
+  rememberMe: false,
   isLogged: false,
   userData: {
     user: {
@@ -45,7 +45,6 @@ const initialState = {
 const userReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case CHANGE_INPUT_OF_LOGIN: {
-      console.log(action.identifier, action.newValue);
       const target = action.identifier;
       return {
         ...state,
@@ -89,6 +88,7 @@ const userReducer = (state = initialState, action = {}) => {
       };
     case LOG_OUT: {
       localStorage.clear();
+      sessionStorage.clear();
       return {
         ...state,
         isLogged: false,
