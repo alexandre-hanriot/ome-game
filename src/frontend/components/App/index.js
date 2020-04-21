@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import {
   Route, Switch, useLocation, Redirect,
 } from 'react-router-dom';
+
+// Frontend
 import Header from 'src/frontend/containers/Header';
 import Footer from 'src/frontend/components/Footer';
 import Home from 'src/frontend/containers/Home';
@@ -18,11 +20,11 @@ import Contact from 'src/frontend/containers/Contact';
 import Account from 'src/frontend/containers/Account';
 import Details from 'src/frontend/containers/Offer/Details';
 import Reservations from 'src/frontend/containers/Account/Reservations';
-
 import NotFound from 'src/frontend/containers/NotFound';
-
 import Alert from 'src/frontend/containers/Alert';
-// TODO : créer un menu lorsqu'on est connecté
+
+// Backend
+import Admin from 'src/backend/containers/Home';
 
 // == Composant
 const App = ({
@@ -51,10 +53,14 @@ const App = ({
     setRedirectTo('');
   }, [redirectTo]);
 
+  // TODO
+  const inAdministration = currentPath.includes('/admin/');
+  const isAdmin = true;
+
   return (
     <div className={appClass}>
       {redirectTo.length > 0 && <Redirect to={redirectUrl} />}
-      <Header />
+      <Header admin={(isAdmin && inAdministration)} />
       <main>
         {showAlert && <Alert />}
         <Switch>
@@ -88,6 +94,11 @@ const App = ({
             <AccountOffersAdd />
           </Route>
           )}
+          {(isLogged && isAdmin && inAdministration) && (
+          <Route exact path="/admin/">
+            <Admin />
+          </Route>
+          )}
           <Route exact path="/">
             <Home />
           </Route>
@@ -111,7 +122,7 @@ const App = ({
           </Route>
         </Switch>
       </main>
-      <Footer isHome={isHome} />
+      {(!isAdmin || !inAdministration) && <Footer isHome={isHome} />}
     </div>
   );
 };

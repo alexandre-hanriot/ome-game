@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import {
   FETCH_OFFERS, FETCH_PARAMS_OFFERS, GET_OFFER, saveOffers, saveOneOffer,
-  changeOfferIsLoad, updateListOffers, HANDLE_ADD_OFFER, HANDLE_MODIFY_OFFER, DELETE_OFFER,
+  changeOfferIsLoad, updateListOffers, HANDLE_ADD_OFFER, HANDLE_MODIFY_OFFER, DELETE_OFFER, FETCH_ALL_OFFERS,
 } from 'src/actions/offers';
 
 import { showAlert, redirectTo } from 'src/actions/global';
@@ -39,6 +39,28 @@ const offersMiddleware = (store) => (next) => (action) => {
         });
       next(action);
       break;
+
+    case FETCH_ALL_OFFERS: {
+      // TODO : limit 4 (wait Steph)
+      axios.get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers', {
+        params: {
+          orderby: 'id',
+          sortby: 'DESC',
+          status: ['0', '1'],
+        },
+      })
+        .then((response) => {
+          // TODO - temp
+          const offers = response.data.filter((data, index) => index < 4);
+          store.dispatch(saveOffers(offers));
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+
+      next(action);
+      break;
+    }
 
     case GET_OFFER: {
       axios.post(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`)

@@ -1,13 +1,16 @@
 import slugify from 'react-slugify';
 
 // Format date : dd/mm/yyyy à hh/mm
-export const formatDate = (date) => {
-
+export const formatDate = (date, dateOnly = false) => {
   if (date === null || date === '') {
     return '';
   }
 
   const newDate = new Date(date);
+
+  if (dateOnly) {
+    return `${(`0${newDate.getDate()}`).slice(-2)}/${(`0${newDate.getMonth() + 1}`).slice(-2)}/${newDate.getFullYear()}`;
+  }
 
   return `${(`0${newDate.getDate()}`).slice(-2)}/${(`0${newDate.getMonth() + 1}`).slice(-2)}/${newDate.getFullYear()} à ${(`0${newDate.getHours()}`).slice(-2)}h${(`0${newDate.getMinutes()}`).slice(-2)}`;
 };

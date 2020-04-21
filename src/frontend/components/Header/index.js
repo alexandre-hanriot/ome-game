@@ -6,10 +6,17 @@ import Modal from 'src/frontend/containers/Modal';
 import Authentification from 'src/frontend/containers/Header/Authentification';
 import UserMenu from 'src/frontend/containers/Header/UserMenu';
 import Menu from './Menu';
+import MenuAdmin from './MenuAdmin';
 import './header.scss';
 
 const Header = ({
-  showMenu, displayMenu, showModal, displayModal, isLogged, pseudo,
+  admin,
+  showMenu,
+  displayMenu,
+  showModal,
+  displayModal,
+  isLogged,
+  pseudo,
 }) => {
   const isMobile = useMediaPredicate('(max-width: 1024px)');
 
@@ -39,7 +46,8 @@ const Header = ({
       </div>
       <nav className="header__nav">
         <div className="header__nav__menu">
-          {!isMobile && <Menu />}
+          {(!isMobile && !admin) && <Menu />}
+          {(!isMobile && admin) && <MenuAdmin />}
           {isMobile && (
             <>
               <button type="button" className="header__nav__menu__burger" onClick={handleMenuBurger}><i className="fas fa-bars"> </i></button>
@@ -47,7 +55,8 @@ const Header = ({
                 <>
                   <div className="menu-background" onClick={handleMenuClose}> </div>
                   <div className="header__nav__menu__container" onClick={handleMenuClose}>
-                    <Menu showIcon />
+                    {!admin && <Menu showIcon />}
+                    {admin && <MenuAdmin showIcon />}
                   </div>
                 </>
               )}
@@ -83,6 +92,7 @@ const Header = ({
 };
 
 Header.propTypes = {
+  admin: PropTypes.bool.isRequired,
   showMenu: PropTypes.string.isRequired,
   displayMenu: PropTypes.func.isRequired,
   showModal: PropTypes.string.isRequired,

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import Form from 'src/frontend/components/Account/Offers/Form';
 
 import {
-  saveOfferId, getOffer, clearOffer, handleFormInput, handleAddOffer, handleModifyOffer, changeOfferIsLoad,
+  saveOfferId, getOffer, clearOffer, handleFormInput, handleAddOffer, handleModifyOffer, changeOfferIsLoad, setOfferSend,
 } from 'src/actions/offers';
 
 import {
@@ -20,6 +20,7 @@ const mapStateToProps = (state) => ({
   categoriesIsLoad: state.game.categoriesIsLoad,
   newGameField: state.game.newGameField,
   game: state.game.game,
+  offerSend: state.offers.offerSend,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -68,6 +69,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   displayAlert: (message, success) => {
     dispatch(showAlert(message, success));
+  },
+  setOfferSend: (value) => {
+    dispatch(setOfferSend(value));
   },
 });
 

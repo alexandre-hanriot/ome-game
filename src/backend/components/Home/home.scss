@@ -1,0 +1,202 @@
+@import 'src/styles/_vars.scss';
+
+@mixin admin-dashboard_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #3d5471;
+  padding: $gutter/2;
+}
+@mixin admin-dashboard_item_action {
+  a {
+    background-color: $backgroundLight;
+    color: $darkBlue;
+    padding: 0 .5rem;
+    border-radius: 0.2rem;
+
+    &:hover {
+      background-color: $secondaryColor;
+      color: #fff;
+    }
+  }
+}
+
+.admin-dashboard {
+  h1 {
+    font-size: 2em;
+    font-weight: bold;
+    color: $primaryColor;
+    padding-bottom: $gutter/2;
+    text-align: left;
+  }
+
+  &__breadcrumb {
+    margin: $gutter 0;
+  }
+
+  &__container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    &__block {
+      width: 550px;
+      min-height: 100px;
+      margin: $gutter/2;
+      background-color: $darkBlue;
+      padding: $gutter;
+
+      &__title {
+        text-align: center;
+        margin-bottom: $gutter;
+        color: $primaryColor;
+        font-size: 1.2em;
+        font-weight: 700;
+      }
+    }
+  }
+
+  &__users {
+    border-top: 1px solid #3d5471;
+
+    &__item {
+      @include admin-dashboard_item;
+      
+      &__nickname {
+        flex-grow: 1;
+      }
+      &__date {
+        width: 130px;
+        text-align: center;
+      }
+      &__status {
+        width: 40px;
+        text-align: center;
+
+        i {
+          display: inline-block;
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+        }
+        &--active i {
+          color: $green;
+        }
+        &--wait i {
+          color: $primaryColor;
+        }
+      }
+      &__action {
+        width: 60px;
+        text-align: center;
+        @include admin-dashboard_item_action;
+      }
+    }
+  }
+
+  &__offers {
+    border-top: 1px solid #3d5471;
+
+    &__item {
+      @include admin-dashboard_item;
+      
+      &__title {
+        flex-grow: 1;
+      }
+      &__status {
+        width: 40px;
+        text-align: center;
+
+        i {
+          display: inline-block;
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+        }
+        &--active i {
+          color: $green;
+        }
+        &--wait i {
+          color: $primaryColor;
+        }
+      }
+      &__disponibility {
+        width: 40px;
+        text-align: center;
+
+        i {
+          display: inline-block;
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+        }
+        &--yes i {
+          color: $green;
+        }
+        &--no i {
+          color: $red;
+        }
+      }
+      &__action {
+        width: 60px;
+        text-align: center;
+        @include admin-dashboard_item_action;
+      }
+    }
+  }
+
+  &__reservations {
+    border-top: 1px solid #3d5471;
+
+    &__item {
+      @include admin-dashboard_item;
+      
+      &__title {
+        flex-grow: 1;
+      }
+      &__status {
+        width: 40px;
+        text-align: center;
+
+        i {
+          display: inline-block;
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+        }
+        &--accept i {
+          color: $green;
+        }
+        &--wait i {
+          color: $primaryColor;
+        }
+        &--refuse i {
+          color: $red;
+        }
+      }
+      &__action {
+        width: 60px;
+        text-align: center;
+        @include admin-dashboard_item_action;
+      }
+    }
+  }
+
+  &__games {
+    border-top: 1px solid #3d5471;
+
+    &__item {
+      @include admin-dashboard_item;
+      
+      &__title {
+        flex-grow: 1;
+      }
+      &__action {
+        width: 60px;
+        text-align: center;
+        @include admin-dashboard_item_action;
+      }
+    }
+  }
+
+}

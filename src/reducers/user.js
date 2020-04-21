@@ -6,9 +6,12 @@ import {
   LOG_OUT, SET_REQUEST_LOAD,
   CHANGE_PROFIL_INPUT,
   CLEAR_PROFIL_PASSWORDS,
+  SAVE_USERS,
 } from 'src/actions/user';
 
+/*
 const initialState = {
+  allUsers: [],
   email: '',
   password: '',
   isLogged: false,
@@ -33,6 +36,42 @@ const initialState = {
       display_name: false,
       gdpr_accepted_at: '',
       createdAt: '',
+    },
+    xsrfToken: '',
+  },
+  loginError: '',
+  requestIsLoad: false,
+};
+*/
+
+// --------------------------- DELETE TEST
+const initialState = {
+  allUsers: [],
+  email: '',
+  password: '',
+  isLogged: true,
+  userData: {
+    user: {
+      id: 29,
+      role: '0',
+      status: '0',
+      email: 'test28@email.com',
+      password: '$2b$08$7SiX/XoGdGHONDgcwdfMXeX3fb6zn5fNQp4n.dw94LgS64LIJKcf6',
+      username: 'julesobiwanyodamanon',
+      firstname: 'Pepito',
+      lastname: 'Escobar',
+      display_name: false,
+      phone: null,
+      address: null,
+      postal_code: '75011',
+      city: 'Paris',
+      gdpr_accepted_at: null,
+      picture: null,
+      createdAt: '2020-04-21T07:03:17.549Z',
+      updatedAt: '2020-04-21T07:03:17.549Z',
+      old_password: '',
+      new_password: '',
+      confirm_new_password: '',
     },
     xsrfToken: '',
   },
@@ -128,6 +167,13 @@ const userReducer = (state = initialState, action = {}) => {
           },
         },
       };
+
+    case SAVE_USERS:
+      return {
+        ...state,
+        allUsers: action.users,
+      };
+
     default:
       return state;
   }
