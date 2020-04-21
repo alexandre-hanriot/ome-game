@@ -21,6 +21,10 @@ const UserMenu = ({ logOut }) => (
       <Link className="header__nav__menu__user__link" to="/compte/profil">Mon profil</Link>
     </li>
     <li className="header__nav__menu__user__list">
+      <div className="header__nav__menu__user__icon"><i className="fas fa-cog" /></div>
+      <Link className="header__nav__menu__user__link" to="/admin/">Administration</Link>
+    </li>
+    <li className="header__nav__menu__user__list">
       <div className="header__nav__menu__user__icon"><i className="fas fa-sign-out-alt" /></div>
       <Link className="header__nav__menu__user__link" to="/" onClick={logOut}>Me deconnecter</Link>
     </li>
