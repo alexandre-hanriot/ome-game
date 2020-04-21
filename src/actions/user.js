@@ -12,6 +12,7 @@ export const SUBMIT_PROFIL_CHANGE_PASSWORD = 'SUBMIT_PROFIL_CHANGE_PASSWORD';
 export const SAVE_PROFIL_CHANGE_PASSWORD = 'SAVE_PROFIL_CHANGE_PASSWORD';
 export const CLEAR_PROFIL_PASSWORDS = 'CLEAR_PROFIL_PASSWORDS';
 export const FETCH_ALL_USERS = 'FETCH_ALL_USERS';
+export const SAVE_USERS = 'SAVE_USERS';
 
 export const changeInputOfLogin = (identifier, newValue) => ({
   type: CHANGE_INPUT_OF_LOGIN,
@@ -71,4 +72,9 @@ export const clearProfilPasswords = () => ({
 export const fetchAllUsers = (params = {}) => ({
   type: FETCH_ALL_USERS,
   params,
+});
+
+export const saveUsers = (users) => ({
+  type: SAVE_USERS,
+  users,
 });

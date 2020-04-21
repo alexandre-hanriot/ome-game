@@ -6,6 +6,7 @@ import {
   LOG_OUT, SET_REQUEST_LOAD,
   CHANGE_PROFIL_INPUT,
   CLEAR_PROFIL_PASSWORDS,
+  SAVE_USERS,
 } from 'src/actions/user';
 
 /*
@@ -166,6 +167,13 @@ const userReducer = (state = initialState, action = {}) => {
           },
         },
       };
+
+    case SAVE_USERS:
+      return {
+        ...state,
+        allUsers: action.users,
+      };
+
     default:
       return state;
   }

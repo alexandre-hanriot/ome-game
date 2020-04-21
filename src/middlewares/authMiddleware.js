@@ -6,6 +6,7 @@ import {
   saveProfilUpdate,
   SUBMIT_PROFIL_CHANGE_PASSWORD,
   FETCH_ALL_USERS,
+  saveUsers,
 } from 'src/actions/user';
 import { showAlert, showModal } from 'src/actions/global';
 import axios from 'axios';
