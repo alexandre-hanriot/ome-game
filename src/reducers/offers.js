@@ -1,22 +1,31 @@
 import {
-  GET_OFFER_ID, SAVE_OFFERS, SAVE_ONE_OFFER, CLEAR_OFFER, HANDLE_FORM_INPUT,
-  SET_OFFER_IS_LOAD, UPDATE_LIST_OFFERS,
+  SAVE_OFFER_ID,
+  SAVE_OFFERS,
+  SAVE_ONE_OFFER,
+  CLEAR_OFFER,
+  HANDLE_FORM_INPUT,
+  SET_OFFER_IS_LOAD,
+  SET_OFFER_IN_FAVORITE,
+  SET_OFFER_IN_RESERVATION,
+  GET_OFFER_ID,
+  UPDATE_LIST_OFFERS,
 } from 'src/actions/offers';
 
 const initialState = {
   allOffers: [],
   offer: {
     id: 0,
-    status: '',
-    type: '',
+    status: '0',
+    type: '0',
     is_available: true,
     title: '',
     price: 0,
     description: '',
     postal_code: '',
     city: '',
-    latitude: '',
-    longitude: '',
+    latitude: null,
+    longitude: null,
+    zoom: 13,
     createdAt: '',
     updatedAt: '',
     userId: 0,
@@ -45,11 +54,13 @@ const initialState = {
   },
   urlId: '',
   offerIsLoad: false,
+  offerInFavorite: false,
+  offerInReservation: false,
 };
 
 const offersReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case GET_OFFER_ID:
+    case SAVE_OFFER_ID:
       return {
         ...state,
         urlId: action.offerId,
@@ -75,16 +86,17 @@ const offersReducer = (state = initialState, action = {}) => {
         ...state,
         offer: {
           id: 0,
-          status: '',
-          type: '',
+          status: '0',
+          type: '0',
           is_available: true,
           title: '',
           price: 0,
           description: '',
           postal_code: '',
           city: '',
-          latitude: '',
-          longitude: '',
+          latitude: null,
+          longitude: null,
+          zoom: 13,
           createdAt: '',
           updatedAt: '',
           userId: 0,
@@ -114,7 +126,7 @@ const offersReducer = (state = initialState, action = {}) => {
       };
     case HANDLE_FORM_INPUT: {
       let target = action.identifier;
-      if (target.includes('game')) {
+      if (target.includes('game_')) {
         const sanitizeName = target.slice(5);
         target = sanitizeName;
         return {
@@ -137,6 +149,18 @@ const offersReducer = (state = initialState, action = {}) => {
       };
     }
 
+    case SET_OFFER_IN_FAVORITE:
+      return {
+        ...state,
+        offerInFavorite: action.value,
+      };
+
+    case SET_OFFER_IN_RESERVATION:
+      return {
+        ...state,
+        offerInReservation: action.value,
+      };
+      
     case UPDATE_LIST_OFFERS:
     {
       console.log('action mise à jour dans le réducers', action.id);
@@ -153,6 +177,7 @@ const offersReducer = (state = initialState, action = {}) => {
         allOffers: remainOffers,
       };
     }
+
     default: return state;
   }
 };

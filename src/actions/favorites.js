@@ -7,6 +7,9 @@ export const UPDATE_NOTIFY_FAVORITES = 'UPDATE_NOTIFY_FAVORITES';
 export const DELETE_FAVORITE = 'DELETE_FAVORITE';
 export const UPDATE_FAVORITES = 'UPDATE_FAVORITES';
 export const ADD_FAVORITE = 'ADD_FAVORITE';
+export const CHECK_OFFER_IN_FAVORITE = 'CHECK_OFFER_IN_FAVORITE';
+export const REMOVE_FAVORITE = 'REMOVE_FAVORITE';
+export const SAVE_CURRENT_FAVORITE = 'SAVE_CURRENT_FAVORITE';
 
 
 export const fetchFavorites = () => ({
@@ -52,4 +55,17 @@ export const updateFavorites = (id) => ({
 export const addFavorite = () => ({
   type: ADD_FAVORITE,
 
+});
+
+export const removeFavorite = () => ({
+  type: REMOVE_FAVORITE,
+});
+
+export const checkOfferInFavorite = () => ({
+  type: CHECK_OFFER_IN_FAVORITE,
+});
+
+export const saveCurrentFavorite = (value) => ({
+  type: SAVE_CURRENT_FAVORITE,
+  value,
 });

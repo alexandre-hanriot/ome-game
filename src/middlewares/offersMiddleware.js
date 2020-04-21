@@ -5,6 +5,8 @@ import {
   changeOfferIsLoad, updateListOffers, HANDLE_ADD_OFFER, HANDLE_MODIFY_OFFER, DELETE_OFFER,
 } from 'src/actions/offers';
 
+import { showAlert, redirectTo } from 'src/actions/global';
+
 const offersMiddleware = (store) => (next) => (action) => {
   const { userData } = store.getState().user;
   const { urlId, offer } = store.getState().offers;
@@ -41,7 +43,14 @@ const offersMiddleware = (store) => (next) => (action) => {
     case GET_OFFER: {
       axios.post(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`)
         .then((response) => {
-          store.dispatch(saveOneOffer(response.data));
+          const { data } = response;
+          const hasLocation = data.latitude !== null && data.longitude !== null;
+          const currentZoom = hasLocation ? 12 : 5;
+          const currentOffer = {
+            ...data,
+            zoom: currentZoom,
+          };
+          store.dispatch(saveOneOffer(currentOffer));
           store.dispatch(changeOfferIsLoad());
         })
         .catch((error) => {
@@ -52,7 +61,7 @@ const offersMiddleware = (store) => (next) => (action) => {
     }
     case HANDLE_ADD_OFFER: {
       axios.post('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers', {
-        status: offer.status,
+        status: 0,
         userId: userData.id,
         type: offer.type,
         is_available: offer.is_available,
@@ -60,8 +69,14 @@ const offersMiddleware = (store) => (next) => (action) => {
         price: offer.price,
         gameId: offer.gameId,
         description: offer.description,
+        city: offer.city,
+        postal_code: offer.postal_code,
+        latitude: offer.latitude,
+        longitude: offer.longitude,
       })
         .then((response) => {
+          store.dispatch(redirectTo('/compte/offres'));
+          store.dispatch(showAlert('Votre offre à été ajoutée avec succès et sera validée dans les plus brefs délais'));
         })
         .catch((error) => {
           console.warn(error);
@@ -70,10 +85,8 @@ const offersMiddleware = (store) => (next) => (action) => {
       break;
     }
     case HANDLE_MODIFY_OFFER: {
-      const { id } = store.getState().offers.offer;
-      axios.put(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${id}`, {
-        id: offer.id,
-        status: offer.status,
+      axios.put(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${offer.id}`, {
+        status: 0,
         userId: offer.userId,
         type: offer.type,
         is_available: offer.is_available,
@@ -81,9 +94,14 @@ const offersMiddleware = (store) => (next) => (action) => {
         price: offer.price,
         gameId: offer.gameId,
         description: offer.description,
+        city: offer.city,
+        postal_code: offer.postal_code,
+        latitude: offer.latitude,
+        longitude: offer.longitude,
       })
         .then((response) => {
-          console.log(response);
+          store.dispatch(redirectTo('/compte/offres'));
+          store.dispatch(showAlert('Votre offre à été modifiée avec succès et sera validée dans les plus brefs délais'));
         })
         .catch((error) => {
           console.warn(error);

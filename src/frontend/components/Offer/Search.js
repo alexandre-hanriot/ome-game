@@ -54,7 +54,7 @@ const Offer = ({
 
     if (filters.categories.length > 0) {
       const ids = filters.categories.map((category) => category.id);
-      pathname += `?categories=${ids.join('-')}`;
+      pathname += `?categories=${ids.join(',')}`;
     }
 
     if (filters.games.length > 0) {
@@ -91,7 +91,7 @@ const Offer = ({
         }
 
         if (name === 'categories') {
-          const categories = value.split('-');
+          const categories = value.split(',');
           categories.forEach((categoryId) => {
             const category = gamesCategories.find((cat) => cat.id === Number(categoryId));
             changeFilterCategories(categoryId, category.name);

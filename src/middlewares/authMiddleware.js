@@ -28,7 +28,6 @@ const authMiddleware = (store) => (next) => (action) => {
               confirm_new_password: '',
             },
           };
-
           store.dispatch(logUser(data));
           store.dispatch(showAlert('Connexion effectuée avec succès', true));
           store.dispatch(showModal());

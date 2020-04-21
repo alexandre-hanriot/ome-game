@@ -3,14 +3,14 @@ import {
   SAVE_ID_FAVORITE,
   UPDATE_NOTIFY_FAVORITES,
   UPDATE_FAVORITES,
+  SAVE_CURRENT_FAVORITE,
 } from 'src/actions/favorites';
 
 const initialState = {
   allFavorites: [],
   notifyfavorite: false,
   idFavorite: '',
-  // indique si on est en train de charger des données depuis l'API
-  // loading: true,
+  currentFavorite: 0,
 };
 
 const favoritesReducer = (state = initialState, action = {}) => {
@@ -19,7 +19,12 @@ const favoritesReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         allFavorites: action.favorites,
-        // loading: false,
+      };
+
+    case SAVE_CURRENT_FAVORITE:
+      return {
+        ...state,
+        currentFavorite: action.value,
       };
 
     case SAVE_ID_FAVORITE: {
@@ -70,7 +75,5 @@ const favoritesReducer = (state = initialState, action = {}) => {
     default: return state;
   }
 };
-// => Pour accéder au state défini dans le reducer 'recipesReducer', il faudra que je
-// descende dans le tiroir 'recipes' => state.recipes.xxxx
 
 export default favoritesReducer;

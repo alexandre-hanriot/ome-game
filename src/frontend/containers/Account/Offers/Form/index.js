@@ -1,24 +1,31 @@
 import { connect } from 'react-redux';
-import {
-  getOfferId, getOffer, clearOffer, handleFormInput, handleAddOffer, handleModifyOffer,
-} from 'src/actions/offers';
-import {
-  getGameCategories, getGames, changeCategoriesIsLoad, changeGameIsLoad,
-} from 'src/actions/game';
 import Form from 'src/frontend/components/Account/Offers/Form';
+
+import {
+  saveOfferId, getOffer, clearOffer, handleFormInput, handleAddOffer, handleModifyOffer, changeOfferIsLoad,
+} from 'src/actions/offers';
+
+import {
+  getGameCategories, getGames, changeCategoriesIsLoad, changeGameIsLoad, addGame, setNewGameField, handleFormInputGame,
+} from 'src/actions/game';
+
+import { showAlert } from 'src/actions/global';
 
 const mapStateToProps = (state) => ({
   // nom de la prop à remplir: donnée à récupérer dans le state
   offer: state.offers.offer,
   categories: state.game.categories,
+  games: state.game.games,
   gamesIsLoad: state.game.gamesIsLoad,
   categoriesIsLoad: state.game.categoriesIsLoad,
+  newGameField: state.game.newGameField,
+  game: state.game.game,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   // nom de la prop à remplir: callback qui contient un appel à dispatch
-  getOfferId: (slug) => {
-    dispatch(getOfferId(slug));
+  saveOfferId: (slug) => {
+    dispatch(saveOfferId(slug));
   },
   getOffer: () => {
     dispatch(getOffer());
@@ -46,6 +53,21 @@ const mapDispatchToProps = (dispatch) => ({
   },
   handleModifyOffer: () => {
     dispatch(handleModifyOffer());
+  },
+  addGame: () => {
+    dispatch(addGame());
+  },
+  changeOfferIsLoad: () => {
+    dispatch(changeOfferIsLoad());
+  },
+  setNewGameField: (value) => {
+    dispatch(setNewGameField(value));
+  },
+  handleFormInputGame: (name, value) => {
+    dispatch(handleFormInputGame(name, value));
+  },
+  displayAlert: (message, success) => {
+    dispatch(showAlert(message, success));
   },
 });
 

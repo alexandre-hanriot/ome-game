@@ -7,15 +7,24 @@ import {
 } from 'src/actions/global';
 
 import {
-  getOfferId,
+  saveOfferId,
   getOffer,
   changeOfferIsLoad,
   clearOffer,
+  setOfferInFavorite,
+  setOfferInReservation,
 } from 'src/actions/offers';
 
 import {
   addFavorite,
+  removeFavorite,
+  checkOfferInFavorite,
+  saveCurrentFavorite,
 } from 'src/actions/favorites';
+
+import {
+  checkOfferInReservation,
+} from 'src/actions/reservations';
 
 const mapStateToProps = (state) => ({
   showAlert: state.global.showAlert,
@@ -23,6 +32,8 @@ const mapStateToProps = (state) => ({
   offerIsLoad: state.offers.offerIsLoad,
   offer: state.offers.offer,
   isLogged: state.user.isLogged,
+  offerInFavorite: state.offers.offerInFavorite,
+  offerInReservation: state.offers.offerInReservation,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -32,8 +43,8 @@ const mapDispatchToProps = (dispatch) => ({
   displayModal: (name) => {
     dispatch(showModal(name));
   },
-  getOfferId: (id) => {
-    dispatch(getOfferId(id));
+  saveOfferId: (id) => {
+    dispatch(saveOfferId(id));
   },
   getOffer: () => {
     dispatch(getOffer());
@@ -46,6 +57,24 @@ const mapDispatchToProps = (dispatch) => ({
   },
   addFavorite: () => {
     dispatch(addFavorite());
+  },
+  removeFavorite: () => {
+    dispatch(removeFavorite());
+  },
+  checkOfferInFavorite: () => {
+    dispatch(checkOfferInFavorite());
+  },
+  checkOfferInReservation: () => {
+    dispatch(checkOfferInReservation());
+  },
+  setOfferInFavorite: (value) => {
+    dispatch(setOfferInFavorite(value));
+  },
+  setOfferInReservation: (value) => {
+    dispatch(setOfferInReservation(value));
+  },
+  saveCurrentFavorite: (value) => {
+    dispatch(saveCurrentFavorite(value));
   },
 });
 

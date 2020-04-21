@@ -10,12 +10,16 @@ import {
   updateListReservations,
   ADD_RESERVATION,
   DELETE_RESERVATION,
+  CHECK_OFFER_IN_RESERVATION,
+  CHECK_OFFER_IN_RESERVATION,
 } from 'src/actions/reservations';
 
+import { setOfferInReservation } from 'src/actions/offers';
 
 const reservationsMiddleware = (store) => (next) => (action) => {
   const { userData } = store.getState().user;
   const { idReservation } = store.getState().reservations;
+
   switch (action.type) {
     case FETCH_RESERVATIONS:
 
@@ -66,7 +70,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         offerId: offer.id,
       })
         .then((response) => {
-
+          store.dispatch(setOfferInReservation(true));
         })
         .catch((error) => {
           console.warn(error);
@@ -83,6 +87,24 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         .catch((error) => {
           console.warn(error);
         });
+      next(action);
+      break;
+    }
+
+    // check in reservation
+    case CHECK_OFFER_IN_RESERVATION: {
+      const { offer } = store.getState().offers;
+      if (offer.id !== 0) {
+        axios
+          .get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.id}/reservations/${offer.id}`)
+          .then((response) => {
+            store.dispatch(setOfferInReservation(true));
+          })
+          .catch((error) => {
+            // console.warn(error);
+          });
+      }
+
       next(action);
       break;
     }

@@ -3,10 +3,10 @@ export const FETCH_PARAMS_RESERVATIONS = 'FETCH_PARAMS_RESERVATIONS';
 export const FETCH_ONE_RESERVATION = 'FETCH_ONE_RESERVATION';
 export const SAVE_ID_RESERVATION = 'SAVE_ID_RESERVATION';
 export const SAVE_RESERVATIONS = 'SAVE_RESERVATIONS';
-
 export const SAVE_ONE_RESERVATION = 'SAVE_ONE_RESERVATION';
 export const FIND_THE_RESERVATION = 'FIND_THE_RESERVATION';
 export const ADD_RESERVATION = 'ADD_RESERVATION';
+export const CHECK_OFFER_IN_RESERVATION = 'CHECK_OFFER_IN_RESERVATION';
 export const DELETE_RESERVATION = 'DELETE_RESERVATION';
 export const UPDATE_LIST_RESERVATIONS = 'UPDATE_LIST_RESERVATIONS';
 
@@ -32,7 +32,6 @@ export const saveReservations = (reservations) => ({
   reservations,
 });
 
-
 export const saveOneReservation = (oneReservation) => ({
   type: SAVE_ONE_RESERVATION,
   oneReservation,
@@ -45,6 +44,10 @@ export const findTheReservation = (reservation) => ({
 
 export const addReservation = () => ({
   type: ADD_RESERVATION,
+});
+
+export const checkOfferInReservation = () => ({
+  type: CHECK_OFFER_IN_RESERVATION,
 });
 
 export const deleteReservation = () => ({
