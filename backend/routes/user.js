@@ -13,10 +13,10 @@ router.post("/:userId(\\d+)", userController.findOne);
 router.post("/", userController.create);
 
 // Modification d'un utilisateur
-router.put("/:userId(\\d+)", userController.update);
+router.put("/:userId(\\d+)", auth, userController.update);
 
 // Modification du mot de passe d'un utilisateur
-router.put("/:userId(\\d+)/password", userController.updatePassword);
+router.put("/:userId(\\d+)/password", auth, userController.updatePassword);
 
 // Suppression de plusieurs utilisateurs en fonction de leur id
 router.delete("/", userController.deleteManyByID);
@@ -25,7 +25,7 @@ router.delete("/", userController.deleteManyByID);
 router.delete("/:userId(\\d+)", userController.deleteOne);
 
 // Récupération des offres d'un utilisateur en fonction de son id
-router.get("/:userId(\\d+)/offers", userController.findAllOffers);
+router.get("/:userId(\\d+)/offers", auth, userController.findAllOffers);
 
 // Récupération des réservations d'un utilisateur en fonction de son id
 router.get("/:userId(\\d+)/reservations", userController.findAllReservations);

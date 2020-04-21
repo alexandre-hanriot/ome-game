@@ -37,9 +37,13 @@ exports.login = (req, res) => {
                         });
 
                     const xsrfToken = hexoid(25)(); // Utilisation d'hexoid pour générer un token un UUID aléatoire
-                    const JWTtoken = jwt.sign({ userId: user.id, xsrfToken: xsrfToken }, "RANDOM_TOKEN_SECRET", {
-                        expiresIn: "24h",
-                    });
+                    const JWTtoken = jwt.sign(
+                        { userId: user.id, role: user.role, xsrfToken: xsrfToken },
+                        "RANDOM_TOKEN_SECRET",
+                        {
+                            expiresIn: "24h",
+                        }
+                    );
 
                     // On charge le JWT token dans un cookie http only
                     res.cookie("access_token", JWTtoken, {
@@ -87,10 +91,10 @@ exports.login = (req, res) => {
                     );
 
                     // On charge le JWT token dans un cookie http only
-                    // res.cookie("access_token", JWTtoken, {
-                    //     httpOnly: true, // pour un cookie non accessible par du code client js
-                    //     // secure: true // true pour forcer le https
-                    // });
+                    res.cookie("access_token", JWTtoken, {
+                        httpOnly: true, // pour un cookie non accessible par du code client js
+                        // secure: true // true pour forcer le https
+                    });
 
                     // On envoie la réponse avec notamment le token xsrf. En front on pourra stocker ces données soit
                     // dans le session storage (expiration à fermeture du navigateur)
