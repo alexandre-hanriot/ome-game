@@ -11,6 +11,7 @@ import {
 const initialState = {
   email: '',
   password: '',
+  remember_me: false,
   isLogged: false,
   userData: {
     user: {
@@ -57,7 +58,7 @@ const userReducer = (state = initialState, action = {}) => {
         };
       }
       break;
-    case LOG_USER:
+    case LOG_USER: {
       return {
         ...state,
         isLogged: true,
@@ -65,6 +66,7 @@ const userReducer = (state = initialState, action = {}) => {
         password: '',
         email: '',
       };
+    }
     case SUBMIT_LOGIN:
       return {
         ...state,
@@ -91,12 +93,14 @@ const userReducer = (state = initialState, action = {}) => {
         email: '',
         password: '',
       };
-    case LOG_OUT:
+    case LOG_OUT: {
+      localStorage.clear();
       return {
         ...state,
         isLogged: false,
         userData: '',
       };
+    }
     case SET_REQUEST_LOAD:
       return {
         ...state,

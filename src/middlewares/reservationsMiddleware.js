@@ -22,21 +22,15 @@ const reservationsMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case FETCH_RESERVATIONS:
 
-      axios.get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/reservations`)
-        .then((response) => {
-          store.dispatch(saveReservations(response.data));
-        })
-        .catch((error) => {
-          console.warn(error);
-        });
-      next(action);
-      break;
-
-    case FETCH_PARAMS_RESERVATIONS:
-      axios.get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/reservations`, {
-        params: {
-          limit: 4,
-          resultPage: 1,
+      axios({
+        method: 'post',
+        url: `http://localhost:3000/users/${userData.user.id}/reservations`,
+        data: {
+          userId: userData.user.id,
+        },
+        withCredentials: true,
+        headers: {
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -48,9 +42,45 @@ const reservationsMiddleware = (store) => (next) => (action) => {
       next(action);
       break;
 
+    case FETCH_PARAMS_RESERVATIONS: {
+      console.log(localStorage.getItem('xsrfToken'));
+      axios({
+        method: 'post',
+        url: `http://localhost:3000/users/${userData.user.id}/reservations`,
+        data: {
+          userId: userData.user.id,
+        },
+        params: {
+          limit: 4,
+          resultPage: 1,
+        },
+        withCredentials: true,
+        headers: {
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
+        },
+      })
+        .then((response) => {
+          store.dispatch(saveReservations(response.data));
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+      next(action);
+      break;
+    }
 
     case FETCH_ONE_RESERVATION:
-      axios.post(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations/${idReservation}`)
+      axios({
+        method: 'post',
+        url: `http://localhost:3000/reservations/${idReservation}`,
+        data: {
+          userId: userData.user.id,
+        },
+        withCredentials: true,
+        headers: {
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
+        },
+      })
         .then((response) => {
           store.dispatch(saveOneReservation(response.data));
         })
@@ -64,9 +94,17 @@ const reservationsMiddleware = (store) => (next) => (action) => {
     case ADD_RESERVATION: {
       const { offer } = store.getState().offers;
 
-      axios.post('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations', {
-        userId: userData.user.id,
-        offerId: offer.id,
+      axios({
+        method: 'post',
+        url: 'http://localhost:3000/reservations',
+        data: {
+          userId: userData.user.id,
+          offerId: offer.id,
+        },
+        withCredentials: true,
+        headers: {
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
+        },
       })
         .then((response) => {
           store.dispatch(setOfferInReservation(true));
@@ -79,7 +117,17 @@ const reservationsMiddleware = (store) => (next) => (action) => {
     }
 
     case DELETE_RESERVATION: {
-      axios.delete(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations/${idReservation}`)
+      axios({
+        method: 'delete',
+        url: `http://localhost:3000/reservations/${idReservation}`,
+        data: {
+          userId: userData.user.id,
+        },
+        withCredentials: true,
+        headers: {
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
+        },
+      })
         .then((response) => {
           store.dispatch(updateListReservations(idReservation));
         })
@@ -94,8 +142,17 @@ const reservationsMiddleware = (store) => (next) => (action) => {
     case CHECK_OFFER_IN_RESERVATION: {
       const { offer } = store.getState().offers;
       if (offer.id !== 0) {
-        axios
-          .get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/reservations/${offer.id}`)
+        axios({
+          method: 'post',
+          url: `http://localhost:3000/users/${userData.user.id}/reservations/${offer.id}`,
+          data: {
+            userId: userData.user.id,
+          },
+          withCredentials: true,
+          headers: {
+            'x-xsrf-token': localStorage.getItem('xsrfToken'),
+          },
+        })
           .then((response) => {
             store.dispatch(setOfferInReservation(true));
           })

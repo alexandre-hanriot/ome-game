@@ -18,7 +18,6 @@ import Contact from 'src/frontend/containers/Contact';
 import Account from 'src/frontend/containers/Account';
 import Details from 'src/frontend/containers/Offer/Details';
 import Reservations from 'src/frontend/containers/Account/Reservations';
-
 import NotFound from 'src/frontend/containers/NotFound';
 
 import Alert from 'src/frontend/containers/Alert';
@@ -31,6 +30,7 @@ const App = ({
   isError,
   redirectTo,
   setRedirectTo,
+  rememberMe,
 }) => {
   const location = useLocation();
   // return the current pathname
@@ -122,6 +122,7 @@ App.propTypes = {
   isError: PropTypes.bool.isRequired,
   redirectTo: PropTypes.string.isRequired,
   setRedirectTo: PropTypes.func.isRequired,
+  rememberMe: PropTypes.bool.isRequired,
 };
 // == Export
 export default App;

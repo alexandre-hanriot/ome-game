@@ -14,7 +14,17 @@ const offersMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case FETCH_OFFERS: {
       // const { userData } = store.getState().user;
-      axios.get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/offers`)
+      axios({
+        method: 'post',
+        url: `http://localhost:3000/users/${userData.user.id}/offers`,
+        data: {
+          userId: userData.user.id,
+        },
+        withCredentials: true,
+        headers: {
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
+        },
+      })
         .then((response) => {
           store.dispatch(saveOffers(response.data));
         })
@@ -26,8 +36,11 @@ const offersMiddleware = (store) => (next) => (action) => {
     }
     case FETCH_PARAMS_OFFERS:
       axios({
-        method: 'get',
+        method: 'post',
         url: `http://localhost:3000/users/${userData.user.id}/offers`,
+        data: {
+          userId: userData.user.id,
+        },
         params: {
           limit: 4,
           resultPage: 1,
@@ -47,7 +60,7 @@ const offersMiddleware = (store) => (next) => (action) => {
       break;
 
     case GET_OFFER: {
-      axios.post(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`)
+      axios.post(`http://localhost:3000/offers/${urlId}`)
         .then((response) => {
           const { data } = response;
           const hasLocation = data.latitude !== null && data.longitude !== null;
@@ -68,7 +81,7 @@ const offersMiddleware = (store) => (next) => (action) => {
     case HANDLE_ADD_OFFER: {
       axios({
         method: 'post',
-        url: 'http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers',
+        url: 'http://localhost:3000/offers',
         data: {
           status: 0,
           userId: userData.user.id,
@@ -101,10 +114,10 @@ const offersMiddleware = (store) => (next) => (action) => {
     case HANDLE_MODIFY_OFFER: {
       axios({
         method: 'put',
-        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${offer.id}`,
+        url: `http://localhost:3000/offers/${offer.id}`,
         data: {
           status: 0,
-          userId: offer.userId,
+          userId: userData.user.id,
           type: offer.type,
           is_available: offer.is_available,
           title: offer.title,
@@ -134,8 +147,11 @@ const offersMiddleware = (store) => (next) => (action) => {
     case DELETE_OFFER: {
       axios({
         method: 'delete',
-        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`,
+        url: `http://localhost:3000/offers/${urlId}`,
         withCredentials: true,
+        data: {
+          userId: userData.user.id,
+        },
         headers: {
           'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },

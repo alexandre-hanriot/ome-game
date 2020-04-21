@@ -22,7 +22,7 @@ const userMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          xsrfToken: localStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -64,6 +64,7 @@ const userMiddleware = (store) => (next) => (action) => {
         method: 'put',
         url: `http://localhost:3000/users/${userData.user.id}`,
         data: {
+          userId: userData.user.id,
           status: userData.user.status,
           picture: '',
           display_name: userData.user.display_name,
@@ -101,6 +102,7 @@ const userMiddleware = (store) => (next) => (action) => {
         data: {
           oldPassword: userData.user.old_password,
           newPassword: userData.user.new_password,
+          userId: userData.user.id,
         },
         withCredentials: true,
         headers: {
