@@ -21,7 +21,14 @@ const favoritesMiddleware = (store) => (next) => (action) => {
 
   switch (action.type) {
     case FETCH_FAVORITES:
-      axios.get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/favorites`)
+      axios({
+        method: 'get',
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/favorites`,
+        withCredentials: true,
+        headers: {
+          xsrfToken: localStorage.getItem('xsrfToken'),
+        },
+      })
         .then((response) => {
           store.dispatch(saveFavorites(response.data));
         })

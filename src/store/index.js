@@ -3,7 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import reducer from 'src/reducers';
 import mapMiddleware from 'src/middlewares/mapMiddleware';
-import authMiddleware from 'src/middlewares/authMiddleware';
+import userMiddleware from 'src/middlewares/userMiddleware';
 import registrationMiddleware from 'src/middlewares/registrationMiddleware';
 import offersMiddleware from 'src/middlewares/offersMiddleware';
 import reservationsMiddleware from 'src/middlewares/reservationsMiddleware';
@@ -14,7 +14,7 @@ import gameMiddleware from 'src/middlewares/gameMiddleware';
 const enhancers = composeWithDevTools(
   applyMiddleware(
     mapMiddleware,
-    authMiddleware,
+    userMiddleware,
     registrationMiddleware,
     offersMiddleware,
     reservationsMiddleware,

@@ -9,15 +9,22 @@ import {
 import { showAlert, showModal } from 'src/actions/global';
 import axios from 'axios';
 
-const authMiddleware = (store) => (next) => (action) => {
+const userMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case SUBMIT_LOGIN: {
       const { email, password, userData } = store.getState().user;
-      axios
-        .post('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/login', {
+      axios({
+        method: 'post',
+        url: 'http://localhost:3000/login',
+        data: {
           identifier: email,
           password,
-        })
+        },
+        withCredentials: true,
+        headers: {
+          xsrfToken: localStorage.getItem('xsrfToken'),
+        },
+      })
         .then((response) => {
           const data = {
             ...response.data,
@@ -32,6 +39,8 @@ const authMiddleware = (store) => (next) => (action) => {
           store.dispatch(showAlert('Connexion effectuée avec succès', true));
           store.dispatch(showModal());
           store.dispatch(changeLoginError(''));
+          localStorage.setItem('userId', data.user.id);
+          localStorage.setItem('xsrfToken', data.xsrfToken);
         })
         .catch((error) => {
           // handle error
@@ -51,8 +60,10 @@ const authMiddleware = (store) => (next) => (action) => {
     }
     case SUBMIT_PROFIL_UPDATE: {
       const { userData } = store.getState().user;
-      axios
-        .put(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}`, {
+      axios({
+        method: 'put',
+        url: `http://localhost:3000/users/${userData.user.id}`,
+        data: {
           status: userData.user.status,
           picture: '',
           display_name: userData.user.display_name,
@@ -65,7 +76,12 @@ const authMiddleware = (store) => (next) => (action) => {
           postal_code: userData.user.postal_code,
           city: userData.user.city,
           gdpr_accepted_at: userData.user.gdpr_accepted_at,
-        })
+        },
+        withCredentials: true,
+        headers: {
+          xsrfToken: localStorage.getItem('xsrfToken'),
+        },
+      })
         .then((response) => {
           store.dispatch(saveProfilUpdate(response.data));
           store.dispatch(showAlert('vos informations ont été mis à jour', true));
@@ -79,11 +95,18 @@ const authMiddleware = (store) => (next) => (action) => {
     }
     case SUBMIT_PROFIL_CHANGE_PASSWORD: {
       const { userData } = store.getState().user;
-      axios
-        .put(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/password`, {
+      axios({
+        method: 'put',
+        url: `http://localhost:3000/users/${userData.user.id}/password`,
+        data: {
           oldPassword: userData.user.old_password,
           newPassword: userData.user.new_password,
-        })
+        },
+        withCredentials: true,
+        headers: {
+          xsrfToken: localStorage.getItem('xsrfToken'),
+        },
+      })
         .then((response) => {
           store.dispatch(saveProfilUpdate(response.data));
         })
@@ -99,4 +122,4 @@ const authMiddleware = (store) => (next) => (action) => {
   }
 };
 
-export default authMiddleware;
+export default userMiddleware;
