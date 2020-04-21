@@ -79,7 +79,7 @@ const userMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          xsrfToken: localStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -104,7 +104,7 @@ const userMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          xsrfToken: localStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {

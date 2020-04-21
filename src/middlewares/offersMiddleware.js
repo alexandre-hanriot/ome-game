@@ -34,7 +34,7 @@ const offersMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          xsrfToken: localStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -85,7 +85,7 @@ const offersMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          xsrfToken: localStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -118,7 +118,7 @@ const offersMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          xsrfToken: localStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -137,7 +137,7 @@ const offersMiddleware = (store) => (next) => (action) => {
         url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`,
         withCredentials: true,
         headers: {
-          xsrfToken: localStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
