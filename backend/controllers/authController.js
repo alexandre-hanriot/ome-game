@@ -41,8 +41,6 @@ exports.login = (req, res) => {
                         expiresIn: "24h",
                     });
 
-                    console.log(xsrfToken);
-
                     // On charge le JWT token dans un cookie http only
                     res.cookie("access_token", JWTtoken, {
                         httpOnly: true, // pour un cookie non accessible par du code client js
