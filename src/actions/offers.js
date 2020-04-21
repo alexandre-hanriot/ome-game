@@ -1,6 +1,7 @@
 // action types
 export const FETCH_OFFERS = 'FETCH_OFFERS';
 export const FETCH_PARAMS_OFFERS = 'FETCH_PARAMS_OFFERS';
+export const FETCH_ALL_OFFERS = 'FETCH_ALL_OFFERS';
 export const SAVE_OFFERS = 'SAVE_OFFERS';
 export const SAVE_ONE_OFFER = 'SAVE_ONE_OFFER';
 export const SAVE_OFFER_ID = 'SAVE_OFFER_ID';
@@ -23,6 +24,11 @@ export const fetchOffers = () => ({
 
 export const fetchParamsOffers = () => ({
   type: FETCH_PARAMS_OFFERS,
+});
+
+export const fetchAllOffers = (params = {}) => ({
+  type: FETCH_ALL_OFFERS,
+  params,
 });
 
 export const saveOffers = (offers) => ({

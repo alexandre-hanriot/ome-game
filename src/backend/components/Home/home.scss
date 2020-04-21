@@ -1,5 +1,26 @@
 @import 'src/styles/_vars.scss';
 
+@mixin admin-dashboard_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #3d5471;
+  padding: $gutter/2;
+}
+@mixin admin-dashboard_item_action {
+  a {
+    background-color: $backgroundLight;
+    color: $darkBlue;
+    padding: 0 .5rem;
+    border-radius: 0.2rem;
+
+    &:hover {
+      background-color: $secondaryColor;
+      color: #fff;
+    }
+  }
+}
+
 .admin-dashboard {
   h1 {
     font-size: 2em;
@@ -39,11 +60,7 @@
     border-top: 1px solid #3d5471;
 
     &__item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #3d5471;
-      padding: $gutter/2;
+      @include admin-dashboard_item;
       
       &__nickname {
         flex-grow: 1;
@@ -72,18 +89,7 @@
       &__action {
         width: 60px;
         text-align: center;
-
-        a {
-          background-color: $backgroundLight;
-          color: $darkBlue;
-          padding: 0 .5rem;
-          border-radius: 0.2rem;
-
-          &:hover {
-            background-color: $secondaryColor;
-            color: #fff;
-          }
-        }
+        @include admin-dashboard_item_action;
       }
     }
   }
@@ -92,11 +98,7 @@
     border-top: 1px solid #3d5471;
 
     &__item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #3d5471;
-      padding: $gutter/2;
+      @include admin-dashboard_item;
       
       &__title {
         flex-grow: 1;
@@ -138,18 +140,7 @@
       &__action {
         width: 60px;
         text-align: center;
-
-        a {
-          background-color: $backgroundLight;
-          color: $darkBlue;
-          padding: 0 .5rem;
-          border-radius: 0.2rem;
-
-          &:hover {
-            background-color: $secondaryColor;
-            color: #fff;
-          }
-        }
+        @include admin-dashboard_item_action;
       }
     }
   }
@@ -158,11 +149,7 @@
     border-top: 1px solid #3d5471;
 
     &__item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #3d5471;
-      padding: $gutter/2;
+      @include admin-dashboard_item;
       
       &__title {
         flex-grow: 1;
@@ -190,18 +177,24 @@
       &__action {
         width: 60px;
         text-align: center;
+        @include admin-dashboard_item_action;
+      }
+    }
+  }
 
-        a {
-          background-color: $backgroundLight;
-          color: $darkBlue;
-          padding: 0 .5rem;
-          border-radius: 0.2rem;
+  &__games {
+    border-top: 1px solid #3d5471;
 
-          &:hover {
-            background-color: $secondaryColor;
-            color: #fff;
-          }
-        }
+    &__item {
+      @include admin-dashboard_item;
+      
+      &__title {
+        flex-grow: 1;
+      }
+      &__action {
+        width: 60px;
+        text-align: center;
+        @include admin-dashboard_item_action;
       }
     }
   }

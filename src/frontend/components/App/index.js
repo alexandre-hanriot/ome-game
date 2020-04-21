@@ -24,7 +24,7 @@ import NotFound from 'src/frontend/containers/NotFound';
 import Alert from 'src/frontend/containers/Alert';
 
 // Backend
-import Admin from 'src/backend/components/Home';
+import Admin from 'src/backend/containers/Home';
 
 // == Composant
 const App = ({

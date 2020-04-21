@@ -10,6 +10,7 @@ import {
 
 /*
 const initialState = {
+  allUsers: [],
   email: '',
   password: '',
   isLogged: false,
@@ -44,6 +45,7 @@ const initialState = {
 
 // --------------------------- DELETE TEST
 const initialState = {
+  allUsers: [],
   email: '',
   password: '',
   isLogged: true,
