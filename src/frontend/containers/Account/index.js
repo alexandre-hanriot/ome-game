@@ -1,10 +1,9 @@
 import { connect } from 'react-redux';
-import { showModal } from 'src/actions/global';
+import { showModal, showAlert } from 'src/actions/global';
 import Account from 'src/frontend/components/Account';
-
 import { setRequestIsLoad } from 'src/actions/user';
-import { fetchParamsReservations } from 'src/actions/reservations';
-import { fetchParamsOffers } from 'src/actions/offers';
+import { fetchParamsReservations, saveIdReservation } from 'src/actions/reservations';
+import { fetchParamsOffers, getOfferId } from 'src/actions/offers';
 import {
   fetchFavorites,
   saveIdFavorite,
@@ -53,9 +52,17 @@ const mapDispatchToProps = (dispatch) => ({
   updateNotifyFavorite: () => {
     dispatch(updateNotifyFavorite());
   },
-
   deleteFavorite: () => {
     dispatch(deleteFavorite());
+  },
+  getOfferId: (id) => {
+    dispatch(getOfferId(id));
+  },
+  saveIdReservation: (id) => {
+    dispatch(saveIdReservation(id));
+  },
+  displayAlert: (message, success) => {
+    dispatch(showAlert(message, success));
   },
 });
 

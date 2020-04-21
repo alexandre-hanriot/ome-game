@@ -7,7 +7,9 @@ import {
   FETCH_ONE_RESERVATION,
   saveReservations,
   saveOneReservation,
+  updateListReservations,
   ADD_RESERVATION,
+  DELETE_RESERVATION,
 } from 'src/actions/reservations';
 
 
@@ -71,7 +73,18 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         });
       next(action);
       break;
+    }
 
+    case DELETE_RESERVATION: {
+      axios.delete(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations/${idReservation}`)
+        .then((response) => {
+          store.dispatch(updateListReservations(idReservation));
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+      next(action);
+      break;
     }
 
     default:

@@ -1,9 +1,13 @@
 @import 'src/styles/_vars.scss';
 
 .accountOffers {
+  &__buttonRemove {
+    padding: .5rem;
+  }
   &__global {
     display: flex;
     justify-content: space-between;
+
     &__createOffer {
       
     }
@@ -56,8 +60,9 @@
           font-size: .8em;
           color: $darkBlue;
           display: inline-block;
-
+          margin-left: 4rem;
           &--off {
+            margin-left: 4rem;
             background-color: $backgroundLight;
           }
         }
