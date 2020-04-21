@@ -189,7 +189,7 @@ const Account = ({
                         <td className="account__general__table__body__td account__general__table__body__td--button">
                           <Link
                             className="account__general__table__body__td__button__pencil"
-                            to={`compte/offre/${offerData.id}`}
+                            to={`compte/offres/${offerData.id}`}
                             title="Modifier l'offre"
                           >
                             <i className="far fa-pencil-alt" />

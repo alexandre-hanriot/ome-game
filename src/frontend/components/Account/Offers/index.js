@@ -65,7 +65,7 @@ const AccountOffers = ({
               </div>
             </div>
             <div className="accountOffers__listOffers__offer__right">
-              <Link to={`/compte/offre/${offer.id}`} className="global-button global-button--light"><i className="fas fa-pencil-alt accountOffers__listOffers__offer__right__pencil" /> Modifier</Link>
+              <Link to={`/compte/offres/${offer.id}`} className="global-button global-button--light"><i className="fas fa-pencil-alt accountOffers__listOffers__offer__right__pencil" /> Modifier</Link>
               <button
                 type="button"
                 data-id={offer.id}
