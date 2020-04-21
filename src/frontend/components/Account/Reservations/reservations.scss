@@ -41,18 +41,31 @@
         }
         &__text {
           line-height: 1.6;
+          display: flex;
+          margin-bottom: 0.5rem;
 
           &__subtitle {
             font-size: 1.8em;
             color: $primaryColor;
           }
           &__status {
-            margin-left: $gutter/2;
-            border-radius: 20px;
-            padding: ($gutter /6) ($gutter/2);
+            border-radius: 10px;
+            padding: ($gutter /7) ($gutter/3);
             background-color: $green;
-            font-size: .4em;
+            font-size: .7em;
+            font-weight: bold;
             color: $darkBlue;
+            display: block;
+            margin: auto;
+            &--pending {
+              background-color: $secondaryColor;
+            }
+            &--canceled {
+              background-color: $red;
+            }
+            &--finished {
+              background-color: $backgroundLight;
+            }
           }
           &__third {
             font-size: 1.2em;
@@ -144,9 +157,15 @@
               margin-left: $gutter/2;
               border-radius: 20px;
               padding: ($gutter /6) ($gutter/2);
-              background-color: $green;
               font-size: .4em;
               color: $darkBlue;
+              &--pending {
+                background-color: $secondaryColor;
+                
+              }
+            }
+            &__status--pending {
+              background-color: $secondaryColor;
             }
             &__third {
               font-size: 1.2em;

@@ -1,5 +1,11 @@
 import {
-  CHANGE_INPUT_OF_LOGIN, LOG_USER, SUBMIT_LOGIN, CHANGE_LOGIN_ERROR, CLEAR_LOGIN_ERROR, LOG_OUT,
+  CHANGE_INPUT_OF_LOGIN,
+  LOG_USER, SUBMIT_LOGIN,
+  CHANGE_LOGIN_ERROR,
+  CLEAR_LOGIN_ERROR,
+  LOG_OUT, SET_REQUEST_LOAD,
+  CHANGE_PROFIL_INPUT,
+  CLEAR_PROFIL_PASSWORDS,
 } from 'src/actions/user';
 
 /*
@@ -7,8 +13,32 @@ const initialState = {
   email: '',
   password: '',
   isLogged: false,
-  userData: null,
+  userData: {
+    user: {
+      id: 0,
+      role: '',
+      status: '',
+      picture: '',
+      email: '',
+      password: '',
+      old_password: '',
+      new_password: '',
+      confirm_new_password: '',
+      username: '',
+      firstname: '',
+      lastname: '',
+      phone: 1234567890,
+      address: '',
+      postal_code: '',
+      city: '',
+      display_name: false,
+      gdpr_accepted_at: '',
+      createdAt: '',
+    },
+    xsrfToken: '',
+  },
   loginError: '',
+  requestIsLoad: false,
 };
 */
 // -------------------- DELETE --------------------
@@ -64,6 +94,15 @@ const userReducer = (state = initialState, action = {}) => {
     case SUBMIT_LOGIN:
       return {
         ...state,
+        userData: {
+          ...state.userData,
+          user: {
+            ...state.userData.user,
+            old_password: '',
+            new_password: '',
+            confirm_new_password: '',
+          },
+        },
       };
     case CHANGE_LOGIN_ERROR:
       return {
@@ -83,6 +122,37 @@ const userReducer = (state = initialState, action = {}) => {
         ...state,
         isLogged: false,
         userData: '',
+      };
+    case SET_REQUEST_LOAD:
+      return {
+        ...state,
+        requestIsLoad: !state.requestIsLoad,
+      };
+    case CHANGE_PROFIL_INPUT: {
+      const target = action.identifier;
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          user: {
+            ...state.userData.user,
+            [target]: action.newValue,
+          },
+        },
+      };
+    }
+    case CLEAR_PROFIL_PASSWORDS:
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          user: {
+            ...state.userData.user,
+            old_password: '',
+            new_password: '',
+            confirm_new_password: '',
+          },
+        },
       };
     default:
       return state;

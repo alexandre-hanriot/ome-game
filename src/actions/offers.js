@@ -12,6 +12,8 @@ export const HANDLE_ADD_OFFER = 'HANDLE_ADD_OFFER';
 export const HANDLE_MODIFY_OFFER = 'HANDLE_MODIFY_OFFER';
 export const SET_OFFER_IN_FAVORITE = 'SET_OFFER_IN_FAVORITE';
 export const SET_OFFER_IN_RESERVATION = 'SET_OFFER_IN_RESERVATION';
+export const DELETE_OFFER = 'DELETE_OFFER';
+export const UPDATE_LIST_OFFERS = 'UPDATE_LIST_OFFERS';
 
 // action creators
 export const fetchOffers = () => ({
@@ -71,4 +73,13 @@ export const setOfferInFavorite = (value) => ({
 export const setOfferInReservation = (value) => ({
   type: SET_OFFER_IN_RESERVATION,
   value,
+});
+
+export const deleteOffer = () => ({
+  type: DELETE_OFFER,
+});
+
+export const updateListOffers = (id) => ({
+  type: UPDATE_LIST_OFFERS,
+  id,
 });

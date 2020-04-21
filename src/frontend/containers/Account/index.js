@@ -1,9 +1,16 @@
 import { connect } from 'react-redux';
-import { showModal } from 'src/actions/global';
+import { showModal, showAlert } from 'src/actions/global';
 import Account from 'src/frontend/components/Account';
-import { fetchParamsReservations } from 'src/actions/reservations';
-import { fetchParamsOffers } from 'src/actions/offers';
-import { fetchFavorites } from 'src/actions/favorites';
+import { setRequestIsLoad } from 'src/actions/user';
+import { fetchParamsReservations, saveIdReservation } from 'src/actions/reservations';
+import { fetchParamsOffers, getOfferId } from 'src/actions/offers';
+import {
+  fetchFavorites,
+  saveIdFavorite,
+  setNotifyFavorite,
+  updateNotifyFavorite,
+  deleteFavorite,
+} from 'src/actions/favorites';
 
 const mapStateToProps = (state) => ({
   // nom de la prop à remplir: donnée à récupérer dans le state
@@ -13,6 +20,9 @@ const mapStateToProps = (state) => ({
   offers: state.offers.allOffers,
   user: state.user.userData,
   favorites: state.favorites.allFavorites,
+  idFavorite: state.favorites.idFavorite,
+  requestIsLoad: state.user.requestIsLoad,
+  notifyfavorite: state.favorites.notifyfavorite,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -29,6 +39,30 @@ const mapDispatchToProps = (dispatch) => ({
   },
   fetchFavorites: () => {
     dispatch(fetchFavorites());
+  },
+  saveIdFavorite: (id, notify) => {
+    dispatch(saveIdFavorite(id, notify));
+  },
+  setRequestIsLoad: () => {
+    dispatch(setRequestIsLoad());
+  },
+  setNotifyFavorite: () => {
+    dispatch(setNotifyFavorite());
+  },
+  updateNotifyFavorite: () => {
+    dispatch(updateNotifyFavorite());
+  },
+  deleteFavorite: () => {
+    dispatch(deleteFavorite());
+  },
+  getOfferId: (id) => {
+    dispatch(getOfferId(id));
+  },
+  saveIdReservation: (id) => {
+    dispatch(saveIdReservation(id));
+  },
+  displayAlert: (message, success) => {
+    dispatch(showAlert(message, success));
   },
 });
 

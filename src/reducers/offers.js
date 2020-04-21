@@ -7,6 +7,8 @@ import {
   SET_OFFER_IS_LOAD,
   SET_OFFER_IN_FAVORITE,
   SET_OFFER_IN_RESERVATION,
+  GET_OFFER_ID,
+  UPDATE_LIST_OFFERS,
 } from 'src/actions/offers';
 
 const initialState = {
@@ -158,6 +160,23 @@ const offersReducer = (state = initialState, action = {}) => {
         ...state,
         offerInReservation: action.value,
       };
+      
+    case UPDATE_LIST_OFFERS:
+    {
+      console.log('action mise à jour dans le réducers', action.id);
+      const remainOffers = state.allOffers.filter((offer) => {
+        console.log(offer.id);
+        console.log(action.id);
+        if (offer.id.toString() !== action.id.toString()) {
+          return true;
+        }
+      });
+      console.log(remainOffers);
+      return {
+        ...state,
+        allOffers: remainOffers,
+      };
+    }
 
     default: return state;
   }
