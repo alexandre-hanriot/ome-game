@@ -8,7 +8,6 @@ import {
   CLEAR_PROFIL_PASSWORDS,
 } from 'src/actions/user';
 
-/*
 const initialState = {
   email: '',
   password: '',
@@ -40,32 +39,7 @@ const initialState = {
   loginError: '',
   requestIsLoad: false,
 };
-*/
-// -------------------- DELETE --------------------
-const initialState = {
-  email: '',
-  password: '',
-  isLogged: true,
-  userData: {
-    id: 10,
-    role: '0',
-    status: '0',
-    email: 'test54@email.com',
-    password: '',
-    username: 'undefinedlulujulesjennifer',
-    firstname: 'Pepito',
-    lastname: 'Escobar',
-    phone: null,
-    address: null,
-    postal_code: '75013',
-    city: 'Paris',
-    gdpr_accepted_at: null,
-    createdAt: '2020-04-18T07:10:01.634Z',
-    updatedAt: '2020-04-18T07:10:01.634Z',
-  },
-  loginError: '',
-};
-// -------------------- DELETE --------------------
+
 
 const userReducer = (state = initialState, action = {}) => {
   switch (action.type) {

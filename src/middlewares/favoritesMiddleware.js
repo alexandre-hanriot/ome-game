@@ -49,7 +49,7 @@ const favoritesMiddleware = (store) => (next) => (action) => {
       const { offer } = store.getState().offers;
 
       axios.post('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/favorites', {
-        userId: userData.id,
+        userId: userData.user.id,
         offerId: offer.id,
       })
         .then((response) => {

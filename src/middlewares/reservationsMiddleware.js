@@ -11,7 +11,6 @@ import {
   ADD_RESERVATION,
   DELETE_RESERVATION,
   CHECK_OFFER_IN_RESERVATION,
-  CHECK_OFFER_IN_RESERVATION,
 } from 'src/actions/reservations';
 
 import { setOfferInReservation } from 'src/actions/offers';
@@ -66,7 +65,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
       const { offer } = store.getState().offers;
 
       axios.post('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations', {
-        userId: userData.id,
+        userId: userData.user.id,
         offerId: offer.id,
       })
         .then((response) => {

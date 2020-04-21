@@ -62,7 +62,7 @@ const offersMiddleware = (store) => (next) => (action) => {
     case HANDLE_ADD_OFFER: {
       axios.post('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers', {
         status: 0,
-        userId: userData.id,
+        userId: userData.user.id,
         type: offer.type,
         is_available: offer.is_available,
         title: offer.title,
