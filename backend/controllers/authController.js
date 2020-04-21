@@ -107,57 +107,65 @@ exports.login = (req, res) => {
     }
 };
 
-exports.authentication = (req, res) => {
-    try {
-        // On récupère le token xsrf issue du header de la requête (qui était stocké dans le local storage)
-        const xsrfToken = req.headers["x-xsrf-token"];
-        if (typeof xsrfToken === "undefined")
-            res.status(401).json({
-                error: "Token XSRF manquant",
-            });
-
-        // On récupère le JWT token stocké dans le cookie access_token
-        const token = req.cookies.access_token;
-        if (typeof token === "undefined")
-            res.status(401).json({
-                error: "Token JWT manquant",
-            });
-
-        // On décode le JWT token
-        const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");
-
-        // On récupère le userId qui est stocké dans le JWT token
-        const userId = decodedToken.userId;
-
-        if (typeof userId === "undefined")
-            res.status(401).json({
-                error: "UserId manquant",
-            });
-
-        // On récupère le xsrf token qui est stocké dans le JWT token
-        const decodedXsrfToken = decodedToken.xsrfToken;
-        if (typeof decodedXsrfToken === "undefined")
-            res.status(401).json({
-                error: "Token XSRF manquant",
-            });
-
-        // On vérifie que les token xsrf du local storage et du cookie soient bien les mêmes
-        if (decodedXsrfToken != xsrfToken) {
-            res.status(401).json({
-                error: "Erreur attaque csrf",
-            });
-        }
-
-        User.findByPk(userId).then((data) => {
-            if (data === null)
-                res.status(404).json({
-                    error: "Utilisateur non trouvé",
-                });
-            else res.send(data);
-        });
-    } catch {
+exports.authenticate = (req, res) => {
+    // On récupère le token xsrf issue du header de la requête (qui était stocké dans le local storage)
+    const xsrfToken = req.headers["x-xsrf-token"];
+    if (typeof xsrfToken === "undefined")
         res.status(401).json({
-            error: "Invalid request!",
+            error: "Token XSRF manquant",
+        });
+
+    // On récupère le JWT token stocké dans le cookie access_token
+    const token = req.cookies.access_token;
+    if (typeof token === "undefined")
+        res.status(401).json({
+            error: "Token JWT manquant",
+        });
+
+    // On décode le JWT token
+    const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");
+
+    // On récupère le userId qui est stocké dans le JWT token
+    const userId = decodedToken.userId;
+
+    if (typeof userId === "undefined")
+        res.status(401).json({
+            error: "UserId manquant",
+        });
+
+    // On récupère le xsrf token qui est stocké dans le JWT token
+    const decodedXsrfToken = decodedToken.xsrfToken;
+    if (typeof decodedXsrfToken === "undefined")
+        res.status(401).json({
+            error: "Token XSRF manquant",
+        });
+
+    // On vérifie que les token xsrf du local storage et du cookie soient bien les mêmes
+    if (decodedXsrfToken != xsrfToken) {
+        res.status(401).json({
+            error: "Erreur attaque csrf",
         });
     }
+
+    User.findByPk(userId).then((data) => {
+        if (data === null)
+            res.status(404).json({
+                error: "Utilisateur non trouvé",
+            });
+        else res.send(data);
+    });
+};
+
+exports.forgotPassword = async (req, res) => {
+    // On stocke l'email de l'utilisateur
+    email = req.body.email;
+
+    // On recherche si le mail correspond à un compte existant
+    const user = await User.findOne({ where: { email } }).then((user) => {
+        if (user === null)
+            res.status(404).json({
+                error: "Utilisateur non trouvé",
+            });
+        else return user;
+    });
 };

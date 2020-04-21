@@ -216,7 +216,14 @@ exports.findOneReservation = (req, res) => {
     const userId = req.params.userId;
     const offerId = req.params.offerId;
 
-    Reservation.findByPk(offerId, {
+    Reservation.findOne({
+        where: {
+            offerId,
+            userId,
+            status: {
+                [Op.or]: ["0", "1", "2"], // On retourne pas les terminées et annulées
+            },
+        },
         include: {
             model: Offer,
             attributes: ["title"],
@@ -227,13 +234,9 @@ exports.findOneReservation = (req, res) => {
         },
     })
         .then((data) => {
-            if (data === null || data.status === "3" || data.status === "4")
+            if (data === null)
                 res.status(404).json({
                     error: `Aucune réservation n'a été trouvée`,
-                });
-            else if (userId !== data.userId)
-                res.status(401).json({
-                    error: `Cet utilisateur n'est pas autorisé à consulter cette réservation`,
                 });
             else res.send(data);
         })
@@ -287,7 +290,7 @@ exports.findOneFavorite = (req, res) => {
                 res.status(404).json({
                     error: `Aucun favori n'a été trouvé`,
                 });
-            res.send(data);
+            else res.send(data);
         })
         .catch((err) => {
             res.status(500).json({
