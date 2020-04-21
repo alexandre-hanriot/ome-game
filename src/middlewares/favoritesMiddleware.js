@@ -81,7 +81,7 @@ const favoritesMiddleware = (store) => (next) => (action) => {
       const { offer } = store.getState().offers;
       if (offer.id !== 0) {
         axios
-          .get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.id}/favorites/${offer.id}`)
+          .get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/favorites/${offer.id}`)
           .then((response) => {
             store.dispatch(setOfferInFavorite(true));
             store.dispatch(saveCurrentFavorite(response.data.id));

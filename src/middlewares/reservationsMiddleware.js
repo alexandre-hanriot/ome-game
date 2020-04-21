@@ -95,7 +95,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
       const { offer } = store.getState().offers;
       if (offer.id !== 0) {
         axios
-          .get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.id}/reservations/${offer.id}`)
+          .get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/reservations/${offer.id}`)
           .then((response) => {
             store.dispatch(setOfferInReservation(true));
           })
