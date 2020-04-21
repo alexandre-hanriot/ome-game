@@ -190,6 +190,9 @@
             margin: 0.3rem;
             // padding: 0;
             font-size: $gutter/2;
+            &--bellslash {
+              color: $darkBlue;
+            }
             &--bell {
               color: $green;
 
