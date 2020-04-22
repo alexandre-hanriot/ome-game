@@ -55,7 +55,6 @@ const App = ({
   }, [redirectTo]);
 
   useEffect(() => {
-    console.log('render de app');
     if (!isLogged) {
       isTokenExist();
     }
