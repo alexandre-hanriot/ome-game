@@ -75,59 +75,6 @@ const Profil = ({
         }
       }
     }
-
-    /* if (userData.user.new_password === userData.user.confirm_new_password
-        && userData.user.new_password !== ''
-        && userData.user.old_password !== ''
-        && userData.user.confirm_new_password !== ''
-        && userData.user.firstname !== ''
-        && userData.user.lastname !== ''
-        && userData.user.username !== ''
-        && userData.user.email !== ''
-    ) {
-      submitProfilChangePassword();
-    }
-    else if (
-      userData.user.new_password === ''
-      && userData.user.confirm_new_password === ''
-      && userData.user.old_password === ''
-      && userData.user.firstname !== ''
-      && userData.user.lastname !== ''
-      && userData.user.username !== ''
-      && userData.user.email !== ''
-    ) {
-      submitProfilUpdate();
-    }
-
-    if (userData.user.new_password !== userData.user.confirm_new_password) {
-      displayAlert('les mots de passe ne correspondent pas', false);
-    }
-    if (userData.user.username === '') {
-      displayAlert('veuillez renseigner un pseudo', false);
-    }
-    if (userData.user.firstname === '') {
-      displayAlert('veuillez renseigner votre prénom', false);
-    }
-    if (userData.user.lastname === '') {
-      displayAlert('veuillez renseigner votre nom', false);
-    }
-    if (userData.user.email === '') {
-      displayAlert('veuillez renseigner un email', false);
-    }
-    if (
-      userData.user.old_password === ''
-    && userData.user.new_password !== ''
-    && userData.user.new_password === userData.user.confirm_new_password
-    ) {
-      displayAlert('veuillez renseigner votre mot de passe actuel', false);
-    }
-    if (
-      userData.user.old_password !== ''
-      && userData.user.new_password === ''
-      && userData.user.confirm_new_password === ''
-    ) {
-      displayAlert('veuillez renseigner un nouveau mot de passe', false);
-    } */
   };
 
   return (
