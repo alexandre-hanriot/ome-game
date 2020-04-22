@@ -39,10 +39,17 @@ app.use(logger("dev"));
 //     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 // };
 // app.use(cors(corsOptions));
+const whitelist = ["http://localhost:8080", "http://ec2-54-167-103-17.compute-1.amazonaws.com"];
 app.use(
     cors({
         credentials: true,
-        origin: "http://localhost:8080",
+        origin: function (origin, callback) {
+            if (whitelist.indexOf(origin) !== -1) {
+                callback(null, true);
+            } else {
+                callback(new Error("Not allowed by CORS"));
+            }
+        },
     })
 );
 
