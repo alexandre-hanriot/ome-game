@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { useTitle } from 'src/hooks/useTitle';
-import { truncateText, formatDate } from 'src/utils/selectors';
+import { formatDate } from 'src/utils/selectors';
 import Loader from 'src/frontend/components/Loader';
 
 import './user.scss';
@@ -67,7 +67,7 @@ const User = ({
                   <td>{formatDate(user.createdAt, true)}</td>
                   <td className={statusClass}><i className={statusIconClass} title={user.status === '0' ? 'En attente de validation' : 'Validée'} /></td>
                   <td className="admin-users__table__action">
-                    <Link to="/admin/utilisateurs/" className="edit" title="Modifier"><i className="fas fa-pen" /></Link>
+                    <Link to={`/admin/utilisateurs/${user.id}`} className="edit" title="Modifier"><i className="fas fa-pen" /></Link>
                     <Link to="/admin/utilisateurs/" className="remove" title="Supprimer"><i className="fas fa-trash-alt" /></Link>
                   </td>
                 </tr>

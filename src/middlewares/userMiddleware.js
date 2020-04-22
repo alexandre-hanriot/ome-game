@@ -10,6 +10,7 @@ import {
   IS_TOKEN_EXIST,
   LOG_OUT,
   clearUser,
+  FETCH_USER,
 } from 'src/actions/user';
 import { showAlert, showModal } from 'src/actions/global';
 import axios from 'axios';
@@ -44,10 +45,8 @@ const userMiddleware = (store) => (next) => (action) => {
           store.dispatch(showAlert('Connexion effectuée avec succès', true));
           store.dispatch(showModal());
           store.dispatch(changeLoginError(''));
-          if (rememberMe) {
-            localStorage.setItem('xsrfToken', data.xsrfToken);
-          }
-          sessionStorage.setItem('xsrfToken', data.xsrfToken);
+          localStorage.setItem('xsrfToken', data.xsrfToken);
+          localStorage.setItem('rememberMe', rememberMe);
         })
         .catch((error) => {
           // handle error
@@ -86,7 +85,7 @@ const userMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -111,7 +110,7 @@ const userMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -145,17 +144,13 @@ const userMiddleware = (store) => (next) => (action) => {
     }
 
     case IS_TOKEN_EXIST: {
-      if (localStorage.getItem('xsrfToken') !== null || sessionStorage.getItem('xsrfToken') !== null) {
-        if (localStorage.getItem('xsrfToken') !== null) {
-          sessionStorage.setItem('xsrfToken', localStorage.getItem('xsrfToken'));
-        }
-
+      if (localStorage.getItem('xsrfToken') !== null) {
         axios({
           method: 'get',
           url: 'http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/authenticate',
           withCredentials: true,
           headers: {
-            'x-xsrf-token': sessionStorage.getItem('xsrfToken'),
+            'x-xsrf-token': localStorage.getItem('xsrfToken'),
           },
         })
           .then((response) => {
@@ -166,7 +161,7 @@ const userMiddleware = (store) => (next) => (action) => {
                 new_password: '',
                 confirm_new_password: '',
               },
-              xsrfToken: sessionStorage.getItem('xsrfToken'),
+              xsrfToken: localStorage.getItem('xsrfToken'),
             };
             store.dispatch(logUser(data));
           })
@@ -177,13 +172,13 @@ const userMiddleware = (store) => (next) => (action) => {
       next(action);
       break;
     }
+
     case LOG_OUT: {
       axios.get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/logout', {
         withCredentials: true,
       })
         .then((response) => {
           localStorage.clear();
-          sessionStorage.clear();
           store.dispatch(clearUser());
         })
         .catch((error) => {
@@ -192,6 +187,22 @@ const userMiddleware = (store) => (next) => (action) => {
       next(action);
       break;
     }
+
+    case FETCH_USER: {
+      axios({
+        method: 'post',
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${action.id}`,
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+      next(action);
+      break;
+    }
+
     default:
       next(action);
   }

@@ -26,6 +26,7 @@ import Alert from 'src/frontend/containers/Alert';
 // Backend
 import Admin from 'src/backend/containers/Home';
 import AdminUser from 'src/backend/containers/User';
+import AdminUserForm from 'src/backend/containers/User/Form';
 
 // == Composant
 const App = ({
@@ -35,6 +36,7 @@ const App = ({
   redirectTo,
   setRedirectTo,
   isTokenExist,
+  rememberMe,
 }) => {
   const location = useLocation();
   // return the current pathname
@@ -112,6 +114,11 @@ const App = ({
             <AdminUser />
           </Route>
           )}
+          {(isLogged && isAdmin && inAdministration) && (
+          <Route exact path="/admin/utilisateurs/:slug">
+            <AdminUserForm />
+          </Route>
+          )}
           <Route exact path="/">
             <Home />
           </Route>
@@ -147,6 +154,7 @@ App.propTypes = {
   redirectTo: PropTypes.string.isRequired,
   setRedirectTo: PropTypes.func.isRequired,
   isTokenExist: PropTypes.func.isRequired,
+  rememberMe: PropTypes.bool.isRequired,
 };
 // == Export
 export default App;
