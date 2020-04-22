@@ -28,6 +28,10 @@ exports.findAll = (req, res) => {
         conditions = { ...filteredConditions };
     } else conditions = { ...req.query };
 
+    // On supprime les données limit et offset des conditions
+    delete conditions.limit;
+    delete conditions.resultPage;
+
     const { limit = null, resultPage = null } = req.query; // Pour afficher uniquement X résultats de la Nième page
 
     const offset = resultPage > 0 ? limit * (resultPage - 1) : 0;

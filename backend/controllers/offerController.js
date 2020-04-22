@@ -14,10 +14,18 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
+    conditions = { ...req.body };
+
+    delete conditions.attributes;
+
     const attributes =
         typeof req.body.attributes === "undefined" ? Object.keys(Offer.rawAttributes) : req.body.attributes.split(", ");
 
-    Offer.findByPk(id, {
+    Offer.findOne({
+        where: {
+            id,
+            ...conditions,
+        },
         include: {
             model: Game,
             include: Game_category,
