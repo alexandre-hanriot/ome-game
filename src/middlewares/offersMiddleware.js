@@ -71,9 +71,7 @@ const offersMiddleware = (store) => (next) => (action) => {
       // TODO : limit 4 (wait Steph)
       axios.get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers', {
         params: {
-          orderby: 'id',
-          sortby: 'DESC',
-          status: ['0', '1'],
+          ...action.params,
         },
       })
         .then((response) => {

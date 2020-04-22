@@ -21,14 +21,28 @@ const Home = ({
   useTitle('Administration');
 
   useEffect(() => {
-    fetchAllOffers();
-    fetchAllUsers();
+    fetchAllOffers({
+      orderby: 'id',
+      sortby: 'DESC',
+      status: ['0', '1'],
+    });
+    fetchAllUsers({
+      orderby: 'id',
+      sortby: 'DESC',
+      status: ['0', '1'],
+    });
     fetchAllGames({
       orderby: 'id',
       sortby: 'DESC',
-      status: '0',
+      status: ['0', '1'],
+      limit: 4,
+      resultPage: 1,
     });
-    fetchAllReservations();
+    fetchAllReservations({
+      orderby: 'id',
+      sortby: 'DESC',
+      status: ['0', '1'],
+    });
   }, []);
 
   return (
@@ -143,12 +157,23 @@ const Home = ({
           {games.length === 0 && <Loader />}
           {games.length > 0 && (
           <ul className="admin-dashboard__games">
-            {games.map((game) => (
-              <li className="admin-dashboard__games__item" key={game.id}>
-                <div className="admin-dashboard__games__item__title">{truncateText(game.name, 40)}</div>
-                <div className="admin-dashboard__games__item__action"><a href={`/admin/games/${game.id}`}><i className="fas fa-search" /></a></div>
-              </li>
-            ))}
+            {games.map((game) => {
+              const statusClass = classNames('admin-dashboard__games__item__status', {
+                'admin-dashboard__games__item__status--wait': game.status === '0',
+                'admin-dashboard__games__item__status--active': game.status === '1',
+              });
+              const statusIconClass = classNames('fas', {
+                'fa-dot-circle': game.status === '0',
+                'fa-check-circle': game.status === '1',
+              });
+              return (
+                <li className="admin-dashboard__games__item" key={game.id}>
+                  <div className="admin-dashboard__games__item__title">{truncateText(game.name, 35)}</div>
+                  <div className={statusClass}><i className={statusIconClass} title={game.status === '1' ? 'Validé' : 'En attente de validation'} /></div>
+                  <div className="admin-dashboard__games__item__action"><a href={`/admin/games/${game.id}`}><i className="fas fa-search" /></a></div>
+                </li>
+              );
+            })}
           </ul>
           )}
         </div>
