@@ -9,7 +9,7 @@ import {
 import { showAlert, showModal } from 'src/actions/global';
 import axios from 'axios';
 
-const userMiddleware = (store) => (next) => (action) => {
+const authMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case SUBMIT_LOGIN: {
       const { email, password, rememberMe } = store.getState().user;
@@ -128,4 +128,4 @@ const userMiddleware = (store) => (next) => (action) => {
   }
 };
 
-export default userMiddleware;
+export default authMiddleware;
