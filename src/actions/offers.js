@@ -14,7 +14,6 @@ export const SET_OFFER_IN_FAVORITE = 'SET_OFFER_IN_FAVORITE';
 export const SET_OFFER_IN_RESERVATION = 'SET_OFFER_IN_RESERVATION';
 export const DELETE_OFFER = 'DELETE_OFFER';
 export const UPDATE_LIST_OFFERS = 'UPDATE_LIST_OFFERS';
-export const GET_OFFER_ID = 'GET_OFFER_ID';
 
 // action creators
 export const fetchOffers = () => ({
@@ -83,9 +82,4 @@ export const deleteOffer = () => ({
 export const updateListOffers = (id) => ({
   type: UPDATE_LIST_OFFERS,
   id,
-});
-
-export const getOfferId = (offerId) => ({
-  type: GET_OFFER_ID,
-  offerId,
 });

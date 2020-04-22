@@ -3,7 +3,7 @@ import { showModal, showAlert } from 'src/actions/global';
 import Account from 'src/frontend/components/Account';
 import { setRequestIsLoad } from 'src/actions/user';
 import { fetchParamsReservations, saveIdReservation } from 'src/actions/reservations';
-import { fetchParamsOffers, getOfferId } from 'src/actions/offers';
+import { fetchParamsOffers, saveOfferId } from 'src/actions/offers';
 import {
   fetchFavorites,
   saveIdFavorite,
@@ -55,8 +55,8 @@ const mapDispatchToProps = (dispatch) => ({
   deleteFavorite: () => {
     dispatch(deleteFavorite());
   },
-  getOfferId: (id) => {
-    dispatch(getOfferId(id));
+  saveOfferId: (id) => {
+    dispatch(saveOfferId(id));
   },
   saveIdReservation: (id) => {
     dispatch(saveIdReservation(id));

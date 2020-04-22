@@ -1,5 +1,90 @@
 @import 'src/styles/_vars.scss';
 
+.account {
+  &__modal {
+    display: flex;
+    flex-direction: column;
+    // line-height: 2;
+    &__global {
+      max-height: 428px;
+      overflow: auto;
+      &::-webkit-scrollbar {
+        width: 10px;
+        background-color: #F5F5F5;
+      }
+    
+      /* Track */
+      &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        background-color: #F5F5F5;
+      }
+    
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        background-color: $darkBlue;
+        border-radius: 15px;
+      }
+      &::-webkit-scrollbar-track-piece {
+        background-color: $backgroundLight;
+      }
+    }
+    &__subtitle {
+      margin-bottom: $gutter;
+      font-weight: bold;
+      font-size: 1.2em;
+      color: $secondaryColor;
+    }
+
+    &__top {
+      text-align: left;
+      margin-bottom: $gutter;
+      margin-left: $gutter;
+      &__content {
+        &__span {
+          font-weight: bold;
+        }
+      }
+      &__close {
+        &:hover{
+          background-color: $secondaryColor;
+        }
+      }
+    }
+    &__bottom {
+      display: flex;
+      justify-content: space-evenly;
+      &__cancel {
+        background-color: $lightBlue;
+        border: none;
+        border-radius: 5px;
+        padding: ($gutter /3);
+        font-size: 1em;
+        color: white;
+        margin-right: $gutter/2;
+        &:hover{
+          background-color: $secondaryColor;
+        }
+      }
+      &__validate {
+        background-color: $green;
+        border: none;
+        border-radius: 5px;
+        padding: ($gutter /3);
+        font-size: 1em;
+        color: white;
+        margin-right: $gutter/2;
+        &:hover {
+          background-color: $secondaryColor;
+        }
+      }
+    }
+    &__border {
+      border: .5px solid $lightBlue;
+      margin: $gutter $gutter*2;
+    }
+  }
+}
+
 .accountOffers {
   &__buttonRemove {
     padding: .5rem;
@@ -22,7 +107,7 @@
   }
 
   &__listOffers {
-   
+    
     margin: $gutter;
     &__offer {
       display: flex;
@@ -33,6 +118,7 @@
 
       &__left {
         display: -webkit-box;
+        display: flex;
 
         &__picture {
           width: 120px;
@@ -54,17 +140,28 @@
         &__status {
           margin-left: 1rem;
           margin-top: 0.5rem;
-          border-radius: 20px;
+          border-radius: 10px;
           padding: ($gutter /4) ($gutter/2);
           background-color: $green;
           font-size: .8em;
           color: $darkBlue;
           display: inline-block;
-          margin-left: 4rem;
           &--off {
             margin-left: 4rem;
             background-color: $backgroundLight;
           }
+        }
+      }
+      &__middle {
+        padding: $gutter/3;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        &__request {
+          color: $secondaryColor;
+          font-size: 1.5em;
+          border: none;
+          background-color: $darkBlue;
         }
       }
       &__right {
@@ -73,8 +170,9 @@
         justify-content: space-evenly;
 
         & a, button {
-          margin-right: $gutter;
-          font-size: 0.9em;
+          margin: auto;
+          width: 135px;
+          padding: .7rem;
         }
         &__pencil{
           color: $darkBlue;

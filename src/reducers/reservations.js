@@ -5,6 +5,8 @@ import {
   SAVE_ONE_RESERVATION,
   FIND_THE_RESERVATION,
   UPDATE_LIST_RESERVATIONS,
+  SAVE_STATUS_RESERVATION,
+  SAVE_LISTOFFER_RESERVATION,
 } from 'src/actions/reservations';
 
 const initialState = {
@@ -12,6 +14,7 @@ const initialState = {
   idReservation: '',
   oneReservation: {},
   reservation: {},
+  statusReservation: '',
   // indique si on est en train de charger des données depuis l'API
   // loading: true,
 };
@@ -44,20 +47,39 @@ const reservationsReducer = (state = initialState, action = {}) => {
 
     case UPDATE_LIST_RESERVATIONS:
     {
-      console.log('action mise à jour dans le réducers', action.id);
       const remainReservations = state.allReservations.filter((reservation) => {
-        console.log(reservation.id);
-        console.log(action.id);
         if (reservation.id.toString() !== action.id.toString()) {
           return true;
         }
       });
-      console.log(remainReservations);
       return {
         ...state,
         allReservations: remainReservations,
       };
     }
+
+    case SAVE_STATUS_RESERVATION:
+      return {
+        ...state,
+        statusReservation: action.status,
+      };
+
+      // case SAVE_LISTOFFER_RESERVATION:
+      //   {
+      //     const offers = state.allOffers.filter((offer) => {
+      //       if (offer.id.toString() !== state.idOffer.toString()) {
+      //         const reservations = offers.filter((reservation) => {
+      //           if (idReservation.toString === action.idReservation.toString()) {
+      //             return true;
+      //           }
+      //         });
+      //       }
+      //     });
+      //     return {
+      //       ...state,
+      //       allReservations: remainReservations,
+      //     };
+      //   };
 
     default: return state;
   }

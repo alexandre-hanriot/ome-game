@@ -8,9 +8,11 @@ import {
   saveReservations,
   saveOneReservation,
   updateListReservations,
+  saveListofferReservation,
   ADD_RESERVATION,
   DELETE_RESERVATION,
   CHECK_OFFER_IN_RESERVATION,
+  UPDATE_STATUS_RESERVATION,
 } from 'src/actions/reservations';
 
 import { setOfferInReservation } from 'src/actions/offers';
@@ -103,6 +105,22 @@ const reservationsMiddleware = (store) => (next) => (action) => {
             // console.warn(error);
           });
       }
+
+      next(action);
+      break;
+    }
+
+    case UPDATE_STATUS_RESERVATION: {
+      axios.put(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations/${idReservation}`, {
+        status: '2',
+      })
+        .then((response) => {
+          console.log(response.data);
+          store.dispatch(saveListofferReservation(idReservation));
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
 
       next(action);
       break;
