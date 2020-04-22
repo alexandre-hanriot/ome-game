@@ -118,7 +118,9 @@ const userMiddleware = (store) => (next) => (action) => {
           store.dispatch(saveProfilUpdate(response.data));
         })
         .catch((error) => {
-          // handle error
+          if (error.response.status === 401) {
+            store.dispatch(showAlert('l\'ancien mot de passe est incorrect', false));
+          }
           console.warn(error);
         });
       next(action);
@@ -165,6 +167,9 @@ const userMiddleware = (store) => (next) => (action) => {
             const data = {
               user: {
                 ...response.data,
+                old_password: '',
+                new_password: '',
+                confirm_new_password: '',
               },
               xsrfToken: sessionStorage.getItem('xsrfToken'),
             };
