@@ -80,7 +80,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token':   sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': sessionStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -93,16 +93,13 @@ const reservationsMiddleware = (store) => (next) => (action) => {
       break;
 
     case FETCH_ALL_RESERVATIONS: {
-      // TODO : limit 4 (wait Steph)
       axios.get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations', {
         params: {
           ...action.params,
         },
       })
         .then((response) => {
-          // TODO - temp
-          const reservations = response.data.filter((data, index) => index < 4);
-          store.dispatch(saveReservations(reservations));
+          store.dispatch(saveReservations(response.data));
         })
         .catch((error) => {
           console.warn(error);

@@ -27,6 +27,13 @@ const MenuAdmin = ({ showIcon }) => (
     >{showIcon && <i className="fas fa-arrow-circle-right"> </i>} Offres
     </NavLink>
     <NavLink
+      to="/admin/reservations"
+      className="header__nav__menu__item"
+      activeClassName="header__nav__menu__item--active"
+      exact
+    >{showIcon && <i className="fas fa-arrow-circle-right"> </i>} Réservations
+    </NavLink>
+    <NavLink
       to="/admin/jeux"
       className="header__nav__menu__item"
       activeClassName="header__nav__menu__item--active"

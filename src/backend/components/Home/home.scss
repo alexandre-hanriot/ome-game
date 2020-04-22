@@ -30,6 +30,11 @@
     text-align: left;
   }
 
+  .global-button {
+    display: inline-block;
+    margin-top: $gutter;
+  }
+
   &__breadcrumb {
     margin: $gutter 0;
   }
@@ -45,9 +50,9 @@
       margin: $gutter/2;
       background-color: $darkBlue;
       padding: $gutter;
+      text-align: center;
 
       &__title {
-        text-align: center;
         margin-bottom: $gutter;
         color: $primaryColor;
         font-size: 1.2em;
@@ -64,14 +69,13 @@
       
       &__nickname {
         flex-grow: 1;
+        text-align: left;
       }
       &__date {
         width: 130px;
-        text-align: center;
       }
       &__status {
         width: 40px;
-        text-align: center;
 
         i {
           display: inline-block;
@@ -88,7 +92,6 @@
       }
       &__action {
         width: 60px;
-        text-align: center;
         @include admin-dashboard_item_action;
       }
     }
@@ -102,10 +105,10 @@
       
       &__title {
         flex-grow: 1;
+        text-align: left;
       }
       &__status {
         width: 40px;
-        text-align: center;
 
         i {
           display: inline-block;
@@ -122,7 +125,6 @@
       }
       &__disponibility {
         width: 40px;
-        text-align: center;
 
         i {
           display: inline-block;
@@ -139,7 +141,6 @@
       }
       &__action {
         width: 60px;
-        text-align: center;
         @include admin-dashboard_item_action;
       }
     }
@@ -153,10 +154,10 @@
       
       &__title {
         flex-grow: 1;
+        text-align: left;
       }
       &__status {
         width: 40px;
-        text-align: center;
 
         i {
           display: inline-block;
@@ -164,19 +165,18 @@
           height: 16px;
           border-radius: 50%;
         }
-        &--accept i {
+        &--accept i, &--finish i {
           color: $green;
         }
         &--wait i {
           color: $primaryColor;
         }
-        &--refuse i {
+        &--refuse i, &--cancel i {
           color: $red;
         }
       }
       &__action {
         width: 60px;
-        text-align: center;
         @include admin-dashboard_item_action;
       }
     }
@@ -190,15 +190,14 @@
       
       &__title {
         flex-grow: 1;
+        text-align: left;
       }
       &__action {
         width: 60px;
-        text-align: center;
         @include admin-dashboard_item_action;
       }
       &__status {
         width: 40px;
-        text-align: center;
 
         i {
           display: inline-block;

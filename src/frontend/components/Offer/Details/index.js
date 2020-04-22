@@ -32,6 +32,7 @@ const Details = ({
   offerInFavorite,
   offerInReservation,
   saveCurrentFavorite,
+  userId,
 }) => {
   const { id } = useParams();
 
@@ -75,6 +76,8 @@ const Details = ({
   const disponibilityClass = classNames('offer-detail__infos__disponibility', { 'offer-detail__infos__disponibility--off': !offer.is_available });
   const favoriteClass = classNames('offer-detail__left__buttons__button global-button', { 'active': offerInFavorite });
 
+  const isOwner = (offer.userId === userId);
+
   return (
     <>
       {!offerIsLoad && <Loader />}
@@ -107,8 +110,8 @@ const Details = ({
                 {offer.description}
               </div>
               <div className="offer-detail__left__buttons">
-                <button className={favoriteClass} type="button" onClick={handleFavorite} disabled={!isLogged}> <i className="fas fa-star" /></button>
-                <button type="button" className="offer-detail__left__buttons__button global-button" onClick={handleModal} disabled={!offer.is_available || !isLogged || offerInReservation}>Réserver ce jeu</button>
+                <button className={favoriteClass} type="button" onClick={handleFavorite} disabled={!isLogged || isOwner}> <i className="fas fa-star" /></button>
+                <button type="button" className="offer-detail__left__buttons__button global-button" onClick={handleModal} disabled={!offer.is_available || !isLogged || offerInReservation || isOwner}>Réserver ce jeu</button>
               </div>
               {/* <section className="offer-detail__left__user">
                 <p className="offer-detail__left__user__content">A propos de Mme Michu :</p>
@@ -151,6 +154,7 @@ Details.propTypes = {
   offerInFavorite: PropTypes.bool.isRequired,
   offerInReservation: PropTypes.bool.isRequired,
   saveCurrentFavorite: PropTypes.func.isRequired,
+  userId: PropTypes.number.isRequired,
 };
 
 export default Details;

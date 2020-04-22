@@ -42,20 +42,20 @@ const mapMiddleware = (store) => (next) => (action) => {
         };
       }
 
-      // if (filters.categories.length > 0) {
-      //   const ids = filters.categories.map((category) => category.id);
-      //   params = {
-      //     ...params,
-      //     game_category_ids: ids.join(','),
-      //   };
-      // }
+      if (filters.categories.length > 0) {
+        const ids = filters.categories.map((category) => category.id);
+        params = {
+          ...params,
+          game_category_ids: ids.join(','),
+        };
+      }
 
-      // if (filters.games.length > 0) {
-      //   params = {
-      //     ...params,
-      //     game_names: filters.games.join(','),
-      //   };
-      // }
+      if (filters.games.length > 0) {
+        params = {
+          ...params,
+          game_names: filters.games.join(','),
+        };
+      }
 
       // ajax request
       axios
