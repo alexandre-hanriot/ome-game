@@ -33,7 +33,7 @@ const App = ({
   isError,
   redirectTo,
   setRedirectTo,
-  rememberMe,
+  isTokenExist,
 }) => {
   const location = useLocation();
   // return the current pathname
@@ -53,6 +53,13 @@ const App = ({
   useEffect(() => {
     setRedirectTo('');
   }, [redirectTo]);
+
+  useEffect(() => {
+    console.log('render de app');
+    if (!isLogged) {
+      isTokenExist();
+    }
+  }, []);
 
   // TODO
   const inAdministration = currentPath.includes('/admin/');
@@ -134,7 +141,7 @@ App.propTypes = {
   isError: PropTypes.bool.isRequired,
   redirectTo: PropTypes.string.isRequired,
   setRedirectTo: PropTypes.func.isRequired,
-  rememberMe: PropTypes.bool.isRequired,
+  isTokenExist: PropTypes.func.isRequired,
 };
 // == Export
 export default App;

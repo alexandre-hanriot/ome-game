@@ -1,19 +1,27 @@
 import axios from 'axios';
 
 import {
-  FETCH_OFFERS, FETCH_PARAMS_OFFERS, GET_OFFER, saveOffers, saveOneOffer,
-  changeOfferIsLoad, updateListOffers, HANDLE_ADD_OFFER, HANDLE_MODIFY_OFFER, DELETE_OFFER, FETCH_ALL_OFFERS,
+  FETCH_OFFERS,
+  FETCH_PARAMS_OFFERS,
+  GET_OFFER,
+  saveOffers,
+  saveOneOffer,
+  changeOfferIsLoad,
+  updateListOffers,
+  HANDLE_ADD_OFFER,
+  HANDLE_MODIFY_OFFER,
+  DELETE_OFFER,
+  FETCH_ALL_OFFERS,
 } from 'src/actions/offers';
 
 import { showAlert, redirectTo } from 'src/actions/global';
 
 const offersMiddleware = (store) => (next) => (action) => {
-  const { userData, rememberMe } = store.getState().user;
+  const { userData } = store.getState().user;
   const { urlId, offer } = store.getState().offers;
 
   switch (action.type) {
     case FETCH_OFFERS: {
-      // const { userData } = store.getState().user;
       axios({
         method: 'post',
         url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/offers`,
@@ -22,7 +30,7 @@ const offersMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': sessionStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -47,7 +55,7 @@ const offersMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': sessionStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -120,7 +128,7 @@ const offersMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': sessionStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -153,7 +161,7 @@ const offersMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': sessionStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -175,7 +183,7 @@ const offersMiddleware = (store) => (next) => (action) => {
           userId: userData.user.id,
         },
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': sessionStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {

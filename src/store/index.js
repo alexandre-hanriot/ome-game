@@ -13,8 +13,8 @@ import gameMiddleware from 'src/middlewares/gameMiddleware';
 // on combine plusieurs enhancers : devTools et chaque middleware
 const enhancers = composeWithDevTools(
   applyMiddleware(
-    mapMiddleware,
     userMiddleware,
+    mapMiddleware,
     registrationMiddleware,
     offersMiddleware,
     reservationsMiddleware,

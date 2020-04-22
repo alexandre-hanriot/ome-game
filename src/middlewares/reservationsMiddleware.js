@@ -33,7 +33,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token':   sessionStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -58,7 +58,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token':   sessionStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -80,7 +80,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token':   sessionStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -127,7 +127,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token':   sessionStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -149,7 +149,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token':   sessionStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -174,7 +174,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
           },
           withCredentials: true,
           headers: {
-            'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+            'x-xsrf-token':   sessionStorage.getItem('xsrfToken'),
           },
         })
           .then((response) => {
