@@ -16,21 +16,38 @@ const User = ({
   useTitle('Liste des utilisateurs');
 
   useEffect(() => {
-    const globalParams = {
-      orderby: 'id',
-      sortby: 'DESC',
-      limit: 4,
-      resultPage: 1,
-    };
-
     fetchAllUsers({
-      ...globalParams,
-      status: ['0', '1'],
+      status: ['0'],
+      orderby: 'username',
+      sortby: 'ASC',
     });
   }, []);
 
+  console.log(users);
+
   return (
-    <div>users</div>
+    <div>
+      <table>
+        <thead>
+          <th><input type="checkbox" /></th>
+          <th>Pseudo</th>
+          <th>Prénom Nom</th>
+          <th>Email</th>
+          <th>Inscrit le</th>
+          <th>Status</th>
+          <th></th>
+        </thead>
+        <tbody>
+          <td><input type="checkbox" /></td>
+          <td>Pseudo</td>
+          <td>Prénom Nom</td>
+          <td>Email</td>
+          <td>Inscrit le</td>
+          <td>Status</td>
+          <td></td>
+        </tbody>
+      </table>
+    </div>
   );
 };
 
