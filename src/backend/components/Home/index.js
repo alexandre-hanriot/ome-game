@@ -76,12 +76,12 @@ const Home = ({
                       <div className="admin-dashboard__users__item__nickname">{truncateText(user.username, 25)}</div>
                       <div className="admin-dashboard__users__item__date">{formatDate(user.createdAt, true)}</div>
                       <div className={statusClass}><i className={statusIconClass} title={user.status === '0' ? 'En attente de validation' : 'Validée'} /></div>
-                      <div className="admin-dashboard__users__item__action"><a href={`/admin/users/${user.id}`}><i className="fas fa-search" /></a></div>
+                      <div className="admin-dashboard__users__item__action"><a href={`/admin/utilisateurs/${user.id}`}><i className="fas fa-search" /></a></div>
                     </li>
                   );
                 })}
               </ul>
-              <Link to="/admin/users" className="global-button global-button--light">Voir plus</Link>
+              <Link to="/admin/utilisateurs" className="global-button global-button--light">Voir plus</Link>
             </>
           )}
         </div>
@@ -114,7 +114,7 @@ const Home = ({
                       <div className="admin-dashboard__offers__item__title">{truncateText(offer.title, 35)}</div>
                       <div className={statusClass}><i className={statusIconClass} title={offer.status === '0' ? 'En attente de validation' : 'Validée'} /></div>
                       <div className={disponibilityClass}><i className={disponibilityIconClass} title={offer.is_available ? 'Disponible' : 'Non disponible'} /></div>
-                      <div className="admin-dashboard__offers__item__action"><a href={`/admin/offers/${offer.id}`}><i className="fas fa-search" /></a></div>
+                      <div className="admin-dashboard__offers__item__action"><a href={`/admin/offres/${offer.id}`}><i className="fas fa-search" /></a></div>
                     </li>
                   );
                 })}
@@ -197,7 +197,7 @@ const Home = ({
                     <li className="admin-dashboard__games__item" key={game.id}>
                       <div className="admin-dashboard__games__item__title">{truncateText(game.name, 35)}</div>
                       <div className={statusClass}><i className={statusIconClass} title={game.status === '1' ? 'Validé' : 'En attente de validation'} /></div>
-                      <div className="admin-dashboard__games__item__action"><a href={`/admin/games/${game.id}`}><i className="fas fa-search" /></a></div>
+                      <div className="admin-dashboard__games__item__action"><a href={`/admin/jeux/${game.id}`}><i className="fas fa-search" /></a></div>
                     </li>
                   );
                 })}
