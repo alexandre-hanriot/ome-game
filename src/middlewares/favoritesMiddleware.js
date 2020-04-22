@@ -16,7 +16,7 @@ import {
 import { setOfferInFavorite } from 'src/actions/offers';
 
 const favoritesMiddleware = (store) => (next) => (action) => {
-  const { userData, rememberMe } = store.getState().user;
+  const { userData } = store.getState().user;
   const { idFavorite, notifyfavorite } = store.getState().favorites;
 
   switch (action.type) {
@@ -29,7 +29,7 @@ const favoritesMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': sessionStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -52,7 +52,7 @@ const favoritesMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': sessionStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -77,7 +77,7 @@ const favoritesMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': sessionStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -101,7 +101,7 @@ const favoritesMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': sessionStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -126,7 +126,7 @@ const favoritesMiddleware = (store) => (next) => (action) => {
           },
           withCredentials: true,
           headers: {
-            'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+            'x-xsrf-token': sessionStorage.getItem('xsrfToken'),
           },
         })
           .then((response) => {
@@ -151,7 +151,7 @@ const favoritesMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': sessionStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {

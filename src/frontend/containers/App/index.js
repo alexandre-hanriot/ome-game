@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import App from 'src/frontend/components/App';
-
+import { isTokenExist } from 'src/actions/user';
 import { redirectTo } from 'src/actions/global';
 
 const mapStateToProps = (state) => ({
@@ -8,12 +8,14 @@ const mapStateToProps = (state) => ({
   showAlert: state.global.showAlert,
   isError: state.global.isError,
   redirectTo: state.global.redirectTo,
-  rememberMe: state.user.rememberMe,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setRedirectTo: (url) => {
     dispatch(redirectTo(url));
+  },
+  isTokenExist: () => {
+    dispatch(isTokenExist());
   },
 });
 
