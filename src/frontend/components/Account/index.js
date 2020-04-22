@@ -26,7 +26,7 @@ const Account = ({
   setRequestIsLoad,
   updateNotifyFavorite,
   deleteFavorite,
-  getOfferId,
+  saveOfferId,
   displayAlert,
 }) => {
   useTitle('Mon compte');
@@ -65,7 +65,7 @@ const Account = ({
 
   const handleModalOffer = (e) => {
     const { id } = e.currentTarget.dataset;
-    getOfferId(id);
+    saveOfferId(id);
     displayModal('modalOffer');
     // deleteOffer();
   };
@@ -339,7 +339,7 @@ Account.propTypes = {
   setRequestIsLoad: PropTypes.func.isRequired,
   updateNotifyFavorite: PropTypes.func.isRequired,
   deleteFavorite: PropTypes.func.isRequired,
-  getOfferId: PropTypes.func.isRequired,
+  saveOfferId: PropTypes.func.isRequired,
   saveIdReservation: PropTypes.func.isRequired,
   displayAlert: PropTypes.func.isRequired,
 };

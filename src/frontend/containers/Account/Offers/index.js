@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { showModal } from 'src/actions/global';
 import Offers from 'src/frontend/components/Account/Offers';
 
-import { fetchOffers, getOfferId } from 'src/actions/offers';
+import { fetchOffers, saveOfferId } from 'src/actions/offers';
 
 const mapStateToProps = (state) => ({
   data: state.offers.allOffers,
@@ -14,8 +14,8 @@ const mapDispatchToProps = (dispatch) => ({
   fetchOffers: () => {
     dispatch(fetchOffers());
   },
-  getOfferId: (id) => {
-    dispatch(getOfferId(id));
+  saveOfferId: (id) => {
+    dispatch(saveOfferId(id));
   },
   displayModal: (name) => {
     dispatch(showModal(name));
