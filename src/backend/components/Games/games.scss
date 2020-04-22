@@ -1,0 +1,46 @@
+@import 'src/styles/_vars.scss';
+
+.admin-games {
+  &__buttons {
+
+    &__button {
+      border: none;
+      margin-right: $gutter;
+      border-radius: $gutter/6;
+      padding: $gutter/4;
+      background-color: $backgroundLight;
+    }
+  }
+
+  h1 {
+    font-size: 2em;
+    font-weight: bold;
+    color: $primaryColor;
+    padding-bottom: $gutter/2;
+    text-align: left;
+    margin-top: $gutter;
+  }
+  table {
+    margin: $gutter 0;
+    background-color: $darkBlue;
+
+    thead {
+      tr {
+        th {
+          padding: $gutter/2;
+        }
+      }
+    }
+    tbody {
+      tr {
+        td {
+          padding: $gutter/2;
+          text-align: center;
+          border-bottom: 1px solid $lightBlue;
+        }
+        
+      }
+      
+    }
+  }
+}

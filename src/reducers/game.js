@@ -5,7 +5,10 @@ import {
   SET_CATEGORIES_IS_LOAD,
   SET_NEW_GAME_FIELD,
   HANDLE_FORM_INPUT_GAME,
+  ADMIN_GAMES_ON,
+  ADMIN_GAMES_OFF,
 } from 'src/actions/game';
+
 
 const initialState = {
   games: [],
@@ -13,6 +16,7 @@ const initialState = {
   gamesIsLoad: false,
   categoriesIsLoad: false,
   newGameField: false,
+  isDeletedGames: false,
   game: {
     name: '',
     nb_players_min: '',
@@ -21,6 +25,8 @@ const initialState = {
     duration: '',
     description: '',
     gameCategoryId: 0,
+    year: null,
+    status: 0,
   },
 };
 
@@ -73,7 +79,18 @@ const gameReducer = (state = initialState, action = {}) => {
         },
       };
     }
-
+    case ADMIN_GAMES_ON: {
+      return {
+        ...state,
+        isDeletedGames: false,
+      };
+    }
+    case ADMIN_GAMES_OFF: {
+      return {
+        ...state,
+        isDeletedGames: true,
+      };
+    }
     default:
       return state;
   }

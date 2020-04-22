@@ -26,6 +26,7 @@ import Alert from 'src/frontend/containers/Alert';
 // Backend
 import Admin from 'src/backend/containers/Home';
 import AdminUser from 'src/backend/containers/User';
+import AdminGames from 'src/backend/containers/Games';
 
 // == Composant
 const App = ({
@@ -110,6 +111,11 @@ const App = ({
           {(isLogged && isAdmin && inAdministration) && (
           <Route exact path="/admin/utilisateurs">
             <AdminUser />
+          </Route>
+          )}
+          {(isLogged && isAdmin && inAdministration) && (
+          <Route exact path="/admin/jeux">
+            <AdminGames />
           </Route>
           )}
           <Route exact path="/">
