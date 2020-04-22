@@ -1,11 +1,53 @@
 const db = require("../models/index");
 const Reservation = db.reservations;
+const Offer = db.offers;
 const coreController = require("./coreController");
 
 // Récupération de toutes les réservations
 exports.findAll = (req, res) => {
     const defaultOrderby = "status";
-    coreController.findAll(Reservation, defaultOrderby, req, res);
+
+    // On vérifie si orderby et sortby (asc/desc) sont définis dans l'url
+    // Sinon de base on tri par le paramètre defaultOrderby croissant
+    const orderBy =
+        typeof req.query.orderby === "undefined" || req.query.orderby === "" ? defaultOrderby : req.query.orderby;
+    const sortBy = typeof req.query.sortby === "undefined" || req.query.sortby === "" ? "ASC" : req.query.sortby;
+
+    const order = [orderBy, sortBy];
+
+    // On récupère les conditions de filtrage en supprimant orderby et sortby des propriétés
+    let conditions = {};
+    if (typeof req.query.orderby !== "undefined" && typeof req.query.sortby !== "undefined") {
+        const { orderby, sortby, ...filteredConditions } = req.query;
+        conditions = { ...filteredConditions };
+    } else if (typeof req.query.orderby !== "undefined") {
+        const { orderby, ...filteredConditions } = req.query;
+        conditions = { ...filteredConditions };
+    } else if (typeof req.query.sortby !== "undefined") {
+        const { sortby, ...filteredConditions } = req.query;
+        conditions = { ...filteredConditions };
+    } else conditions = { ...req.query };
+
+    const { limit = null, resultPage = null } = req.query; // Pour afficher uniquement X résultats de la Nième page
+
+    const offset = resultPage > 0 ? limit * (resultPage - 1) : 0;
+
+    // On lance la recherche avec les paramètres conditions et order (orderby + sortby)
+    Reservation.findAll({
+        where: conditions,
+        include: Offer,
+        offset,
+        limit,
+        order: [[order]],
+    })
+        .then((data) => {
+            res.send(data);
+        })
+        .catch((err) => {
+            res.status(500).json({
+                error: `Une erreur est survenue pendant la récupération des réservations : ${err}`,
+            });
+        });
 };
 
 // Récupération d'une réservation en fonction de sa clé primaire

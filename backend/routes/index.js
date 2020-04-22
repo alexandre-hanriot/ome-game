@@ -11,6 +11,9 @@ router.get("/", function (req, res, next) {
 // Authentification lors du login utilisateur
 router.post("/login", authController.login);
 
+// Déconnexion de l'utilisateur
+router.get("/logout", authController.logout);
+
 // Authentification lors du refresh du front
 router.get("/authenticate", authController.authenticate);
 

@@ -40,6 +40,7 @@ db.favorites = require("./favorite")(sequelize, Sequelize);
 db.games = require("./game")(sequelize, Sequelize);
 db.game_categories = require("./game_category")(sequelize, Sequelize);
 db.messages = require("./message")(sequelize, Sequelize);
+db.forgot_passwords = require("./forgot_password")(sequelize, Sequelize);
 
 // Chargement des relations
 // Par défaut si on supprime un élément parent la foreign key de l'enfant passe à NULL

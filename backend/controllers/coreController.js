@@ -22,9 +22,18 @@ exports.findAll = (model, defaultOrderby, req, res) => {
         conditions = { ...filteredConditions };
     } else conditions = { ...req.query };
 
+    const { limit = null, resultPage = null } = req.query; // Pour afficher uniquement X résultats de la Nième page
+
+    const offset = resultPage > 0 ? limit * (resultPage - 1) : 0;
+
     // On lance la recherche avec les paramètres conditions et order (orderby + sortby)
     model
-        .findAll({ where: conditions, order: [[order]] })
+        .findAll({
+            where: conditions,
+            offset,
+            limit,
+            order: [[order]],
+        })
         .then((data) => {
             res.send(data);
         })

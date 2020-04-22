@@ -1,5 +1,6 @@
 const db = require("../models/index");
 const User = db.users;
+const Forgot_Password = db.forgot_passwords;
 const utils = require("../utils");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -92,6 +93,7 @@ exports.login = (req, res) => {
                     res.cookie("access_token", JWTtoken, {
                         httpOnly: true, // pour un cookie non accessible par du code client js
                         // secure: true // true pour forcer le https
+                        // maxAge: 360000 // expiration au bout de 360000ms
                     });
 
                     // On envoie la réponse avec notamment le token xsrf. En front on pourra stocker ces données soit
@@ -106,6 +108,11 @@ exports.login = (req, res) => {
             }
         });
     }
+};
+
+exports.logout = (req, res) => {
+    res.clearCookie("access_token");
+    res.send("Utilisateur déconnecté. Cookie supprimé");
 };
 
 exports.authenticate = (req, res) => {
@@ -164,9 +171,24 @@ exports.forgotPassword = async (req, res) => {
     // On recherche si le mail correspond à un compte existant
     const user = await User.findOne({ where: { email } }).then((user) => {
         if (user === null)
-            res.status(404).json({
+            return res.status(404).json({
                 error: "Utilisateur non trouvé",
             });
-        else return user;
+        return user;
     });
+
+    const token = hexoid(25)(); // Utilisation d'hexoid pour générer un token un UUID aléatoire
+
+    Forgot_Password.create({
+        userId: user.id,
+        token,
+    })
+        .then((data) => {
+            res.send(data);
+        })
+        .catch((err) => {
+            res.status(500).json({
+                error: `Une erreur est survenue pendant la création de l'instance de ${model.getTableName()} : ${err}`,
+            });
+        });
 };
