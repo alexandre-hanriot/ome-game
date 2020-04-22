@@ -37,6 +37,10 @@
 
   &__breadcrumb {
     margin: $gutter 0;
+
+    a:hover {
+      color: $secondaryColor;
+    }
   }
 
   &__container {
