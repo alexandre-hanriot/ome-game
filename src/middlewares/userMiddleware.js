@@ -22,9 +22,6 @@ const userMiddleware = (store) => (next) => (action) => {
           remember_me: rememberMe,
         },
         withCredentials: true,
-        headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
-        },
       })
         .then((response) => {
           const data = {
