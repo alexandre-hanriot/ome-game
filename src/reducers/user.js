@@ -13,6 +13,7 @@ const initialState = {
   allUsers: [],
   email: '',
   password: '',
+  rememberMe: false,
   isLogged: false,
   userData: {
     user: {
@@ -44,21 +45,14 @@ const initialState = {
 
 const userReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case CHANGE_INPUT_OF_LOGIN:
-      if (action.inputIdentifier === 'email') {
-        return {
-          ...state,
-          email: action.newValue,
-        };
-      }
-      if (action.inputIdentifier === 'password') {
-        return {
-          ...state,
-          password: action.newValue,
-        };
-      }
-      break;
-    case LOG_USER:
+    case CHANGE_INPUT_OF_LOGIN: {
+      const target = action.identifier;
+      return {
+        ...state,
+        [target]: action.newValue,
+      };
+    }
+    case LOG_USER: {
       return {
         ...state,
         isLogged: true,
@@ -66,6 +60,7 @@ const userReducer = (state = initialState, action = {}) => {
         password: '',
         email: '',
       };
+    }
     case SUBMIT_LOGIN:
       return {
         ...state,
@@ -92,12 +87,15 @@ const userReducer = (state = initialState, action = {}) => {
         email: '',
         password: '',
       };
-    case LOG_OUT:
+    case LOG_OUT: {
+      localStorage.clear();
+      sessionStorage.clear();
       return {
         ...state,
         isLogged: false,
         userData: '',
       };
+    }
     case SET_REQUEST_LOAD:
       return {
         ...state,

@@ -33,6 +33,7 @@ const App = ({
   isError,
   redirectTo,
   setRedirectTo,
+  rememberMe,
 }) => {
   const location = useLocation();
   // return the current pathname
@@ -133,6 +134,7 @@ App.propTypes = {
   isError: PropTypes.bool.isRequired,
   redirectTo: PropTypes.string.isRequired,
   setRedirectTo: PropTypes.func.isRequired,
+  rememberMe: PropTypes.bool.isRequired,
 };
 // == Export
 export default App;

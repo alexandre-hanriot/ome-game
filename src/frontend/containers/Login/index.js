@@ -11,6 +11,7 @@ const mapStateToProps = (state) => ({
   password: state.user.password,
   showAlert: state.global.showAlert,
   loginError: state.user.loginError,
+  rememberMe: state.user.rememberMe,
 });
 
 const mapDispatchToProps = (dispatch) => ({

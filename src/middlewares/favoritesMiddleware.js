@@ -16,12 +16,22 @@ import {
 import { setOfferInFavorite } from 'src/actions/offers';
 
 const favoritesMiddleware = (store) => (next) => (action) => {
-  const { userData } = store.getState().user;
+  const { userData, rememberMe } = store.getState().user;
   const { idFavorite, notifyfavorite } = store.getState().favorites;
 
   switch (action.type) {
-    case FETCH_FAVORITES:
-      axios.get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/favorites`)
+    case FETCH_FAVORITES: {
+      axios({
+        method: 'post',
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/favorites`,
+        data: {
+          userId: userData.user.id,
+        },
+        withCredentials: true,
+        headers: {
+          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+        },
+      })
         .then((response) => {
           store.dispatch(saveFavorites(response.data));
         })
@@ -30,10 +40,20 @@ const favoritesMiddleware = (store) => (next) => (action) => {
         });
       next(action);
       break;
+    }
 
     case UPDATE_NOTIFY_FAVORITE:
-      axios.put(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/favorites/${idFavorite}`, {
-        notify_when_available: notifyfavorite,
+      axios({
+        method: 'put',
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/favorites/${idFavorite}`,
+        data: {
+          notify_when_available: notifyfavorite,
+          userId: userData.user.id,
+        },
+        withCredentials: true,
+        headers: {
+          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+        },
       })
         .then((response) => {
           store.dispatch(updateNotifyFavorites(idFavorite, notifyfavorite));
@@ -48,9 +68,17 @@ const favoritesMiddleware = (store) => (next) => (action) => {
     case ADD_FAVORITE: {
       const { offer } = store.getState().offers;
 
-      axios.post('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/favorites', {
-        userId: userData.user.id,
-        offerId: offer.id,
+      axios({
+        method: 'post',
+        url: 'http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/favorites',
+        data: {
+          userId: userData.user.id,
+          offerId: offer.id,
+        },
+        withCredentials: true,
+        headers: {
+          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+        },
       })
         .then((response) => {
           store.dispatch(setOfferInFavorite(true));
@@ -65,7 +93,17 @@ const favoritesMiddleware = (store) => (next) => (action) => {
     // Remove offer in favorite
     case REMOVE_FAVORITE: {
       const { currentFavorite } = store.getState().favorites;
-      axios.delete(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/favorites/${currentFavorite}`)
+      axios({
+        method: 'delete',
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/favorites/${currentFavorite}`,
+        data: {
+          userId: userData.user.id,
+        },
+        withCredentials: true,
+        headers: {
+          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+        },
+      })
         .then((response) => {
           store.dispatch(setOfferInFavorite(false));
         })
@@ -80,8 +118,17 @@ const favoritesMiddleware = (store) => (next) => (action) => {
     case CHECK_OFFER_IN_FAVORITE: {
       const { offer } = store.getState().offers;
       if (offer.id !== 0) {
-        axios
-          .get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/favorites/${offer.id}`)
+        axios({
+          method: 'post',
+          url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/favorites/${offer.id}`,
+          data: {
+            userId: userData.user.id,
+          },
+          withCredentials: true,
+          headers: {
+            'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          },
+        })
           .then((response) => {
             store.dispatch(setOfferInFavorite(true));
             store.dispatch(saveCurrentFavorite(response.data.id));
@@ -96,9 +143,18 @@ const favoritesMiddleware = (store) => (next) => (action) => {
     }
 
     case DELETE_FAVORITE:
-      axios.delete(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/favorites/${idFavorite}`)
+      axios({
+        method: 'delete',
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/favorites/${idFavorite}`,
+        data: {
+          userId: userData.user.id,
+        },
+        withCredentials: true,
+        headers: {
+          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+        },
+      })
         .then((response) => {
-          console.log(response.data);
           store.dispatch(updateFavorites(idFavorite));
         })
         .catch((error) => {

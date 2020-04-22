@@ -16,7 +16,7 @@ export const SAVE_USERS = 'SAVE_USERS';
 
 export const changeInputOfLogin = (identifier, newValue) => ({
   type: CHANGE_INPUT_OF_LOGIN,
-  inputIdentifier: identifier,
+  identifier,
   newValue,
 });
 

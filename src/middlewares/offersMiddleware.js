@@ -8,13 +8,23 @@ import {
 import { showAlert, redirectTo } from 'src/actions/global';
 
 const offersMiddleware = (store) => (next) => (action) => {
-  const { userData } = store.getState().user;
+  const { userData, rememberMe } = store.getState().user;
   const { urlId, offer } = store.getState().offers;
 
   switch (action.type) {
     case FETCH_OFFERS: {
       // const { userData } = store.getState().user;
-      axios.get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/offers`)
+      axios({
+        method: 'post',
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/offers`,
+        data: {
+          userId: userData.user.id,
+        },
+        withCredentials: true,
+        headers: {
+          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+        },
+      })
         .then((response) => {
           store.dispatch(saveOffers(response.data));
         })
@@ -25,10 +35,19 @@ const offersMiddleware = (store) => (next) => (action) => {
       break;
     }
     case FETCH_PARAMS_OFFERS:
-      axios.get(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/offers`, {
+      axios({
+        method: 'post',
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/offers`,
+        data: {
+          userId: userData.user.id,
+        },
         params: {
           limit: 4,
           resultPage: 1,
+        },
+        withCredentials: true,
+        headers: {
+          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -82,19 +101,27 @@ const offersMiddleware = (store) => (next) => (action) => {
       break;
     }
     case HANDLE_ADD_OFFER: {
-      axios.post('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers', {
-        status: 0,
-        userId: userData.user.id,
-        type: offer.type,
-        is_available: offer.is_available,
-        title: offer.title,
-        price: offer.price,
-        gameId: offer.gameId,
-        description: offer.description,
-        city: offer.city,
-        postal_code: offer.postal_code,
-        latitude: offer.latitude,
-        longitude: offer.longitude,
+      axios({
+        method: 'post',
+        url: 'http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers',
+        data: {
+          status: 0,
+          userId: userData.user.id,
+          type: offer.type,
+          is_available: offer.is_available,
+          title: offer.title,
+          price: offer.price,
+          gameId: offer.gameId,
+          description: offer.description,
+          city: offer.city,
+          postal_code: offer.postal_code,
+          latitude: offer.latitude,
+          longitude: offer.longitude,
+        },
+        withCredentials: true,
+        headers: {
+          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+        },
       })
         .then((response) => {
           store.dispatch(redirectTo('/compte/offres'));
@@ -107,19 +134,27 @@ const offersMiddleware = (store) => (next) => (action) => {
       break;
     }
     case HANDLE_MODIFY_OFFER: {
-      axios.put(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${offer.id}`, {
-        status: 0,
-        userId: offer.userId,
-        type: offer.type,
-        is_available: offer.is_available,
-        title: offer.title,
-        price: offer.price,
-        gameId: offer.gameId,
-        description: offer.description,
-        city: offer.city,
-        postal_code: offer.postal_code,
-        latitude: offer.latitude,
-        longitude: offer.longitude,
+      axios({
+        method: 'put',
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${offer.id}`,
+        data: {
+          status: 0,
+          userId: userData.user.id,
+          type: offer.type,
+          is_available: offer.is_available,
+          title: offer.title,
+          price: offer.price,
+          gameId: offer.gameId,
+          description: offer.description,
+          city: offer.city,
+          postal_code: offer.postal_code,
+          latitude: offer.latitude,
+          longitude: offer.longitude,
+        },
+        withCredentials: true,
+        headers: {
+          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+        },
       })
         .then((response) => {
           store.dispatch(redirectTo('/compte/offres'));
@@ -132,7 +167,17 @@ const offersMiddleware = (store) => (next) => (action) => {
       break;
     }
     case DELETE_OFFER: {
-      axios.delete(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`)
+      axios({
+        method: 'delete',
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`,
+        withCredentials: true,
+        data: {
+          userId: userData.user.id,
+        },
+        headers: {
+          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+        },
+      })
         .then((response) => {
           console.log(response.data);
           store.dispatch(updateListOffers(urlId));
