@@ -1,3 +1,5 @@
+const { Op } = require("sequelize");
+
 module.exports = (sequelize, Sequelize) => {
     const Reservation = sequelize.define(
         "reservations",
@@ -48,6 +50,29 @@ module.exports = (sequelize, Sequelize) => {
             return Promise.reject("Une réservation doit être associée à un ID d'utilisateur (client)");
         if (typeof reservation.offerId === "undefined")
             return Promise.reject("Une réservation doit être associée à un ID d'offre");
+    });
+
+    Reservation.beforeSave(async (reservation, options) => {
+        // Si la réservation passe en status validé les autres doivent passer en status refusé
+        if (
+            reservation.dataValues.status === "1" &&
+            reservation.dataValues.status !== reservation._previousDataValues.status
+        ) {
+            await Reservation.update(
+                {
+                    status: "3", // On passe en status refusée
+                },
+                {
+                    where: {
+                        offerId: reservation.offerId, // Pour les réservations concernant la même offre
+                        status: "0", // qui sont en status en attente
+                        id: {
+                            [Op.ne]: reservation.id, // qui ne concernent pas l'utilisateur client actuel
+                        },
+                    },
+                }
+            );
+        }
     });
 
     return Reservation;
