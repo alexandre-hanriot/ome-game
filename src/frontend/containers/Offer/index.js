@@ -11,8 +11,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchGames: () => {
-    dispatch(fetchGames());
+  fetchGames: (params) => {
+    dispatch(fetchGames(params));
   },
   fetchGamesCategories: () => {
     dispatch(fetchGamesCategories());

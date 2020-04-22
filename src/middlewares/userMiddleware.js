@@ -128,18 +128,13 @@ const userMiddleware = (store) => (next) => (action) => {
     }
 
     case FETCH_ALL_USERS: {
-      // TODO : limit 4 (wait Steph)
       axios.get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users', {
         params: {
-          orderby: 'id',
-          sortby: 'DESC',
-          status: ['0', '1'],
+          ...action.params,
         },
       })
         .then((response) => {
-          // TODO - temp
-          const users = response.data.filter((data, index) => index < 4);
-          store.dispatch(saveUsers(users));
+          store.dispatch(saveUsers(response.data));
         })
         .catch((error) => {
           console.warn(error);

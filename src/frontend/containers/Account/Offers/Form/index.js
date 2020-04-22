@@ -40,8 +40,8 @@ const mapDispatchToProps = (dispatch) => ({
   getGameCategories: () => {
     dispatch(getGameCategories());
   },
-  getGames: () => {
-    dispatch(getGames());
+  getGames: (params) => {
+    dispatch(getGames(params));
   },
   changeCategoriesIsLoad: () => {
     dispatch(changeCategoriesIsLoad());

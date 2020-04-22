@@ -42,20 +42,20 @@ const mapMiddleware = (store) => (next) => (action) => {
         };
       }
 
-      // if (filters.categories.length > 0) {
-      //   const ids = filters.categories.map((category) => category.id);
-      //   params = {
-      //     ...params,
-      //     game_category_ids: ids.join(','),
-      //   };
-      // }
+      if (filters.categories.length > 0) {
+        const ids = filters.categories.map((category) => category.id);
+        params = {
+          ...params,
+          game_category_ids: ids.join(','),
+        };
+      }
 
-      // if (filters.games.length > 0) {
-      //   params = {
-      //     ...params,
-      //     game_names: filters.games.join(','),
-      //   };
-      // }
+      if (filters.games.length > 0) {
+        params = {
+          ...params,
+          game_names: filters.games.join(','),
+        };
+      }
 
       // ajax request
       axios
@@ -89,8 +89,13 @@ const mapMiddleware = (store) => (next) => (action) => {
 
     // load all games
     case MAP_FETCH_GAMES: {
-      axios
-        .get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/games')
+      const params = {
+        ...action.params,
+      };
+
+      axios.get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/games', {
+        params,
+      })
         .then((response) => {
           const games = response.data.map((game) => game.name);
           store.dispatch(saveGames(games));

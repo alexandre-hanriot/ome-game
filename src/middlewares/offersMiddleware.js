@@ -68,18 +68,13 @@ const offersMiddleware = (store) => (next) => (action) => {
       break;
 
     case FETCH_ALL_OFFERS: {
-      // TODO : limit 4 (wait Steph)
       axios.get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers', {
         params: {
-          orderby: 'id',
-          sortby: 'DESC',
-          status: ['0', '1'],
+          ...action.params,
         },
       })
         .then((response) => {
-          // TODO - temp
-          const offers = response.data.filter((data, index) => index < 4);
-          store.dispatch(saveOffers(offers));
+          store.dispatch(saveOffers(response.data));
         })
         .catch((error) => {
           console.warn(error);
@@ -90,7 +85,13 @@ const offersMiddleware = (store) => (next) => (action) => {
     }
 
     case GET_OFFER: {
-      axios.post(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`)
+      axios({
+        method: 'post',
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`,
+        data: {
+          status: '1',
+        },
+      })
         .then((response) => {
           const { data } = response;
           const hasLocation = data.latitude !== null && data.longitude !== null;

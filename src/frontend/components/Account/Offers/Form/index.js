@@ -24,7 +24,9 @@ const Form = ({
       getOffer();
     }
     getGameCategories();
-    getGames();
+    getGames({
+      status: '1',
+    });
     return () => {
       clearOffer();
       changeCategoriesIsLoad();
@@ -365,7 +367,6 @@ const Form = ({
         </div>
       )}
     </>
-
   );
 };
 
