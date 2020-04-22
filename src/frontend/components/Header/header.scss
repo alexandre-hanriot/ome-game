@@ -140,6 +140,10 @@
               border-radius: 1rem;
               z-index: -1;
             }
+
+            &--active {
+              color: $primaryColor;
+            }
           }
         }
         &__account {

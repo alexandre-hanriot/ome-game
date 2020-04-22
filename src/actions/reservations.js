@@ -9,9 +9,13 @@ export const ADD_RESERVATION = 'ADD_RESERVATION';
 export const CHECK_OFFER_IN_RESERVATION = 'CHECK_OFFER_IN_RESERVATION';
 export const DELETE_RESERVATION = 'DELETE_RESERVATION';
 export const UPDATE_LIST_RESERVATIONS = 'UPDATE_LIST_RESERVATIONS';
+
 export const UPDATE_STATUS_RESERVATION = 'UPDATE_STATUS_RESERVATION';
 export const SAVE_LISTOFFER_RESERVATION = 'SAVE_LISTOFFER_RESERVATION';
 export const SAVE_STATUS_RESERVATION = 'SAVE_SATUS_RESERVATION';
+
+export const FETCH_ALL_RESERVATIONS = 'FETCH_ALL_RESERVATIONS';
+
 
 export const fetchReservations = () => ({
   type: FETCH_RESERVATIONS,
@@ -62,6 +66,7 @@ export const updateListReservations = (id) => ({
   id,
 });
 
+
 export const updateStatusReservation = () => ({
   type: UPDATE_STATUS_RESERVATION,
 });
@@ -74,4 +79,9 @@ export const saveListofferReservation = (id) => ({
 export const saveStatusReservation = (status) => ({
   type: SAVE_STATUS_RESERVATION,
   status,
+});
+export const fetchAllReservations = (params = {}) => ({
+  type: FETCH_ALL_RESERVATIONS,
+  params,
+
 });

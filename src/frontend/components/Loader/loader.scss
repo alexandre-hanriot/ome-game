@@ -1,9 +1,13 @@
 @import 'src/styles/_vars.scss';
 
 .spinner {
-  margin: 100px auto 0;
+  margin: 0 auto;
   width: 70px;
   text-align: center;
+
+  &--margin {
+    margin: 100px auto 0; 
+  }
 }
 
 .spinner > div {

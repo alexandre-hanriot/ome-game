@@ -15,7 +15,7 @@ const Form = ({
   getOffer, clearOffer, handleFormInput,
   categories, games, addGame, getGameCategories, getGames, changeCategoriesIsLoad,
   changeGameIsLoad, gamesIsLoad, categoriesIsLoad, handleAddOffer,
-  handleModifyOffer, changeOfferIsLoad, setNewGameField, newGameField, handleFormInputGame, game, displayAlert,
+  handleModifyOffer, changeOfferIsLoad, setNewGameField, newGameField, handleFormInputGame, game, displayAlert, offerSend, setOfferSend,
 }) => {
   const { slug } = useParams();
   useEffect(() => {
@@ -77,6 +77,9 @@ const Form = ({
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    setOfferSend(true);
+
     let error = false;
     let errorMessage = '';
 
@@ -113,6 +116,7 @@ const Form = ({
     }
     else {
       displayAlert(errorMessage, false);
+      setOfferSend(false);
     }
   };
 
@@ -243,7 +247,9 @@ const Form = ({
                 />
                 {offer.createdAt !== '' && (<p className="account-offers-form__dates">Créée le {formatDate(offer.createdAt)}</p>)}
                 {offer.updatedAt !== '' && (<p className="account-offers-form__dates">Modifiée le {formatDate(offer.updatedAt)}</p>)}
-                <button type="submit" className="account-offers-form__submit">{ offer.id === 0 ? 'Ajouter' : 'Modifier' }</button>
+
+                {!offerSend && <button type="submit" className="account-offers-form__submit">{ offer.id === 0 ? 'Ajouter' : 'Modifier' }</button>}
+                {offerSend && <button type="submit" className="account-offers-form__submit" disabled><Loader withMargin={false} /></button>}
               </div>
               <div className="account-offers-form__container__right">
 
@@ -347,7 +353,7 @@ const Form = ({
                     }}
                     types={['(regions)']}
                     componentRestrictions={{ country: 'fr' }}
-                    defaultValue={(offer.postal_code !== null && offer.city !== null) ? `${offer.postal_code} ${offer.city}` : ''}
+                    defaultValue={(offer.postal_code !== null && offer.city !== null && offer.postal_code !== '' && offer.city !== '') ? `${offer.postal_code} ${offer.city}` : ''}
                   />
                   <div className="account-offers-form__map">
                     <Map zoom={offer.zoom} lat={offer.latitude} lng={offer.longitude} />
@@ -385,6 +391,9 @@ Form.propTypes = {
   newGameField: PropTypes.bool.isRequired,
   game: PropTypes.object.isRequired,
   handleFormInputGame: PropTypes.func.isRequired,
+  displayAlert: PropTypes.func.isRequired,
+  offerSend: PropTypes.bool.isRequired,
+  setOfferSend: PropTypes.func.isRequired,
 };
 
 export default Form;

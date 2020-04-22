@@ -1,6 +1,7 @@
 // action types
 export const FETCH_OFFERS = 'FETCH_OFFERS';
 export const FETCH_PARAMS_OFFERS = 'FETCH_PARAMS_OFFERS';
+export const FETCH_ALL_OFFERS = 'FETCH_ALL_OFFERS';
 export const SAVE_OFFERS = 'SAVE_OFFERS';
 export const SAVE_ONE_OFFER = 'SAVE_ONE_OFFER';
 export const SAVE_OFFER_ID = 'SAVE_OFFER_ID';
@@ -14,6 +15,8 @@ export const SET_OFFER_IN_FAVORITE = 'SET_OFFER_IN_FAVORITE';
 export const SET_OFFER_IN_RESERVATION = 'SET_OFFER_IN_RESERVATION';
 export const DELETE_OFFER = 'DELETE_OFFER';
 export const UPDATE_LIST_OFFERS = 'UPDATE_LIST_OFFERS';
+export const SET_OFFER_SEND = 'SET_OFFER_SEND';
+
 
 // action creators
 export const fetchOffers = () => ({
@@ -22,6 +25,11 @@ export const fetchOffers = () => ({
 
 export const fetchParamsOffers = () => ({
   type: FETCH_PARAMS_OFFERS,
+});
+
+export const fetchAllOffers = (params = {}) => ({
+  type: FETCH_ALL_OFFERS,
+  params,
 });
 
 export const saveOffers = (offers) => ({
@@ -83,3 +91,9 @@ export const updateListOffers = (id) => ({
   type: UPDATE_LIST_OFFERS,
   id,
 });
+
+export const setOfferSend = (value) => ({
+  type: SET_OFFER_SEND,
+  value,
+});
+

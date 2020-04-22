@@ -8,6 +8,7 @@ import {
   SET_OFFER_IN_FAVORITE,
   SET_OFFER_IN_RESERVATION,
   UPDATE_LIST_OFFERS,
+  SET_OFFER_SEND,
 } from 'src/actions/offers';
 
 const initialState = {
@@ -55,6 +56,7 @@ const initialState = {
   offerIsLoad: false,
   offerInFavorite: false,
   offerInReservation: false,
+  offerSend: false,
 };
 
 const offersReducer = (state = initialState, action = {}) => {
@@ -181,6 +183,12 @@ const offersReducer = (state = initialState, action = {}) => {
         allOffers: remainOffers,
       };
     }
+
+    case SET_OFFER_SEND:
+      return {
+        ...state,
+        offerSend: action.value,
+      };
 
     default: return state;
   }

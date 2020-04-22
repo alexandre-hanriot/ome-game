@@ -5,6 +5,8 @@ import {
   SUBMIT_PROFIL_UPDATE,
   saveProfilUpdate,
   SUBMIT_PROFIL_CHANGE_PASSWORD,
+  FETCH_ALL_USERS,
+  saveUsers,
 } from 'src/actions/user';
 import { showAlert, showModal } from 'src/actions/global';
 import axios from 'axios';
@@ -94,6 +96,29 @@ const authMiddleware = (store) => (next) => (action) => {
       next(action);
       break;
     }
+
+    case FETCH_ALL_USERS: {
+      // TODO : limit 4 (wait Steph)
+      axios.get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users', {
+        params: {
+          orderby: 'id',
+          sortby: 'DESC',
+          status: ['0', '1'],
+        },
+      })
+        .then((response) => {
+          // TODO - temp
+          const users = response.data.filter((data, index) => index < 4);
+          store.dispatch(saveUsers(users));
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+
+      next(action);
+      break;
+    }
+
     default:
       next(action);
   }

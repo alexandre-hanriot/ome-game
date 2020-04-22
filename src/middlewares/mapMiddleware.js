@@ -17,7 +17,10 @@ const mapMiddleware = (store) => (next) => (action) => {
       const { filters } = store.getState().map;
 
       // filters
-      let params = { client_id: 0 };
+      let params = {
+        client_id: 0,
+        status: '0',
+      };
       if (filters.disponibility !== 'all') {
         params = {
           ...params,

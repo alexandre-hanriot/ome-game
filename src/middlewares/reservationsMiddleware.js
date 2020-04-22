@@ -13,6 +13,7 @@ import {
   DELETE_RESERVATION,
   CHECK_OFFER_IN_RESERVATION,
   UPDATE_STATUS_RESERVATION,
+  FETCH_ALL_RESERVATIONS,
 } from 'src/actions/reservations';
 
 import { setOfferInReservation } from 'src/actions/offers';
@@ -61,6 +62,28 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         });
       next(action);
       break;
+
+    case FETCH_ALL_RESERVATIONS: {
+      // TODO : limit 4 (wait Steph)
+      axios.get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations', {
+        params: {
+          orderby: 'id',
+          sortby: 'DESC',
+          status: ['0', '1'],
+        },
+      })
+        .then((response) => {
+          // TODO - temp
+          const reservations = response.data.filter((data, index) => index < 4);
+          store.dispatch(saveReservations(reservations));
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+
+      next(action);
+      break;
+    }
 
     // Add reservation for user and an offer
     case ADD_RESERVATION: {

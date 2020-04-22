@@ -6,9 +6,11 @@ import {
   LOG_OUT, SET_REQUEST_LOAD,
   CHANGE_PROFIL_INPUT,
   CLEAR_PROFIL_PASSWORDS,
+  SAVE_USERS,
 } from 'src/actions/user';
 
 const initialState = {
+  allUsers: [],
   email: '',
   password: '',
   isLogged: false,
@@ -39,7 +41,6 @@ const initialState = {
   loginError: '',
   requestIsLoad: false,
 };
-
 
 const userReducer = (state = initialState, action = {}) => {
   switch (action.type) {
@@ -128,6 +129,13 @@ const userReducer = (state = initialState, action = {}) => {
           },
         },
       };
+
+    case SAVE_USERS:
+      return {
+        ...state,
+        allUsers: action.users,
+      };
+
     default:
       return state;
   }

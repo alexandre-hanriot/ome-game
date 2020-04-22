@@ -30,8 +30,9 @@ export const saveGames = (games) => ({
   games,
 });
 
-export const getGames = () => ({
+export const getGames = (params = {}) => ({
   type: GET_GAMES,
+  params,
 });
 
 export const addGame = () => ({
