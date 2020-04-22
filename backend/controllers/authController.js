@@ -5,6 +5,7 @@ const utils = require("../utils");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const hexoid = require("hexoid");
+const nodemailer = require("nodemailer");
 
 // Vérification du couple email + paswword ou username + password pour l'opération de login
 exports.login = (req, res) => {
@@ -164,6 +165,7 @@ exports.authenticate = (req, res) => {
     });
 };
 
+// Envoie un mail à l'utilisateur avec le lien pour faire un reset password
 exports.forgotPassword = async (req, res) => {
     // On stocke l'email de l'utilisateur
     email = req.body.email;
@@ -177,18 +179,75 @@ exports.forgotPassword = async (req, res) => {
         return user;
     });
 
-    const token = hexoid(25)(); // Utilisation d'hexoid pour générer un token un UUID aléatoire
+    // Utilisation d'hexoid pour générer un token un UUID aléatoire
+    const token = hexoid(25)();
 
-    Forgot_Password.create({
+    // On crée une instance de forgot password
+    const forgotPassword = await Forgot_Password.create({
         userId: user.id,
         token,
     })
         .then((data) => {
-            res.send(data);
+            return data;
         })
         .catch((err) => {
             res.status(500).json({
                 error: `Une erreur est survenue pendant la création de l'instance de ${model.getTableName()} : ${err}`,
             });
         });
+
+    // On paramètre le service d'envoi
+    const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: "omegameatlantis@gmail.com",
+            pass: "oclockatlantis",
+        },
+    });
+
+    // On paramètre le mail
+    const mailOptions = {
+        from: "omegameatlantis@gmail.com", // sender address
+        to: "sanchez.ste@gmail.com", // list of receivers
+        subject: "Coucou", // Subject line
+        html: `<p>Token = ${forgotPassword.token}</p>`, // plain text body
+    };
+
+    // On envoie
+    transporter.sendMail(mailOptions, function (err, info) {
+        if (err) console.log(err);
+        else console.log(info);
+    });
+};
+
+// Met à jour le mot de passe utilisateur dans le cas d'un forget password
+exports.resetPassword = async (req, res) => {
+    token = req.body.token;
+    password = req.body.password;
+
+    const forgotPassword = await Forgot_Password.findOne({ where: { token } })
+        .then((data) => {
+            if (data === null) {
+                return res.status(404).json({
+                    error: `Instance de forgot password non trouvée : ${err}`,
+                });
+            }
+            return data;
+        })
+        .catch((err) => {
+            res.status(500).json({
+                error: `Une erreur est survenue pendant la mise à jour du mot de passe : ${err}`,
+            });
+        });
+
+    const userId = forgotPassword.userId;
+
+    const user = await User.findByPk(userId);
+
+    if (user === null) return res.status(404).json({ error: `Utilisateur non trouvé` });
+
+    user.password = password;
+
+    await user.save(); // On sauvegarde l'instance
+    res.send(user); // On renvoie l'instance à jour en réponse
 };

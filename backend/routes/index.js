@@ -17,6 +17,12 @@ router.get("/logout", authController.logout);
 // Authentification lors du refresh du front
 router.get("/authenticate", authController.authenticate);
 
+// Envoi d'un mail avec lien pour mettre à jour le password oublié
+router.post("/forgotpassword", authController.forgotPassword);
+
+// Reset du password oublié
+router.post("/resetpassword", authController.resetPassword);
+
 // Récupération de toutes les offres en fonction des paramètres de recherche complétés par l'utilisateur
 router.get("/search", searchOffersController.findOffersResults);
 
