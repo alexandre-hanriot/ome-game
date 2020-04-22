@@ -22,6 +22,10 @@ exports.findAll = (model, defaultOrderby, req, res) => {
         conditions = { ...filteredConditions };
     } else conditions = { ...req.query };
 
+    // On supprime les données limit et offset des conditions
+    delete conditions.limit;
+    delete conditions.resultPage;
+
     const { limit = null, resultPage = null } = req.query; // Pour afficher uniquement X résultats de la Nième page
 
     const offset = resultPage > 0 ? limit * (resultPage - 1) : 0;
@@ -47,18 +51,25 @@ exports.findAll = (model, defaultOrderby, req, res) => {
 // Recherche d'une instance de modèle par clé primaire
 // returnOption permet de retourner les données au lieu d'envoyer une réponse http
 exports.findOne = (model, id, req, res, returnOption = false) => {
+    conditions = { ...req.body };
+
+    delete conditions.attributes;
+
     const attributes =
         typeof req.body.attributes === "undefined" ? Object.keys(model.rawAttributes) : req.body.attributes.split(", ");
 
     model
         .findOne({
-            where: { id },
+            where: {
+                id,
+                ...conditions,
+            },
             attributes,
         })
         .then((data) => {
             if (data === null)
                 res.status(404).json({
-                    error: `${model.getTableName()} id=${id} non trouvé`,
+                    error: `Aucun ${model.getTableName()} trouvé`,
                 });
             else if (returnOption === true) return data;
             else res.send(data);
@@ -66,7 +77,7 @@ exports.findOne = (model, id, req, res, returnOption = false) => {
 };
 
 // Création d'une instance d'un modèle
-exports.create = (model, instanceData, res) => {
+exports.create = async (model, instanceData, res) => {
     // Avant toute chose on supprime les espaces avant ou après les propriétés qui sont de type string
     Object.keys(instanceData).map(
         (data) =>

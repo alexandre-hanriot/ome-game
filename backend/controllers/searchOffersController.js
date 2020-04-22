@@ -7,7 +7,7 @@ const User = db.users;
 
 // Récupération des offres en fonction d'une recherche de l'utilisateur
 exports.findOffersResults = async (req, res) => {
-    const status = "0"; // on affiche que les offres actives
+    const status = "1"; // on affiche que les offres actives
 
     const {
         client_id = null, // on récupère l'id de l'utilisateur qui fait la requête
@@ -17,9 +17,9 @@ exports.findOffersResults = async (req, res) => {
         nb_players = "",
     } = req.query;
 
-    const game_names = typeof req.query.game_names === "undefined" ? null : req.query.game_names.split(", "); // on passe de "x, y, z" à ["x", "y", "z"]
+    const game_names = typeof req.query.game_names === "undefined" ? null : req.query.game_names.split(","); // on passe de "x, y, z" à ["x", "y", "z"]
     const game_category_ids =
-        typeof req.query.game_category_ids === "undefined" ? null : req.query.game_category_ids.split(", "); // idem
+        typeof req.query.game_category_ids === "undefined" ? null : req.query.game_category_ids.split(","); // idem
 
     const is_available = typeof req.query.is_available === "undefined" ? [true, false] : [req.query.is_available]; // par défaut on affiche tous les résultats
     const type = typeof req.query.type === "undefined" ? ["0", "1"] : [req.query.type]; // prêt/location, par défaut pas de filtre
