@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const searchOffersController = require("../controllers/searchOffersController");
 const authController = require("../controllers/authController");
+const contactController = require("../controllers/contactController");
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
@@ -25,5 +26,8 @@ router.post("/resetpassword", authController.resetPassword);
 
 // Récupération de toutes les offres en fonction des paramètres de recherche complétés par l'utilisateur
 router.get("/search", searchOffersController.findOffersResults);
+
+// Message provenant d'un utilisateur connecté ou non
+router.post("/contact", contactController.contactRequest);
 
 module.exports = router;

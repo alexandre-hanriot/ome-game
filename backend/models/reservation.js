@@ -1,3 +1,5 @@
+const db = require("../models/index");
+const Offer = db.offers;
 const { Op } = require("sequelize");
 
 module.exports = (sequelize, Sequelize) => {
@@ -70,6 +72,13 @@ module.exports = (sequelize, Sequelize) => {
                             [Op.ne]: reservation.id, // qui ne concernent pas l'utilisateur client actuel
                         },
                     },
+                }
+            );
+
+            await Offer.update(
+                { is_available: false },
+                {
+                    where: { offerId: reservation.offerId },
                 }
             );
         }

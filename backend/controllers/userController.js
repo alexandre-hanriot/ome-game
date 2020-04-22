@@ -156,6 +156,11 @@ exports.findAllOffers = (req, res) => {
         include: [
             {
                 model: Reservation,
+                where: {
+                    status: {
+                        [Op.or]: ["0", "1"], // On ne renvoie que les réservations en cours
+                    },
+                },
             },
             {
                 model: Game,
@@ -187,7 +192,7 @@ exports.findAllReservations = (req, res) => {
         where: {
             userId,
             status: {
-                [Op.or]: ["0", "1", "2"], // On affiche pas les terminées et annulées
+                [Op.or]: ["0", "1"], // On affiche pas les terminées et annulées
             },
         },
         include: {
