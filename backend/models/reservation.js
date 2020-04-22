@@ -8,9 +8,9 @@ module.exports = (sequelize, Sequelize) => {
                 autoIncrement: true,
             },
             status: {
-                // 0 : en attente de validation, 1 : validée, 2 : en cours
-                // 3 : terminée, 4 : refusée, 5 : annulée
-                type: Sequelize.ENUM("0", "1", "2", "3", "4", "5"),
+                // 0 : en attente de validation, 1 : validée, 2 : terminée
+                // 3 : refusée, 4 : annulée
+                type: Sequelize.ENUM("0", "1", "2", "3", "4"),
                 allowNull: false,
                 defaultValue: "0",
             },

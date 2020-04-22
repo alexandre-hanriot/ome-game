@@ -9,6 +9,7 @@ const hexoid = require("hexoid");
 exports.login = (req, res) => {
     let identifier = typeof req.body.identifier === "undefined" ? "" : req.body.identifier.trim(); // On supprime les espaces
     const password = typeof req.body.password === "undefined" ? "" : req.body.password;
+    const rememberMe = typeof req.body.rememberMe === "undefined" ? false : req.body.rememberMe;
 
     // On vérifie si l'identifier correspond à un email
     const is_email = utils.validateEmail(identifier);
@@ -57,6 +58,7 @@ exports.login = (req, res) => {
                     res.send({
                         user, // A modifier pour n'envoyer que certaines données
                         xsrfToken,
+                        rememberMe,
                     });
                 });
             }
@@ -79,11 +81,7 @@ exports.login = (req, res) => {
 
                     const xsrfToken = hexoid(25)(); // Utilisation d'hexoid pour générer un token un UUID aléatoire
                     const JWTtoken = jwt.sign(
-                        {
-                            userId: user.id,
-                            status: user.status,
-                            xsrfToken,
-                        },
+                        { userId: user.id, role: user.role, xsrfToken: xsrfToken },
                         "RANDOM_TOKEN_SECRET",
                         {
                             expiresIn: "24h",
@@ -99,9 +97,10 @@ exports.login = (req, res) => {
                     // On envoie la réponse avec notamment le token xsrf. En front on pourra stocker ces données soit
                     // dans le session storage (expiration à fermeture du navigateur)
                     // ou dans le local storage (persistence à fermeture du navigateur)
-                    res.status(200).send({
+                    res.send({
                         user, // A modifier pour n'envoyer que certaines données
                         xsrfToken,
+                        rememberMe,
                     });
                 });
             }

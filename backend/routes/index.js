@@ -12,7 +12,7 @@ router.get("/", function (req, res, next) {
 router.post("/login", authController.login);
 
 // Authentification lors du refresh du front
-router.post("/authenticate", authController.authenticate);
+router.get("/authenticate", authController.authenticate);
 
 // Récupération de toutes les offres en fonction des paramètres de recherche complétés par l'utilisateur
 router.get("/search", searchOffersController.findOffersResults);

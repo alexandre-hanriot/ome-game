@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const favoriteController = require("../controllers/favoriteController");
+const auth = require("../middleware/auth");
 
 // Récupération de tous les favoris avec en option filtrage et tri
 router.get("/", favoriteController.findAll);
@@ -12,7 +13,7 @@ router.post("/:id(\\d+)", favoriteController.findOne);
 router.post("/", favoriteController.create);
 
 // Modification d'un favori
-router.put("/:id(\\d+)", favoriteController.update);
+router.put("/:id(\\d+)", auth.isAllowed, favoriteController.update);
 
 // Suppression de plusieurs favoris en fonction de leur id
 router.delete("/", favoriteController.deleteManyByID);
