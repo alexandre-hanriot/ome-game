@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { showModal, showAlert } from 'src/actions/global';
-import { saveIdReservation, updateStatusReservation } from 'src/actions/reservations';
+import { saveIdReservation, updateStatusReservation, updateValidateReservation, updateStatusFinishedReservation } from 'src/actions/reservations';
+import { updateStatusOffer } from 'src/actions/offers';
 import ModalRequest from 'src/frontend/components/Account/Offers/ModalRequest';
 
 const mapStateToProps = (state) => ({
@@ -8,6 +9,7 @@ const mapStateToProps = (state) => ({
   showModal: state.global.showModal,
   urlId: state.offers.urlId,
   allOffers: state.offers.allOffers,
+  idReservation: state.reservations.idReservation,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -24,6 +26,18 @@ const mapDispatchToProps = (dispatch) => ({
 
   updateStatusReservation: () => {
     dispatch(updateStatusReservation());
+  },
+
+  updateValidateReservation: () => {
+    dispatch(updateValidateReservation());
+  },
+
+  updateStatusOffer: () => {
+    dispatch(updateStatusOffer());
+  },
+
+  updateStatusFinishedReservation: () => {
+    dispatch(updateStatusFinishedReservation());
   },
 
 });
