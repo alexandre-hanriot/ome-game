@@ -16,6 +16,7 @@ const gamesRouter = require("./routes/game");
 const game_categoriesRouter = require("./routes/game_category");
 const favoritesRouter = require("./routes/favorite");
 const messagesRouter = require("./routes/message");
+const uploadRouter = require("./routes/upload");
 
 // Synchronisation des modèles avec la bdd
 const db = require("./models/index");
@@ -74,5 +75,6 @@ app.use("/games", gamesRouter);
 app.use("/game_categories", game_categoriesRouter);
 app.use("/favorites", favoritesRouter);
 app.use("/messages", messagesRouter);
+app.use("/upload", uploadRouter);
 
 module.exports = app;
