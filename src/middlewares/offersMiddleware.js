@@ -213,7 +213,7 @@ const offersMiddleware = (store) => (next) => (action) => {
           userId: userData.user.id,
         },
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {

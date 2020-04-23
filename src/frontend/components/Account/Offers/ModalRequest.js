@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { formatDate } from 'src/utils/selectors';
 import './offers.scss';
 
 const ModalRequest = ({
@@ -45,7 +46,7 @@ const ModalRequest = ({
     displayModal();
     displayAlert('La réservation de votre jeu est terminée');
   };
-  console.log(showModal);
+  console.log(offers[0].reservations[0].id);
   return (
     <div className="account__modal">
       {showModal === 'modalRequest' && (
@@ -58,7 +59,7 @@ const ModalRequest = ({
         <h2 className="account__modal__subtitle">Vous avez {offers[0].reservations.length} demande de réservation(s)</h2>
       )}
       {showModal === 'modalInProgressReservation' && (
-        <h2 className="account__modal__subtitle">Fait par {offers[0].reservations[0].userId}</h2>
+        <h2 className="account__modal__subtitle">Réservé par : {offers[0].reservations[0].user.username}</h2>
       )}
       <div className="account__modal__global">
         {showModal === 'modalRequest' && (
@@ -66,10 +67,10 @@ const ModalRequest = ({
             <div className="account__modal__reservation" key={reservation.id}>
               <div className="account__modal__top">
                 <p className="account__modal__top__contents">
-                  <span className="account__modal__top__content__span">Demande de : </span>{reservation.userId}
+                  <span className="account__modal__top__content__span">Demande de : </span>{reservation.user.username}
                 </p>
                 <p className="account__modal__top__contents">
-                  <span className="account__modal__top__content__span">Effectuée le : </span>{reservation.createdAt}
+                  <span className="account__modal__top__content__span">Effectuée le : </span>{formatDate(reservation.createdAt)}
                 </p>
               </div>
               <div className="account__modal__bottom">
@@ -104,7 +105,7 @@ const ModalRequest = ({
           <div className="account__modal__reservation">
             <div className="account__modal__top">
               <p className="account__modal__top__contents">
-                <span className="account__modal__top__content__span">Acceptée le : </span> TODO
+                <span className="account__modal__top__content__span">Acceptée le : </span> {formatDate(offers[0].reservations[0].updatedAt)}
               </p>
             </div>
             <div className="account__modal__bottom">

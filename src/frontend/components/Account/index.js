@@ -6,6 +6,7 @@ import Alert from 'src/frontend/containers/Alert';
 import ConfirmSupp from 'src/frontend/containers/Account/Modal';
 import { useTitle } from 'src/hooks/useTitle';
 import slugify from 'react-slugify';
+import { truncateText } from 'src/utils/selectors';
 import Loader from 'src/frontend/components/Loader';
 import './account.scss';
 
@@ -111,18 +112,20 @@ const Account = ({
                         <Link
                           to={`/recherche/jeux/${reservation.offer.id}/${slugify(reservation.offer.title, { lower: true })}`}
                           className="account__general__table__body__td__link"
-                        >{reservation.offer.title}
+                        >{truncateText(reservation.offer.title)}
                         </Link>
                       </td>
                       <td className="account__general__table__body__td">
                         {reservation.status === '0' && (
-                          <span
-                            className="account__general__table__body__td__circle--pending"
+                          <i
+                            className="account__general__table__body__td__circle--pending fas fa-exclamation-circle"
+                            title="en attente de validation"
                           />
                         )}
                         {reservation.status === '1' && (
-                          <div
-                            className="account__general__table__body__td__circle--available"
+                          <i
+                            className="account__general__table__body__td__circle--available fas fa-check-circle"
+                            title="validée"
                           />
                         )}
                         {reservation.status === '2' && (
@@ -130,15 +133,15 @@ const Account = ({
                             className="account__general__table__body__td__circle--available"
                           />
                         )}
-                        {/* {reservation.status === '3' && (
-                          <span
-                            className="account__general__table__body__td__disponible"
-                          >terminée
-                          </span>
-                        )} */}
+                        {reservation.status === '3' && (
+                          <i
+                            className="account__general__table__body__td__circle--refused fas fa-minus-circle"
+                            title="refusée"
+                          />
+                        )}
                         {reservation.status === '4' && (
                           <span
-                            className="account__general__table__body__td__circle--refused"
+                            className="account__general__table__body__td__circle--canceled"
                           />
                         )}
                       </td>
@@ -171,7 +174,7 @@ const Account = ({
                       <tr className="account__general__table__body__tr" key={offerData.id}>
                         <td
                           className="account__general__table__body__td account__general__table__body__td--left"
-                        >{offerData.title}
+                        >{truncateText(offerData.title)}
                         </td>
                         <td className="account__general__table__body__td">
                           {offerData.is_available ? (
@@ -226,7 +229,7 @@ const Account = ({
                           <Link
                             to={`/recherche/jeux/${favorite.offer.id}/${slugify(favorite.offer.title, { lower: true })}`}
                             className="account__general__table__body__td__link"
-                          >{favorite.offer.title}
+                          >{truncateText(favorite.offer.title)}
                           </Link>
                         </td>
                         <td className="account__general__table__body__td">
@@ -285,9 +288,9 @@ const Account = ({
               <div className="account__profil">
                 <div className="account__profil__left">
                   <ul className="account__profil__left__list">
-                    <li className="account__profil__left__list__content"><span className="account__profil__left__list__content__bold">Nom Prénom :</span>{user.user.firstname}</li>
-                    <li className="account__profil__left__list__content"><span className="account__profil__left__list__content__bold">Pseudo :</span> {user.user.username}</li>
-                    <li className="account__profil__left__list__content"><span className="account__profil__left__list__content__bold">Adresse email :</span> {user.user.email}</li>
+                    <li className="account__profil__left__list__content"><span className="account__profil__left__list__content__bold">Nom Prénom : </span>{user.user.firstname}</li>
+                    <li className="account__profil__left__list__content"><span className="account__profil__left__list__content__bold">Pseudo : </span> {user.user.username}</li>
+                    <li className="account__profil__left__list__content"><span className="account__profil__left__list__content__bold">Adresse email : </span> {user.user.email}</li>
                     <li className="account__profil__left__list__content"><span className="account__profil__left__list__content__bold">Téléphone : </span>{user.user.phone}</li>
                     <ul className="account__profil__left__list__content"><span className="account__profil__left__list__content__bold">Adresse postale : </span>
                       <li>{user.user.adress}</li>

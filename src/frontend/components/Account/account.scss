@@ -146,7 +146,8 @@
               width: 20px;
               height: 20px;
               margin: auto ;
-              background-color: $secondaryColor;
+              color: $primaryColor;
+              font-size: 1.3em;
               display: inline-block;
               vertical-align: middle;
             }
@@ -177,9 +178,6 @@
 
           &--left {
             text-align: left;
-            overflow: hidden;
-            max-height: 32px;
-            max-width: 220px;
             display: flex;
             display: block;
           }
