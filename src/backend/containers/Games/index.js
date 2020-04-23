@@ -8,7 +8,6 @@ import {
   adminArchiveGame,
   adminRestoreGame,
   changeGameIsLoad,
-  adminGetGames,
 } from 'src/actions/game';
 
 const mapStateToProps = (state) => ({
@@ -39,9 +38,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeGameIsLoad: () => {
     dispatch(changeGameIsLoad());
-  },
-  adminGetGames: () => {
-    dispatch(adminGetGames());
   },
 });
 
