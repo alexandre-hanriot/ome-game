@@ -186,6 +186,7 @@ exports.findAllOffers = (req, res) => {
             [Op.or]: ["0", "1"], // On ne renvoie que les réservations en cours
           },
         },
+        include: User,
       },
       {
         model: Game,
