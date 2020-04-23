@@ -8,7 +8,6 @@ import {
   saveOneReservation,
   updateListReservations,
   saveListofferReservation,
-  updateStatusStateReservation,
   ADD_RESERVATION,
   DELETE_RESERVATION,
   CHECK_OFFER_IN_RESERVATION,
@@ -26,7 +25,6 @@ const reservationsMiddleware = (store) => (next) => (action) => {
 
   switch (action.type) {
     case FETCH_RESERVATIONS:
-
       axios({
         method: 'post',
         url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/reservations`,
@@ -195,7 +193,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -219,7 +217,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -243,7 +241,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
           status: '2',
         },
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {

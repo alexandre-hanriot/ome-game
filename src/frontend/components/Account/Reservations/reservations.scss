@@ -77,9 +77,16 @@
         flex-direction: column;
         justify-content: space-evenly;
         margin-right: 2rem;
+        &__first {
+          display: flex;
+        }
 
         &__button {
           font-size: .9em;
+          margin: $gutter/2;
+          &__global {
+
+          }
         }
       }
     }

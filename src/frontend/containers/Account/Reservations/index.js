@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import Reservation from 'src/frontend/components/Account/Reservations';
 
 import { showModal } from 'src/actions/global';
-import { fetchReservations, saveIdReservation } from 'src/actions/reservations';
+import { fetchReservations, saveIdReservation, changeReservationsLoad } from 'src/actions/reservations';
 
 
 const mapStateToProps = (state) => ({
@@ -10,6 +10,7 @@ const mapStateToProps = (state) => ({
   showModal: state.global.showModal,
   data: state.reservations.allReservations,
   idReservation: state.reservations.idReservation,
+  isReservationsLoad: state.reservations.isReservationsLoad,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -21,6 +22,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   saveIdReservation: (id) => {
     dispatch(saveIdReservation(id));
+  },
+  changeReservationsLoad: () => {
+    dispatch(changeReservationsLoad());
   },
 });
 

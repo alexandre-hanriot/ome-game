@@ -91,7 +91,7 @@ const AccountOffers = ({
                   <div className="accountOffers__listOffers__offer__left__content">
                     <h2 className="accountOffers__listOffers__offer__left__content__subtitle">{truncateText(offer.title)}<span className="accountOffers__listOffers__offer__left__content__subtitle__euro"> ({offer.price} €)</span></h2>
                     <h3 className="">Nom du jeu : {offer.game.name}</h3>
-                    <h3>Client :{offer.is_available ? 'Game Over' : offer.reservations[0].userId}</h3>
+                    <h3>Client :{offer.is_available ? 'Game Over' : offer.reservations[0].user.username}</h3>
                     <h3>Date : {formatDate(offer.createdAt)}</h3>
                   </div>
                 </div>
