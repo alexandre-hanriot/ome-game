@@ -9,7 +9,14 @@ import {
   SET_OFFER_IN_RESERVATION,
   UPDATE_LIST_OFFERS,
   SET_OFFER_SEND,
+  UPDATE_STATE_OFFERS,
+  UPDATE_STATUS_STATE_OFFER,
 } from 'src/actions/offers';
+
+import {
+  SAVE_LISTOFFER_RESERVATION,
+  UPDATE_STATUS_STATE_RESERVATION,
+} from 'src/actions/reservations';
 
 const initialState = {
   allOffers: [],
@@ -61,11 +68,7 @@ const initialState = {
 
 const offersReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    // case GET_OFFER_ID:
-    //   return {
-    //     ...state,
-        
-    //   }
+
     case SAVE_OFFER_ID:
       return {
         ...state,
@@ -75,7 +78,6 @@ const offersReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         allOffers: action.data,
-        // loading: false,
       };
     case SAVE_ONE_OFFER:
       return {
@@ -189,6 +191,83 @@ const offersReducer = (state = initialState, action = {}) => {
         ...state,
         offerSend: action.value,
       };
+
+    case SAVE_LISTOFFER_RESERVATION:
+    {
+      const offers = state.allOffers.map((offer) => {
+        if (offer.id.toString() === state.urlId.toString()) {
+          const reservations = offer.reservations.filter((reservation) => (reservation.id.toString() !== action.id.toString()));
+          return {
+            ...offer,
+            reservations,
+          };
+        }
+        return {
+          ...offer,
+        };
+      });
+      return {
+        ...state,
+        allOffers: offers,
+      };
+    }
+
+    case UPDATE_STATE_OFFERS:
+    {
+      const offers = state.allOffers.map((offer) => {
+        if (offer.id.toString() === state.urlId.toString()) {
+          const reservations = offer.reservations.filter((reservation) => (reservation.id.toString() === action.id.toString()));
+          return {
+            ...offer,
+            is_available: false,
+            reservations,
+          };
+        }
+        return {
+          ...offer,
+        };
+      });
+      return {
+        ...state,
+        allOffers: offers,
+      };
+    }
+
+    case UPDATE_STATUS_STATE_OFFER:
+    {
+      const offers = state.allOffers.map((offer) => {
+        if (offer.id.toString() === state.urlId.toString()) {
+          return {
+            ...state,
+            is_available: true,
+          };
+        }
+      });
+      return {
+        ...state,
+        allOffers: offers,
+      };
+    }
+
+    case UPDATE_STATUS_STATE_RESERVATION:
+    {
+      const offers = state.allOffers.map((offer) => {
+        if (offer.id.toString() === state.urlId.toString()) {
+          const reservations = offer.reservations.filter((reservation) => (reservation.id.toString() === action.id.toString()));
+          return {
+            ...reservations,
+            status: '2',
+          };
+        }
+        return {
+          ...offer,
+        };
+      });
+      return {
+        ...state,
+        allOffers: offers,
+      };
+    }
 
     default: return state;
   }

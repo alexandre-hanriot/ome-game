@@ -1,5 +1,8 @@
 @import 'src/styles/_vars.scss';
-
+.red{
+  color: $red;
+  font-size: 3em;
+}
 .account {
   &__modal {
     display: flex;
@@ -77,6 +80,18 @@
           background-color: $secondaryColor;
         }
       }
+      &__finished {
+        background-color: $green;
+        border: none;
+        border-radius: 5px;
+        padding: ($gutter /3);
+        font-size: 1em;
+        color: white;
+        margin-right: $gutter/2;
+        &:hover {
+          background-color: $secondaryColor;
+        }
+      }
     }
     &__border {
       border: .5px solid $lightBlue;
@@ -84,18 +99,32 @@
     }
   }
 }
-
+.button__disabled {
+  color: $darkBlue;
+  background-color: #e3e5ecb8;
+  font-family: inherit;
+  font-size: inherit;
+  padding: .8rem 1rem;
+  border: none;
+  border-radius: .3rem;
+  max-width: 100%;
+  text-align: inherit;
+  font-weight: bold;
+  &__pencil {
+    padding: .3rem;
+  }
+}
 .accountOffers {
   &__buttonRemove {
     padding: .5rem;
+  }
+  &__buttonUpdate {
+    padding: 0.3rem .4rem;
   }
   &__global {
     display: flex;
     justify-content: space-between;
 
-    &__createOffer {
-      
-    }
     &__title {
       font-size: 1.8em;
       font-weight: bold;
@@ -115,20 +144,55 @@
       background-color: $darkBlue;
       margin: $gutter;
       padding: $gutter/2;
+      &__gathered {
+        display: flex;
+      }
 
       &__left {
         display: -webkit-box;
         display: flex;
+        flex-grow: 1;
+
 
         &__picture {
           width: 120px;
           height: 120px;
-          margin: auto;
           text-align: center;
         }
         &__content {
           line-height: 1.6;
           padding-left: $gutter;
+          display: flex;
+          flex-direction: column;
+          flex-grow: 1;
+          &__bottom {
+            display: flex;
+            justify-content: space-between;
+            &__pending {
+              color: $primaryColor;
+              margin-bottom: .5rem;
+              font-size: 2em;
+              padding: .1rem .5rem;
+              border: none;
+              border-radius: 5px;
+            }
+            &__available {
+              color: $green;
+              margin-bottom: .5rem;
+              font-size: 2em;
+              padding: .1rem .5rem;
+              border: none;
+              border-radius: 5px;
+            }
+            &__delete {
+              color: $red;
+              margin-bottom: .5rem;
+              font-size: 2em;
+              padding: .1rem .5rem;
+              border: none;
+              border-radius: 5px;
+            }
+          }
           &__subtitle {
             font-size: 1.5em;
             color: $primaryColor;
@@ -140,12 +204,13 @@
         &__status {
           margin-left: 1rem;
           margin-top: 0.5rem;
-          border-radius: 10px;
-          padding: ($gutter /4) ($gutter/2);
+          border-radius: 5px;
+          padding: .3rem .4rem;
           background-color: $green;
-          font-size: .8em;
+          font-size: .9em;
           color: $darkBlue;
           display: inline-block;
+          font-weight: bold;
           &--off {
             margin-left: 4rem;
             background-color: $backgroundLight;
@@ -153,15 +218,34 @@
         }
       }
       &__middle {
-        padding: $gutter/3;
+        padding:0 $gutter/3;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        margin-left: 0;
+        &__gathered {
+          text-align: end;
+          display: flex;
+          justify-content: flex-end;
+        }
         &__request {
-          color: $secondaryColor;
-          font-size: 1.5em;
+          color: $primaryColor;
+          font-size: 1.9em;
           border: none;
           background-color: $darkBlue;
+          &:hover {
+            color: $secondaryColor;
+          }
+          &__inProgress {
+            color: $red;
+            border: none; 
+            background-color: $darkBlue;
+            font-size: 2em;
+            margin-bottom: .5rem;
+            &:hover {
+              color: $secondaryColor;
+            }
+          }
         }
       }
       &__right {

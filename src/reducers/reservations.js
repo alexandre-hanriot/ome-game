@@ -7,6 +7,7 @@ import {
   UPDATE_LIST_RESERVATIONS,
   SAVE_STATUS_RESERVATION,
   SAVE_LISTOFFER_RESERVATION,
+  UPDATE_STATUS_STATE_RESERVATION,
 } from 'src/actions/reservations';
 
 const initialState = {
@@ -63,23 +64,6 @@ const reservationsReducer = (state = initialState, action = {}) => {
         ...state,
         statusReservation: action.status,
       };
-
-      // case SAVE_LISTOFFER_RESERVATION:
-      //   {
-      //     const offers = state.allOffers.filter((offer) => {
-      //       if (offer.id.toString() !== state.idOffer.toString()) {
-      //         const reservations = offers.filter((reservation) => {
-      //           if (idReservation.toString === action.idReservation.toString()) {
-      //             return true;
-      //           }
-      //         });
-      //       }
-      //     });
-      //     return {
-      //       ...state,
-      //       allReservations: remainReservations,
-      //     };
-      //   };
 
     default: return state;
   }

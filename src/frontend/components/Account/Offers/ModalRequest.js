@@ -10,35 +10,59 @@ const ModalRequest = ({
   allOffers,
   saveIdReservation,
   updateStatusReservation,
-
+  updateValidateReservation,
+  idReservation,
+  updateStatusOffer,
+  updateStatusFinishedReservation,
 }) => {
   const offers = allOffers.filter((offer) => {
     if (offer.id.toString() === urlId.toString()) {
       return true;
     }
   });
-  console.log(offers);
-  const handleValidate = () => {
-    displayAlert('L\'élément à bien été supprimé');
+  const handleValidate = (e) => {
+    const { id } = e.currentTarget.dataset;
+    saveIdReservation(id);
+    updateValidateReservation();
+    displayAlert('La réservation à été validé, un mail sera envoyé à xxx');
 
     displayModal();
   };
-
+  console.log(idReservation);
   const handleRefused = (e) => {
-    const { id, status } = e.currentTarget.dataset;
+    const { id } = e.currentTarget.dataset;
     saveIdReservation(id);
     // saveStatusReservation(status);
     updateStatusReservation();
     displayAlert('L\'élément à bien été supprimé');
   };
+  const handleFinished = () => {
+    // TODO : action pour changer le status de l'offre dans la bdd ainsi que
+    // dans le state ainsi que le status de la réservations
+    // OFFRE :
+    updateStatusOffer();
+    updateStatusFinishedReservation();
+    displayModal();
+    displayAlert('La réservation de votre jeu est terminée');
+  };
   console.log(showModal);
   return (
     <div className="account__modal">
-      <h1>Demande de réservation</h1>
-      <h2 className="account__modal__subtitle">Vous avez {offers[0].reservations.length} demande de réservation(s)</h2>
+      {showModal === 'modalRequest' && (
+        <h1>Demande de réservation</h1>
+      )}
+      {showModal === 'modalInProgressReservation' && (
+        <h1>Réservation en cours</h1>
+      )}
+      {showModal === 'modalRequest' && (
+        <h2 className="account__modal__subtitle">Vous avez {offers[0].reservations.length} demande de réservation(s)</h2>
+      )}
+      {showModal === 'modalInProgressReservation' && (
+        <h2 className="account__modal__subtitle">Fait par {offers[0].reservations[0].userId}</h2>
+      )}
       <div className="account__modal__global">
-        {offers[0].reservations.map((reservation) => (
-          <>
+        {showModal === 'modalRequest' && (
+          offers[0].reservations.map((reservation) => (
             <div className="account__modal__reservation" key={reservation.id}>
               <div className="account__modal__top">
                 <p className="account__modal__top__contents">
@@ -63,6 +87,8 @@ const ModalRequest = ({
                   className="account__modal__bottom__validate"
                   type="button"
                   title="fermer la fenêtre"
+                  data-id={reservation.id}
+
                   onClick={handleValidate}
                 >
                   Valider
@@ -72,8 +98,27 @@ const ModalRequest = ({
                 <p className="account__modal__border" />
               )}
             </div>
-          </>
-        ))}
+          ))
+        )}
+        {showModal === 'modalInProgressReservation' && (
+          <div className="account__modal__reservation">
+            <div className="account__modal__top">
+              <p className="account__modal__top__contents">
+                <span className="account__modal__top__content__span">Acceptée le : </span> TODO
+              </p>
+            </div>
+            <div className="account__modal__bottom">
+              <button
+                className="account__modal__bottom__finished"
+                type="button"
+                title="terminer la réservation"
+                onClick={handleFinished}
+              >
+                Terminer la réservation
+              </button>
+            </div>
+          </div>
+        )}
       </div>
       {offers[0].reservations.length === 0 && (
         <h2>Vous n'avez plus aucune demande de réservations pour votre jeu</h2>
@@ -92,8 +137,12 @@ ModalRequest.propTypes = {
     }).isRequired,
   ).isRequired,
   urlId: PropTypes.string.isRequired,
+  idReservation: PropTypes.string.isRequired,
   saveIdReservation: PropTypes.func.isRequired,
   updateStatusReservation: PropTypes.func.isRequired,
+  updateValidateReservation: PropTypes.func.isRequired,
+  updateStatusOffer: PropTypes.func.isRequired,
+  updateStatusFinishedReservation: PropTypes.func.isRequired,
 };
 
 export default ModalRequest;

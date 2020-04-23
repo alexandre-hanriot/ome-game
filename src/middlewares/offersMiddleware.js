@@ -12,6 +12,9 @@ import {
   HANDLE_MODIFY_OFFER,
   DELETE_OFFER,
   FETCH_ALL_OFFERS,
+  UPDATE_STATUS_OFFER,
+  fetchOffers,
+
 } from 'src/actions/offers';
 
 import { showAlert, redirectTo } from 'src/actions/global';
@@ -34,6 +37,7 @@ const offersMiddleware = (store) => (next) => (action) => {
         },
       })
         .then((response) => {
+          console.log(response.data, 'on passe par saveOffers');
           store.dispatch(saveOffers(response.data));
         })
         .catch((error) => {
@@ -59,6 +63,7 @@ const offersMiddleware = (store) => (next) => (action) => {
         },
       })
         .then((response) => {
+          console.log(response.data);
           store.dispatch(saveOffers(response.data));
         })
         .catch((error) => {
@@ -190,6 +195,31 @@ const offersMiddleware = (store) => (next) => (action) => {
         .then((response) => {
           console.log(response.data);
           store.dispatch(updateListOffers(urlId));
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+      next(action);
+      break;
+    }
+
+    case UPDATE_STATUS_OFFER: {
+      axios({
+        method: 'put',
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`,
+        withCredentials: true,
+        data: {
+          is_available: true,
+          userId: userData.user.id,
+        },
+        headers: {
+          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+        },
+      })
+        .then((response) => {
+          console.log(response.data);
+          // store.dispatch(updateStatusStateOffer(urlId));
+          store.dispatch(fetchOffers());
         })
         .catch((error) => {
           console.warn(error);
