@@ -11,7 +11,7 @@ router.post("/", (req, res) => {
     }
     const file = req.files.file;
     // Upload file in "/public/images/offers/"
-    file.mv(`../public/images/offers/${file.name}`, (err) => {
+    file.mv(`${}../public/images/offers/${file.name}`, (err) => {
         if (err) {
             console.error(err);
             return res.status(500).send(err);
