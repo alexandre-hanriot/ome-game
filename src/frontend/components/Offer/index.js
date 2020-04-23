@@ -16,7 +16,9 @@ const Offer = ({
   // load data games and games categories
   useEffect(() => {
     if (requestsLoad === 0) {
-      fetchGames();
+      fetchGames({
+        status: '1',
+      });
       fetchGamesCategories();
     }
   }, []);

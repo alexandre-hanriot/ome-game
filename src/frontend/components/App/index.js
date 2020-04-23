@@ -25,6 +25,8 @@ import Alert from 'src/frontend/containers/Alert';
 
 // Backend
 import Admin from 'src/backend/containers/Home';
+import AdminUser from 'src/backend/containers/User';
+import AdminUserForm from 'src/backend/containers/User/Form';
 
 // == Composant
 const App = ({
@@ -33,6 +35,7 @@ const App = ({
   isError,
   redirectTo,
   setRedirectTo,
+  isTokenExist,
   rememberMe,
 }) => {
   const location = useLocation();
@@ -53,6 +56,12 @@ const App = ({
   useEffect(() => {
     setRedirectTo('');
   }, [redirectTo]);
+
+  useEffect(() => {
+    if (!isLogged) {
+      isTokenExist();
+    }
+  }, []);
 
   // TODO
   const inAdministration = currentPath.includes('/admin/');
@@ -100,6 +109,16 @@ const App = ({
             <Admin />
           </Route>
           )}
+          {(isLogged && isAdmin && inAdministration) && (
+          <Route exact path="/admin/utilisateurs">
+            <AdminUser />
+          </Route>
+          )}
+          {(isLogged && isAdmin && inAdministration) && (
+          <Route exact path="/admin/utilisateurs/:slug">
+            <AdminUserForm />
+          </Route>
+          )}
           <Route exact path="/">
             <Home />
           </Route>
@@ -134,6 +153,7 @@ App.propTypes = {
   isError: PropTypes.bool.isRequired,
   redirectTo: PropTypes.string.isRequired,
   setRedirectTo: PropTypes.func.isRequired,
+  isTokenExist: PropTypes.func.isRequired,
   rememberMe: PropTypes.bool.isRequired,
 };
 // == Export

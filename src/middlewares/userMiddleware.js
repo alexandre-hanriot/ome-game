@@ -7,14 +7,20 @@ import {
   SUBMIT_PROFIL_CHANGE_PASSWORD,
   FETCH_ALL_USERS,
   saveUsers,
+  IS_TOKEN_EXIST,
+  LOG_OUT,
+  clearUser,
+  FETCH_USER,
 } from 'src/actions/user';
 import { showAlert, showModal } from 'src/actions/global';
 import axios from 'axios';
 
+
 const userMiddleware = (store) => (next) => (action) => {
+  const { rememberMe, userData } = store.getState().user;
   switch (action.type) {
     case SUBMIT_LOGIN: {
-      const { email, password, rememberMe } = store.getState().user;
+      const { email, password } = store.getState().user;
       axios({
         method: 'post',
         url: 'http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/login',
@@ -39,14 +45,8 @@ const userMiddleware = (store) => (next) => (action) => {
           store.dispatch(showAlert('Connexion effectuée avec succès', true));
           store.dispatch(showModal());
           store.dispatch(changeLoginError(''));
-          if (rememberMe) {
-            localStorage.setItem('userId', data.user.id);
-            localStorage.setItem('xsrfToken', data.xsrfToken);
-          }
-          else if (rememberMe === false) {
-            sessionStorage.setItem('userId', data.user.id);
-            sessionStorage.setItem('xsrfToken', data.xsrfToken);
-          }
+          localStorage.setItem('xsrfToken', data.xsrfToken);
+          localStorage.setItem('rememberMe', rememberMe);
         })
         .catch((error) => {
           // handle error
@@ -65,7 +65,6 @@ const userMiddleware = (store) => (next) => (action) => {
       break;
     }
     case SUBMIT_PROFIL_UPDATE: {
-      const { userData, rememberMe } = store.getState().user;
       axios({
         method: 'put',
         url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}`,
@@ -86,7 +85,7 @@ const userMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -101,7 +100,6 @@ const userMiddleware = (store) => (next) => (action) => {
       break;
     }
     case SUBMIT_PROFIL_CHANGE_PASSWORD: {
-      const { userData, rememberMe } = store.getState().user;
       axios({
         method: 'put',
         url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/password`,
@@ -112,14 +110,16 @@ const userMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
           store.dispatch(saveProfilUpdate(response.data));
         })
         .catch((error) => {
-          // handle error
+          if (error.response.status === 401) {
+            store.dispatch(showAlert('l\'ancien mot de passe est incorrect', false));
+          }
           console.warn(error);
         });
       next(action);
@@ -127,23 +127,78 @@ const userMiddleware = (store) => (next) => (action) => {
     }
 
     case FETCH_ALL_USERS: {
-      // TODO : limit 4 (wait Steph)
       axios.get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users', {
         params: {
-          orderby: 'id',
-          sortby: 'DESC',
-          status: ['0', '1'],
+          ...action.params,
         },
       })
         .then((response) => {
-          // TODO - temp
-          const users = response.data.filter((data, index) => index < 4);
-          store.dispatch(saveUsers(users));
+          store.dispatch(saveUsers(response.data));
         })
         .catch((error) => {
           console.warn(error);
         });
 
+      next(action);
+      break;
+    }
+
+    case IS_TOKEN_EXIST: {
+      if (localStorage.getItem('xsrfToken') !== null) {
+        axios({
+          method: 'get',
+          url: 'http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/authenticate',
+          withCredentials: true,
+          headers: {
+            'x-xsrf-token': localStorage.getItem('xsrfToken'),
+          },
+        })
+          .then((response) => {
+            const data = {
+              user: {
+                ...response.data,
+                old_password: '',
+                new_password: '',
+                confirm_new_password: '',
+              },
+              xsrfToken: localStorage.getItem('xsrfToken'),
+            };
+            store.dispatch(logUser(data));
+          })
+          .catch((error) => {
+            console.warn(error);
+          });
+      }
+      next(action);
+      break;
+    }
+
+    case LOG_OUT: {
+      axios.get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/logout', {
+        withCredentials: true,
+      })
+        .then((response) => {
+          localStorage.clear();
+          store.dispatch(clearUser());
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+      next(action);
+      break;
+    }
+
+    case FETCH_USER: {
+      axios({
+        method: 'post',
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${action.id}`,
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
       next(action);
       break;
     }

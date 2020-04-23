@@ -3,11 +3,13 @@ import {
   LOG_USER, SUBMIT_LOGIN,
   CHANGE_LOGIN_ERROR,
   CLEAR_LOGIN_ERROR,
-  LOG_OUT, SET_REQUEST_LOAD,
+  SET_REQUEST_LOAD,
   CHANGE_PROFIL_INPUT,
   CLEAR_PROFIL_PASSWORDS,
   SAVE_USERS,
+  CLEAR_USER,
 } from 'src/actions/user';
+
 
 const initialState = {
   allUsers: [],
@@ -87,15 +89,6 @@ const userReducer = (state = initialState, action = {}) => {
         email: '',
         password: '',
       };
-    case LOG_OUT: {
-      localStorage.clear();
-      sessionStorage.clear();
-      return {
-        ...state,
-        isLogged: false,
-        userData: '',
-      };
-    }
     case SET_REQUEST_LOAD:
       return {
         ...state,
@@ -127,7 +120,35 @@ const userReducer = (state = initialState, action = {}) => {
           },
         },
       };
-
+    case CLEAR_USER:
+      return {
+        ...state,
+        isLogged: false,
+        userData: {
+          user: {
+            id: 0,
+            role: '',
+            status: '',
+            picture: '',
+            email: '',
+            password: '',
+            old_password: '',
+            new_password: '',
+            confirm_new_password: '',
+            username: '',
+            firstname: '',
+            lastname: '',
+            phone: 1234567890,
+            address: '',
+            postal_code: '',
+            city: '',
+            display_name: false,
+            gdpr_accepted_at: '',
+            createdAt: '',
+          },
+          xsrfToken: '',
+        },
+      };
     case SAVE_USERS:
       return {
         ...state,

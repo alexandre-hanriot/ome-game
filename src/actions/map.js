@@ -57,8 +57,9 @@ export const saveOffers = (offers) => ({
   offers,
 });
 
-export const fetchGames = () => ({
+export const fetchGames = (params) => ({
   type: MAP_FETCH_GAMES,
+  params,
 });
 
 export const saveGames = (games) => ({

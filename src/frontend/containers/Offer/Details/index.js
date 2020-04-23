@@ -34,6 +34,7 @@ const mapStateToProps = (state) => ({
   isLogged: state.user.isLogged,
   offerInFavorite: state.offers.offerInFavorite,
   offerInReservation: state.offers.offerInReservation,
+  userId: state.user.userData.user.id,
 });
 
 const mapDispatchToProps = (dispatch) => ({

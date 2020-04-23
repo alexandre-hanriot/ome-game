@@ -1,0 +1,90 @@
+@import 'src/styles/_vars.scss';
+
+.admin-users {
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: $gutter/2;
+  }
+
+  h1 {
+    font-size: 2em;
+    font-weight: bold;
+    color: $primaryColor;
+    text-align: left;
+  }
+
+  &__table {
+    background-color: $darkBlue;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: $gutter/2;
+
+    &__thead {
+      tr {
+        border-bottom: 1px solid #3d5471;
+        th {
+          padding: $gutter/2;
+          color: $primaryColor;
+          font-weight: 700;
+        }
+      }  
+    }
+    &__tbody {
+      tr {
+        border-bottom: 1px solid #3d5471;
+
+        td {
+          padding: $gutter/2;
+        }
+        td:not(.admin-users__table__username) {
+          font-size: .9em;
+        }
+      }
+    }
+
+    &__username {
+      text-align: left;
+    }
+
+    &__status {
+      i {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+      }
+      &--active i {
+        color: $green;
+      }
+      &--wait i {
+        color: $primaryColor;
+      }
+    }
+
+    &__action {
+      a {
+        background-color: $backgroundLight;
+        color: $darkBlue;
+        padding: 0 .5rem;
+        border-radius: 0.2rem;
+        margin-right: .4rem;
+
+        &.remove {
+          background-color: $red;
+          color: #fff;
+        }
+
+        &:hover {
+          background-color: $secondaryColor;
+          color: #fff;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}

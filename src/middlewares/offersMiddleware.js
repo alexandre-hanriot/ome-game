@@ -3,27 +3,28 @@ import axios from 'axios';
 import {
   FETCH_OFFERS,
   FETCH_PARAMS_OFFERS,
-  GET_OFFER, saveOffers,
+  GET_OFFER,
+  saveOffers,
   saveOneOffer,
   changeOfferIsLoad,
   updateListOffers,
-  updateStatusStateOffer,
   HANDLE_ADD_OFFER,
   HANDLE_MODIFY_OFFER,
-  DELETE_OFFER, FETCH_ALL_OFFERS,
+  DELETE_OFFER,
+  FETCH_ALL_OFFERS,
   UPDATE_STATUS_OFFER,
   fetchOffers,
+
 } from 'src/actions/offers';
 
 import { showAlert, redirectTo } from 'src/actions/global';
 
 const offersMiddleware = (store) => (next) => (action) => {
-  const { userData, rememberMe } = store.getState().user;
+  const { userData } = store.getState().user;
   const { urlId, offer } = store.getState().offers;
 
   switch (action.type) {
     case FETCH_OFFERS: {
-      // const { userData } = store.getState().user;
       axios({
         method: 'post',
         url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/offers`,
@@ -32,7 +33,7 @@ const offersMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -58,7 +59,7 @@ const offersMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -72,18 +73,13 @@ const offersMiddleware = (store) => (next) => (action) => {
       break;
 
     case FETCH_ALL_OFFERS: {
-      // TODO : limit 4 (wait Steph)
       axios.get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers', {
         params: {
-          orderby: 'id',
-          sortby: 'DESC',
-          status: ['0', '1'],
+          ...action.params,
         },
       })
         .then((response) => {
-          // TODO - temp
-          const offers = response.data.filter((data, index) => index < 4);
-          store.dispatch(saveOffers(offers));
+          store.dispatch(saveOffers(response.data));
         })
         .catch((error) => {
           console.warn(error);
@@ -94,7 +90,13 @@ const offersMiddleware = (store) => (next) => (action) => {
     }
 
     case GET_OFFER: {
-      axios.post(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`)
+      axios({
+        method: 'post',
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`,
+        data: {
+          status: '1',
+        },
+      })
         .then((response) => {
           const { data } = response;
           const hasLocation = data.latitude !== null && data.longitude !== null;
@@ -132,7 +134,7 @@ const offersMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -165,7 +167,7 @@ const offersMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -187,7 +189,7 @@ const offersMiddleware = (store) => (next) => (action) => {
           userId: userData.user.id,
         },
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {

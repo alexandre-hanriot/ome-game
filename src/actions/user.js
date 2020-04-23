@@ -13,6 +13,9 @@ export const SAVE_PROFIL_CHANGE_PASSWORD = 'SAVE_PROFIL_CHANGE_PASSWORD';
 export const CLEAR_PROFIL_PASSWORDS = 'CLEAR_PROFIL_PASSWORDS';
 export const FETCH_ALL_USERS = 'FETCH_ALL_USERS';
 export const SAVE_USERS = 'SAVE_USERS';
+export const IS_TOKEN_EXIST = 'IS_TOKEN_EXIST';
+export const CLEAR_USER = 'CLEAR_USER';
+export const FETCH_USER = 'FETCH_USER';
 
 export const changeInputOfLogin = (identifier, newValue) => ({
   type: CHANGE_INPUT_OF_LOGIN,
@@ -77,4 +80,17 @@ export const fetchAllUsers = (params = {}) => ({
 export const saveUsers = (users) => ({
   type: SAVE_USERS,
   users,
+});
+
+export const isTokenExist = () => ({
+  type: IS_TOKEN_EXIST,
+});
+
+export const clearUser = () => ({
+  type: CLEAR_USER,
+});
+
+export const fetchUser = (id) => ({
+  type: FETCH_USER,
+  id,
 });

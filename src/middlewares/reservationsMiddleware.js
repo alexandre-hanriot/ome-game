@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 import {
   FETCH_RESERVATIONS,
   FETCH_PARAMS_RESERVATIONS,
@@ -22,7 +21,7 @@ import {
 import { setOfferInReservation, updateStateOffers } from 'src/actions/offers';
 
 const reservationsMiddleware = (store) => (next) => (action) => {
-  const { userData, rememberMe } = store.getState().user;
+  const { userData } = store.getState().user;
   const { idReservation } = store.getState().reservations;
 
   switch (action.type) {
@@ -36,7 +35,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -61,7 +60,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -83,7 +82,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -96,19 +95,13 @@ const reservationsMiddleware = (store) => (next) => (action) => {
       break;
 
     case FETCH_ALL_RESERVATIONS: {
-      // TODO : limit 4 (wait Steph)
       axios.get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations', {
         params: {
-          orderby: 'id',
-          sortby: 'DESC',
-          status: ['0', '1'],
+          ...action.params,
         },
       })
         .then((response) => {
-          // TODO - temp
-          console.log('reponse fetch all resa');
-          const reservations = response.data.filter((data, index) => index < 4);
-          store.dispatch(saveReservations(reservations));
+          store.dispatch(saveReservations(response.data));
         })
         .catch((error) => {
           console.warn(error);
@@ -131,7 +124,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -153,7 +146,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -178,7 +171,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
           },
           withCredentials: true,
           headers: {
-            'x-xsrf-token': rememberMe ? localStorage.getItem('xsrfToken') : sessionStorage.getItem('xsrfToken'),
+            'x-xsrf-token': localStorage.getItem('xsrfToken'),
           },
         })
           .then((response) => {

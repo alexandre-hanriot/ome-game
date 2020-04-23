@@ -23,12 +23,10 @@ const gameMiddleware = (store) => (next) => (action) => {
     }
 
     case GET_GAMES: {
-      const params = {
-        ...action.params,
-      };
-
       axios.get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/games', {
-        params,
+        params: {
+          ...action.params,
+        },
       })
         .then((response) => {
           store.dispatch(saveGames(response.data));
