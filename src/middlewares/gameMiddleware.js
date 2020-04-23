@@ -1,7 +1,15 @@
 import axios from 'axios';
 import {
-  GET_GAME_CATEGORIES, saveGameCategories, GET_GAMES, saveGames,
-  changeCategoriesIsLoad, changeGameIsLoad, ADD_GAME,
+  GET_GAME_CATEGORIES,
+  saveGameCategories,
+  GET_GAMES,
+  saveGames,
+  changeCategoriesIsLoad,
+  changeGameIsLoad,
+  ADD_GAME,
+  ADMIN_ARCHIVE_GAME,
+  ADMIN_RESTORE_GAME,
+  ADMIN_GET_GAMES,
 } from 'src/actions/game';
 
 import { handleAddOffer, handleModifyOffer, handleFormInput } from 'src/actions/offers';
@@ -66,7 +74,49 @@ const gameMiddleware = (store) => (next) => (action) => {
       next(action);
       break;
     }
-
+    case ADMIN_ARCHIVE_GAME: {
+      axios({
+        method: 'put',
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/games/${action.gameId}`,
+        data: {
+          status: '2',
+        },
+      })
+        .then((response) => {
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      next(action);
+      break;
+    }
+    case ADMIN_RESTORE_GAME: {
+      axios({
+        method: 'put',
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/games/${action.gameId}`,
+        data: {
+          status: '0',
+        },
+      })
+        .then((response) => {
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      next(action);
+      break;
+    }
+    case ADMIN_GET_GAMES: {
+      axios.get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/games')
+        .then((response) => {
+          store.dispatch(saveGames(response.data));
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      next(action);
+      break;
+    }
     default:
       next(action);
   }

@@ -44,3 +44,47 @@
     }
   }
 }
+
+.modify-game {
+  border: none;
+  border-radius: $gutter/4;
+  background-color: $backgroundLight;
+  padding: $gutter/4;
+  color: $darkBlue;
+}
+
+.archive-game {
+  border: none;
+  border-radius: $gutter/4;
+  background-color: $red;
+  padding: $gutter/4;
+  color: white;
+}
+
+.undo-game {
+  border: none;
+  border-radius: $gutter/4;
+  background-color: $backgroundLight;
+  padding: $gutter/4;
+  color: $darkBlue;
+}
+
+.delete-game {
+  border: none;
+  border-radius: $gutter/4;
+  background-color: $red;
+  padding: $gutter/4;
+  color: white;
+}
+
+.button__archive {
+  border: none;
+  background: none;
+  font-size: 1em;
+}
+
+.button__restore {
+  border: none;
+  background: none;
+  font-size: 1em;
+}

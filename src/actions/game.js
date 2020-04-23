@@ -9,6 +9,9 @@ export const SET_NEW_GAME_FIELD = 'SET_NEW_GAME_FIELD';
 export const HANDLE_FORM_INPUT_GAME = 'HANDLE_FORM_INPUT_GAME';
 export const ADMIN_GAMES_ON = 'ADMIN_GAMES_ON';
 export const ADMIN_GAMES_OFF = 'ADMIN_GAMES_OFF';
+export const ADMIN_ARCHIVE_GAME = 'ADMIN_ARCHIVE_GAME';
+export const ADMIN_RESTORE_GAME = 'ADMIN_RESTORE_GAME';
+export const ADMIN_GET_GAMES = 'ADMIN_GET_GAMES';
 
 export const getGameCategories = () => ({
   type: GET_GAME_CATEGORIES,
@@ -58,4 +61,18 @@ export const gamesOn = () => ({
 
 export const gamesOff = () => ({
   type: ADMIN_GAMES_OFF,
+});
+
+export const adminArchiveGame = (gameId) => ({
+  type: ADMIN_ARCHIVE_GAME,
+  gameId,
+});
+
+export const adminRestoreGame = (gameId) => ({
+  type: ADMIN_RESTORE_GAME,
+  gameId,
+});
+
+export const adminGetGames = () => ({
+  type: ADMIN_GET_GAMES,
 });

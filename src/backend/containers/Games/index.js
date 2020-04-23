@@ -5,12 +5,17 @@ import {
   getGameCategories,
   gamesOn,
   gamesOff,
+  adminArchiveGame,
+  adminRestoreGame,
+  changeGameIsLoad,
+  adminGetGames,
 } from 'src/actions/game';
 
 const mapStateToProps = (state) => ({
   games: state.game.games,
   categories: state.game.categories,
   isDeletedGames: state.game.isDeletedGames,
+  gamesIsLoad: state.game.gamesIsLoad,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -25,6 +30,18 @@ const mapDispatchToProps = (dispatch) => ({
   },
   gamesOff: () => {
     dispatch(gamesOff());
+  },
+  adminArchiveGame: (gameId) => {
+    dispatch(adminArchiveGame(gameId));
+  },
+  adminRestoreGame: (gameId) => {
+    dispatch(adminRestoreGame(gameId));
+  },
+  changeGameIsLoad: () => {
+    dispatch(changeGameIsLoad());
+  },
+  adminGetGames: () => {
+    dispatch(adminGetGames());
   },
 });
 
