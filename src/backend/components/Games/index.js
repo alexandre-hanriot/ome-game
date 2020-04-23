@@ -16,23 +16,14 @@ const Games = ({
   gamesOff,
   adminArchiveGame,
   adminRestoreGame,
-  adminGetGames,
 }) => {
   useTitle('Administration des jeux');
 
   const handleArchived = (gameId) => {
-    async function load() {
-      await adminArchiveGame(gameId);
-      adminGetGames();
-    }
-    load();
+    adminArchiveGame(gameId);
   };
   const handleRestore = (gameId) => {
-    async function load() {
-      await adminRestoreGame(gameId);
-      adminGetGames();
-    }
-    load();
+    adminRestoreGame(gameId);
   };
 
   useEffect(() => {
