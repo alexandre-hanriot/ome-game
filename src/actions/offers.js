@@ -16,7 +16,8 @@ export const SET_OFFER_IN_RESERVATION = 'SET_OFFER_IN_RESERVATION';
 export const DELETE_OFFER = 'DELETE_OFFER';
 export const UPDATE_LIST_OFFERS = 'UPDATE_LIST_OFFERS';
 export const SET_OFFER_SEND = 'SET_OFFER_SEND';
-
+export const SET_UPLOAD_DATA = 'SET_UPLOAD_DATA';
+export const OFFER_UPLOAD_IMAGE = 'OFFER_UPLOAD_IMAGE';
 
 // action creators
 export const fetchOffers = () => ({
@@ -97,3 +98,12 @@ export const setOfferSend = (value) => ({
   value,
 });
 
+export const setUploadData = (name, value) => ({
+  type: SET_UPLOAD_DATA,
+  name,
+  value,
+});
+
+export const offerUploadImage = () => ({
+  type: OFFER_UPLOAD_IMAGE,
+});

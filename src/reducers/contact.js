@@ -3,8 +3,8 @@ import {
 } from 'src/actions/contact';
 
 const initialState = {
-  name: '',
-  forename: '',
+  firstname: '',
+  lastname: '',
   email: '',
   message: '',
   legalMentions: false,

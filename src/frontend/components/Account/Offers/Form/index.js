@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
 import { formatDate } from 'src/utils/selectors';
 import MapAutocomplete from 'react-google-autocomplete';
-
+import Modal from 'src/frontend/containers/Modal';
 import Loader from 'src/frontend/components/Loader';
 import Map from 'src/frontend/containers/Map';
+import Upload from 'src/frontend/containers/Account/Offers/Form/Upload';
 
 import './form.scss';
 
@@ -16,6 +17,7 @@ const Form = ({
   categories, games, addGame, getGameCategories, getGames, changeCategoriesIsLoad,
   changeGameIsLoad, gamesIsLoad, categoriesIsLoad, handleAddOffer,
   handleModifyOffer, changeOfferIsLoad, setNewGameField, newGameField, handleFormInputGame, game, displayAlert, offerSend, setOfferSend,
+  showModal, displayModal,
 }) => {
   const { slug } = useParams();
   useEffect(() => {
@@ -137,11 +139,16 @@ const Form = ({
     handleFormInputGame(name, value);
   };
 
+  const handleClickUpload = () => {
+    displayModal('upload');
+  };
+
   return (
     <>
       {(!gamesIsLoad || !categoriesIsLoad) && <Loader />}
       {(gamesIsLoad && categoriesIsLoad) && (
         <div className="wrapper account-offers-form">
+          {showModal === 'upload' && <Modal content={<Upload />} />}
 
           <div className="account-offers-form__breadcrumb">
             <Link to="/">Accueil</Link> > <Link to="/compte">Mon compte</Link> > <Link to="/compte/offres">Mes offres</Link> > { offer.id === 0 ? 'Ajouter' : 'Modifier' }
@@ -310,7 +317,8 @@ const Form = ({
 
                 <div className="account-offers-form__block">
                   <h2 className="account-offers-form__subtitle">Image</h2>
-                  <button type="button" className="account-offers-form__game__image__define">Définir une image</button>
+                  {offer.image === null && <button type="button" className="account-offers-form__game__image__define" onClick={handleClickUpload}>Définir une image</button>}
+                  {offer.image !== null && <img src={`/public/images/offers/${offer.image}`} alt="erreur" />}
                 </div>
 
                 <div className="account-offers-form__block">
@@ -395,6 +403,8 @@ Form.propTypes = {
   displayAlert: PropTypes.func.isRequired,
   offerSend: PropTypes.bool.isRequired,
   setOfferSend: PropTypes.func.isRequired,
+  showModal: PropTypes.string.isRequired,
+  displayModal: PropTypes.func.isRequired,
 };
 
 export default Form;

@@ -9,6 +9,7 @@ import {
   SET_OFFER_IN_RESERVATION,
   UPDATE_LIST_OFFERS,
   SET_OFFER_SEND,
+  SET_UPLOAD_DATA,
 } from 'src/actions/offers';
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
     status: '0',
     type: '0',
     is_available: true,
+    image: null,
     title: '',
     price: 0,
     description: '',
@@ -57,6 +59,13 @@ const initialState = {
   offerInFavorite: false,
   offerInReservation: false,
   offerSend: false,
+  upload: {
+    file: '',
+    filename: '',
+    uploadedFile: {},
+    message: '',
+    uploadPercentage: 0,
+  },
 };
 
 const offersReducer = (state = initialState, action = {}) => {
@@ -95,6 +104,7 @@ const offersReducer = (state = initialState, action = {}) => {
           status: '0',
           type: '0',
           is_available: true,
+          image: null,
           title: '',
           price: 0,
           description: '',
@@ -188,6 +198,15 @@ const offersReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         offerSend: action.value,
+      };
+
+    case SET_UPLOAD_DATA:
+      return {
+        ...state,
+        upload: {
+          ...state.upload,
+          [action.name]: action.value,
+        },
       };
 
     default: return state;
