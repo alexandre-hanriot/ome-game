@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 import {
   FETCH_RESERVATIONS,
   FETCH_PARAMS_RESERVATIONS,
@@ -19,7 +18,7 @@ import {
 import { setOfferInReservation } from 'src/actions/offers';
 
 const reservationsMiddleware = (store) => (next) => (action) => {
-  const { userData, rememberMe } = store.getState().user;
+  const { userData } = store.getState().user;
   const { idReservation } = store.getState().reservations;
 
   switch (action.type) {
@@ -33,7 +32,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token':   sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -58,7 +57,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token':   sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -80,7 +79,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token': sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -122,7 +121,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token':   sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -144,7 +143,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         },
         withCredentials: true,
         headers: {
-          'x-xsrf-token':   sessionStorage.getItem('xsrfToken'),
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
         },
       })
         .then((response) => {
@@ -169,7 +168,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
           },
           withCredentials: true,
           headers: {
-            'x-xsrf-token':   sessionStorage.getItem('xsrfToken'),
+            'x-xsrf-token': localStorage.getItem('xsrfToken'),
           },
         })
           .then((response) => {
