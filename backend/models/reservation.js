@@ -1,4 +1,4 @@
-const db = require("../models/index");
+const db = require("./index");
 const Offer = db.offers;
 const { Op } = require("sequelize");
 
@@ -55,7 +55,7 @@ module.exports = (sequelize, Sequelize) => {
     });
 
     Reservation.beforeSave(async (reservation, options) => {
-        // Si la réservation passe en status validé les autres doivent passer en status refusé
+        // Si une réservation passe en status validé les autres doivent passer en status refusé et l'offre devient non disponible
         if (
             reservation.dataValues.status === "1" &&
             reservation.dataValues.status !== reservation._previousDataValues.status
@@ -75,10 +75,11 @@ module.exports = (sequelize, Sequelize) => {
                 }
             );
 
-            await Offer.update(
+            await sequelize.models.offers.update(
+                // Format pour utiliser un autre modèle dans un hook
                 { is_available: false },
                 {
-                    where: { offerId: reservation.offerId },
+                    where: { id: reservation.offerId },
                 }
             );
         }

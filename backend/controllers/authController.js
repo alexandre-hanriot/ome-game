@@ -52,6 +52,7 @@ exports.login = (req, res) => {
                     res.cookie("access_token", JWTtoken, {
                         httpOnly: true, // pour un cookie non accessible par du code client js
                         // secure: true // true pour forcer le https
+                        maxAge: 24 * 60 * 60 * 60, // expiration au bout d'une journée
                     });
 
                     // On envoie la réponse avec notamment le token xsrf. En front on pourra stocker ces données soit
@@ -94,7 +95,7 @@ exports.login = (req, res) => {
                     res.cookie("access_token", JWTtoken, {
                         httpOnly: true, // pour un cookie non accessible par du code client js
                         // secure: true // true pour forcer le https
-                        // maxAge: 360000 // expiration au bout de 360000ms
+                        maxAge: 24 * 60 * 60 * 60, // expiration au bout d'une journée
                     });
 
                     // On envoie la réponse avec notamment le token xsrf. En front on pourra stocker ces données soit
