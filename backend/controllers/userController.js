@@ -151,11 +151,14 @@ exports.findAllOffers = (req, res) => {
 
     const offset = resultPage > 0 ? limit * (resultPage - 1) : 0;
 
+    console.log(userId);
+
     Offer.findAll({
         where: { userId },
         include: [
             {
                 model: Reservation,
+                required: false, // Si true ne renvoie que les parents dont les enfants valident la condition
                 where: {
                     status: {
                         [Op.or]: ["0", "1"], // On ne renvoie que les réservations en cours
@@ -172,6 +175,7 @@ exports.findAllOffers = (req, res) => {
         order: [["createdAt", "DESC"]],
     })
         .then((data) => {
+            console.log(data);
             res.send(data);
         })
         .catch((err) => {
