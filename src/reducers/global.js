@@ -14,6 +14,7 @@ const initialState = {
   showAlert: false,
   isError: false,
   redirectTo: '',
+  modalParams: {},
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -22,6 +23,7 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         showModal: action.name,
+        modalParams: action.params,
       };
 
     case SHOW_MENU:

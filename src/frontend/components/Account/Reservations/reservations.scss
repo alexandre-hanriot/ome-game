@@ -1,15 +1,5 @@
 @import 'src/styles/_vars.scss';
 
-// .modal-background {
-//   position: fixed;
-//   z-index: 90;
-//   top: 0;
-//   bottom: 0;
-//   right: 0;
-//   left: 0;
-//   background: rgba(0, 0, 0, 0.6);
-// }
-
 .reservations {
   position: relative;
 
@@ -33,6 +23,7 @@
       &__left {
         display: flex;
         align-items: center;
+        flex-grow: 1;
 
         &__picture {
           width: 150px;
@@ -40,14 +31,21 @@
           padding: $gutter/2;
         }
         &__text {
-          line-height: 1.6;
+          line-height: 1.8;
+          flex-grow: 1;
           display: flex;
-          margin-bottom: 0.5rem;
+          align-items: center;   
 
+          &__title {
+            flex-grow: 1;
+          }
           &__subtitle {
             font-size: 1.8em;
             color: $primaryColor;
           }
+          &__date {
+            font-size: .8em;
+          } 
           &__status {
             border-radius: 10px;
             padding: ($gutter /7) ($gutter/3);
@@ -55,16 +53,18 @@
             font-size: .7em;
             font-weight: bold;
             color: $darkBlue;
-            display: block;
-            margin: auto;
+            // float: right;
+            margin-right: $gutter;
+            text-align: center;
+
             &--pending {
-              background-color: $secondaryColor;
+              background-color: $primaryColor;
             }
-            &--canceled {
+            &--canceled, &--refused {
               background-color: $red;
             }
             &--finished {
-              background-color: $backgroundLight;
+              background-color: $green;
             }
           }
           &__third {
@@ -82,10 +82,25 @@
         }
 
         &__button {
-          font-size: .9em;
-          margin: $gutter/2;
           &__global {
+            .global-button {
+              width: 135px;
+              margin-bottom: .5rem;
 
+              i {
+                font-size: 1.2em;
+                margin-right: .3rem;
+              }
+
+              &.cancel i {
+                color: $red;
+              }
+            }
+            div:last-child {
+              .global-button {
+                margin-bottom: 0;
+              } 
+            }
           }
         }
       }
@@ -125,6 +140,62 @@
   }
 }
 
+
+@media (max-width: 768px) {
+  .reservations {
+    &__container {
+      &__item {
+        &__left {
+          &__text {
+            flex-wrap: wrap;
+            &__status {
+              margin: $gutter/2 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .reservations {
+    &__container {
+      margin: $gutter/2 0;
+      padding: 0 1rem;
+      &__item {
+        text-align: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        &__right {
+          margin-right: 0;
+          margin: $gutter/2 0;
+          width: 100%;
+
+          &__button {
+            &__global {
+              .global-button {
+                width: 100%;
+              }
+            }
+          }
+        }
+        &__left {
+          flex-wrap: wrap;
+          justify-content: center;
+          &__text {
+            flex-wrap: wrap-reverse;
+            &__status {
+              margin: $gutter/2 auto;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/*
 @media (max-width: 710px) {
   .reservations {
     &__title {
@@ -226,3 +297,4 @@
     }
   }
 }
+*/

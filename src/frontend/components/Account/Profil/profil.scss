@@ -1,18 +1,5 @@
 @import 'src/styles/_vars.scss';
 
-// @mixin profil-input {
-//   font-size: inherit;
-//   color: $darkBlue;
-//   padding: .6rem 1rem;
-//   // border-radius: .4rem;
-//   border: 1px solid #8199b7;
-//   background-color: #fff;
-//   width: 60%;
-//   display: block;
-//   margin: 0 auto;
-//   margin-bottom: .3rem;
-// }
-
 .account-profil {
   &__breadcrumb {
     padding: $gutter 0;
@@ -68,7 +55,6 @@
     &__image {
       width: 120px;
       height: 120px;
-      margin: 0 auto;
       background-color: #E3E5EC;
       border-radius: 50%;
       display: flex;
@@ -115,23 +101,23 @@
 
   &__infos {
     &__field {
-      // @include profil-input;
       margin-bottom: .3rem;
+      width: 60%;
     }
   }
   &__address {
     margin-bottom: $gutter;
 
     &__field {
-      // @include profil-input;
       margin-bottom: .3rem;
+      width: 60%;
     }
   }
   &__password {
     margin-bottom: $gutter;
     &__field {
-      // @include profil-input;
       margin-bottom: .3rem;
+      width: 60%; 
     }
   }
   &__params {

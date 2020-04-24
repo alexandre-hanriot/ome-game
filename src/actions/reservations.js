@@ -15,9 +15,8 @@ export const SAVE_LISTOFFER_RESERVATION = 'SAVE_LISTOFFER_RESERVATION';
 export const SAVE_STATUS_RESERVATION = 'SAVE_SATUS_RESERVATION';
 export const UPDATE_STATUS_FINISHED_RESERVATION = 'UPDATE_STATUS_FINISHED_RESERVATION';
 export const CHANGE_RESERVATIONS_LOAD = 'CHANGE_RESERVATIONS_LOAD';
-
 export const FETCH_ALL_RESERVATIONS = 'FETCH_ALL_RESERVATIONS';
-
+export const CLEAR_RESERVATIONS = 'CLEAR_RESERVATIONS';
 
 export const fetchReservations = () => ({
   type: FETCH_RESERVATIONS,
@@ -98,4 +97,8 @@ export const fetchAllReservations = (params = {}) => ({
 
 export const changeReservationsLoad = () => ({
   type: CHANGE_RESERVATIONS_LOAD,
+});
+
+export const clearReservations = () => ({
+  type: CLEAR_RESERVATIONS,
 });

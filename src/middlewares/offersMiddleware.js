@@ -94,7 +94,7 @@ const offersMiddleware = (store) => (next) => (action) => {
         method: 'post',
         url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`,
         data: {
-          // status: '1', @TODO : A ACTIVER
+          status: '1',
         },
       })
         .then((response) => {

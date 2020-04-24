@@ -1,20 +1,20 @@
 import { connect } from 'react-redux';
 import Details from 'src/frontend/components/Account/Reservations/Details';
 
-// import { showModal } from 'src/actions/global';
-import { fetchOneReservation } from 'src/actions/reservations';
-
+import { fetchUser, saveUser } from 'src/actions/user';
 
 const mapStateToProps = (state) => ({
-  // nom de la prop à remplir: donnée à récupérer dans le state
-  data: state.reservations.oneReservation,
+  reservation: state.global.modalParams.reservation,
+  user: state.user.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchOneReservation: () => {
-    dispatch(fetchOneReservation());
+  fetchUser: (id) => {
+    dispatch(fetchUser(id));
   },
-
+  saveUser: (user) => {
+    dispatch(saveUser(user));
+  },
 });
 
 export default connect(

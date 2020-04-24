@@ -266,6 +266,7 @@ const offersReducer = (state = initialState, action = {}) => {
         allOffers: offers,
       };
     }
+
     default: return state;
   }
 };
