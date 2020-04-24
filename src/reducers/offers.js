@@ -69,7 +69,7 @@ const initialState = {
     file: '',
     filename: '',
     uploadedFile: {},
-    message: '',
+    status: 0,
     uploadPercentage: 0,
   },
 };

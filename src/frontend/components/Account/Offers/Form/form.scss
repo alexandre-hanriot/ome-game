@@ -142,6 +142,39 @@
     }
 
     &__image {
+      position: relative;
+
+      img {
+        max-width: 100%;
+      }
+
+      &__remove {
+        display: none;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0,0,0,0.5);
+
+        .global-button {
+          display: none;
+          background-color: $red;
+          color: #fff;
+        }
+      }
+
+      &:hover {
+        .account-offers-form__game__image__remove {
+          display: flex;
+          .global-button {
+            display: block;
+          }
+        }
+      }
+
       &__define {
         background-color: transparent;
         border: 2px dashed $lightBlue;
@@ -189,6 +222,13 @@
 
   &__file {
     font-family: inherit;
+  }
+
+  &__error {
+    background-color: $red;
+    color: #fff;
+    padding: .5rem;
+    margin-bottom: $gutter/2;
   }
 
   &__progress {
