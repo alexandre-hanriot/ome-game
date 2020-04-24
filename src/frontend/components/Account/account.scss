@@ -123,11 +123,9 @@
           &__circle {
 
             &--available {
-              border-radius: 50%;
-              width: 20px;
-              height: 20px;
               margin: auto ;
-              background-color: $green;
+              color: $green;
+              font-size: 1.4em;
               display: inline-block;
               vertical-align: middle;
             }
@@ -142,12 +140,9 @@
             }
 
             &--pending {
-              border-radius: 50%;
-              width: 20px;
-              height: 20px;
               margin: auto ;
               color: $primaryColor;
-              font-size: 1.3em;
+              font-size: 1.4em;
               display: inline-block;
               vertical-align: middle;
             }
@@ -172,6 +167,26 @@
             background-color: $backgroundLight;
             font-size: .7em;
             color: $darkBlue;
+            vertical-align: middle;
+            font-weight: bold;
+          }
+          &__status__pending {
+            margin-left: $gutter/2;
+            border-radius: 10px;
+            padding: ($gutter /7) ($gutter/4);
+            background-color: $primaryColor;
+            font-size: .7em;
+            color: $darkBlue;
+            vertical-align: middle;
+            font-weight: bold;
+          }
+          &__status__refused, &__status__canceled {
+            margin-left: $gutter/2;
+            border-radius: 10px;
+            padding: ($gutter /7) ($gutter/4);
+            background-color: $red;
+            font-size: .7em;
+            color: $backgroundLight;
             vertical-align: middle;
             font-weight: bold;
           }
@@ -206,13 +221,19 @@
             border-radius: 5px;
             background-color: #E3E5EC;
             margin: 0.3rem;
-            font-size: $gutter/2;
-
-            
+            font-size: $gutter/2;       
           }
           &__button__pencil{
             color: $darkBlue;
             padding: .5rem .5rem .4rem .5rem;
+            &__disabled {
+              padding: .5rem .5rem .4rem .5rem;
+              border: none;
+              border-radius: 5px;
+              background-color: #E3E5EC;
+              margin: 0.3rem;
+              font-size: $gutter/2;
+            }
           }
           &__button__remove{
             color: $red;
@@ -220,7 +241,6 @@
           }
 
           &__button__bell {
-            padding: 0.5rem .6rem;
             color: $green;
           }
           &__button__bellslash {
@@ -311,12 +331,16 @@
             display: flex;
             border-bottom: none;
             margin: auto 0; 
+            width:200px ;
+            &--button {
+              width: 130px;
+            }
           }
         }
       }
       &__button {
-        background-color: $secondaryColor;
-        color: #fff;
+        background-color: $backgroundLight;
+        color: $darkBlue;
       }
 
       &__icon {
@@ -330,7 +354,6 @@
       &__left {
         &__link {
           text-align: center;
-          color: $secondaryColor;
         }
       }
       &__right {
@@ -345,6 +368,11 @@
 }
 
 @media (max-width: 700px) {
+  .offer__account__general__table {
+    &__body__tr {
+      justify-content: center;
+    }
+  }
   .account {
     width: 100%;
 
@@ -354,6 +382,8 @@
     &__general {
       width: 100%;
       display: block;
+      height: auto;
+      margin: .5rem 0;
       &__table {
         border: none;
         &__body {
@@ -364,8 +394,35 @@
             display: flex;
             border-bottom: none;
             margin: auto;
+            justify-content: center;
+            &__link {
+              margin: auto;
+              text-align: center;
+            }
             &__status__available, &__status__unavailable {
               margin: 0;
+            }
+            &__status__pending {
+              margin: auto;
+            }
+            &__button{
+              margin: auto;
+              &__bell {
+                padding: .6rem .5rem;
+              }
+              &__remove {
+                padding: .6rem .8rem;
+              }
+              &--remove {
+                padding: .5rem .3rem;
+              }
+              &--bell {
+                padding: .6rem .4rem;
+              }
+            }
+            &--button {
+              text-align: center;
+              margin-bottom: .5rem;
             }
           }
 
@@ -373,6 +430,7 @@
             flex-direction: column;
             display: flex;
             border-bottom: solid 1px $lightBlue;
+            margin-bottom: .5rem;
           }
         }
         &__test {
@@ -384,7 +442,8 @@
         margin-bottom: 0;
       }
       &__button {
-        
+        position: initial;
+        margin-top: $gutter;
       }
     }
 
@@ -392,7 +451,7 @@
       display: flex;
       flex-direction: column-reverse;
       &__right {
-       
+        margin-bottom: .7rem;
         &__picture {
           font-size: $gutter*2;
           border-radius: 50%;

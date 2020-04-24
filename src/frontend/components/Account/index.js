@@ -117,32 +117,34 @@ const Account = ({
                       </td>
                       <td className="account__general__table__body__td">
                         {reservation.status === '0' && (
-                          <i
-                            className="account__general__table__body__td__circle--pending fas fa-exclamation-circle"
-                            title="en attente de validation"
-                          />
+                          <span
+                            className="account__general__table__body__td__status__pending"
+                          >En attente
+                          </span>
                         )}
                         {reservation.status === '1' && (
-                          <i
-                            className="account__general__table__body__td__circle--available fas fa-check-circle"
-                            title="validée"
-                          />
+                          <span
+                            className="account__general__table__body__td__status__available"
+                          >Validée
+                          </span>
                         )}
                         {reservation.status === '2' && (
-                          <div
-                            className="account__general__table__body__td__circle--available"
-                          />
+                          <span
+                            className="account__general__table__body__td__status__available"
+                          >Terminée
+                          </span>
                         )}
                         {reservation.status === '3' && (
-                          <i
-                            className="account__general__table__body__td__circle--refused fas fa-minus-circle"
-                            title="refusée"
-                          />
+                          <span
+                            className="account__general__table__body__td__status__refused"
+                          >Refusée
+                          </span>
                         )}
                         {reservation.status === '4' && (
                           <span
-                            className="account__general__table__body__td__circle--canceled"
-                          />
+                            className="account__general__table__body__td__status__canceled"
+                          >Annulée
+                          </span>
                         )}
                       </td>
                       <td className="account__general__table__body__td account__general__table__body__td--button">
@@ -167,17 +169,18 @@ const Account = ({
             {/* Mes Offres */}
             <div className="account__general offer">
               <h2 className="account__general__subtitle">Mes offres</h2>
-              <table className="account__general__table">
-                <tbody className="account__general__table__body">
-                  {offers.map((offerData) => {
-                    return (
-                      <tr className="account__general__table__body__tr" key={offerData.id}>
-                        <td
-                          className="account__general__table__body__td account__general__table__body__td--left"
-                        >{truncateText(offerData.title)}
-                        </td>
-                        <td className="account__general__table__body__td">
-                          {offerData.is_available ? (
+              <table className="account__general__table offer__account__general__table">
+                <tbody className="account__general__table__body ">
+                  {offers.map((offerData) => (
+                    <tr className="account__general__table__body__tr offer__account__general__table__body__tr" key={offerData.id}>
+                      <td
+                        className="account__general__table__body__td account__general__table__body__td--left offer__account__general__table__body__tr"
+                      >{truncateText(offerData.title)}
+                      </td>
+                      <td className="account__general__table__body__td offer__account__general__table__body__tr">
+
+                        {offerData.status === '1' && (
+                          offerData.is_available ? (
                             <span
                               className="account__general__table__body__td__status__available"
                             >disponible
@@ -187,9 +190,17 @@ const Account = ({
                               className="account__general__table__body__td__status__unavailable"
                             >réservée
                             </span>
-                          )}
-                        </td>
-                        <td className="account__general__table__body__td account__general__table__body__td--button">
+                          )
+                        )}
+                        {offerData.status === '0' && (
+                          <span
+                            className="account__general__table__body__td__status__pending"
+                          >En attente
+                          </span>
+                        )}
+                      </td>
+                      <td className="account__general__table__body__td account__general__table__body__td--button">
+                        {offerData.status === '1' && (
                           <Link
                             className="account__general__table__body__td__button__pencil"
                             to={`compte/offres/${offerData.id}`}
@@ -197,19 +208,28 @@ const Account = ({
                           >
                             <i className="far fa-pencil-alt" />
                           </Link>
+                        )}
+                        {offerData.status === '0' && (
                           <button
                             type="button"
-                            className="account__general__table__body__td__button"
-                            title="Supprimer l'offre"
-                            data-id={offerData.id}
-                            onClick={offerData.is_available ? handleModalOffer : handleModalOfferImpossible}
-                          >
-                            <i className="fas fa-trash-alt account__general__table__body__td__button--remove" />
+                            className="account__general__table__body__td__button__pencil__disabled"
+                            disabled
+                            title="Vous ne pouvez pas modifier cette offre"
+                          ><i className="far fa-pencil-alt" />
                           </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                        )}
+                        <button
+                          type="button"
+                          className="account__general__table__body__td__button"
+                          title="Supprimer l'offre"
+                          data-id={offerData.id}
+                          onClick={offerData.is_available ? handleModalOffer : handleModalOfferImpossible}
+                        >
+                          <i className="fas fa-trash-alt account__general__table__body__td__button--remove" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
               {offers.length === 0 ? <i className="fas fa-chess-bishop account__general__icon" /> : <Link to="/compte/offres" className="account__general__button global-button global-button--light"><i className="far fa-eye" /> Voir plus</Link>}
@@ -249,8 +269,7 @@ const Account = ({
                           {favorite.offer.is_available ? (
                             <button
                               type="button"
-                              className="account__general__table__body__td__button"
-                              // onClick={handleFavorite}
+                              className="account__general__table__body__td__button account__general__table__body__td__button__bell"
                             >
                               <i className="fas fa-bell-slash account__general__table__body__td__button__bellslash--grey" />
                             </button>
