@@ -13,9 +13,11 @@ import {
   CHECK_OFFER_IN_RESERVATION,
   UPDATE_STATUS_RESERVATION,
   FETCH_ALL_RESERVATIONS,
+  UPDATE_VALIDATE_RESERVATION,
+  UPDATE_STATUS_FINISHED_RESERVATION,
 } from 'src/actions/reservations';
 
-import { setOfferInReservation } from 'src/actions/offers';
+import { setOfferInReservation, updateStateOffers } from 'src/actions/offers';
 
 const reservationsMiddleware = (store) => (next) => (action) => {
   const { userData } = store.getState().user;
@@ -23,7 +25,6 @@ const reservationsMiddleware = (store) => (next) => (action) => {
 
   switch (action.type) {
     case FETCH_RESERVATIONS:
-
       axios({
         method: 'post',
         url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/reservations`,
@@ -184,8 +185,16 @@ const reservationsMiddleware = (store) => (next) => (action) => {
     }
 
     case UPDATE_STATUS_RESERVATION: {
-      axios.put(`http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations/${idReservation}`, {
-        status: '2',
+      axios({
+        method: 'put',
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations/${idReservation}`,
+        data: {
+          status: 3,
+        },
+        withCredentials: true,
+        headers: {
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
+        },
       })
         .then((response) => {
           console.log(response.data);
@@ -195,6 +204,53 @@ const reservationsMiddleware = (store) => (next) => (action) => {
           console.warn(error);
         });
 
+      next(action);
+      break;
+    }
+
+    case UPDATE_VALIDATE_RESERVATION: {
+      axios({
+        method: 'put',
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations/${idReservation}`,
+        data: {
+          status: '1',
+        },
+        withCredentials: true,
+        headers: {
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
+        },
+      })
+        .then((response) => {
+          console.log(response.data);
+          store.dispatch(updateStateOffers(idReservation));
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+
+      next(action);
+      break;
+    }
+
+    case UPDATE_STATUS_FINISHED_RESERVATION: {
+      axios({
+        method: 'put',
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations/${idReservation}`,
+        withCredentials: true,
+        data: {
+          status: '2',
+        },
+        headers: {
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
+        },
+      })
+        .then((response) => {
+          console.log(response.data);
+          // store.dispatch(updateStatusStateReservation(idReservation));
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
       next(action);
       break;
     }

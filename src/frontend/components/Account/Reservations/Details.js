@@ -7,6 +7,7 @@ const Details = ({ fetchOneReservation, data }) => {
   useEffect(() => {
     fetchOneReservation();
   }, []);
+  console.log(data);
   return (
     <div className="reservations__details">
       <div className="reservations__details__list">
@@ -37,6 +38,12 @@ Details.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       status: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      offer: PropTypes.objectOf(
+        PropTypes.shape({
+          title: PropTypes.string.isRequired,
+        }).isRequired,
+      ).isRequired,
     }).isRequired,
   ).isRequired,
 };

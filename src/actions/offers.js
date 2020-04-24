@@ -18,6 +18,9 @@ export const UPDATE_LIST_OFFERS = 'UPDATE_LIST_OFFERS';
 export const SET_OFFER_SEND = 'SET_OFFER_SEND';
 export const SET_UPLOAD_DATA = 'SET_UPLOAD_DATA';
 export const OFFER_UPLOAD_IMAGE = 'OFFER_UPLOAD_IMAGE';
+export const UPDATE_STATE_OFFERS = 'UPDATE_STATE_OFFERS';
+export const UPDATE_STATUS_OFFER = 'UPDATE_STATUS_OFFER';
+export const UPDATE_STATUS_STATE_OFFER = 'UPDATE_STATUS_STATE_OFFER';
 
 // action creators
 export const fetchOffers = () => ({
@@ -106,4 +109,18 @@ export const setUploadData = (name, value) => ({
 
 export const offerUploadImage = () => ({
   type: OFFER_UPLOAD_IMAGE,
+});
+  
+export const updateStateOffers = (id) => ({
+  type: UPDATE_STATE_OFFERS,
+  id,
+});
+
+export const updateStatusOffer = () => ({
+  type: UPDATE_STATUS_OFFER,
+});
+
+export const updateStatusStateOffer = (id) => ({
+  type: UPDATE_STATUS_STATE_OFFER,
+  id,
 });
