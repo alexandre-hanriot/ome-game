@@ -8,6 +8,7 @@ import {
   CLEAR_PROFIL_PASSWORDS,
   SAVE_USERS,
   CLEAR_USER,
+  SAVE_USER,
 } from 'src/actions/user';
 
 
@@ -43,6 +44,7 @@ const initialState = {
   },
   loginError: '',
   requestIsLoad: false,
+  user: {},
 };
 
 const userReducer = (state = initialState, action = {}) => {
@@ -153,6 +155,12 @@ const userReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         allUsers: action.users,
+      };
+
+    case SAVE_USER:
+      return {
+        ...state,
+        user: action.user,
       };
 
     default:

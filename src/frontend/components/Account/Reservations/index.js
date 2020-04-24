@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './reservations.scss';
 import PropTypes from 'prop-types';
 import Modal from 'src/frontend/containers/Modal';
 import ConfirmSupp from 'src/frontend/containers/Account/Modal';
@@ -9,6 +8,9 @@ import { formatDate } from 'src/utils/selectors';
 import Details from 'src/frontend/containers/Account/Reservations/Details';
 import Loader from 'src/frontend/components/Loader';
 import classNames from 'classnames';
+
+import './reservations.scss';
+import noimage from 'src/assets/images/noimage_150.jpg';
 
 const Reservations = ({
   showModal,
@@ -22,9 +24,8 @@ const Reservations = ({
 
   const handleModal = (e) => {
     const { id } = e.currentTarget.dataset;
-    // action save id in state
-    saveIdReservation(id);
-    displayModal('reservation');
+    const reservation = data.filter((resa) => resa.id.toString() === id.toString());
+    displayModal('reservation', { reservation: reservation[0] });
   };
 
   const handleModalSupp = (e) => {
@@ -55,7 +56,7 @@ const Reservations = ({
           <Modal content={<ConfirmSupp />} />
           )}
           {showModal === 'reservation' && (
-          <Modal content={<Details />} />
+          <Modal content={<Details reservations={data} />} />
           )}
           <div className="reservations__breadcrumb">
             <Link to="/">Accueil ></Link>
@@ -91,43 +92,41 @@ const Reservations = ({
                   statusText = 'En attente de validation';
               }
               return (
-                <>
-                  <li className="reservations__container" key={reservation.id}>
-                    <div className="reservations__container__item">
-                      <div className="reservations__container__item__left">
-                        <img className="reservations__container__item__left__picture" src="https://cdn3.trictrac.net/documents/formats/thumb_300_300/documents/originals/29/2c/676d3ba08cf231daf0fc67c709bc0ba8a6468f2fb878061c99c16e6f751d.jpeg" alt="" />
-                        <div className="reservations__container__item__left__text">
-                          <div className="reservations__container__item__left__text__title">
-                            <h2 className="reservations__container__item__left__text__subtitle">{reservation.offer.title}</h2>
-                            <h3 className="reservations__container__item__left__text__third">Jeu : {reservation.offer.game.name}</h3>
-                            <p className="reservations__container__item__left__text__date">Réservée le {formatDate(reservation.createdAt)}</p>
-                          </div>
-                          <div className={statusClass}>{statusText}</div>
+                <li className="reservations__container" key={reservation.id}>
+                  <div className="reservations__container__item">
+                    <div className="reservations__container__item__left">
+                      <img className="reservations__container__item__left__picture" src={reservation.offer.image === null ? noimage : reservation.offer.image} alt="" />
+                      <div className="reservations__container__item__left__text">
+                        <div className="reservations__container__item__left__text__title">
+                          <h2 className="reservations__container__item__left__text__subtitle">{reservation.offer.title}</h2>
+                          <h3 className="reservations__container__item__left__text__third">Jeu : {reservation.offer.game.name}</h3>
+                          <p className="reservations__container__item__left__text__date">Réservée le {formatDate(reservation.createdAt)}</p>
                         </div>
+                        <div className={statusClass}>{statusText}</div>
                       </div>
-                      <div className="reservations__container__item__right">
-                        <div className="reservations__container__item__right__button__global">
-                          <div>
-                            <button className="global-button global-button--light" type="button" onClick={handleModal} data-id={reservation.id}>
-                              <i className="far fa-eye" /><span>Voir plus</span>
-                            </button>
-                          </div>
-                          <div>
-                            <button
-                              className="global-button global-button--light cancel"
-                              type="button"
-                              data-id={reservation.id}
-                              data-status={reservation.status}
-                              onClick={handleModalSupp}
-                            >
-                              <i className="fas fa-times" /><span>Annuler</span>
-                            </button>
-                          </div>
+                    </div>
+                    <div className="reservations__container__item__right">
+                      <div className="reservations__container__item__right__button__global">
+                        <div>
+                          <button className="global-button global-button--light" type="button" onClick={handleModal} data-id={reservation.id}>
+                            <i className="far fa-eye" /><span>Voir plus</span>
+                          </button>
+                        </div>
+                        <div>
+                          <button
+                            className="global-button global-button--light cancel"
+                            type="button"
+                            data-id={reservation.id}
+                            data-status={reservation.status}
+                            onClick={handleModalSupp}
+                          >
+                            <i className="fas fa-times" /><span>Annuler</span>
+                          </button>
                         </div>
                       </div>
                     </div>
-                  </li>
-                </>
+                  </div>
+                </li>
               );
             })}
           </ul>

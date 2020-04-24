@@ -18,6 +18,12 @@ export const formatDate = (date, dateOnly = false) => {
 // Truncate long string
 export const truncateText = (text, size = 25) => ((text.length > size) ? `${text.substr(0, size - 2)}..` : text);
 
+// Convertir le texte pour une url
+export const slugifyId = (id) => slugify(id, {
+  lower: true,
+});
+
+/*
 // récupérer le slug qui correspond à un id d'une offre
 export const slugifyId = (id) => slugify(id, {
   lower: true,
@@ -36,3 +42,4 @@ export const getOfferBySlug = (offers, slug) => {
   });
   return offerIdFound;
 };
+*/

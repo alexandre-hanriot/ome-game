@@ -9,7 +9,6 @@ import {
   clearReservations,
 } from 'src/actions/reservations';
 
-
 const mapStateToProps = (state) => ({
   // nom de la prop à remplir: donnée à récupérer dans le state
   showModal: state.global.showModal,
@@ -19,8 +18,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  displayModal: (name) => {
-    dispatch(showModal(name));
+  displayModal: (name, params) => {
+    dispatch(showModal(name, params));
   },
   fetchReservations: () => {
     dispatch(fetchReservations());

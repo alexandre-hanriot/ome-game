@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useTitle } from 'src/hooks/useTitle';
 
+import noimage from 'src/assets/images/noimage_450.jpg';
 import './details.scss';
 import Alert from 'src/frontend/containers/Alert';
 import Modal from 'src/frontend/containers/Modal';
@@ -120,7 +121,7 @@ const Details = ({
               </section> */}
             </div>
             <div className="offer-detail__right">
-              {offer.image !== null && (<img className="offer-detail__right__image" src={offer.image} alt="" />)}
+              <img className="offer-detail__right__image" src={offer.image !== null ? offer.image : noimage} alt="" />
               <div className="offer-detail__right__map">
                 <div className="offer-detail__right__map__text"><p>{offer.postal_code} {offer.city}</p></div>
                 <Map lat={offer.latitude} lng={offer.longitude} />

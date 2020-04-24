@@ -12,7 +12,9 @@ import {
   clearUser,
   FETCH_USER,
   setRequestIsLoad,
+  saveUser,
 } from 'src/actions/user';
+
 import { showAlert, showModal } from 'src/actions/global';
 import axios from 'axios';
 
@@ -197,7 +199,7 @@ const userMiddleware = (store) => (next) => (action) => {
         url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${action.id}`,
       })
         .then((response) => {
-          console.log(response);
+          store.dispatch(saveUser(response.data));
         })
         .catch((error) => {
           console.warn(error);

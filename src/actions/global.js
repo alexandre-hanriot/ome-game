@@ -5,9 +5,10 @@ export const SET_IS_ERROR = 'SET_IS_ERROR';
 export const REDIRECT_TO = 'REDIRECT_TO';
 
 // Modal
-export const showModal = (name = '') => ({
+export const showModal = (name = '', params = {}) => ({
   type: SHOW_MODAL,
   name,
+  params,
 });
 
 // burger menu

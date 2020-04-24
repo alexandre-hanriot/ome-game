@@ -29,6 +29,8 @@ const Cluster = ({
     options: { radius: 75, maxZoom: 15 },
   });
 
+  console.log(offers);
+
   // Save results in state
   const handleChange = () => {
     if (mapIsLoaded) {

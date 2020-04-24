@@ -16,6 +16,7 @@ export const SAVE_USERS = 'SAVE_USERS';
 export const IS_TOKEN_EXIST = 'IS_TOKEN_EXIST';
 export const CLEAR_USER = 'CLEAR_USER';
 export const FETCH_USER = 'FETCH_USER';
+export const SAVE_USER = 'SAVE_USER';
 
 export const changeInputOfLogin = (identifier, newValue) => ({
   type: CHANGE_INPUT_OF_LOGIN,
@@ -93,4 +94,9 @@ export const clearUser = () => ({
 export const fetchUser = (id) => ({
   type: FETCH_USER,
   id,
+});
+
+export const saveUser = (user) => ({
+  type: SAVE_USER,
+  user,
 });
