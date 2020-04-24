@@ -7,7 +7,6 @@ import Modal from 'src/frontend/containers/Modal';
 import ConfirmSupp from 'src/frontend/containers/Account/Modal';
 import ModalRequest from 'src/frontend/containers/Account/Offers/ModalRequest';
 import Loader from 'src/frontend/components/Loader';
-// import classNames from 'classnames';
 import './offers.scss';
 
 const AccountOffers = ({
@@ -22,20 +21,16 @@ const AccountOffers = ({
 }) => {
   useTitle('Mes offres');
   useEffect(() => {
-    console.log('passage par useEffect');
     async function load() {
       await fetchOffers();
       changeOfferIsLoad();
     }
     load();
     return () => {
-      console.log('on passe en false');
       changeOfferIsLoad();
     };
   }, []);
-  // return function cleanup() {
-  //   setRequestIsLoad();
-  // };
+
   const handleModal = (e) => {
     const { id } = e.currentTarget.dataset;
     saveOfferId(id);
@@ -46,9 +41,9 @@ const AccountOffers = ({
   };
 
   const handleModalRequest = (e) => {
-    const { id } = e.currentTarget.dataset;
+    const { id, username } = e.currentTarget.dataset;
     saveOfferId(id);
-    displayModal('modalRequest');
+    displayModal('modalRequest', { id, username });
   };
 
   const handleInProgress = (e) => {
@@ -139,6 +134,7 @@ const AccountOffers = ({
                             type="button"
                             onClick={handleModalRequest}
                             data-id={offer.id}
+                            data-username={offer.reservations[0].user.username}
                           >
                             <i className="fas fa-concierge-bell" />
                           </button>

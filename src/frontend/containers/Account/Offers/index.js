@@ -14,8 +14,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  displayModal: (name) => {
-    dispatch(showModal(name));
+  displayModal: (name, params) => {
+    dispatch(showModal(name, params));
   },
   fetchOffers: () => {
     dispatch(fetchOffers());

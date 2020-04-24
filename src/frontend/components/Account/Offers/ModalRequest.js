@@ -8,6 +8,7 @@ const ModalRequest = ({
   displayAlert,
   showModal,
   urlId,
+  username,
   allOffers,
   saveIdReservation,
   updateStatusReservation,
@@ -22,11 +23,10 @@ const ModalRequest = ({
   });
 
   const handleValidate = (e) => {
-    console.log(e);
     const { id } = e.currentTarget.dataset;
     saveIdReservation(id);
     updateValidateReservation();
-    displayAlert('La réservation à été validé, un mail sera envoyé à xxx');
+    displayAlert(`La réservation à été validé, un mail sera envoyé à ${username}`);
 
     displayModal();
   };
@@ -88,7 +88,6 @@ const ModalRequest = ({
                   type="button"
                   title="fermer la fenêtre"
                   data-id={reservation.id}
-
                   onClick={handleValidate}
                 >
                   Valider
@@ -131,6 +130,7 @@ ModalRequest.propTypes = {
   displayModal: PropTypes.func.isRequired,
   displayAlert: PropTypes.func.isRequired,
   showModal: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
   allOffers: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
