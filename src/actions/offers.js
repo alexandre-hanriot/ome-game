@@ -110,7 +110,7 @@ export const setUploadData = (name, value) => ({
 export const offerUploadImage = () => ({
   type: OFFER_UPLOAD_IMAGE,
 });
-  
+
 export const updateStateOffers = (id) => ({
   type: UPDATE_STATE_OFFERS,
   id,
