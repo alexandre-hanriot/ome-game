@@ -112,6 +112,7 @@ const Account = ({
                         <Link
                           to={`/recherche/jeux/${reservation.offer.id}/${slugify(reservation.offer.title, { lower: true })}`}
                           className="account__general__table__body__td__link"
+                          target="_blank"
                         >{truncateText(reservation.offer.title)}
                         </Link>
                       </td>
@@ -175,7 +176,13 @@ const Account = ({
                     <tr className="account__general__table__body__tr offer__account__general__table__body__tr" key={offerData.id}>
                       <td
                         className="account__general__table__body__td account__general__table__body__td--left offer__account__general__table__body__tr"
-                      >{truncateText(offerData.title)}
+                      >{offerData.status === '1' ? (
+                        <Link
+                          to={`/recherche/jeux/${offerData.id}/${offerData.title}`}
+                          className="account__general__table__body__td__link"
+                        >{truncateText(offerData.title)}
+                        </Link>
+                      ) : (truncateText(offerData.title))}
                       </td>
                       <td className="account__general__table__body__td offer__account__general__table__body__tr">
 
@@ -248,6 +255,7 @@ const Account = ({
                         >
                           <Link
                             to={`/recherche/jeux/${favorite.offer.id}/${slugify(favorite.offer.title, { lower: true })}`}
+                            target="_blank"
                             className="account__general__table__body__td__link"
                           >{truncateText(favorite.offer.title)}
                           </Link>
