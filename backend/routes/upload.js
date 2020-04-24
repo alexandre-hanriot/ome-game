@@ -1,23 +1,28 @@
 const express = require("express");
 const router = express.Router();
-const fileUpload = require("express-fileupload");
+var multer = require("multer");
 
-router.use(fileUpload());
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, `${__dirname}/../../dist/images/offers`);
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
 
-// Upload Endpoint
-// router.post("/", (req, res) => {
-//     if (req.files === null) {
-//         return res.status(400).json({ msg: "No file uploaded" });
-//     }
-//     const file = req.files.file;
-//     // Upload file in "/public/images/offers/"
-//     file.mv(`${}../public/images/offers/${file.name}`, (err) => {
-//         if (err) {
-//             console.error(err);
-//             return res.status(500).send(err);
-//         }
-//         res.json({ fileName: file.name, filePath: `../public/images/offers/${file.name}` });
-//     });
-// });
+var upload = multer({ storage: storage }).single("file");
+
+//Upload Endpoint
+router.post("/", (req, res) => {
+  upload(req, res, function (err) {
+    if (err instanceof multer.MulterError) {
+      return res.status(500).json(err);
+    } else if (err) {
+      return res.status(500).json(err);
+    }
+    return res.status(200).send(req.file);
+  });
+});
 
 module.exports = router;
