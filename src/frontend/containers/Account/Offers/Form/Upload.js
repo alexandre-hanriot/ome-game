@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import Upload from 'src/frontend/components/Account/Offers/Form/Upload';
 
-import { setUploadData, offerUploadImage } from 'src/actions/offers';
+import { setUploadData, offerUploadImage, handleFormInput } from 'src/actions/offers';
+import { showModal } from 'src/actions/global';
 
 const mapStateToProps = (state) => ({
   upload: state.offers.upload,
@@ -13,6 +14,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   offerUploadImage: () => {
     dispatch(offerUploadImage());
+  },
+  displayModal: (name) => {
+    dispatch(showModal(name));
+  },
+  handleFormInput: (identifier, newValue) => {
+    dispatch(handleFormInput(identifier, newValue));
   },
 });
 

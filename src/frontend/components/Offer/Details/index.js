@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -121,7 +121,7 @@ const Details = ({
               </section> */}
             </div>
             <div className="offer-detail__right">
-              <img className="offer-detail__right__image" src={offer.image !== null ? offer.image : noimage} alt="" />
+              <img className="offer-detail__right__image" src={offer.image !== null ? `http://ec2-54-167-103-17.compute-1.amazonaws.com/images/offers/${offer.image}` : noimage} alt="" />
               <div className="offer-detail__right__map">
                 <div className="offer-detail__right__map__text"><p>{offer.postal_code} {offer.city}</p></div>
                 <Map lat={offer.latitude} lng={offer.longitude} />

@@ -131,6 +131,7 @@ const offersMiddleware = (store) => (next) => (action) => {
           postal_code: offer.postal_code,
           latitude: offer.latitude,
           longitude: offer.longitude,
+          image: offer.image,
         },
         withCredentials: true,
         headers: {
@@ -164,6 +165,7 @@ const offersMiddleware = (store) => (next) => (action) => {
           postal_code: offer.postal_code,
           latitude: offer.latitude,
           longitude: offer.longitude,
+          image: offer.image,
         },
         withCredentials: true,
         headers: {
@@ -209,10 +211,10 @@ const offersMiddleware = (store) => (next) => (action) => {
         const data = new FormData();
         data.append('file', upload.file);
         console.log('upload');
-        // http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/upload
+
         axios({
           method: 'post',
-          url: 'http://localhost:3000/upload',
+          url: 'http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/upload',
           withCredentials: true,
           data,
           headers: {
@@ -220,22 +222,22 @@ const offersMiddleware = (store) => (next) => (action) => {
             'Content-Type': 'multipart/form-data',
           },
           onUploadProgress: (progressEvent) => {
-            store.dispatch(setUploadData(parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total), 10)));
-            setTimeout(() => store.dispatch(setUploadData(0), 10000));
+            store.dispatch(setUploadData('uploadPercentage', parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total), 10)));
           },
         })
           .then((response) => {
-            console.log('upload ok');
-            console.log(response.data);
+            store.dispatch(setUploadData('status', 2));
+            store.dispatch(setUploadData('uploadedFile', response.data));
           })
           .catch((error) => {
+            store.dispatch(setUploadData('status', 3));
             console.warn(error);
           });
       }
       next(action);
       break;
     }
-      
+
     case UPDATE_STATUS_OFFER: {
       axios({
         method: 'put',

@@ -143,6 +143,10 @@ const Form = ({
     displayModal('upload');
   };
 
+  const handleClickRemoveImage = () => {
+    handleFormInput('image', null);
+  };
+
   return (
     <>
       {(!gamesIsLoad || !categoriesIsLoad) && <Loader />}
@@ -318,7 +322,12 @@ const Form = ({
                 <div className="account-offers-form__block">
                   <h2 className="account-offers-form__subtitle">Image</h2>
                   {offer.image === null && <button type="button" className="account-offers-form__game__image__define" onClick={handleClickUpload}>Définir une image</button>}
-                  {offer.image !== null && <img src={`/public/images/offers/${offer.image}`} alt="erreur" />}
+                  {offer.image !== null && (
+                    <div className="account-offers-form__game__image">
+                      <div className="account-offers-form__game__image__remove"><button type="button" className="global-button" onClick={handleClickRemoveImage}>Supprimer</button></div>
+                      <img src={`http://ec2-54-167-103-17.compute-1.amazonaws.com/images/offers/${offer.image}`} alt="erreur" />
+                    </div>
+                  )}
                 </div>
 
                 <div className="account-offers-form__block">
