@@ -16,7 +16,6 @@ import {
 
 import {
   SAVE_LISTOFFER_RESERVATION,
-  UPDATE_STATUS_STATE_RESERVATION,
 } from 'src/actions/reservations';
 
 const initialState = {
@@ -267,27 +266,6 @@ const offersReducer = (state = initialState, action = {}) => {
         allOffers: offers,
       };
     }
-
-    case UPDATE_STATUS_STATE_RESERVATION:
-    {
-      const offers = state.allOffers.map((offer) => {
-        if (offer.id.toString() === state.urlId.toString()) {
-          const reservations = offer.reservations.filter((reservation) => (reservation.id.toString() === action.id.toString()));
-          return {
-            ...reservations,
-            status: '2',
-          };
-        }
-        return {
-          ...offer,
-        };
-      });
-      return {
-        ...state,
-        allOffers: offers,
-      };
-    }
-
     default: return state;
   }
 };
