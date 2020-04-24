@@ -27,7 +27,7 @@ const db = require("./models/index");
 // });
 
 db.sequelize.sync().then(() => {
-    console.log("Synchronisation avec la bdd réalisée avec succès");
+  console.log("Synchronisation avec la bdd réalisée avec succès");
 });
 
 const app = express();
@@ -40,19 +40,22 @@ app.use(logger("dev"));
 //     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 // };
 // app.use(cors(corsOptions));
-const whitelist = ["http://localhost:8080", "http://ec2-54-167-103-17.compute-1.amazonaws.com"];
+const whitelist = [
+  "http://localhost:8080",
+  "http://ec2-54-167-103-17.compute-1.amazonaws.com",
+];
 app.use(
-    cors({
-        credentials: true,
-        origin: function (origin, callback) {
-            if (whitelist.indexOf(origin) !== -1) {
-                callback(null, true);
-            } else {
-                callback(null, true); // temporaire pour insomnia, A supprimer
-                // callback(new Error("Not allowed by CORS"));
-            }
-        },
-    })
+  cors({
+    credentials: true,
+    origin: function (origin, callback) {
+      if (whitelist.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(null, true); // temporaire pour insomnia, A supprimer
+        // callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
 );
 
 // Protège de certaines des vulnérabilités bien connues du Web en configurant de manière appropriée des en-têtes HTTP
