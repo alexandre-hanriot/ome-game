@@ -27,7 +27,7 @@ const Form = ({
     }
     getGameCategories();
     getGames({
-      // status: '1',
+      status: '1',
     });
     return () => {
       clearOffer();
