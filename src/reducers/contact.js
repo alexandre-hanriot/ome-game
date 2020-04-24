@@ -8,6 +8,7 @@ const initialState = {
   email: '',
   message: '',
   legalMentions: false,
+  isLoad: false,
 };
 
 const reducer = (state = initialState, action = {}) => {

@@ -13,6 +13,7 @@ const mapStateToProps = (state) => ({
   confirmPassword: state.registration.confirmPassword,
   errorMessage: state.registration.errorMessage,
   isLegalMentionsChecked: state.registration.isLegalMentionsChecked,
+  requestIsLoad: state.registration.requestIsLoad,
 });
 
 const mapDispatchToProps = (dispatch) => ({

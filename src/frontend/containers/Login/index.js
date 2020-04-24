@@ -3,7 +3,7 @@ import Login from 'src/frontend/components/Login';
 
 import { showModal, showAlert } from 'src/actions/global';
 import {
-  changeInputOfLogin, submitLogin, changeLoginError, clearLoginError,
+  changeInputOfLogin, submitLogin, changeLoginError, clearLoginError, setRequestIsLoad,
 } from 'src/actions/user';
 
 const mapStateToProps = (state) => ({
@@ -12,6 +12,7 @@ const mapStateToProps = (state) => ({
   showAlert: state.global.showAlert,
   loginError: state.user.loginError,
   rememberMe: state.user.rememberMe,
+  requestIsLoad: state.user.requestIsLoad,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -32,6 +33,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   clearLoginError: () => {
     dispatch(clearLoginError());
+  },
+  setRequestIsLoad: () => {
+    dispatch(setRequestIsLoad());
   },
 });
 

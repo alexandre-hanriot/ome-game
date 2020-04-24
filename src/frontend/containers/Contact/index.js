@@ -11,6 +11,7 @@ const mapStateToProps = (state) => ({
   email: state.contact.email,
   message: state.contact.message,
   legalMentions: state.contact.legalMentions,
+  isLoad: state.contact.isLoad,
 });
 
 const mapDispatchToProps = (dispatch) => ({

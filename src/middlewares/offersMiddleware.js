@@ -61,6 +61,7 @@ const offersMiddleware = (store) => (next) => (action) => {
         },
       })
         .then((response) => {
+          console.log(response);
           store.dispatch(saveOffers(response.data));
         })
         .catch((error) => {
@@ -206,9 +207,10 @@ const offersMiddleware = (store) => (next) => (action) => {
         const data = new FormData();
         data.append('file', upload.file);
         console.log('upload');
+        // http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/upload
         axios({
           method: 'post',
-          url: 'http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/upload',
+          url: 'http://localhost:3000/upload',
           withCredentials: true,
           data,
           headers: {
