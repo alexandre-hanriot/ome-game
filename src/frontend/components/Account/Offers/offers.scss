@@ -225,6 +225,9 @@
         justify-content: space-between;
         margin-left: 0;
 
+        &__gathered {
+          text-align: right;
+        }
         &__request {
           color: $primaryColor;
           font-size: 1.9em;

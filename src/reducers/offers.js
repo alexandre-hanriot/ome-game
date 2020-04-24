@@ -76,7 +76,6 @@ const initialState = {
 
 const offersReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-
     case SAVE_OFFER_ID:
       return {
         ...state,
@@ -86,6 +85,7 @@ const offersReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         allOffers: action.data,
+        offerIsLoad: true,
       };
     case SAVE_ONE_OFFER:
       return {

@@ -12,7 +12,6 @@ const ModalRequest = ({
   saveIdReservation,
   updateStatusReservation,
   updateValidateReservation,
-  idReservation,
   updateStatusOffer,
   updateStatusFinishedReservation,
 }) => {
@@ -21,7 +20,9 @@ const ModalRequest = ({
       return true;
     }
   });
+
   const handleValidate = (e) => {
+    console.log(e);
     const { id } = e.currentTarget.dataset;
     saveIdReservation(id);
     updateValidateReservation();
@@ -29,13 +30,11 @@ const ModalRequest = ({
 
     displayModal();
   };
-  console.log(idReservation);
   const handleRefused = (e) => {
     const { id } = e.currentTarget.dataset;
     saveIdReservation(id);
     // saveStatusReservation(status);
     updateStatusReservation();
-    displayAlert('L\'élément à bien été supprimé');
   };
   const handleFinished = () => {
     // TODO : action pour changer le status de l'offre dans la bdd ainsi que
@@ -46,7 +45,7 @@ const ModalRequest = ({
     displayModal();
     displayAlert('La réservation de votre jeu est terminée');
   };
-  console.log(offers[0].reservations[0].id);
+
   return (
     <div className="account__modal">
       {showModal === 'modalRequest' && (
@@ -138,7 +137,6 @@ ModalRequest.propTypes = {
     }).isRequired,
   ).isRequired,
   urlId: PropTypes.string.isRequired,
-  idReservation: PropTypes.string.isRequired,
   saveIdReservation: PropTypes.func.isRequired,
   updateStatusReservation: PropTypes.func.isRequired,
   updateValidateReservation: PropTypes.func.isRequired,

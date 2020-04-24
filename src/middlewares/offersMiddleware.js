@@ -106,7 +106,6 @@ const offersMiddleware = (store) => (next) => (action) => {
             zoom: currentZoom,
           };
           store.dispatch(saveOneOffer(currentOffer));
-          store.dispatch(changeOfferIsLoad());
         })
         .catch((error) => {
           console.warn(error);

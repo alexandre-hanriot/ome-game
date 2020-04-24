@@ -106,8 +106,13 @@ const AccountOffers = ({
                       )}
                     </h2>
                     <h3 className="">Nom du jeu : {offer.game.name}</h3>
-                    <h3>Client :{offer.is_available ? 'Game Over' : offer.reservations[0].user.username}</h3>
-                    <h3>Date : {formatDate(offer.createdAt)}</h3>
+
+                    {!offer.is_available && (
+                      <>
+                        <h3>Client : {offer.reservations[0].user.username}</h3>
+                        <h3>Reservé le : {formatDate(offer.createdAt)}</h3>
+                      </>
+                    )}
                   </div>
                   <div className="accountOffers__listOffers__offer__middle">
                     <div
