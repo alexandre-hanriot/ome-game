@@ -16,6 +16,8 @@ export const SET_OFFER_IN_RESERVATION = 'SET_OFFER_IN_RESERVATION';
 export const DELETE_OFFER = 'DELETE_OFFER';
 export const UPDATE_LIST_OFFERS = 'UPDATE_LIST_OFFERS';
 export const SET_OFFER_SEND = 'SET_OFFER_SEND';
+export const SET_UPLOAD_DATA = 'SET_UPLOAD_DATA';
+export const OFFER_UPLOAD_IMAGE = 'OFFER_UPLOAD_IMAGE';
 export const UPDATE_STATE_OFFERS = 'UPDATE_STATE_OFFERS';
 export const UPDATE_STATUS_OFFER = 'UPDATE_STATUS_OFFER';
 export const UPDATE_STATUS_STATE_OFFER = 'UPDATE_STATUS_STATE_OFFER';
@@ -99,6 +101,16 @@ export const setOfferSend = (value) => ({
   value,
 });
 
+export const setUploadData = (name, value) => ({
+  type: SET_UPLOAD_DATA,
+  name,
+  value,
+});
+
+export const offerUploadImage = () => ({
+  type: OFFER_UPLOAD_IMAGE,
+});
+  
 export const updateStateOffers = (id) => ({
   type: UPDATE_STATE_OFFERS,
   id,

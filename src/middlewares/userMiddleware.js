@@ -11,6 +11,7 @@ import {
   LOG_OUT,
   clearUser,
   FETCH_USER,
+  setRequestIsLoad,
 } from 'src/actions/user';
 import { showAlert, showModal } from 'src/actions/global';
 import axios from 'axios';
@@ -45,6 +46,7 @@ const userMiddleware = (store) => (next) => (action) => {
           store.dispatch(showAlert('Connexion effectuée avec succès', true));
           store.dispatch(showModal());
           store.dispatch(changeLoginError(''));
+          store.dispatch(setRequestIsLoad());
           localStorage.setItem('xsrfToken', data.xsrfToken);
           localStorage.setItem('rememberMe', rememberMe);
         })
@@ -59,6 +61,7 @@ const userMiddleware = (store) => (next) => (action) => {
           else if (error.response.status === 401) {
             store.dispatch(changeLoginError('Les identifiants sont invalides'));
           }
+          store.dispatch(setRequestIsLoad());
           console.warn(error);
         });
       next(action);

@@ -11,6 +11,7 @@ const initialState = {
   confirmPassword: '',
   errorMessage: '',
   isLegalMentionsChecked: false,
+  requestIsLoad: false,
 };
 
 const registrationReducer = (state = initialState, action = {}) => {

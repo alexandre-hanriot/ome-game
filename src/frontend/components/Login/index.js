@@ -1,7 +1,10 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './login.scss';
+import Loader from 'src/frontend/components/Loader';
+
 // use Sanitize on inputs for increase security
 const Login = ({
   displayModal,
@@ -12,6 +15,8 @@ const Login = ({
   loginError,
   clearLoginError,
   rememberMe,
+  requestIsLoad,
+  setRequestIsLoad,
 }) => {
   useEffect(() => () => {
     clearLoginError();
@@ -31,10 +36,10 @@ const Login = ({
     handleChange(name, value);
   };
 
-
   const handleSubmit = (event) => {
     event.preventDefault();
     submitLogin();
+    setRequestIsLoad();
   };
 
   return (
@@ -71,7 +76,8 @@ const Login = ({
             onChange={changeInput}
           /> Se souvenir de moi
         </label>
-        <button type="submit" className="global-button">Se connecter</button>
+        {!requestIsLoad && <button type="submit" className="global-button">Se connecter</button>}
+        {requestIsLoad && <button type="button" className="global-button" disabled><Loader withMargin={false} /></button>}
       </form>
       <button type="button" className="login__link" onClick={handlePassword}>Mot de passe oublié ?</button>
     </div>
@@ -87,6 +93,8 @@ Login.propTypes = {
   loginError: PropTypes.string.isRequired,
   clearLoginError: PropTypes.func.isRequired,
   rememberMe: PropTypes.bool.isRequired,
+  requestIsLoad: PropTypes.bool.isRequired,
+  setRequestIsLoad: PropTypes.func.isRequired,
 };
 
 export default Login;

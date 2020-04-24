@@ -1,14 +1,16 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ReactPasswordStrength from 'react-password-strength';
 import PropTypes from 'prop-types';
+import Loader from 'src/frontend/components/Loader';
 import './registration.scss';
 
 const Registration = ({
   email, inputPassword, confirmPassword, pseudo, changeValue,
   submitRegistration, changeRegistrationError, errorMessage,
-  isLegalMentionsChecked, checkLegalMentions, clearModalInputs,
+  isLegalMentionsChecked, checkLegalMentions, clearModalInputs, requestIsLoad,
 }) => {
   useEffect(() => () => {
     clearModalInputs();
@@ -27,6 +29,7 @@ const Registration = ({
     if (inputPassword === confirmPassword && inputPassword !== '' && confirmPassword !== '' && pseudo.length >= 3 && isLegalMentionsChecked) {
       submitRegistration();
       reactInputPassword.clear();
+      changeValue('requestIsLoad', true);
     }
     if (inputPassword !== confirmPassword) {
       changeRegistrationError('La confirmation du mot de passe est incorrecte');
@@ -83,7 +86,8 @@ const Registration = ({
           <label className="registration__form__legalmentions">
             <input name="confirmPassword" type="checkbox" onClick={checkLegalMentions} /> J'ai lu et j'accepte les <Link to="/mentions-legales" target="_blank" className="">mentions légales</Link>
           </label>
-          <button type="submit" className="global-button">S'inscrire</button>
+          {!requestIsLoad && <button type="submit" className="global-button">S'inscrire</button>}
+          {requestIsLoad && <button type="button" className="global-button" disabled><Loader withMargin={false} /></button>}
         </form>
 
         <div className="registration__infos">
@@ -119,6 +123,7 @@ Registration.propTypes = {
   isLegalMentionsChecked: PropTypes.bool.isRequired,
   checkLegalMentions: PropTypes.func.isRequired,
   clearModalInputs: PropTypes.func.isRequired,
+  requestIsLoad: PropTypes.bool.isRequired,
 };
 
 export default Registration;

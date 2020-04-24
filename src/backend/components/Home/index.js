@@ -76,7 +76,7 @@ const Home = ({
                       <div className="admin-dashboard__users__item__nickname">{truncateText(user.username, 25)}</div>
                       <div className="admin-dashboard__users__item__date">{formatDate(user.createdAt, true)}</div>
                       <div className={statusClass}><i className={statusIconClass} title={user.status === '0' ? 'En attente de validation' : 'Validée'} /></div>
-                      <div className="admin-dashboard__users__item__action"><a href={`/admin/utilisateurs/${user.id}`}><i className="fas fa-search" /></a></div>
+                      <div className="admin-dashboard__users__item__action"><Link to={`/admin/utilisateurs/${user.id}`}><i className="fas fa-search" /></Link></div>
                     </li>
                   );
                 })}
@@ -114,7 +114,7 @@ const Home = ({
                       <div className="admin-dashboard__offers__item__title">{truncateText(offer.title, 35)}</div>
                       <div className={statusClass}><i className={statusIconClass} title={offer.status === '0' ? 'En attente de validation' : 'Validée'} /></div>
                       <div className={disponibilityClass}><i className={disponibilityIconClass} title={offer.is_available ? 'Disponible' : 'Non disponible'} /></div>
-                      <div className="admin-dashboard__offers__item__action"><a href={`/admin/offres/${offer.id}`}><i className="fas fa-search" /></a></div>
+                      <div className="admin-dashboard__offers__item__action"><Link to={`/admin/offres/${offer.id}`}><i className="fas fa-search" /></Link></div>
                     </li>
                   );
                 })}
@@ -168,7 +168,7 @@ const Home = ({
                     <li className="admin-dashboard__reservations__item" key={reservation.id}>
                       <div className="admin-dashboard__reservations__item__title">{truncateText(reservation.offer.title, 35)}</div>
                       <div className={statusClass}><i className={statusIconClass} title={statusText} /></div>
-                      <div className="admin-dashboard__reservations__item__action"><a href={`/admin/reservations/${reservation.id}`}><i className="fas fa-search" /></a></div>
+                      <div className="admin-dashboard__reservations__item__action"><Link to={`/admin/reservations/${reservation.id}`}><i className="fas fa-search" /></Link></div>
                     </li>
                   );
                 })}
@@ -197,7 +197,7 @@ const Home = ({
                     <li className="admin-dashboard__games__item" key={game.id}>
                       <div className="admin-dashboard__games__item__title">{truncateText(game.name, 35)}</div>
                       <div className={statusClass}><i className={statusIconClass} title={game.status === '1' ? 'Validé' : 'En attente de validation'} /></div>
-                      <div className="admin-dashboard__games__item__action"><a href={`/admin/jeux/${game.id}`}><i className="fas fa-search" /></a></div>
+                      <div className="admin-dashboard__games__item__action"><Link to={`/admin/jeux/${game.id}`}><i className="fas fa-search" /></Link></div>
                     </li>
                   );
                 })}

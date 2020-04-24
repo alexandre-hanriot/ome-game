@@ -2,14 +2,14 @@ import { connect } from 'react-redux';
 import Form from 'src/frontend/components/Account/Offers/Form';
 
 import {
-  saveOfferId, getOffer, clearOffer, handleFormInput, handleAddOffer, handleModifyOffer, changeOfferIsLoad, setOfferSend,
+  saveOfferId, getOffer, clearOffer, handleFormInput, handleAddOffer, handleModifyOffer, changeOfferIsLoad, setOfferSend, setUploadData,
 } from 'src/actions/offers';
 
 import {
   getGameCategories, getGames, changeCategoriesIsLoad, changeGameIsLoad, addGame, setNewGameField, handleFormInputGame,
 } from 'src/actions/game';
 
-import { showAlert } from 'src/actions/global';
+import { showAlert, showModal } from 'src/actions/global';
 
 const mapStateToProps = (state) => ({
   // nom de la prop à remplir: donnée à récupérer dans le state
@@ -21,6 +21,8 @@ const mapStateToProps = (state) => ({
   newGameField: state.game.newGameField,
   game: state.game.game,
   offerSend: state.offers.offerSend,
+  upload: state.offers.upload,
+  showModal: state.global.showModal,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -72,6 +74,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   setOfferSend: (value) => {
     dispatch(setOfferSend(value));
+  },
+  setUploadData: (name, value) => {
+    dispatch(setUploadData(name, value));
+  },
+  displayModal: (name) => {
+    dispatch(showModal(name));
   },
 });
 

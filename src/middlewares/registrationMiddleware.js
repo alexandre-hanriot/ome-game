@@ -1,6 +1,6 @@
 import {
   saveUser,
-  SUBMIT_REGISTRATION, changeRegistrationError,
+  SUBMIT_REGISTRATION, changeRegistrationError, changeInput,
 } from 'src/actions/registration';
 import axios from 'axios';
 import { showAlert, showModal } from 'src/actions/global';
@@ -24,6 +24,7 @@ const registrationMiddleware = (store) => (next) => (action) => {
           store.dispatch(saveUser(response.data));
           store.dispatch(showModal(''));
           store.dispatch(showAlert('Inscription effectuée avec succès', true));
+          store.dispatch(changeInput('requestIsLoad', false));
         })
         .catch((error) => {
           // handle error
@@ -33,6 +34,7 @@ const registrationMiddleware = (store) => (next) => (action) => {
           if (error.response.status === 409) {
             store.dispatch(changeRegistrationError(`${error.response.data.error}`, false));
           }
+          store.dispatch(changeInput('requestIsLoad', false));
           console.warn(error);
         });
       next(action);
