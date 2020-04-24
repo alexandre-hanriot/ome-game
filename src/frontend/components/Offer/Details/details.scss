@@ -169,23 +169,6 @@
 
 @media (max-width: 1200px) {
   .offer-detail {
-
-    &__ariane {
-     
-      & > a {
-        
-      }
-    }
-    &__infos {
-     
-  
-      &__title {
-        
-      }
-      &__disponibility {
-        
-      }
-    }
     &__stats {
       flex-wrap: wrap;
       justify-content: center;
@@ -202,51 +185,14 @@
           display: block;
           margin-top: $gutter/2;
         }
-        & > i {
-          
-        }
-        &__label {
-          
-        }
       }
     }
     &__left {
       width: 100%;
-  
-      &__description {
-        
-    
-        &__title {
-          
-        }
-        &__content {
-          
-        }
-      }
-      &__buttons {
-        
-    
-        &__button {
-         
-          &:hover {
-            
-          }
-        }
-      }
-      &__user {
-        
-    
-        &__content {
-          
-        }
-      }
     }
     &__right {
       width: 100%;
-
-      &__image {
-
-      }
+      margin-top: $gutter;
       &__map {
         max-width: 100%;
       }
