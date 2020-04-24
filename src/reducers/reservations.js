@@ -7,6 +7,7 @@ import {
   UPDATE_LIST_RESERVATIONS,
   SAVE_STATUS_RESERVATION,
   CHANGE_RESERVATIONS_LOAD,
+  CLEAR_RESERVATIONS,
 } from 'src/actions/reservations';
 
 const initialState = {
@@ -16,8 +17,6 @@ const initialState = {
   reservation: {},
   statusReservation: '',
   isReservationsLoad: false,
-  // indique si on est en train de charger des données depuis l'API
-  // loading: true,
 };
 const reservationsReducer = (state = initialState, action = {}) => {
   switch (action.type) {
@@ -26,6 +25,13 @@ const reservationsReducer = (state = initialState, action = {}) => {
         ...state,
         allReservations: action.reservations,
         isReservationsLoad: true,
+      };
+
+    case CLEAR_RESERVATIONS:
+      return {
+        ...state,
+        allReservations: [],
+        isReservationsLoad: false,
       };
 
     case SAVE_ID_RESERVATION:

@@ -1,7 +1,9 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTitle } from 'src/hooks/useTitle';
 import PropTypes from 'prop-types';
+import { formatDate } from 'src/utils/selectors';
 
 import './profil.scss';
 
@@ -94,7 +96,7 @@ const Profil = ({
                 <i className="fas fa-user"> </i>
                 <span>Modifier</span>
               </div>
-              <button type="button" className="account-profil__avatar__remove">Supprimer l'image</button>
+              {/* <button type="button" className="account-profil__avatar__remove">Supprimer l'image</button> */}
             </div>
 
             <div className="account-profil__infos">
@@ -206,12 +208,11 @@ const Profil = ({
               <h2 className="account-profil__subtitle">Paramètres</h2>
 
               <div className="account-profil__params__content">
-                Inscrit le {/* formatDate(userData.user.createdAt) */ userData.user.createdAt}<br />
+                Inscrit le {formatDate(userData.user.createdAt, true)}<br />
                 <br />
                 <label>
                   <input
                     type="radio"
-                    // eslint-disable-next-line react/jsx-boolean-value
                     value="1"
                     onChange={changeInput}
                     name="display_name"
