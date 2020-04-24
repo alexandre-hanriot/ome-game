@@ -36,7 +36,6 @@ const App = ({
   redirectTo,
   setRedirectTo,
   isTokenExist,
-  rememberMe,
 }) => {
   const location = useLocation();
   // return the current pathname
