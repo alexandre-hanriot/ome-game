@@ -15,6 +15,7 @@ import {
   setUploadData,
   UPDATE_STATUS_OFFER,
   fetchOffers,
+  setOfferSend,
 } from 'src/actions/offers';
 
 import { showAlert, redirectTo } from 'src/actions/global';
@@ -139,6 +140,7 @@ const offersMiddleware = (store) => (next) => (action) => {
         .then((response) => {
           store.dispatch(redirectTo('/compte/offres'));
           store.dispatch(showAlert('Votre offre à été ajoutée avec succès et sera validée dans les plus brefs délais'));
+          store.dispatch(setOfferSend(false));
         })
         .catch((error) => {
           console.warn(error);
@@ -173,6 +175,7 @@ const offersMiddleware = (store) => (next) => (action) => {
         .then((response) => {
           store.dispatch(redirectTo('/compte/offres'));
           store.dispatch(showAlert('Votre offre à été modifiée avec succès et sera validée dans les plus brefs délais'));
+          store.dispatch(setOfferSend(false));
         })
         .catch((error) => {
           console.warn(error);

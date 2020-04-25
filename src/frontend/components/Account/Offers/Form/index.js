@@ -363,6 +363,8 @@ const Form = ({
                         handleFormInput('postal_code', place.address_components[0].long_name);
                       }
 
+                      console.log(place);
+
                       const lat = place.geometry.location.lat();
                       const lng = place.geometry.location.lng();
 
