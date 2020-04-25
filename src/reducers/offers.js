@@ -145,6 +145,7 @@ const offersReducer = (state = initialState, action = {}) => {
       };
     case CLEAR_OFFERS:
       return {
+        ...state,
         allOffers: [],
       };
     case HANDLE_FORM_INPUT: {
