@@ -12,6 +12,7 @@ import {
   SET_UPLOAD_DATA,
   UPDATE_STATE_OFFERS,
   UPDATE_STATUS_STATE_OFFER,
+  CLEAR_OFFERS,
 } from 'src/actions/offers';
 
 import {
@@ -141,6 +142,10 @@ const offersReducer = (state = initialState, action = {}) => {
             },
           },
         },
+      };
+    case CLEAR_OFFERS:
+      return {
+        allOffers: [],
       };
     case HANDLE_FORM_INPUT: {
       let target = action.identifier;

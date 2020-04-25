@@ -7,6 +7,7 @@ import Modal from 'src/frontend/containers/Modal';
 import ConfirmSupp from 'src/frontend/containers/Account/Modal';
 import ModalRequest from 'src/frontend/containers/Account/Offers/ModalRequest';
 import Loader from 'src/frontend/components/Loader';
+import noimage from 'src/assets/images/noimage_150.jpg';
 import './offers.scss';
 
 const AccountOffers = ({
@@ -18,6 +19,7 @@ const AccountOffers = ({
   saveIdReservation,
   offerIsLoad,
   changeOfferIsLoad,
+  clearOffers,
 }) => {
   useTitle('Mes offres');
   useEffect(() => {
@@ -28,6 +30,7 @@ const AccountOffers = ({
     load();
     return () => {
       changeOfferIsLoad();
+      clearOffers();
     };
   }, []);
 
@@ -82,7 +85,7 @@ const AccountOffers = ({
             {data.map((offer) => (
               <li className="accountOffers__listOffers__offer" key={offer.id}>
                 <div className="accountOffers__listOffers__offer__left">
-                  <img className="accountOffers__listOffers__offer__left__picture" src="https://cdn3.trictrac.net/documents/formats/thumb_300_300/documents/originals/29/2c/676d3ba08cf231daf0fc67c709bc0ba8a6468f2fb878061c99c16e6f751d.jpeg" alt="" />
+                  <img className="accountOffers__listOffers__offer__left__picture" src={offer.image === null ? noimage : offer.image} alt="" />
                   <div className="accountOffers__listOffers__offer__left__content">
                     <h2 className="accountOffers__listOffers__offer__left__content__subtitle">
                       {offer.status !== '1' && (
@@ -210,6 +213,7 @@ AccountOffers.propTypes = {
   saveIdReservation: PropTypes.func.isRequired,
   offerIsLoad: PropTypes.bool.isRequired,
   changeOfferIsLoad: PropTypes.func.isRequired,
+  clearOffers: PropTypes.func.isRequired,
 };
 
 export default AccountOffers;
