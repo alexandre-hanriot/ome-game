@@ -2,7 +2,12 @@ import { connect } from 'react-redux';
 import { showModal } from 'src/actions/global';
 import Offers from 'src/frontend/components/Account/Offers';
 
-import { fetchOffers, saveOfferId, changeOfferIsLoad } from 'src/actions/offers';
+import {
+  fetchOffers,
+  saveOfferId,
+  changeOfferIsLoad,
+  clearOffers,
+} from 'src/actions/offers';
 import { saveIdReservation } from 'src/actions/reservations';
 
 const mapStateToProps = (state) => ({
@@ -28,6 +33,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeOfferIsLoad: () => {
     dispatch(changeOfferIsLoad());
+  },
+  clearOffers: () => {
+    dispatch(clearOffers());
   },
 });
 

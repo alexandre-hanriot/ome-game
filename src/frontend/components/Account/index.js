@@ -30,7 +30,7 @@ const Account = ({
   saveOfferId,
   displayAlert,
 }) => {
-  useTitle('Mon compte');
+  useTitle('Mon tableau de bord');
 
   useEffect(() => {
     async function load() {

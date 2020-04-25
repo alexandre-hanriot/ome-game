@@ -21,6 +21,7 @@ export const OFFER_UPLOAD_IMAGE = 'OFFER_UPLOAD_IMAGE';
 export const UPDATE_STATE_OFFERS = 'UPDATE_STATE_OFFERS';
 export const UPDATE_STATUS_OFFER = 'UPDATE_STATUS_OFFER';
 export const UPDATE_STATUS_STATE_OFFER = 'UPDATE_STATUS_STATE_OFFER';
+export const CLEAR_OFFERS = 'CLEAR_OFFERS';
 
 // action creators
 export const fetchOffers = () => ({
@@ -123,4 +124,8 @@ export const updateStatusOffer = () => ({
 export const updateStatusStateOffer = (id) => ({
   type: UPDATE_STATUS_STATE_OFFER,
   id,
+});
+
+export const clearOffers = () => ({
+  type: CLEAR_OFFERS,
 });
