@@ -166,6 +166,17 @@ const AccountOffers = ({
                       <i className="fas fa-pencil-alt button__disabled__pencil" />Modifier
                     </button>
                   )}
+                  {(offer.status === '1' && !offer.is_available) && (
+                  <button
+                    type="button"
+                    disabled
+                    data-id={offer.id}
+                    className="button__disabled"
+                    onClick={offer.is_available ? handleModal : handleModalImpossible}
+                  ><i className="fas fa-trash-alt accountOffers__listOffers__offer__right__trash" /> Supprimer
+                  </button>
+                  )}
+                  {((offer.status === '1' && offer.is_available) || (offer.status === '0')) && (
                   <button
                     type="button"
                     data-id={offer.id}
@@ -173,6 +184,7 @@ const AccountOffers = ({
                     onClick={offer.is_available ? handleModal : handleModalImpossible}
                   ><i className="fas fa-trash-alt accountOffers__listOffers__offer__right__trash" /> Supprimer
                   </button>
+                  )}
                 </div>
               </li>
             ))}
