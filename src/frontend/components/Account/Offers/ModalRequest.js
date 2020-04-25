@@ -127,7 +127,7 @@ ModalRequest.propTypes = {
   displayModal: PropTypes.func.isRequired,
   displayAlert: PropTypes.func.isRequired,
   showModal: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
+  username: PropTypes.string,
   allOffers: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -139,6 +139,10 @@ ModalRequest.propTypes = {
   updateValidateReservation: PropTypes.func.isRequired,
   updateStatusOffer: PropTypes.func.isRequired,
   updateStatusFinishedReservation: PropTypes.func.isRequired,
+};
+
+ModalRequest.defaultProps = {
+  username: '',
 };
 
 export default ModalRequest;

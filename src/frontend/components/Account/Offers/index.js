@@ -53,7 +53,7 @@ const AccountOffers = ({
     const { id, idreservation } = e.currentTarget.dataset;
     saveOfferId(id);
     saveIdReservation(idreservation);
-    displayModal('modalInProgressReservation');
+    displayModal('modalInProgressReservation', { id });
   };
 
   return (
@@ -125,6 +125,7 @@ const AccountOffers = ({
                         className="accountOffers__listOffers__offer__middle__request__inProgress"
                         data-id={offer.id}
                         data-idreservation={offer.reservations[0].id}
+                        data-username={offer.reservations[0].user.username}
                         onClick={handleInProgress}
                       >
                         <i className="fas fa-dragon" />
@@ -137,7 +138,7 @@ const AccountOffers = ({
                             type="button"
                             onClick={handleModalRequest}
                             data-id={offer.id}
-                            data-username={offer.reservations[0].user.username}
+                            // data-username={offer.reservations[0].user.username}
                           >
                             <i className="fas fa-concierge-bell" />
                           </button>
