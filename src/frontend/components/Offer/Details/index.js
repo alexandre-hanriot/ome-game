@@ -75,7 +75,7 @@ const Details = ({
   };
 
   const disponibilityClass = classNames('offer-detail__infos__disponibility', { 'offer-detail__infos__disponibility--off': !offer.is_available });
-  const favoriteClass = classNames('offer-detail__left__buttons__button global-button', { 'active': offerInFavorite });
+  const favoriteClass = classNames('offer-detail__left__buttons__button global-button', { active: offerInFavorite });
 
   const isOwner = (offer.userId === userId);
 

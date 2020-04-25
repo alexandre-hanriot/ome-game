@@ -91,6 +91,7 @@ const offersReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         offer: action.offer,
+        offerIsLoad: true,
       };
     case SET_OFFER_IS_LOAD:
       return {

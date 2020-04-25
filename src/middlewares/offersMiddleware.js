@@ -6,7 +6,6 @@ import {
   GET_OFFER,
   saveOffers,
   saveOneOffer,
-  changeOfferIsLoad,
   updateListOffers,
   HANDLE_ADD_OFFER,
   HANDLE_MODIFY_OFFER,
