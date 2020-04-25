@@ -37,9 +37,6 @@ const ModalRequest = ({
     updateStatusReservation();
   };
   const handleFinished = () => {
-    // TODO : action pour changer le status de l'offre dans la bdd ainsi que
-    // dans le state ainsi que le status de la réservations
-    // OFFRE :
     updateStatusOffer();
     updateStatusFinishedReservation();
     displayModal();

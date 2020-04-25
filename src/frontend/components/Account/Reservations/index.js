@@ -95,7 +95,7 @@ const Reservations = ({
                 <li className="reservations__container" key={reservation.id}>
                   <div className="reservations__container__item">
                     <div className="reservations__container__item__left">
-                      <img className="reservations__container__item__left__picture" src={reservation.offer.image === null ? noimage : reservation.offer.image} alt="" />
+                      <img className="reservations__container__item__left__picture" src={reservation.offer.image === null ? noimage : `http://ec2-54-167-103-17.compute-1.amazonaws.com/images/offers/${reservation.offer.image}`} alt="" />
                       <div className="reservations__container__item__left__text">
                         <div className="reservations__container__item__left__text__title">
                           <h2 className="reservations__container__item__left__text__subtitle">{reservation.offer.title}</h2>
