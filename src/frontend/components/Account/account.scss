@@ -215,6 +215,10 @@
               color: $red;
               padding: .3rem .3rem .3rem .3rem;
             }
+
+            &:disabled i {
+              color: rgb(170, 170, 170);
+            }
           }
           &__button__pencil {
             border: none;

@@ -207,7 +207,7 @@ const Account = ({
                         )}
                       </td>
                       <td className="account__general__table__body__td account__general__table__body__td--button">
-                        {offerData.status === '1' && (
+                        {(offerData.is_available && offerData.status === '1') && (
                           <Link
                             className="account__general__table__body__td__button__pencil"
                             to={`compte/offres/${offerData.id}`}
@@ -216,7 +216,7 @@ const Account = ({
                             <i className="far fa-pencil-alt" />
                           </Link>
                         )}
-                        {offerData.status === '0' && (
+                        {(offerData.is_available === false || offerData.status === '0') && (
                           <button
                             type="button"
                             className="account__general__table__body__td__button__pencil__disabled"
@@ -225,6 +225,7 @@ const Account = ({
                           ><i className="far fa-pencil-alt" />
                           </button>
                         )}
+                        {(offerData.status === '0' || (offerData.status === '1' && offerData.is_available === true)) && (
                         <button
                           type="button"
                           className="account__general__table__body__td__button"
@@ -234,6 +235,17 @@ const Account = ({
                         >
                           <i className="fas fa-trash-alt account__general__table__body__td__button--remove" />
                         </button>
+                        )}
+                        {(offerData.status === '1' && offerData.is_available === false) && (
+                        <button
+                          type="button"
+                          className="account__general__table__body__td__button"
+                          title="Supprimer l'offre"
+                          disabled
+                        >
+                          <i className="fas fa-trash-alt account__general__table__body__td__button--remove" />
+                        </button>
+                        )}
                       </td>
                     </tr>
                   ))}
