@@ -163,7 +163,7 @@ const Form = ({
           {showModal === 'upload' && <Modal content={<Upload />} />}
 
           <div className="account-offers-form__breadcrumb">
-            <Link to="/">Accueil</Link> > <Link to="/compte">Mon compte</Link> > <Link to="/compte/offres">Mes offres</Link> > { offer.id === 0 ? 'Ajouter' : 'Modifier' }
+            <Link to="/">Accueil</Link> > <Link to="/compte">Tableau de bord</Link> > <Link to="/compte/offres">Mes offres</Link> > { offer.id === 0 ? 'Ajouter' : 'Modifier' }
           </div>
 
           <h1 className="account-offers-form__title">{ offer.id === 0 ? 'Ajouter' : 'Modifier' } une offre</h1>

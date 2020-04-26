@@ -69,7 +69,7 @@ const AccountOffers = ({
           )}
           <div className="reservations__breadcrumb">
             <Link to="/">Accueil ></Link>
-            <Link to="/compte"> Mon compte > </Link>
+            <Link to="/compte"> Tableau de bord > </Link>
             Offres
           </div>
           <div className="accountOffers__global">

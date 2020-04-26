@@ -97,9 +97,9 @@ const Account = ({
           {showAlert && (<Alert />)}
 
           <div className="account__breadcrumb">
-            <Link to="/">Accueil</Link> > Mon compte
+            <Link to="/">Accueil</Link> > Tableau de bord
           </div>
-          <h1 className="account__title">Mon Compte</h1>
+          <h1 className="account__title">Tableau de bord</h1>
           <div className="account__dashboard">
             {/* Reservations */}
             <div className="account__general reservation">

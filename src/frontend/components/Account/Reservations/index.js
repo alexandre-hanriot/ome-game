@@ -60,7 +60,7 @@ const Reservations = ({
           )}
           <div className="reservations__breadcrumb">
             <Link to="/">Accueil ></Link>
-            <Link to="/compte"> Mon compte ></Link>
+            <Link to="/compte"> Tableau de bord ></Link>
             <Link to="/compte/reservations"> Mes reservations</Link>
           </div>
           <h1 className="reservations__title">Mes réservations</h1>

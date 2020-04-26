@@ -22,6 +22,21 @@ const Details = ({
           <li className="reservations__details__list__item">
             <span className="reservations__details__list__item__bold">Propriétaire :</span> {user.display_name ? `${user.fistname} ${user.lastname}` : user.username}
           </li>
+          {reservation.status === '1' && (
+            <>
+              <li className="reservations__details__list__item">
+                <span className="reservations__details__list__item__bold">Adresse email :</span> {user.email}
+              </li>
+              <li className="reservations__details__list__item">
+                <span className="reservations__details__list__item__bold">Adresse postale :</span> {user.address !== null ? `${user.address}, ` : ''} {`${user.postal_code} ${user.city}`}
+              </li>
+              {user.phone !== null && (
+                <li className="reservations__details__list__item">
+                  <span className="reservations__details__list__item__bold">Téléphone :</span> {user.phone}
+                </li>
+              )}
+            </>
+          )}
           <li className="reservations__details__list__item">
             <span className="reservations__details__list__item__bold">Date de mise en ligne de l'offre :</span> {formatDate(reservation.offer.createdAt)}
           </li>
@@ -29,7 +44,7 @@ const Details = ({
             <span className="reservations__details__list__item__bold">Date de reservation :</span> {formatDate(reservation.createdAt)}
           </li>
           <li className="reservations__details__list__item">
-            <span className="reservations__details__list__item__bold">Etat de la reservation :</span>{reservation.status === '0' && ' en attente de réponse du propriétaire'}{reservation.status === '1' && ' en cours de réservation'}{reservation.status === '2' && ' en cours'}{reservation.status === '3' && ' terminée'}{reservation.status === '4' && ' annulée'}
+            <span className="reservations__details__list__item__bold">Etat de la reservation :</span>{reservation.status === '0' && ' En attente de validation pour la propriétaire'}{reservation.status === '1' && ' Validée, en cours de réservation'}{reservation.status === '2' && ' Terminée'}{reservation.status === '3' && ' Refusée'}{reservation.status === '4' && ' Annulée'}
           </li>
         </ul>
       </div>

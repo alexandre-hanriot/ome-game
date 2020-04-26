@@ -83,7 +83,7 @@ const Profil = ({
     <div className="wrapper account-profil">
 
       <div className="account-profil__breadcrumb">
-        <Link to="/">Accueil</Link> > <Link to="/compte">Mon compte</Link> > Mon profil
+        <Link to="/">Accueil</Link> > <Link to="/compte">Tableau de bord</Link> > Mon profil
       </div>
 
       <h1 className="account-profil__title">Mon profil</h1>
