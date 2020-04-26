@@ -26,7 +26,7 @@ const userMiddleware = (store) => (next) => (action) => {
       const { email, password } = store.getState().user;
       axios({
         method: 'post',
-        url: 'http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/login',
+        url: 'https://ec2-54-167-103-17.compute-1.amazonaws.com:3000/login',
         data: {
           identifier: email,
           password,
@@ -72,7 +72,7 @@ const userMiddleware = (store) => (next) => (action) => {
     case SUBMIT_PROFIL_UPDATE: {
       axios({
         method: 'put',
-        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}`,
+        url: `https://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}`,
         data: {
           userId: userData.user.id,
           status: userData.user.status,
@@ -107,7 +107,7 @@ const userMiddleware = (store) => (next) => (action) => {
     case SUBMIT_PROFIL_CHANGE_PASSWORD: {
       axios({
         method: 'put',
-        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/password`,
+        url: `https://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/password`,
         data: {
           oldPassword: userData.user.old_password,
           newPassword: userData.user.new_password,
@@ -132,7 +132,7 @@ const userMiddleware = (store) => (next) => (action) => {
     }
 
     case FETCH_ALL_USERS: {
-      axios.get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users', {
+      axios.get('https://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users', {
         params: {
           ...action.params,
         },
@@ -152,7 +152,7 @@ const userMiddleware = (store) => (next) => (action) => {
       if (localStorage.getItem('xsrfToken') !== null) {
         axios({
           method: 'get',
-          url: 'http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/authenticate',
+          url: 'https://ec2-54-167-103-17.compute-1.amazonaws.com:3000/authenticate',
           withCredentials: true,
           headers: {
             'x-xsrf-token': localStorage.getItem('xsrfToken'),
@@ -179,7 +179,7 @@ const userMiddleware = (store) => (next) => (action) => {
     }
 
     case LOG_OUT: {
-      axios.get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/logout', {
+      axios.get('https://ec2-54-167-103-17.compute-1.amazonaws.com:3000/logout', {
         withCredentials: true,
       })
         .then((response) => {
@@ -196,7 +196,7 @@ const userMiddleware = (store) => (next) => (action) => {
     case FETCH_USER: {
       axios({
         method: 'post',
-        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${action.id}`,
+        url: `https://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${action.id}`,
       })
         .then((response) => {
           store.dispatch(saveUser(response.data));
