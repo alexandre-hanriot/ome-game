@@ -23,7 +23,7 @@ const favoritesMiddleware = (store) => (next) => (action) => {
     case FETCH_FAVORITES: {
       axios({
         method: 'post',
-        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/favorites`,
+        url: `https://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/favorites`,
         data: {
           userId: userData.user.id,
         },
@@ -45,7 +45,7 @@ const favoritesMiddleware = (store) => (next) => (action) => {
     case UPDATE_NOTIFY_FAVORITE:
       axios({
         method: 'put',
-        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/favorites/${idFavorite}`,
+        url: `https://ec2-54-167-103-17.compute-1.amazonaws.com:3000/favorites/${idFavorite}`,
         data: {
           notify_when_available: notifyfavorite,
           userId: userData.user.id,
