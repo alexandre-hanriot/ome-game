@@ -102,6 +102,16 @@ const ModalRequest = ({
               <p className="account__modal__top__contents">
                 <span className="account__modal__top__content__span">Acceptée le : </span> {formatDate(offers[0].reservations[0].updatedAt)}
               </p>
+              <p className="account__modal__top__contents">
+                <span className="account__modal__top__content__span"> {offers[0].reservations[0].user.display_name ? 'prenom nom' : 'pseudo'} : </span>
+                {offers[0].reservations[0].user.display_name ? `${offers[0].reservations[0].user.firstname} ${offers[0].reservations[0].user.lastname}` : offers[0].reservations[0].user.username}
+              </p>
+              <p className="account__modal__top__contents">
+                <span className="account__modal__top__content__span">email : </span> {offers[0].reservations[0].user.email}
+              </p>
+              <p className="account__modal__top__contents">
+                <span className="account__modal__top__content__span">Telephone : </span> {offers[0].reservations[0].user.phone === null ? 'non renseigné' : offers[0].reservations[0].user.phone}
+              </p>
             </div>
             <div className="account__modal__bottom">
               <button
