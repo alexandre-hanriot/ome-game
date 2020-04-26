@@ -300,7 +300,7 @@ const Offer = ({
                   <img src="https://cdn2.philibertnet.com/372889-large_default/le-parrain-l-empire-de-corleone.jpg" alt="" className="offer__aside__results__result__image" />
                   <div className="offer__aside__results__result__content">
                     <h3 className="offer__aside__results__result__name">{result.title}</h3>
-                    <p className="offer__aside__results__result__city">{result.city} ({result.postal_code})</p>
+                    <p className="offer__aside__results__result__city">{result.city} {result.postal_code !== '' ? `(${result.postal_code})` : ''}</p>
                     <p className="offer__aside__results__result__city">{result.game.name} {result.game.year != null && `(${result.game.year})`}</p>
                     <span className={disponibilityClass}>{result.is_available ? 'Disponible' : 'Non disponible'}</span>
                     <span className="offer__aside__results__result__type">{result.type === '0' ? 'Prêt' : 'Location'}</span>

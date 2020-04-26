@@ -38,7 +38,6 @@ const offersMiddleware = (store) => (next) => (action) => {
         },
       })
         .then((response) => {
-          console.log(response.data, 'on passe par saveOffers');
           store.dispatch(saveOffers(response.data));
         })
         .catch((error) => {

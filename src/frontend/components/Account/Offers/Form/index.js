@@ -147,6 +147,14 @@ const Form = ({
     handleFormInput('image', null);
   };
 
+  let location = '';
+  if (offer.postal_code !== null && offer.postal_code !== '') {
+    location += `${offer.postal_code} `;
+  }
+  if (offer.city !== null && offer.city !== '') {
+    location += offer.city;
+  }
+
   return (
     <>
       {(!gamesIsLoad || !categoriesIsLoad) && <Loader />}
@@ -358,12 +366,19 @@ const Form = ({
                           zoom = 12;
                       }
 
-                      if (length === 5) {
-                        handleFormInput('city', place.address_components[1].long_name);
-                        handleFormInput('postal_code', place.address_components[0].long_name);
-                      }
+                      // if (length === 5) {
+                      //   handleFormInput('city', place.address_components[1].long_name);
+                      //   handleFormInput('postal_code', place.address_components[0].long_name);
+                      // }
 
-                      console.log(place);
+                      const hasLocality = place.address_components.filter((addr) => addr.types.includes('locality'));
+                      const hasPostalCode = place.address_components.filter((addr) => addr.types.includes('postal_code'));
+                      if (hasPostalCode.length > 0) {
+                        handleFormInput('postal_code', hasPostalCode[0].long_name);
+                      }
+                      if (hasLocality.length > 0) {
+                        handleFormInput('city', hasLocality[0].long_name);
+                      }
 
                       const lat = place.geometry.location.lat();
                       const lng = place.geometry.location.lng();
@@ -374,7 +389,7 @@ const Form = ({
                     }}
                     types={['(regions)']}
                     componentRestrictions={{ country: 'fr' }}
-                    defaultValue={(offer.postal_code !== null && offer.city !== null && offer.postal_code !== '' && offer.city !== '') ? `${offer.postal_code} ${offer.city}` : ''}
+                    defaultValue={location}
                   />
                   <div className="account-offers-form__map">
                     <Map zoom={offer.zoom} lat={offer.latitude} lng={offer.longitude} />
