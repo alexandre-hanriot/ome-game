@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTitle } from 'src/hooks/useTitle';
 import PropTypes from 'prop-types';
-import { formatDate } from 'src/utils/selectors';
+import { formatDate, labelClassname } from 'src/utils/selectors';
 
 import './profil.scss';
 
@@ -79,6 +79,37 @@ const Profil = ({
     }
   };
 
+  if (userData.user.lastname === null) {
+    userData.user.lastname = '';
+  }
+  if (userData.user.firstnam === null) {
+    userData.user.firstnam = '';
+  }
+  if (userData.user.email === null) {
+    userData.user.email = '';
+  }
+  if (userData.user.phone === null) {
+    userData.user.phone = '';
+  }
+  if (userData.user.postal_code === null) {
+    userData.user.postal_code = '';
+  }
+  if (userData.user.city === null) {
+    userData.user.city = '';
+  }
+  if (userData.user.address === null) {
+    userData.user.address = '';
+  }
+  if (userData.user.old_password === null) {
+    userData.user.old_password = '';
+  }
+  if (userData.user.new_password === null) {
+    userData.user.new_password = '';
+  }
+  if (userData.user.confirm_new_password === null) {
+    userData.user.confirm_new_password = '';
+  }
+
   return (
     <div className="wrapper account-profil">
 
@@ -102,46 +133,56 @@ const Profil = ({
             <div className="account-profil__infos">
               <h2 className="account-profil__subtitle">Informations personnelles</h2>
 
-              <input
-                type="text"
-                value={userData.user.lastname}
-                onChange={changeInput}
-                name="lastname"
-                placeholder="Nom"
-                className="account-profil__infos__field global-input"
-              />
-              <input
-                type="text"
-                value={userData.user.firstname}
-                onChange={changeInput}
-                name="firstname"
-                placeholder="Prénom"
-                className="account-profil__infos__field global-input"
-              />
-              <input
-                type="text"
-                value={userData.user.username}
-                onChange={changeInput}
-                name="username"
-                placeholder="Pseudo"
-                className="account-profil__infos__field global-input"
-              />
-              <input
-                type="email"
-                value={userData.user.email}
-                onChange={changeInput}
-                name="email"
-                placeholder="Adresse email"
-                className="account-profil__infos__field global-input"
-              />
-              <input
-                type="text"
-                value={userData.user.phone}
-                onChange={changeInput}
-                name="phone"
-                placeholder="Téléphone"
-                className="account-profil__infos__field global-input"
-              />
+              <label className={`${labelClassname(userData.user.lastname)} account-profil__infos__field`}>
+                <input
+                  type="text"
+                  value={userData.user.lastname}
+                  onChange={changeInput}
+                  name="lastname"
+                  className="global-input"
+                />
+                <span>Nom</span>
+              </label>
+              <label className={`${labelClassname(userData.user.firstname)} account-profil__infos__field`}>
+                <input
+                  type="text"
+                  value={userData.user.firstname}
+                  onChange={changeInput}
+                  name="firstname"
+                  className="global-input"
+                />
+                <span>Prénom</span>
+              </label>
+              <label className={`${labelClassname(userData.user.username)} account-profil__infos__field`}>
+                <input
+                  type="text"
+                  value={userData.user.username}
+                  onChange={changeInput}
+                  name="username"
+                  className="global-input"
+                />
+                <span>Pseudo</span>
+              </label>
+              <label className={`${labelClassname(userData.user.email)} account-profil__infos__field`}>
+                <input
+                  type="email"
+                  value={userData.user.email}
+                  onChange={changeInput}
+                  name="email"
+                  className="global-input"
+                />
+                <span>Adresse email</span>
+              </label>
+              <label className={`${labelClassname(userData.user.phone)} account-profil__infos__field`}>
+                <input
+                  type="text"
+                  value={userData.user.phone}
+                  onChange={changeInput}
+                  name="phone"
+                  className="global-input"
+                />
+                <span>Téléphone</span>
+              </label>
             </div>
           </div>
 
@@ -149,59 +190,71 @@ const Profil = ({
             <div className="account-profil__address">
               <h2 className="account-profil__subtitle">Adresse postale</h2>
 
-              <input
-                type="text"
-                value={userData.user.postal_code}
-                onChange={changeInput}
-                name="postal_code"
-                placeholder="Code postal"
-                className="account-profil__address__field global-input"
-              />
-              <input
-                type="text"
-                value={userData.user.city}
-                onChange={changeInput}
-                name="city"
-                placeholder="Ville"
-                className="account-profil__address__field global-input"
-              />
-              <input
-                type="text"
-                value={userData.user.address}
-                onChange={changeInput}
-                name="address"
-                placeholder="Adresse"
-                className="account-profil__address__field global-input"
-              />
+              <label className={`${labelClassname(userData.user.postal_code)} account-profil__address__field`}>
+                <input
+                  type="text"
+                  value={userData.user.postal_code}
+                  onChange={changeInput}
+                  name="postal_code"
+                  className="global-input"
+                />
+                <span>Code postal</span>
+              </label>
+              <label className={`${labelClassname(userData.user.city)} account-profil__address__field`}>
+                <input
+                  type="text"
+                  value={userData.user.city}
+                  onChange={changeInput}
+                  name="city"
+                  className="global-input"
+                />
+                <span>Ville</span>
+              </label>
+              <label className={`${labelClassname(userData.user.address)} account-profil__address__field`}>
+                <input
+                  type="text"
+                  value={userData.user.address}
+                  onChange={changeInput}
+                  name="address"
+                  className="global-input"
+                />
+                <span>Adresse</span>
+              </label>
             </div>
 
             <div className="account-profil__password">
               <h2 className="account-profil__subtitle">Mot de passe</h2>
 
-              <input
-                type="password"
-                value={userData.user.old_password}
-                onChange={changeInput}
-                name="old_password"
-                placeholder="Ancien mot de passe"
-                className="account-profil__password__field global-input"
-              />
-              <input
-                type="password"
-                value={userData.user.new_password}
-                onChange={changeInput}
-                name="new_password"
-                placeholder="Nouveau mot de passe"
-                className="account-profil__password__field global-input"
-              />
-              <input
-                type="password"
-                value={userData.user.confirm_new_password}
-                onChange={changeInput}
-                name="confirm_new_password"
-                placeholder="Confirmer le nouveau mot de passe"
-                className="account-profil__password__field global-input"
-              />
+              <label className={`${labelClassname(userData.user.old_password)} account-profil__password__field`}>
+                <input
+                  type="password"
+                  value={userData.user.old_password}
+                  onChange={changeInput}
+                  name="old_password"
+                  className="global-input"
+                />
+                <span>Ancien mot de passe</span>
+              </label>
+              <label className={`${labelClassname(userData.user.new_password)} account-profil__password__field`}>
+                <input
+                  type="password"
+                  value={userData.user.new_password}
+                  onChange={changeInput}
+                  name="new_password"
+                  className="global-input"
+                />
+                <span>Nouveau mot de passe</span>
+              </label>
+              <label className={`${labelClassname(userData.user.confirm_new_password)} account-profil__password__field`}>
+                <input
+                  type="password"
+                  value={userData.user.confirm_new_password}
+                  onChange={changeInput}
+                  name="confirm_new_password"
+                  className="account-profil__password__field global-input"
+                />
+                <span>Confirmer le nouveau mot de passe</span>
+              </label>
             </div>
 
             <div className="account-profil__params">

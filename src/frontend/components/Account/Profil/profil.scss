@@ -103,6 +103,9 @@
     &__field {
       margin-bottom: .3rem;
       width: 60%;
+      .global-input {
+        width: 100%;
+      }
     }
   }
   &__address {
@@ -111,6 +114,9 @@
     &__field {
       margin-bottom: .3rem;
       width: 60%;
+      .global-input {
+        width: 100%;
+      }
     }
   }
   &__password {
@@ -118,6 +124,9 @@
     &__field {
       margin-bottom: .3rem;
       width: 60%; 
+      .global-input {
+        width: 100%;
+      }
     }
   }
   &__params {

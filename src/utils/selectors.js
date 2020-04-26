@@ -1,4 +1,5 @@
 import slugify from 'react-slugify';
+import classNames from 'classnames';
 
 // Format date : dd/mm/yyyy à hh/mm
 export const formatDate = (date, dateOnly = false) => {
@@ -23,23 +24,12 @@ export const slugifyId = (id) => slugify(id, {
   lower: true,
 });
 
-/*
-// récupérer le slug qui correspond à un id d'une offre
-export const slugifyId = (id) => slugify(id, {
-  lower: true,
-});
+// Dynamic label
+export const labelClassname = (input) => {
+  if (typeof input === 'number') {
+    return classNames('global-label', { 'global-label--active': input > 0 });
+  }
 
-export const getOfferBySlug = (offers, slug) => {
-  const offerIdFound = offers.find((offer) => {
-    // on calcule le slug de la recette
-    const slugForOfferId = slugifyId(offer.id, {
-      lower: true,
-    });
-
-    // return true si c'est le bon élément, false sinon (find s'arrête au premier
-    // élément qui correspond)
-    return slug === slugForOfferId;
-  });
-  return offerIdFound;
+  return classNames('global-label', { 'global-label--active': input.length > 0 });
 };
-*/
+

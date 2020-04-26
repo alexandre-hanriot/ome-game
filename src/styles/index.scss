@@ -129,3 +129,29 @@ main {
   font-weight: bold;
   border-radius: .6rem;
 }
+
+.global-label {
+  position: relative;
+  display: inline-block;
+
+  .global-input {
+    padding-top: 1rem;
+    padding-bottom: .4rem;
+  }
+  span {
+    position: absolute;
+    left: 1rem;
+    top: 1.1rem;
+    color: grey;
+    cursor: text;
+    transition: all .2s;
+  }
+
+  &--active {
+    span {
+      font-size: .7em;
+      top: .3rem;
+      color: $secondaryColor;
+    }
+  }
+}
