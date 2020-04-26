@@ -1,3 +1,5 @@
+const nodemailer = require("nodemailer");
+
 module.exports = (sequelize, Sequelize) => {
   const Offer = sequelize.define(
     "offers",
@@ -130,6 +132,35 @@ module.exports = (sequelize, Sequelize) => {
         }
       );
     }
+
+    // Si une offre devient disponible on envoie un mail aux utilisateurs l'ayant dans la liste des favoris
+    // if (
+    //   offer.dataValues.is_available === true &&
+    //   offer._previousDataValues.is_available === false
+    // ) {
+    //   const favorites = await sequelize.models.favorites.findAll({
+    //     where: {
+    //       offerId: offer.id,
+    //       notify_when_available: true,
+    //       include: sequelize.models.users,
+    //     },
+    //   });
+
+    //   if (favorites.length > 0) {
+    //     // On paramètre le service d'envoi
+    //     const transporter = nodemailer.createTransport({
+    //       service: "gmail",
+    //       auth: {
+    //         user: "omegameatlantis@gmail.com",
+    //         pass: "oclockatlantis",
+    //       },
+    //     });
+
+    //     for (favorite of favorites) {
+    //       console.log(favorite.user.email);
+    //     }
+    //   }
+    // }
   });
 
   return Offer;
