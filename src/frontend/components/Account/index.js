@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Modal from 'src/frontend/containers/Modal';
 import Alert from 'src/frontend/containers/Alert';
+import Details from 'src/frontend/containers/Account/Reservations/Details';
 import ConfirmSupp from 'src/frontend/containers/Account/Modal';
 import { useTitle } from 'src/hooks/useTitle';
 import slugify from 'react-slugify';
@@ -45,6 +46,12 @@ const Account = ({
       setRequestIsLoad();
     };
   }, []);
+
+  const handleModalDetail = (e) => {
+    const { id } = e.currentTarget.dataset;
+    const reservation = reservations.filter((resa) => resa.id.toString() === id.toString());
+    displayModal('reservation', { reservation: reservation[0] });
+  };
 
   const handleFavorite = (e) => {
     const { id, notify } = e.currentTarget.dataset;
@@ -95,7 +102,9 @@ const Account = ({
             <Modal content={<ConfirmSupp />} />
           )}
           {showAlert && (<Alert />)}
-
+          {showModal === 'reservation' && (
+          <Modal content={<Details reservations={reservations} />} />
+          )}
           <div className="account__breadcrumb">
             <Link to="/">Accueil</Link> > Tableau de bord
           </div>
@@ -149,6 +158,15 @@ const Account = ({
                         )}
                       </td>
                       <td className="account__general__table__body__td account__general__table__body__td--button">
+                        <button
+                          className="account__general__table__body__td__button__eye account__general__table__body__td__button"
+                          type="button"
+                          title="voir plus"
+                          data-id={reservation.id}
+                          onClick={handleModalDetail}
+                        >
+                          <i className="fas fa-eye" />
+                        </button>
                         <button
                           className="account__general__table__body__td__button__remove account__general__table__body__td__button"
                           type="button"

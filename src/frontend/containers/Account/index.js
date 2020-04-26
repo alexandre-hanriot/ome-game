@@ -27,8 +27,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   // nom de la prop à remplir: callback qui contient un appel à dispatch
-  displayModal: (name) => {
-    dispatch(showModal(name));
+  displayModal: (name, params) => {
+    dispatch(showModal(name, params));
   },
 
   fetchParamsReservations: () => {
