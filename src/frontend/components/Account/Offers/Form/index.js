@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
-import { formatDate } from 'src/utils/selectors';
+import { formatDate, labelClassname } from 'src/utils/selectors';
 import MapAutocomplete from 'react-google-autocomplete';
 import Modal from 'src/frontend/containers/Modal';
 import Loader from 'src/frontend/components/Loader';
@@ -170,14 +170,16 @@ const Form = ({
           <form onSubmit={handleSubmit}>
             <div className="account-offers-form__container">
               <div className="account-offers-form__container__left">
-                <input
-                  type="text"
-                  name="title"
-                  placeholder="Nom de l'offre"
-                  className="account-offers-form__name global-input"
-                  value={offer.title}
-                  onChange={changeInput}
-                />
+                <label className={`${labelClassname(offer.title)} account-offers-form__name`}>
+                  <input
+                    type="text"
+                    name="title"
+                    className="global-input"
+                    value={offer.title}
+                    onChange={changeInput}
+                  />
+                  <span>Nom de l'offre</span>
+                </label>
                 <h2 className="account-offers-form__subtitle">Jeu</h2>
 
                 <div className="account-offers-form__game__type">
@@ -195,19 +197,21 @@ const Form = ({
                 </div>
                 <div className="account-offers-form__game__type">
                   <label className="account-offers-form__game__type__radio"><input type="radio" name="newGame" value="1" checked={newGameField} onChange={handleChangeNewGame} />Nouveau jeu</label>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Nom du jeu"
-                    className="global-input account-offers-form__game__type__value"
-                    value={game.name}
-                    onChange={changeInputGame}
-                    disabled={!newGameField}
-                  />
+                  <label className={`${labelClassname(game.name)} account-offers-form__game__type__value`}>
+                    <input
+                      type="text"
+                      name="name"
+                      className="global-input"
+                      value={game.name}
+                      onChange={changeInputGame}
+                      disabled={!newGameField}
+                    />
+                    <span>Nom du jeu</span>
+                  </label>
                 </div>
 
                 <div className="account-offers-form__game">
-                  <select className="global-select" name="gameCategoryId" onChange={changeInputGame} disabled={!newGameField} value={game.gameCategoryId}>
+                  <select className="global-select account-offers-form__game__category" name="gameCategoryId" onChange={changeInputGame} disabled={!newGameField} value={game.gameCategoryId}>
                     <option value={0}>- Sélectionner une catégorie -</option>
                     {categories.map((category) => (
                       <option
@@ -217,44 +221,52 @@ const Form = ({
                       </option>
                     ))}
                   </select>
-                  <input
-                    type="text"
-                    placeholder="Nb de joueurs minimum"
-                    className="global-input"
-                    value={game.nb_players_min}
-                    onChange={changeInputGame}
-                    name="nb_players_min"
-                    disabled={!newGameField}
-                  />
-                  <input
-                    type="text"
-                    placeholder="Nb de joueurs maximum"
-                    className="global-input"
-                    value={game.nb_players_max}
-                    onChange={changeInputGame}
-                    name="nb_players_max"
-                    disabled={!newGameField}
-                  />
+                  <label className={`${labelClassname(game.nb_players_min)} account-offers-form__game__players-min`}>
+                    <input
+                      type="text"
+                      className="global-input"
+                      value={game.nb_players_min}
+                      onChange={changeInputGame}
+                      name="nb_players_min"
+                      disabled={!newGameField}
+                    />
+                    <span>Nb de joueurs minimum</span>
+                  </label>
+                  <label className={`${labelClassname(game.nb_players_max)} account-offers-form__game__players-max`}>
+                    <input
+                      type="text"
+                      className="global-input"
+                      value={game.nb_players_max}
+                      onChange={changeInputGame}
+                      name="nb_players_max"
+                      disabled={!newGameField}
+                    />
+                    <span>Nb de joueurs maximum</span>
+                  </label>
                 </div>
                 <div className="account-offers-form__game">
-                  <input
-                    type="text"
-                    placeholder="Durée d'une partie"
-                    className="global-input"
-                    value={game.duration}
-                    onChange={changeInputGame}
-                    name="duration"
-                    disabled={!newGameField}
-                  />
-                  <input
-                    type="text"
-                    placeholder="Age minimum"
-                    className="global-input"
-                    value={game.age_min}
-                    onChange={changeInputGame}
-                    name="age_min"
-                    disabled={!newGameField}
-                  />
+                  <label className={`${labelClassname(game.duration)} account-offers-form__game__duration`}>
+                    <input
+                      type="text"
+                      className="global-input"
+                      value={game.duration}
+                      onChange={changeInputGame}
+                      name="duration"
+                      disabled={!newGameField}
+                    />
+                    <span>Durée d'une partie</span>
+                  </label>
+                  <label className={`${labelClassname(game.age_min)} account-offers-form__game__age`}>
+                    <input
+                      type="text"
+                      className="global-input"
+                      value={game.age_min}
+                      onChange={changeInputGame}
+                      name="age_min"
+                      disabled={!newGameField}
+                    />
+                    <span>Age minimum</span>
+                  </label>
                 </div>
 
                 <h2 className="account-offers-form__subtitle">Description</h2>
@@ -341,7 +353,7 @@ const Form = ({
                 <div className="account-offers-form__block">
                   <h2 className="account-offers-form__subtitle">Localisation</h2>
                   <MapAutocomplete
-                    className="account-offers-form__location global-input"
+                    className="global-input account-offers-form__location"
                     onPlaceSelected={(place) => {
                       /*
                       number of element :
