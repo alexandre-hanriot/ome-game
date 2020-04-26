@@ -134,33 +134,53 @@ module.exports = (sequelize, Sequelize) => {
     }
 
     // Si une offre devient disponible on envoie un mail aux utilisateurs l'ayant dans la liste des favoris
-    // if (
-    //   offer.dataValues.is_available === true &&
-    //   offer._previousDataValues.is_available === false
-    // ) {
-    //   const favorites = await sequelize.models.favorites.findAll({
-    //     where: {
-    //       offerId: offer.id,
-    //       notify_when_available: true,
-    //       include: sequelize.models.users,
-    //     },
-    //   });
+    if (
+      offer.dataValues.is_available === true &&
+      offer._previousDataValues.is_available === false
+    ) {
+      console.log("on fait le test");
+      const favorites = await sequelize.models.favorites.findAll({
+        where: {
+          offerId: offer.id,
+          notify_when_available: true,
+        },
+        include: sequelize.models.users,
+      });
 
-    //   if (favorites.length > 0) {
-    //     // On paramètre le service d'envoi
-    //     const transporter = nodemailer.createTransport({
-    //       service: "gmail",
-    //       auth: {
-    //         user: "omegameatlantis@gmail.com",
-    //         pass: "oclockatlantis",
-    //       },
-    //     });
+      if (favorites.length > 0) {
+        // On paramètre le service d'envoi
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: "omegameatlantis@gmail.com",
+            pass: "oclockatlantis",
+          },
+        });
 
-    //     for (favorite of favorites) {
-    //       console.log(favorite.user.email);
-    //     }
-    //   }
-    // }
+        for (favorite of favorites) {
+          console.log(favorite.user.email); // A remplacer par envoi de mail
+
+          // // On paramètre le mail
+          // const mailOptions = {
+          //   from: "omegameatlantis@gmail.com", // sender address
+          //   to: favorite.user.email, // list of receivers
+          //   subject: "Une offre que vous suivez est maintenant disponible", // Subject line
+          //   html: `L'offre est disponible. On peut ajouter ici les caractéristiues de l'offre et le lien vers la page de l'offre`, // plain text body
+          // };
+
+          // // On envoie
+          // transporter.sendMail(mailOptions, function (err, info) {
+          //   if (err)
+          //     return res.status(500).json({
+          //       error: `Une erreur est survenue : ${err}`,
+          //     });
+          //   return res.status(200).json({
+          //     message: `Email envoyé. Infos : ${info}`,
+          //   });
+          // });
+        }
+      }
+    }
   });
 
   return Offer;
