@@ -4,6 +4,7 @@ import {
   SHOW_ALERT,
   SET_IS_ERROR,
   REDIRECT_TO,
+  SET_APP_LOADING,
 } from 'src/actions/global';
 
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
   isError: false,
   redirectTo: '',
   modalParams: {},
+  appIsLoad: false,
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -49,6 +51,12 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         redirectTo: action.url,
+      };
+
+    case SET_APP_LOADING:
+      return {
+        ...state,
+        appIsLoad: action.value,
       };
 
     default:

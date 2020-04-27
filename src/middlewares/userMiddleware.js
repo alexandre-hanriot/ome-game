@@ -15,7 +15,7 @@ import {
   saveUser,
 } from 'src/actions/user';
 
-import { showAlert, showModal } from 'src/actions/global';
+import { showAlert, showModal, setAppLoading } from 'src/actions/global';
 import axios from 'axios';
 
 
@@ -172,6 +172,9 @@ const userMiddleware = (store) => (next) => (action) => {
           })
           .catch((error) => {
             console.warn(error);
+          })
+          .finally(() => {
+            store.dispatch(setAppLoading(true));
           });
       }
       next(action);

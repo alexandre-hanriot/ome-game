@@ -22,6 +22,7 @@ import Details from 'src/frontend/containers/Offer/Details';
 import Reservations from 'src/frontend/containers/Account/Reservations';
 import NotFound from 'src/frontend/containers/NotFound';
 import Alert from 'src/frontend/containers/Alert';
+import Loader from 'src/frontend/components/Loader';
 
 // Backend
 import Admin from 'src/backend/containers/Home';
@@ -36,6 +37,8 @@ const App = ({
   redirectTo,
   setRedirectTo,
   isTokenExist,
+  appIsLoad,
+  setAppLoading,
 }) => {
   const location = useLocation();
   // return the current pathname
@@ -60,6 +63,9 @@ const App = ({
     if (!isLogged) {
       isTokenExist();
     }
+    return () => {
+      setAppLoading(false);
+    };
   }, []);
 
   // TODO
@@ -68,78 +74,84 @@ const App = ({
 
   return (
     <div className={appClass}>
+
       {redirectTo.length > 0 && <Redirect to={redirectUrl} />}
       <Header admin={(isAdmin && inAdministration)} />
       <main>
-        {showAlert && <Alert />}
-        <Switch>
-          {isLogged && (
-          <Route exact path="/compte">
-            <Account />
-          </Route>
-          )}
-          {isLogged && (
-          <Route exact path="/compte/profil">
-            <AccountProfil />
-          </Route>
-          )}
-          {isLogged && (
-          <Route exact path="/compte/reservations">
-            <Reservations />
-          </Route>
-          )}
-          {isLogged && (
-          <Route exact path="/compte/offres">
-            <AccountOffers />
-          </Route>
-          )}
-          {isLogged && (
-          <Route exact path="/compte/offres/ajouter">
-            <AccountOffersAdd />
-          </Route>
-          )}
-          {isLogged && (
-          <Route exact path="/compte/offres/:slug">
-            <AccountOffersAdd />
-          </Route>
-          )}
-          {(isLogged && isAdmin && inAdministration) && (
-          <Route exact path="/admin/">
-            <Admin />
-          </Route>
-          )}
-          {(isLogged && isAdmin && inAdministration) && (
-          <Route exact path="/admin/utilisateurs">
-            <AdminUser />
-          </Route>
-          )}
-          {(isLogged && isAdmin && inAdministration) && (
-          <Route exact path="/admin/utilisateurs/:slug">
-            <AdminUserForm />
-          </Route>
-          )}
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route exact path="/a-propos">
-            <About />
-          </Route>
-          <Route exact path="/recherche/jeux">
-            <Offer />
-          </Route>
-          <Route exact path="/mentions-legales">
-            <LegalMentions />
-          </Route>
-          <Route exact path="/recherche/jeux/:id/:slug">
-            <Details />
-          </Route>
-          <Route exact path="/contact">
-            <Contact />
-          </Route>
-          <Route>
-            <NotFound />
-          </Route>
-        </Switch>
+        {!appIsLoad && <Loader />}
+        {appIsLoad && (
+          <>
+            {showAlert && <Alert />}
+            <Switch>
+              {isLogged && (
+              <Route exact path="/compte">
+                <Account />
+              </Route>
+              )}
+              {isLogged && (
+              <Route exact path="/compte/profil">
+                <AccountProfil />
+              </Route>
+              )}
+              {isLogged && (
+              <Route exact path="/compte/reservations">
+                <Reservations />
+              </Route>
+              )}
+              {isLogged && (
+              <Route exact path="/compte/offres">
+                <AccountOffers />
+              </Route>
+              )}
+              {isLogged && (
+              <Route exact path="/compte/offres/ajouter">
+                <AccountOffersAdd />
+              </Route>
+              )}
+              {isLogged && (
+              <Route exact path="/compte/offres/:slug">
+                <AccountOffersAdd />
+              </Route>
+              )}
+              {(isLogged && isAdmin && inAdministration) && (
+              <Route exact path="/admin/">
+                <Admin />
+              </Route>
+              )}
+              {(isLogged && isAdmin && inAdministration) && (
+              <Route exact path="/admin/utilisateurs">
+                <AdminUser />
+              </Route>
+              )}
+              {(isLogged && isAdmin && inAdministration) && (
+              <Route exact path="/admin/utilisateurs/:slug">
+                <AdminUserForm />
+              </Route>
+              )}
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route exact path="/a-propos">
+                <About />
+              </Route>
+              <Route exact path="/recherche/jeux">
+                <Offer />
+              </Route>
+              <Route exact path="/mentions-legales">
+                <LegalMentions />
+              </Route>
+              <Route exact path="/recherche/jeux/:id/:slug">
+                <Details />
+              </Route>
+              <Route exact path="/contact">
+                <Contact />
+              </Route>
+              <Route>
+                <NotFound />
+              </Route>
+            </Switch>
+          </>
+        )}
       </main>
       {(!isAdmin || !inAdministration) && <Footer isHome={isHome} />}
     </div>
@@ -153,7 +165,8 @@ App.propTypes = {
   redirectTo: PropTypes.string.isRequired,
   setRedirectTo: PropTypes.func.isRequired,
   isTokenExist: PropTypes.func.isRequired,
-  rememberMe: PropTypes.bool.isRequired,
+  appIsLoad: PropTypes.bool.isRequired,
+  setAppLoading: PropTypes.func.isRequired,
 };
 // == Export
 export default App;
