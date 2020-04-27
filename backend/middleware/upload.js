@@ -34,7 +34,7 @@ const resizeImages = async (req, res, next) => {
   console.log(filename);
 
   await sharp(req.file.buffer)
-    .resize(300, 300)
+    .resize(120, 120)
     // .toFormat("jpeg")
     // .jpeg({ quality: 90 })
     .toFile(`${__dirname}/../../dist/images/users/${filename}`);
