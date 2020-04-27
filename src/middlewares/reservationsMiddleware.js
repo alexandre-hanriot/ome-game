@@ -173,7 +173,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
           },
         })
           .then((response) => {
-            store.dispatch(setOfferInReservation(true));
+            store.dispatch(setOfferInReservation(response.data.result));
           })
           .catch((error) => {
             // console.warn(error);
