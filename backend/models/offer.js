@@ -160,24 +160,24 @@ module.exports = (sequelize, Sequelize) => {
         for (favorite of favorites) {
           console.log(favorite.user.email); // A remplacer par envoi de mail
 
-          // // On paramètre le mail
-          // const mailOptions = {
-          //   from: "omegameatlantis@gmail.com", // sender address
-          //   to: favorite.user.email, // list of receivers
-          //   subject: "Une offre que vous suivez est maintenant disponible", // Subject line
-          //   html: `L'offre est disponible. On peut ajouter ici les caractéristiues de l'offre et le lien vers la page de l'offre`, // plain text body
-          // };
+          // On paramètre le mail
+          const mailOptions = {
+            from: "omegameatlantis@gmail.com", // sender address
+            to: favorite.user.email, // list of receivers
+            subject: "Une offre que vous suivez est maintenant disponible", // Subject line
+            html: `L'offre est disponible. On peut ajouter ici les caractéristiues de l'offre et le lien vers la page de l'offre`, // plain text body
+          };
 
-          // // On envoie
-          // transporter.sendMail(mailOptions, function (err, info) {
-          //   if (err)
-          //     return res.status(500).json({
-          //       error: `Une erreur est survenue : ${err}`,
-          //     });
-          //   return res.status(200).json({
-          //     message: `Email envoyé. Infos : ${info}`,
-          //   });
-          // });
+          // On envoie
+          transporter.sendMail(mailOptions, function (err, info) {
+            if (err)
+              return res.status(500).json({
+                error: `Une erreur est survenue : ${err}`,
+              });
+            return res.status(200).json({
+              message: `Email envoyé. Infos : ${info}`,
+            });
+          });
         }
       }
     }
