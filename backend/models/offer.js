@@ -163,9 +163,10 @@ module.exports = (sequelize, Sequelize) => {
           // On paramètre le mail
           const mailOptions = {
             from: "omegameatlantis@gmail.com", // sender address
-            to: favorite.user.email, // list of receivers
+            // to: favorite.user.email, // list of receivers
+            to: "omegameatlantis@gmail.com", // list of receivers
             subject: "Une offre que vous suivez est maintenant disponible", // Subject line
-            html: `L'offre est disponible. On peut ajouter ici les caractéristiues de l'offre et le lien vers la page de l'offre`, // plain text body
+            html: `L'offre est disponible. On peut ajouter ici les caractéristiques de l'offre et le lien vers la page de l'offre`, // plain text body
           };
 
           // On envoie
