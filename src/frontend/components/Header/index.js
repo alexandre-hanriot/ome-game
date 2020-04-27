@@ -17,6 +17,7 @@ const Header = ({
   displayModal,
   isLogged,
   pseudo,
+  user,
 }) => {
   const isMobile = useMediaPredicate('(max-width: 1024px)');
 
@@ -69,7 +70,10 @@ const Header = ({
           <div className="header__nav__account__hi">
             <p>{pseudo}</p>
           </div>
-          <button type="button" className="header__nav__account__button" title="Mon compte / Se deconnecter" onClick={handleMenuUser}><i className="fas fa-user"> </i></button>
+          <button type="button" className="header__nav__account__button" title="Mon compte / Se deconnecter" onClick={handleMenuUser}>
+            {user.user.picture === '' && (<i className="fas fa-user" />)}
+            {user.user.picture !== '' && (<img src={`http://ec2-54-167-103-17.compute-1.amazonaws.com/images/users/${user.user.picture}`} alt="" />)}
+          </button>
             {showMenu === 'userMenu'
             && (
               <>
@@ -83,7 +87,14 @@ const Header = ({
         )}
         {!isLogged && (
         <div className="header__nav__account">
-          <button type="button" className="header__nav__account__button" title="S'inscrire / Se connecter" onClick={handleModal}><i className="fas fa-user"> </i></button>
+          <button
+            type="button"
+            className="header__nav__account__button"
+            title="S'inscrire / Se connecter"
+            onClick={handleModal}
+          ><i className="fas fa-user"> </i>
+          </button>
+
         </div>
         )}
       </nav>
@@ -99,6 +110,7 @@ Header.propTypes = {
   displayModal: PropTypes.func.isRequired,
   isLogged: PropTypes.bool.isRequired,
   pseudo: PropTypes.string,
+  user: PropTypes.object.isRequired,
 };
 Header.defaultProps = {
   pseudo: null,

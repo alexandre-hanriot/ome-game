@@ -154,6 +154,7 @@
             margin: 0 $gutter/2;
           }
           &__button {
+            position: relative;
             border: 0;
             border-radius: 50%;
             height: 40px;
@@ -161,9 +162,20 @@
             font-size: 1.2em;
             background-color: #fff;
             color: #2d3f57;
+
             &:hover {
                 background-color: $secondaryColor;
                 color: #fff;
+            }
+            img {
+              height: 40px;
+              width: 40px;
+              border-radius: 50%;
+              position: absolute;
+              left: 0;
+              top: 0;
+              right: 0;
+              bottom: 0;
             }
           }
         }

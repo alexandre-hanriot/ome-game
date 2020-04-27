@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { useTitle } from 'src/hooks/useTitle';
 import PropTypes from 'prop-types';
 import { formatDate, labelClassname } from 'src/utils/selectors';
+import Modal from 'src/frontend/containers/Modal';
+import Upload from 'src/frontend/containers/Account/Profil/Upload';
 
 import './profil.scss';
 
@@ -14,6 +16,8 @@ const Profil = ({
   submitProfilChangePassword,
   clearProfilPasswords,
   displayAlert,
+  showModal,
+  displayModal,
 }) => {
   useTitle('Mon profil');
   useEffect(() => () => {
@@ -118,6 +122,14 @@ const Profil = ({
     userData.user.confirm_new_password = '';
   }
 
+  const handleClickDeleteImage = () => {
+    changeProfilInput('picture', '');
+  };
+
+  const handleClickUpload = () => {
+    displayModal('upload');
+  };
+
   return (
     <div className="wrapper account-profil">
 
@@ -125,17 +137,26 @@ const Profil = ({
         <Link to="/">Accueil</Link> > <Link to="/compte">Tableau de bord</Link> > Mon profil
       </div>
 
+      {showModal === 'upload' && <Modal content={<Upload />} />}
+
       <h1 className="account-profil__title">Mon profil</h1>
       <form onSubmit={handleSubmit}>
         <div className="account-profil__container">
           <div className="account-profil__container__left">
             <div className="account-profil__avatar">
               <h2 className="account-profil__subtitle">Photo</h2>
-              <div className="account-profil__avatar__image">
-                <i className="fas fa-user"> </i>
-                <span>Modifier</span>
-              </div>
-              {/* <button type="button" className="account-profil__avatar__remove">Supprimer l'image</button> */}
+              {userData.user.picture !== '' && (
+                <div className="account-profil__avatar__image">
+                  <img src={`http://ec2-54-167-103-17.compute-1.amazonaws.com/images/users/${userData.user.picture}`} alt="" />
+                  <button type="button" onClick={handleClickDeleteImage}>Supprimer</button>
+                </div>
+              )}
+              {userData.user.picture === '' && (
+                <div className="account-profil__avatar__noimage">
+                  <i className="fas fa-user"> </i>
+                  <button type="button" onClick={handleClickUpload}>Modifier</button>
+                </div>
+              )}
             </div>
 
             <div className="account-profil__infos">
@@ -307,6 +328,8 @@ Profil.propTypes = {
   submitProfilChangePassword: PropTypes.func.isRequired,
   clearProfilPasswords: PropTypes.func.isRequired,
   displayAlert: PropTypes.func.isRequired,
+  showModal: PropTypes.string.isRequired,
+  displayModal: PropTypes.func.isRequired,
 };
 
 export default Profil;

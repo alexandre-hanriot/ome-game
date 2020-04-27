@@ -17,6 +17,8 @@ export const IS_TOKEN_EXIST = 'IS_TOKEN_EXIST';
 export const CLEAR_USER = 'CLEAR_USER';
 export const FETCH_USER = 'FETCH_USER';
 export const SAVE_USER = 'SAVE_USER';
+export const SET_UPLOAD_DATA = 'SET_UPLOAD_DATA';
+export const PROFIL_UPLOAD_IMAGE = 'PROFIL_UPLOAD_IMAGE';
 
 export const changeInputOfLogin = (identifier, newValue) => ({
   type: CHANGE_INPUT_OF_LOGIN,
@@ -99,4 +101,14 @@ export const fetchUser = (id) => ({
 export const saveUser = (user) => ({
   type: SAVE_USER,
   user,
+});
+
+export const setUploadData = (name, value) => ({
+  type: SET_UPLOAD_DATA,
+  name,
+  value,
+});
+
+export const profilUploadImage = () => ({
+  type: PROFIL_UPLOAD_IMAGE,
 });

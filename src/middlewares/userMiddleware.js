@@ -14,6 +14,8 @@ import {
   setRequestIsLoad,
   saveUser,
   submitProfilUpdate,
+  PROFIL_UPLOAD_IMAGE,
+  setUploadData,
 } from 'src/actions/user';
 
 import { showAlert, showModal, setAppLoading } from 'src/actions/global';
@@ -77,7 +79,7 @@ const userMiddleware = (store) => (next) => (action) => {
         data: {
           userId: userData.user.id,
           status: userData.user.status,
-          picture: '',
+          picture: userData.user.picture,
           display_name: userData.user.display_name,
           email: userData.user.email,
           username: userData.user.username,
@@ -208,6 +210,38 @@ const userMiddleware = (store) => (next) => (action) => {
         .catch((error) => {
           console.warn(error);
         });
+      next(action);
+      break;
+    }
+
+    case PROFIL_UPLOAD_IMAGE: {
+      const { upload } = store.getState().user;
+      if (upload.file !== '') {
+        const data = new FormData();
+        data.append('file', upload.file);
+
+        axios({
+          method: 'post',
+          url: 'https://ec2-54-167-103-17.compute-1.amazonaws.com:3000/upload/users',
+          withCredentials: true,
+          data,
+          headers: {
+            'x-xsrf-token': localStorage.getItem('xsrfToken'),
+            'Content-Type': 'multipart/form-data',
+          },
+          onUploadProgress: (progressEvent) => {
+            store.dispatch(setUploadData('uploadPercentage', parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total), 10)));
+          },
+        })
+          .then((response) => {
+            store.dispatch(setUploadData('status', 2));
+            store.dispatch(setUploadData('uploadedFile', response.data));
+          })
+          .catch((error) => {
+            store.dispatch(setUploadData('status', 3));
+            console.warn(error);
+          });
+      }
       next(action);
       break;
     }

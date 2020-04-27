@@ -9,6 +9,7 @@ import {
   SAVE_USERS,
   CLEAR_USER,
   SAVE_USER,
+  SET_UPLOAD_DATA,
 } from 'src/actions/user';
 
 
@@ -45,6 +46,13 @@ const initialState = {
   loginError: '',
   requestIsLoad: false,
   user: {},
+  upload: {
+    file: '',
+    filename: '',
+    uploadedFile: {},
+    status: 0,
+    uploadPercentage: 0,
+  },
 };
 
 const userReducer = (state = initialState, action = {}) => {
@@ -161,6 +169,15 @@ const userReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         user: action.user,
+      };
+
+    case SET_UPLOAD_DATA:
+      return {
+        ...state,
+        upload: {
+          ...state.upload,
+          [action.name]: action.value,
+        },
       };
 
     default:

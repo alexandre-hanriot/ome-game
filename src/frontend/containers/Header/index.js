@@ -8,6 +8,7 @@ const mapStateToProps = (state) => ({
   showModal: state.global.showModal,
   pseudo: state.user.isLogged ? state.user.userData.user.username : null,
   isLogged: state.user.isLogged,
+  user: state.user.userData,
 });
 
 const mapDispatchToProps = (dispatch) => ({

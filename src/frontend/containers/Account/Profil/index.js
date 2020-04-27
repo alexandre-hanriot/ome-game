@@ -6,13 +6,11 @@ import {
   submitProfilChangePassword,
   clearProfilPasswords,
 } from 'src/actions/user';
-import { showAlert } from 'src/actions/global';
-
-
+import { showAlert, showModal } from 'src/actions/global';
 
 const mapStateToProps = (state) => ({
-  // nom de la prop à remplir: donnée à récupérer dans le state
   userData: state.user.userData,
+  showModal: state.global.showModal,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -30,7 +28,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   displayAlert: (message, success) => {
     dispatch(showAlert(message, success));
-  }
+  },
+  displayModal: (name) => {
+    dispatch(showModal(name));
+  },
 });
 
 export default connect(

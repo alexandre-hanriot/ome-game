@@ -210,7 +210,6 @@ const offersMiddleware = (store) => (next) => (action) => {
       if (upload.file !== '') {
         const data = new FormData();
         data.append('file', upload.file);
-        console.log('upload');
 
         axios({
           method: 'post',
