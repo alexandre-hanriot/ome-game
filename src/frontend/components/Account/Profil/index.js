@@ -22,53 +22,61 @@ const Profil = ({
   const changeInput = (event) => {
     // eslint-disable-next-line prefer-const
     let { value, name } = event.currentTarget;
+    let errorDisplayName = false;
+
     if (name === 'display_name') {
+      if (value === '1' && (userData.user.firstname === '' || userData.user.lastname === '')) {
+        errorDisplayName = true;
+      }
       value = Boolean(Number((value)));
     }
-    changeProfilInput(name, value);
+
+    if (errorDisplayName) {
+      displayAlert('veuillez renseigner votre nom et prénom pour cocher cette option', false);
+    }
+    else {
+      changeProfilInput(name, value);
+    }
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+    let error = false;
 
     if (userData.user.username === '') {
       displayAlert('veuillez renseigner un pseudo', false);
+      error = true;
     }
-    if (userData.user.firstname === '') {
-      displayAlert('veuillez renseigner votre prénom', false);
-    }
-    if (userData.user.lastname === '') {
-      displayAlert('veuillez renseigner votre nom', false);
-    }
-    if (userData.user.email === '') {
+    if (!error && userData.user.email === '') {
       displayAlert('veuillez renseigner un email', false);
+      error = true;
     }
 
-    if (userData.user.firstname !== ''
-        && userData.user.lastname !== ''
-        && userData.user.username !== ''
-        && userData.user.email !== '') {
-      if (userData.user.old_password === ''
+    if (!error) {
+      if (!error && userData.user.old_password === ''
               && userData.user.new_password === ''
               && userData.user.confirm_new_password === '') {
         submitProfilUpdate();
       }
 
-      if (userData.user.old_password !== ''
+      if (!error && (userData.user.old_password !== ''
           || userData.user.confirm_new_password !== ''
-          || userData.user.new_password !== '') {
+          || userData.user.new_password !== '')) {
         if (userData.user.old_password === '') {
           displayAlert('veuillez renseigner votre mot de passe actuel', false);
+          error = true;
         }
-        if (userData.user.old_password !== '') {
+        if (!error) {
           if (userData.user.confirm_new_password !== userData.user.new_password
             && userData.user.confirm_new_password !== ''
             && userData.user.new_password !== '') {
             displayAlert('les mots de passe ne correspondent pas', false);
+            error = true;
           }
-          if (userData.user.confirm_new_password === '' || userData.user.new_password === '') {
+          if (!error && (userData.user.confirm_new_password === '' || userData.user.new_password === '')) {
             displayAlert('veuillez renseigner un nouveau mot de passe', false);
+            error = true;
           }
-          if (userData.user.confirm_new_password === userData.user.new_password) {
+          if (!error && userData.user.confirm_new_password === userData.user.new_password) {
             if (userData.user.confirm_new_password !== ''
                 && userData.user.new_password !== '') {
               submitProfilChangePassword();

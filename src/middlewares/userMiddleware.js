@@ -13,6 +13,7 @@ import {
   FETCH_USER,
   setRequestIsLoad,
   saveUser,
+  submitProfilUpdate,
 } from 'src/actions/user';
 
 import { showAlert, showModal, setAppLoading } from 'src/actions/global';
@@ -119,7 +120,7 @@ const userMiddleware = (store) => (next) => (action) => {
         },
       })
         .then((response) => {
-          store.dispatch(saveProfilUpdate(response.data));
+          store.dispatch(submitProfilUpdate(response.data));
         })
         .catch((error) => {
           if (error.response.status === 401) {
