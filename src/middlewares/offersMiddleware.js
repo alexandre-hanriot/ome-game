@@ -214,7 +214,7 @@ const offersMiddleware = (store) => (next) => (action) => {
 
         axios({
           method: 'post',
-          url: 'https://ec2-54-167-103-17.compute-1.amazonaws.com:3000/upload',
+          url: 'https://ec2-54-167-103-17.compute-1.amazonaws.com:3000/upload/offers',
           withCredentials: true,
           data,
           headers: {
