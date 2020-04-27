@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import ReactPasswordStrength from 'react-password-strength';
 import PropTypes from 'prop-types';
 import Loader from 'src/frontend/components/Loader';
+import { labelClassname } from 'src/utils/selectors';
 import './registration.scss';
 
 const Registration = ({
@@ -60,29 +61,40 @@ const Registration = ({
 
       <div className="registration__container">
         <form className="registration__form" onSubmit={handleRegisterSubmit}>
-          <input name="email" type="text" placeholder="Adresse email" className="global-input" value={email} onChange={changeInput} />
-          <input name="pseudo" type="text" placeholder="Pseudo" className="global-input" value={pseudo} onChange={changeInput} />
-          <ReactPasswordStrength
-            style={{
-              border: 'none',
-              fontSize: '1em',
-            }}
-            minLength={8}
-            minScore={2}
-            inputProps={{
-              name: 'password',
-              autoComplete: 'off',
-              className: 'global-input',
-              placeholder: 'Mot de passe',
-            }}
-            changeCallback={({ password }) => {
-              changeValue('password', password);
-            }}
-            defaultValue={inputPassword}
-            // eslint-disable-next-line no-return-assign
-            ref={(ref) => reactInputPassword = ref}
-          />
-          <input name="confirmPassword" type="password" placeholder="Confirmer le mot de passe" className="global-input" value={confirmPassword} onChange={changeInput} />
+          <label className={labelClassname(email)}>
+            <input name="email" type="text" className="global-input" value={email} onChange={changeInput} />
+            <span>Adresse email</span>
+          </label>
+          <label className={labelClassname(pseudo)}>
+            <input name="pseudo" type="text" className="global-input" value={pseudo} onChange={changeInput} />
+            <span>Pseudo</span>
+          </label>
+          <label className={labelClassname(inputPassword)}>
+            <ReactPasswordStrength
+              style={{
+                border: 'none',
+                fontSize: '1em',
+              }}
+              minLength={8}
+              minScore={2}
+              inputProps={{
+                name: 'password',
+                autoComplete: 'off',
+                className: 'global-input',
+              }}
+              changeCallback={({ password }) => {
+                changeValue('password', password);
+              }}
+              defaultValue={inputPassword}
+              // eslint-disable-next-line no-return-assign
+              ref={(ref) => reactInputPassword = ref}
+            />
+            <span>Mot de passe</span>
+          </label>
+          <label className={labelClassname(confirmPassword)}>
+            <input name="confirmPassword" type="password" className="global-input" value={confirmPassword} onChange={changeInput} />
+            <span>Confirmer le mot de passe</span>
+          </label>
           <label className="registration__form__legalmentions">
             <input name="confirmPassword" type="checkbox" onClick={checkLegalMentions} /> J'ai lu et j'accepte les <Link to="/mentions-legales" target="_blank" className="">mentions légales</Link>
           </label>

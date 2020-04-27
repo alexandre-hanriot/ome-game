@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './login.scss';
 import Loader from 'src/frontend/components/Loader';
+import { labelClassname } from 'src/utils/selectors';
 
 // use Sanitize on inputs for increase security
 const Login = ({
@@ -52,22 +53,26 @@ const Login = ({
       )}
       <p className="login__text">Vous avez déjà un compte ? Connectez-vous ci-dessous.</p>
       <form className="login__form" onSubmit={handleSubmit}>
-        <input
-          name="email"
-          type="email"
-          placeholder="Adresse email"
-          className="global-input"
-          onChange={changeInput}
-          value={email}
-        />
-        <input
-          name="password"
-          type="password"
-          placeholder="Mot de passe"
-          className="global-input"
-          onChange={changeInput}
-          value={password}
-        />
+        <label className={labelClassname(email)}>
+          <input
+            name="email"
+            type="email"
+            className="global-input"
+            onChange={changeInput}
+            value={email}
+          />
+          <span>Adresse email</span>
+        </label>
+        <label className={labelClassname(password)}>
+          <input
+            name="password"
+            type="password"
+            className="global-input"
+            onChange={changeInput}
+            value={password}
+          />
+          <span>Mot de passe</span>
+        </label>
         <label className="login__form__remember">
           <input
             type="checkbox"
