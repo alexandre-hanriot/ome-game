@@ -266,10 +266,13 @@ exports.findOneReservation = (req, res) => {
   })
     .then((data) => {
       if (data === null)
-        res.status(404).json({
-          error: `Aucune réservation n'a été trouvée`,
+        res.status(200).json({
+          result: false,
         });
-      else res.send(data);
+      else
+        res.status(200).json({
+          result: true,
+        });
     })
     .catch((err) => {
       res.status(500).json({
@@ -318,10 +321,13 @@ exports.findOneFavorite = (req, res) => {
   })
     .then((data) => {
       if (data === null)
-        res.status(404).json({
-          error: `Aucun favori n'a été trouvé`,
+        res.status(200).json({
+          result: false,
         });
-      else res.send(data);
+      else
+        res.status(200).json({
+          result: true,
+        });
     })
     .catch((err) => {
       res.status(500).json({
