@@ -169,192 +169,189 @@ const Form = ({
           <h1 className="account-offers-form__title">{ offer.id === 0 ? 'Ajouter' : 'Modifier' } une offre</h1>
           <form onSubmit={handleSubmit}>
             <div className="account-offers-form__container">
-              <div className="account-offers-form__container__left">
-                <label className={`${labelClassname(offer.title)} account-offers-form__name`}>
-                  <input
-                    type="text"
-                    name="title"
-                    className="global-input"
-                    value={offer.title}
-                    onChange={changeInput}
-                  />
-                  <span>Nom de l'offre</span>
-                </label>
-                <h2 className="account-offers-form__subtitle">Jeu</h2>
-
-                <div className="account-offers-form__game__type">
-                  <label className="account-offers-form__game__type__radio"><input type="radio" name="newGame" value="0" checked={!newGameField} onChange={handleChangeNewGame} />Jeu existant</label>
-                  <select className="global-select account-offers-form__game__type__value" disabled={newGameField} onChange={changeInput} name="gameId" value={offer.gameId}>
-                    <option value="0">- Sélectionner un jeu -</option>
-                    {games.map((g) => (
-                      <option
-                        key={g.id}
-                        value={g.id}
-                      >{g.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="account-offers-form__game__type">
-                  <label className="account-offers-form__game__type__radio"><input type="radio" name="newGame" value="1" checked={newGameField} onChange={handleChangeNewGame} />Nouveau jeu</label>
-                  <label className={`${labelClassname(game.name)} account-offers-form__game__type__value`}>
+              <div className="account-offers-form__container__global">
+                <div className="account-offers-form__container__left">
+                  <label className={`${labelClassname(offer.title)} account-offers-form__name`}>
                     <input
                       type="text"
-                      name="name"
+                      name="title"
                       className="global-input"
-                      value={game.name}
-                      onChange={changeInputGame}
-                      disabled={!newGameField}
-                    />
-                    <span>Nom du jeu</span>
-                  </label>
-                </div>
-
-                <div className="account-offers-form__game">
-                  <select className="global-select account-offers-form__game__category" name="gameCategoryId" onChange={changeInputGame} disabled={!newGameField} value={game.gameCategoryId}>
-                    <option value={0}>- Sélectionner une catégorie -</option>
-                    {categories.map((category) => (
-                      <option
-                        key={category.id}
-                        value={category.id}
-                      >{category.name}
-                      </option>
-                    ))}
-                  </select>
-                  <label className={`${labelClassname(game.nb_players_min)} account-offers-form__game__players-min`}>
-                    <input
-                      type="text"
-                      className="global-input"
-                      value={game.nb_players_min}
-                      onChange={changeInputGame}
-                      name="nb_players_min"
-                      disabled={!newGameField}
-                    />
-                    <span>Nb de joueurs minimum</span>
-                  </label>
-                  <label className={`${labelClassname(game.nb_players_max)} account-offers-form__game__players-max`}>
-                    <input
-                      type="text"
-                      className="global-input"
-                      value={game.nb_players_max}
-                      onChange={changeInputGame}
-                      name="nb_players_max"
-                      disabled={!newGameField}
-                    />
-                    <span>Nb de joueurs maximum</span>
-                  </label>
-                </div>
-                <div className="account-offers-form__game">
-                  <label className={`${labelClassname(game.duration)} account-offers-form__game__duration`}>
-                    <input
-                      type="text"
-                      className="global-input"
-                      value={game.duration}
-                      onChange={changeInputGame}
-                      name="duration"
-                      disabled={!newGameField}
-                    />
-                    <span>Durée d'une partie</span>
-                  </label>
-                  <label className={`${labelClassname(game.age_min)} account-offers-form__game__age`}>
-                    <input
-                      type="text"
-                      className="global-input"
-                      value={game.age_min}
-                      onChange={changeInputGame}
-                      name="age_min"
-                      disabled={!newGameField}
-                    />
-                    <span>Age minimum</span>
-                  </label>
-                </div>
-
-                <h2 className="account-offers-form__subtitle">Description</h2>
-
-                <textarea
-                  placeholder="Description"
-                  className="account-offers-form__description global-input"
-                  value={offer.description}
-                  onChange={changeInput}
-                  name="description"
-                />
-                {offer.createdAt !== '' && (<p className="account-offers-form__dates">Créée le {formatDate(offer.createdAt)}</p>)}
-                {offer.updatedAt !== '' && (<p className="account-offers-form__dates">Modifiée le {formatDate(offer.updatedAt)}</p>)}
-
-                {!offerSend && <button type="submit" className="account-offers-form__submit">{ offer.id === 0 ? 'Ajouter' : 'Modifier' }</button>}
-                {offerSend && <button type="submit" className="account-offers-form__submit" disabled><Loader withMargin={false} /></button>}
-              </div>
-              <div className="account-offers-form__container__right">
-
-                <div className="account-offers-form__block account-offers-form__block--flex50">
-                  <div className="account-offers-form__disponibility">
-                    <h2 className="account-offers-form__subtitle">Disponibilité</h2>
-                    <div>
-                      <label>
-                        <input
-                          type="radio"
-                          name="is_available"
-                          checked={offer.is_available === true}
-                          onChange={changeInput}
-                          value="1"
-                        /> Disponible
-                      </label>
-                    </div>
-                    <div>
-                      <label>
-                        <input
-                          type="radio"
-                          name="is_available"
-                          checked={offer.is_available === false}
-                          onChange={changeInput}
-                          value="0"
-                        /> Non disponible
-                      </label>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="account-offers-form__block">
-                  <h2 className="account-offers-form__subtitle">Type</h2>
-                  <div className="account-offers-form__type">
-                    <select className="global-select" name="type" onChange={changeInput} value={offer.type}>
-                      <option
-                        value="1"
-                      >Location
-                      </option>
-                      <option
-                        value="0"
-                      >Prêt
-                      </option>
-                    </select>
-                    <input
-                      type="text"
-                      placeholder="Prix (€)"
-                      className="global-input"
-                      value={offer.price}
+                      value={offer.title}
                       onChange={changeInput}
-                      name="price"
-                      disabled={offer.type === '0'}
                     />
-                  </div>
-                </div>
+                    <span>Nom de l'offre</span>
+                  </label>
+                  <h2 className="account-offers-form__subtitle">Jeu</h2>
 
-                <div className="account-offers-form__block">
-                  <h2 className="account-offers-form__subtitle">Image</h2>
-                  {offer.image === null && <button type="button" className="account-offers-form__game__image__define" onClick={handleClickUpload}>Définir une image</button>}
-                  {offer.image !== null && (
+                  <div className="account-offers-form__game__type">
+                    <label className="account-offers-form__game__type__radio"><input type="radio" name="newGame" value="0" checked={!newGameField} onChange={handleChangeNewGame} />Jeu existant</label>
+                    <select className="global-select account-offers-form__game__type__value" disabled={newGameField} onChange={changeInput} name="gameId" value={offer.gameId}>
+                      <option value="0">- Sélectionner un jeu -</option>
+                      {games.map((g) => (
+                        <option
+                          key={g.id}
+                          value={g.id}
+                        >{g.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="account-offers-form__game__type">
+                    <label className="account-offers-form__game__type__radio"><input type="radio" name="newGame" value="1" checked={newGameField} onChange={handleChangeNewGame} />Nouveau jeu</label>
+                    <label className={`${labelClassname(game.name)} account-offers-form__game__type__value`}>
+                      <input
+                        type="text"
+                        name="name"
+                        className="global-input"
+                        value={game.name}
+                        onChange={changeInputGame}
+                        disabled={!newGameField}
+                      />
+                      <span>Nom du jeu</span>
+                    </label>
+                  </div>
+
+                  <div className="account-offers-form__game">
+                    <select className="global-select account-offers-form__game__category" name="gameCategoryId" onChange={changeInputGame} disabled={!newGameField} value={game.gameCategoryId}>
+                      <option value={0}>- Sélectionner une catégorie -</option>
+                      {categories.map((category) => (
+                        <option
+                          key={category.id}
+                          value={category.id}
+                        >{category.name}
+                        </option>
+                      ))}
+                    </select>
+                    <label className={`${labelClassname(game.nb_players_min)} account-offers-form__game__players-min`}>
+                      <input
+                        type="text"
+                        className="global-input"
+                        value={game.nb_players_min}
+                        onChange={changeInputGame}
+                        name="nb_players_min"
+                        disabled={!newGameField}
+                      />
+                      <span>Nb de joueurs minimum</span>
+                    </label>
+                    <label className={`${labelClassname(game.nb_players_max)} account-offers-form__game__players-max`}>
+                      <input
+                        type="text"
+                        className="global-input"
+                        value={game.nb_players_max}
+                        onChange={changeInputGame}
+                        name="nb_players_max"
+                        disabled={!newGameField}
+                      />
+                      <span>Nb de joueurs maximum</span>
+                    </label>
+                  </div>
+                  <div className="account-offers-form__game">
+                    <label className={`${labelClassname(game.duration)} account-offers-form__game__duration`}>
+                      <input
+                        type="text"
+                        className="global-input"
+                        value={game.duration}
+                        onChange={changeInputGame}
+                        name="duration"
+                        disabled={!newGameField}
+                      />
+                      <span>Durée d'une partie</span>
+                    </label>
+                    <label className={`${labelClassname(game.age_min)} account-offers-form__game__age`}>
+                      <input
+                        type="text"
+                        className="global-input"
+                        value={game.age_min}
+                        onChange={changeInputGame}
+                        name="age_min"
+                        disabled={!newGameField}
+                      />
+                      <span>Age minimum</span>
+                    </label>
+                  </div>
+
+                  <h2 className="account-offers-form__subtitle">Description</h2>
+
+                  <textarea
+                    placeholder="Description"
+                    className="account-offers-form__description global-input"
+                    value={offer.description}
+                    onChange={changeInput}
+                    name="description"
+                  />
+                  {offer.createdAt !== '' && (<p className="account-offers-form__dates">Créée le {formatDate(offer.createdAt)}</p>)}
+                  {offer.updatedAt !== '' && (<p className="account-offers-form__dates">Modifiée le {formatDate(offer.updatedAt)}</p>)}
+                </div>
+                <div className="account-offers-form__container__right">
+                  <div className="account-offers-form__block account-offers-form__block--flex50">
+                    <div className="account-offers-form__disponibility">
+                      <h2 className="account-offers-form__subtitle">Disponibilité</h2>
+                      <div>
+                        <label>
+                          <input
+                            type="radio"
+                            name="is_available"
+                            checked={offer.is_available === true}
+                            onChange={changeInput}
+                            value="1"
+                          /> Disponible
+                        </label>
+                      </div>
+                      <div>
+                        <label>
+                          <input
+                            type="radio"
+                            name="is_available"
+                            checked={offer.is_available === false}
+                            onChange={changeInput}
+                            value="0"
+                          /> Non disponible
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="account-offers-form__block">
+                    <h2 className="account-offers-form__subtitle">Type</h2>
+                    <div className="account-offers-form__type">
+                      <select className="global-select" name="type" onChange={changeInput} value={offer.type}>
+                        <option
+                          value="1"
+                        >Location
+                        </option>
+                        <option
+                          value="0"
+                        >Prêt
+                        </option>
+                      </select>
+                      <input
+                        type="text"
+                        placeholder="Prix (€)"
+                        className="global-input"
+                        value={offer.price}
+                        onChange={changeInput}
+                        name="price"
+                        disabled={offer.type === '0'}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="account-offers-form__block">
+                    <h2 className="account-offers-form__subtitle">Image</h2>
+                    {offer.image === null && <button type="button" className="account-offers-form__game__image__define" onClick={handleClickUpload}>Définir une image</button>}
+                    {offer.image !== null && (
                     <div className="account-offers-form__game__image">
                       <div className="account-offers-form__game__image__remove"><button type="button" className="global-button" onClick={handleClickRemoveImage}>Supprimer</button></div>
                       <img src={`http://ec2-54-167-103-17.compute-1.amazonaws.com/images/offers/${offer.image}`} alt="erreur" />
                     </div>
-                  )}
-                </div>
+                    )}
+                  </div>
 
-                <div className="account-offers-form__block">
-                  <h2 className="account-offers-form__subtitle">Localisation</h2>
-                  <MapAutocomplete
-                    className="global-input account-offers-form__location"
-                    onPlaceSelected={(place) => {
+                  <div className="account-offers-form__block">
+                    <h2 className="account-offers-form__subtitle">Localisation</h2>
+                    <MapAutocomplete
+                      className="global-input account-offers-form__location"
+                      onPlaceSelected={(place) => {
                       /*
                       number of element :
                         5 = ville
@@ -362,51 +359,56 @@ const Form = ({
                         2 = region
                         1 = pays
                       */
-                      let zoom = 12;
-                      const { length } = place.address_components;
-                      switch (length) {
-                        case 3:
-                          zoom = 9;
-                          break;
-                        case 2:
-                          zoom = 8;
-                          break;
-                        case 1:
-                          zoom = 5;
-                          break;
-                        default:
-                          zoom = 12;
-                      }
+                        let zoom = 12;
+                        const { length } = place.address_components;
+                        switch (length) {
+                          case 3:
+                            zoom = 9;
+                            break;
+                          case 2:
+                            zoom = 8;
+                            break;
+                          case 1:
+                            zoom = 5;
+                            break;
+                          default:
+                            zoom = 12;
+                        }
 
-                      // if (length === 5) {
-                      //   handleFormInput('city', place.address_components[1].long_name);
-                      //   handleFormInput('postal_code', place.address_components[0].long_name);
-                      // }
+                        // if (length === 5) {
+                        //   handleFormInput('city', place.address_components[1].long_name);
+                        //   handleFormInput('postal_code', place.address_components[0].long_name);
+                        // }
 
-                      const hasLocality = place.address_components.filter((addr) => addr.types.includes('locality'));
-                      const hasPostalCode = place.address_components.filter((addr) => addr.types.includes('postal_code'));
-                      if (hasPostalCode.length > 0) {
-                        handleFormInput('postal_code', hasPostalCode[0].long_name);
-                      }
-                      if (hasLocality.length > 0) {
-                        handleFormInput('city', hasLocality[0].long_name);
-                      }
+                        const hasLocality = place.address_components.filter((addr) => addr.types.includes('locality'));
+                        const hasPostalCode = place.address_components.filter((addr) => addr.types.includes('postal_code'));
+                        if (hasPostalCode.length > 0) {
+                          handleFormInput('postal_code', hasPostalCode[0].long_name);
+                        }
+                        if (hasLocality.length > 0) {
+                          handleFormInput('city', hasLocality[0].long_name);
+                        }
 
-                      const lat = place.geometry.location.lat();
-                      const lng = place.geometry.location.lng();
+                        const lat = place.geometry.location.lat();
+                        const lng = place.geometry.location.lng();
 
-                      handleFormInput('latitude', lat.toString());
-                      handleFormInput('longitude', lng.toString());
-                      handleFormInput('zoom', zoom);
-                    }}
-                    types={['(regions)']}
-                    componentRestrictions={{ country: 'fr' }}
-                    defaultValue={location}
-                  />
-                  <div className="account-offers-form__map">
-                    <Map zoom={offer.zoom} lat={offer.latitude} lng={offer.longitude} />
+                        handleFormInput('latitude', lat.toString());
+                        handleFormInput('longitude', lng.toString());
+                        handleFormInput('zoom', zoom);
+                      }}
+                      types={['(regions)']}
+                      componentRestrictions={{ country: 'fr' }}
+                      defaultValue={location}
+                    />
+                    <div className="account-offers-form__map">
+                      <Map zoom={offer.zoom} lat={offer.latitude} lng={offer.longitude} />
+                    </div>
                   </div>
                 </div>
+              </div>
+              <div>
+                {offerSend && <button type="submit" className="account-offers-form__submit" disabled><Loader withMargin={false} /></button>}
+                {!offerSend && <button type="submit" className="account-offers-form__submit">{ offer.id === 0 ? 'Ajouter' : 'Modifier' }</button>}
               </div>
             </div>
           </form>
