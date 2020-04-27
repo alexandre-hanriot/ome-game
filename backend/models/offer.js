@@ -158,7 +158,12 @@ module.exports = (sequelize, Sequelize) => {
         });
 
         for (favorite of favorites) {
-          console.log(favorite.user.email); // A remplacer par envoi de mail
+          await sequelize.models.favorites.update(
+            { notify_when_available: false },
+            {
+              where: { id: favorite.id },
+            }
+          );
 
           // On paramètre le mail
           const mailOptions = {
