@@ -15,7 +15,7 @@ const registrationMiddleware = (store) => (next) => (action) => {
         email, password, pseudo,
       } = store.getState().registration;
 
-      axios.post('https://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users', {
+      axios.post('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users', {
         email,
         password,
         username: pseudo,

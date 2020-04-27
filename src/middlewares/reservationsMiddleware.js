@@ -27,7 +27,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
     case FETCH_RESERVATIONS:
       axios({
         method: 'post',
-        url: `https://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/reservations`,
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/reservations`,
         data: {
           userId: userData.user.id,
         },
@@ -48,7 +48,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
     case FETCH_PARAMS_RESERVATIONS: {
       axios({
         method: 'post',
-        url: `https://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/reservations`,
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/reservations`,
         data: {
           userId: userData.user.id,
         },
@@ -74,7 +74,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
     case FETCH_ONE_RESERVATION:
       axios({
         method: 'post',
-        url: `https://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations/${idReservation}`,
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations/${idReservation}`,
         data: {
           userId: userData.user.id,
         },
@@ -93,7 +93,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
       break;
 
     case FETCH_ALL_RESERVATIONS: {
-      axios.get('https://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations', {
+      axios.get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations', {
         params: {
           ...action.params,
         },
@@ -115,7 +115,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
 
       axios({
         method: 'post',
-        url: 'https://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations',
+        url: 'http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations',
         data: {
           userId: userData.user.id,
           offerId: offer.id,
@@ -138,7 +138,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
     case DELETE_RESERVATION: {
       axios({
         method: 'delete',
-        url: `https://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations/${idReservation}`,
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations/${idReservation}`,
         data: {
           userId: userData.user.id,
         },
@@ -163,7 +163,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
       if (offer.id !== 0) {
         axios({
           method: 'post',
-          url: `https://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/reservations/${offer.id}`,
+          url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/reservations/${offer.id}`,
           data: {
             userId: userData.user.id,
           },
@@ -187,7 +187,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
     case UPDATE_STATUS_RESERVATION: {
       axios({
         method: 'put',
-        url: `https://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations/${idReservation}`,
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations/${idReservation}`,
         data: {
           status: 3,
         },
@@ -211,7 +211,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
     case UPDATE_VALIDATE_RESERVATION: {
       axios({
         method: 'put',
-        url: `https://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations/${idReservation}`,
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations/${idReservation}`,
         data: {
           status: '1',
         },
@@ -235,7 +235,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
     case UPDATE_STATUS_FINISHED_RESERVATION: {
       axios({
         method: 'put',
-        url: `https://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations/${idReservation}`,
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/reservations/${idReservation}`,
         withCredentials: true,
         data: {
           status: '2',
