@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import App from 'src/frontend/components/App';
 import { isTokenExist } from 'src/actions/user';
-import { redirectTo } from 'src/actions/global';
+import { redirectTo, setAppLoading } from 'src/actions/global';
 
 const mapStateToProps = (state) => ({
   isLogged: state.user.isLogged,
@@ -9,6 +9,7 @@ const mapStateToProps = (state) => ({
   isError: state.global.isError,
   redirectTo: state.global.redirectTo,
   rememberMe: state.user.rememberMe,
+  appIsLoad: state.global.appIsLoad,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -17,6 +18,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   isTokenExist: () => {
     dispatch(isTokenExist());
+  },
+  setAppLoading: (value) => {
+    dispatch(setAppLoading(value));
   },
 });
 
