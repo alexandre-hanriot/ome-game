@@ -81,7 +81,6 @@ const favoritesMiddleware = (store) => (next) => (action) => {
         },
       })
         .then((response) => {
-          console.log(response);
           store.dispatch(setOfferInFavorite(true));
           store.dispatch(saveCurrentFavorite(response.data.id));
         })
@@ -107,7 +106,6 @@ const favoritesMiddleware = (store) => (next) => (action) => {
         },
       })
         .then((response) => {
-          console.log('on passe dans remove favorite dans le middleware');
           store.dispatch(setOfferInFavorite(false));
         })
         .catch((error) => {

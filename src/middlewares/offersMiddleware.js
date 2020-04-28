@@ -195,7 +195,6 @@ const offersMiddleware = (store) => (next) => (action) => {
         },
       })
         .then((response) => {
-          console.log(response.data);
           store.dispatch(updateListOffers(urlId));
         })
         .catch((error) => {
@@ -251,7 +250,6 @@ const offersMiddleware = (store) => (next) => (action) => {
         },
       })
         .then((response) => {
-          console.log(response.data);
           // store.dispatch(updateStatusStateOffer(urlId));
           store.dispatch(fetchOffers());
         })
