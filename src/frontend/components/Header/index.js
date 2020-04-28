@@ -71,8 +71,8 @@ const Header = ({
             <p>{pseudo}</p>
           </div>
           <button type="button" className="header__nav__account__button" title="Mon compte / Se deconnecter" onClick={handleMenuUser}>
-            {user.user.picture === '' && (<i className="fas fa-user" />)}
-            {user.user.picture !== '' && (<img src={`http://ec2-54-167-103-17.compute-1.amazonaws.com/images/users/${user.user.picture}`} alt="" />)}
+            {(user.user.picture === '' || user.user.picture === null) && (<i className="fas fa-user" />)}
+            {(user.user.picture !== '' && user.user.picture !== null) && (<img src={`http://ec2-54-167-103-17.compute-1.amazonaws.com/images/users/${user.user.picture}`} alt="" />)}
           </button>
             {showMenu === 'userMenu'
             && (

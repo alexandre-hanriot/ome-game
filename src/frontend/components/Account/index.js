@@ -356,8 +356,8 @@ const Account = ({
                   <Link to="/compte/profil" className="account__profil__left__link ">Modifier</Link>
                 </div>
                 <div className="account__profil__right">
-                  {user.user.picture === '' && <i className="far fa-portrait account__profil__right__picture" />}
-                  {user.user.picture !== '' && <img src={`http://ec2-54-167-103-17.compute-1.amazonaws.com/images/users/${user.user.picture}`} alt="" />}
+                  {(user.user.picture === '' || user.user.picture === null) && <i className="far fa-portrait account__profil__right__picture" />}
+                  {(user.user.picture !== '' && user.user.picture !== null) && <img src={`http://ec2-54-167-103-17.compute-1.amazonaws.com/images/users/${user.user.picture}`} alt="" />}
                 </div>
               </div>
             </div>

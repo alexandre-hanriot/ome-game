@@ -94,8 +94,8 @@ const Profil = ({
   if (userData.user.lastname === null) {
     userData.user.lastname = '';
   }
-  if (userData.user.firstnam === null) {
-    userData.user.firstnam = '';
+  if (userData.user.firstname === null) {
+    userData.user.firstname = '';
   }
   if (userData.user.email === null) {
     userData.user.email = '';
@@ -145,13 +145,13 @@ const Profil = ({
           <div className="account-profil__container__left">
             <div className="account-profil__avatar">
               <h2 className="account-profil__subtitle">Photo</h2>
-              {userData.user.picture !== '' && (
+              {(userData.user.picture !== '' && userData.user.picture !== null) && (
                 <div className="account-profil__avatar__image">
                   <img src={`http://ec2-54-167-103-17.compute-1.amazonaws.com/images/users/${userData.user.picture}`} alt="" />
                   <button type="button" onClick={handleClickDeleteImage}>Supprimer</button>
                 </div>
               )}
-              {userData.user.picture === '' && (
+              {(userData.user.picture === '' || userData.user.picture === null) && (
                 <div className="account-profil__avatar__noimage">
                   <i className="fas fa-user"> </i>
                   <button type="button" onClick={handleClickUpload}>Modifier</button>

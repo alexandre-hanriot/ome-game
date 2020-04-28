@@ -26,10 +26,13 @@ export const slugifyId = (id) => slugify(id, {
 
 // Dynamic label
 export const labelClassname = (input) => {
-  if (typeof input === 'number') {
-    return classNames('global-label', { 'global-label--active': input > 0 });
+  if (input !== null) {
+    if (typeof input === 'number') {
+      return classNames('global-label', { 'global-label--active': input > 0 });
+    }
+  
+    return classNames('global-label', { 'global-label--active': input.length > 0 });
   }
-
-  return classNames('global-label', { 'global-label--active': input.length > 0 });
+  return input;
 };
 
