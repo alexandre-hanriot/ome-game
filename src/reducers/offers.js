@@ -13,6 +13,7 @@ import {
   UPDATE_STATE_OFFERS,
   UPDATE_STATUS_STATE_OFFER,
   CLEAR_OFFERS,
+  SAVE_OFFERS_ADMIN,
 } from 'src/actions/offers';
 
 import {
@@ -20,6 +21,7 @@ import {
 } from 'src/actions/reservations';
 
 const initialState = {
+  allOffersAdmin: [],
   allOffers: [],
   offer: {
     id: 0,
@@ -98,6 +100,11 @@ const offersReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         offerIsLoad: !state.offerIsLoad,
+      };
+    case SAVE_OFFERS_ADMIN:
+      return {
+        ...state,
+        allOffersAdmin: action.data,
       };
     case CLEAR_OFFER:
       return {

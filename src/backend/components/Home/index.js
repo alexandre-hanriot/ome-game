@@ -37,6 +37,7 @@ const Home = ({
       ...globalParams,
       status: ['0', '1'],
     });
+
     fetchAllUsers({
       ...globalParams,
       status: ['0', '1'],
@@ -45,6 +46,7 @@ const Home = ({
       ...globalParams,
       status: ['0', '1'],
     });
+
     fetchAllReservations({
       ...globalParams,
       status: ['0', '1', '2', '3', '4'],

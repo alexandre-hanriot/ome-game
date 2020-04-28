@@ -8,9 +8,11 @@ import {
   SAVE_STATUS_RESERVATION,
   CHANGE_RESERVATIONS_LOAD,
   CLEAR_RESERVATIONS,
+  SAVE_RESERVATIONS_ADMIN,
 } from 'src/actions/reservations';
 
 const initialState = {
+  allReservationsAdmin: [],
   allReservations: [],
   idReservation: '',
   oneReservation: {},
@@ -25,6 +27,12 @@ const reservationsReducer = (state = initialState, action = {}) => {
         ...state,
         allReservations: action.reservations,
         isReservationsLoad: true,
+      };
+
+    case SAVE_RESERVATIONS_ADMIN:
+      return {
+        ...state,
+        allReservationsAdmin: action.data,
       };
 
     case CLEAR_RESERVATIONS:
