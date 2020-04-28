@@ -243,13 +243,14 @@ const Home = ({
                   return (
                     <li className="admin-dashboard__games__item" key={game.id}>
                       <div className="admin-dashboard__games__item__title">{truncateText(game.name, 35)}</div>
-                      <div className={statusClass}><button
-                        type="button"
-                        onClick={() => {
-                          handleClickGame(game);
-                        }}
-                      ><i className={statusIconClass} title={game.status === '1' ? 'Validé' : 'En attente de validation'} />
-                      </button>
+                      <div className={statusClass}>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            handleClickGame(game);
+                          }}
+                        ><i className={statusIconClass} title={game.status === '1' ? 'Validé' : 'En attente de validation'} />
+                        </button>
                       </div>
                       <div className="admin-dashboard__games__item__action"><Link to={`/admin/jeux/${game.id}`}><i className="fas fa-search" /></Link></div>
                     </li>
