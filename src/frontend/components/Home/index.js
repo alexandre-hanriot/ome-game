@@ -75,7 +75,15 @@ const Home = ({
     <div className="wrapper wrapper-home">
       <div className="home">
         <h1 className="home__title">O`me Game</h1>
-        <p className="home__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo nobis magnam cumque ullam libero sint iure. Magnam, voluptatum, explicabo dolores nesciunt rerum amet debitis ullam sunt cupiditate excepturi in optio Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam, culpa labore perspiciatis fugiat ipsam distinctio aliquid! Tempore reprehenderit tenetur temporibus vel voluptatum.</p>
+        <p className="home__text">
+          Bienvenue ! Vous êtes arrivé sur un site de prêt et de location de jeux de société.
+        </p>
+        <p className="home__text">
+          Le but c'est de pouvoir accéder à tous vos jeux préférés et d'en découvrir de nouveaux grâce à la communauté !
+        </p>
+        <p className="home__text">
+          Pour commencer, vous pouvez acceder à la carte pour trouver un jeu près de chez vous en cliquant sur "trouver un jeu", ou simplement entrer le nom d'une ville ou d'un village juste en dessous de ce texte.
+        </p>
         <div className="home__form">
           <MapAutocomplete
             className="home__form__input global-input"
