@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import TextInput from 'react-autocomplete-input';
 import 'react-autocomplete-input/dist/bundle.css';
 import slugify from 'react-slugify';
+import noimage from 'src/assets/images/noimage_150.jpg';
 
 import Cluster from 'src/frontend/containers/Cluster';
 
@@ -297,7 +298,7 @@ const Offer = ({
             return (
               <Link to={`/recherche/jeux/${result.id}/${slugify(result.title, { lower: true })}`} key={result.id}>
                 <li className="offer__aside__results__result">
-                  <img src="https://cdn2.philibertnet.com/372889-large_default/le-parrain-l-empire-de-corleone.jpg" alt="" className="offer__aside__results__result__image" />
+                  <img src={result.image !== null ? `http://ec2-54-167-103-17.compute-1.amazonaws.com/images/offers/${result.image}` : noimage} alt="" className="offer__aside__results__result__image" />
                   <div className="offer__aside__results__result__content">
                     <h3 className="offer__aside__results__result__name">{result.title}</h3>
                     <p className="offer__aside__results__result__city">{result.city} {result.postal_code !== '' ? `(${result.postal_code})` : ''}</p>
