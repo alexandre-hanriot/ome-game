@@ -29,7 +29,7 @@ const Cluster = ({
     options: { radius: 75, maxZoom: 15 },
   });
 
-  // Save results in state
+  // save results in state
   const handleChange = () => {
     if (mapIsLoaded) {
       const results = [];
@@ -49,7 +49,6 @@ const Cluster = ({
 
   // when API is loaded
   const handleApiLoaded = (map) => {
-    // mapRef.current = map;
     map.setOptions({
       maxZoom: 15,
       styles: [
@@ -310,13 +309,13 @@ const Cluster = ({
             },
           ],
         },
-      ],
+      ], // custom style map
     });
     mapLoaded();
     fetchOffers();
   };
 
-  // update results when offers is load
+  // update results when offers change
   useEffect(() => {
     if (mapIsLoaded) {
       changeCoordinates(coordinates.lat + 0.00001, coordinates.lng + 0.00001);
@@ -358,7 +357,6 @@ const Cluster = ({
                 supercluster={supercluster}
                 cluster={cluster}
                 pointsLength={offers.length}
-                // mapRef={mapRef}
               />
             );
           })

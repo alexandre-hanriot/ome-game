@@ -193,12 +193,32 @@
 
     &__image {
       position: relative;
+      text-align: center;
 
       img {
         max-width: 100%;
+        margin-bottom: .5rem;
       }
 
-      &__remove {
+      button {
+        padding: .5rem 1rem;
+        margin-right: .5rem;
+
+        &.remove {
+          background-color: $red;
+          color: #fff;
+
+          &:hover {
+            background-color: $secondaryColor;
+          }
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+      /*&__remove {
         display: none;
         position: absolute;
         left: 0;
@@ -224,6 +244,7 @@
           }
         }
       }
+      */
 
       &__define {
         background-color: transparent;

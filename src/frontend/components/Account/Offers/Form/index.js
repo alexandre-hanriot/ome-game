@@ -39,7 +39,6 @@ const Form = ({
 
   useEffect(() => {
     const id = offer.gameId;
-
     if (id > 0 && !newGameField) {
       if (gamesIsLoad) {
         const currentGame = games.find((g) => g.id === id);
@@ -48,6 +47,12 @@ const Form = ({
         handleFormInputGame('nb_players_max', currentGame.nb_players_max);
         handleFormInputGame('age_min', currentGame.age_min);
         handleFormInputGame('duration', currentGame.duration);
+        if (offer.game.image === '' || offer.game.image === null) {
+          handleFormInput('image', currentGame.image);
+        }
+        if (offer.description !== null && offer.description.length === 0) {
+          handleFormInput('description', currentGame.description);
+        }
       }
       else if (id === offer.game.id) {
         handleFormInputGame('gameCategoryId', offer.game.gameCategoryId);
@@ -55,6 +60,9 @@ const Form = ({
         handleFormInputGame('nb_players_max', offer.game.nb_players_max);
         handleFormInputGame('age_min', offer.game.age_min);
         handleFormInputGame('duration', offer.game.duration);
+        if (offer.game.image !== '' && offer.game.image !== null) {
+          handleFormInput('image', offer.game.image);
+        }
       }
     }
     else {
@@ -341,8 +349,9 @@ const Form = ({
                     {offer.image === null && <button type="button" className="account-offers-form__game__image__define" onClick={handleClickUpload}>Définir une image</button>}
                     {offer.image !== null && (
                     <div className="account-offers-form__game__image">
-                      <div className="account-offers-form__game__image__remove"><button type="button" className="global-button" onClick={handleClickRemoveImage}>Supprimer</button></div>
                       <img src={`http://ec2-54-167-103-17.compute-1.amazonaws.com/images/offers/${offer.image}`} alt="erreur" />
+                      <button type="button" className="global-button global-button--light" onClick={handleClickUpload}>Modifier</button>
+                      <button type="button" className="global-button global-button--light remove" onClick={handleClickRemoveImage}>Supprimer</button>
                     </div>
                     )}
                   </div>
