@@ -21,6 +21,7 @@ const Home = ({
   updateStatusOffer,
   update,
   setUpdate,
+  updateStatusGame,
 }) => {
   useTitle('Administration');
 
@@ -59,14 +60,29 @@ const Home = ({
         resultPage: 1,
         status: ['0', '1'],
       });
+      setUpdate();
+    }
 
+    if (update === 'games') {
+      fetchAllGames({
+        orderby: 'id',
+        sortby: 'DESC',
+        limit: 4,
+        resultPage: 1,
+        status: ['0', '1'],
+      });
       setUpdate();
     }
   }, [update]);
 
   const handleClickOffer = (offer) => {
     const status = offer.status === '0' ? '1' : '0';
-    updateStatusOffer(offer.id, status, offer.userId);
+    updateStatusOffer(offer.id, status);
+  };
+
+  const handleClickGame = (game) => {
+    const status = game.status === '0' ? '1' : '0';
+    updateStatusGame(game.id, status);
   };
 
   return (
@@ -140,7 +156,7 @@ const Home = ({
                           handleClickOffer(offer);
                         }}
                       ><i className={statusIconClass} title={offer.status === '0' ? 'En attente de validation' : 'Validée'} />
-                                                   </button>
+                      </button>
                       </div>
                       <div className={disponibilityClass}><i className={disponibilityIconClass} title={offer.is_available ? 'Disponible' : 'Non disponible'} /></div>
                       <div className="admin-dashboard__offers__item__action"><Link to={`/admin/offres/${offer.id}`}><i className="fas fa-search" /></Link></div>
@@ -225,7 +241,14 @@ const Home = ({
                   return (
                     <li className="admin-dashboard__games__item" key={game.id}>
                       <div className="admin-dashboard__games__item__title">{truncateText(game.name, 35)}</div>
-                      <div className={statusClass}><i className={statusIconClass} title={game.status === '1' ? 'Validé' : 'En attente de validation'} /></div>
+                      <div className={statusClass}><button
+                        type="button"
+                        onClick={() => {
+                          handleClickGame(game);
+                        }}
+                      ><i className={statusIconClass} title={game.status === '1' ? 'Validé' : 'En attente de validation'} />
+                      </button>
+                      </div>
                       <div className="admin-dashboard__games__item__action"><Link to={`/admin/jeux/${game.id}`}><i className="fas fa-search" /></Link></div>
                     </li>
                   );
@@ -252,6 +275,7 @@ Home.propTypes = {
   updateStatusOffer: PropTypes.func.isRequired,
   update: PropTypes.string.isRequired,
   setUpdate: PropTypes.func.isRequired,
+  updateStatusGame: PropTypes.func.isRequired,
 };
 
 export default Home;

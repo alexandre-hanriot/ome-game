@@ -1,12 +1,15 @@
 import axios from 'axios';
 import {
   GET_GAME_CATEGORIES, saveGameCategories, GET_GAMES, saveGames,
-  changeCategoriesIsLoad, changeGameIsLoad, ADD_GAME,
+  changeCategoriesIsLoad, changeGameIsLoad, ADD_GAME, UPDATE_STATUS_GAME,
 } from 'src/actions/game';
 
 import { handleAddOffer, handleModifyOffer, handleFormInput } from 'src/actions/offers';
+import { setUpdate } from 'src/actions/global';
 
 const gameMiddleware = (store) => (next) => (action) => {
+  const { userData } = store.getState().user;
+
   switch (action.type) {
     case GET_GAME_CATEGORIES: {
       axios
@@ -62,6 +65,29 @@ const gameMiddleware = (store) => (next) => (action) => {
         })
         .catch((error) => {
           console.error(error);
+        });
+      next(action);
+      break;
+    }
+
+    case UPDATE_STATUS_GAME: {
+      axios({
+        method: 'put',
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/games/${action.id}`,
+        withCredentials: true,
+        data: {
+          status: action.status,
+          userId: userData.user.id,
+        },
+        headers: {
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
+        },
+      })
+        .then((response) => {
+          store.dispatch(setUpdate('games'));
+        })
+        .catch((error) => {
+          console.warn(error);
         });
       next(action);
       break;

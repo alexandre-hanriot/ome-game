@@ -3,7 +3,7 @@ import Home from 'src/backend/components/Home';
 
 import { fetchAllOffers, updateStatusOffer2 } from 'src/actions/offers';
 import { fetchAllUsers } from 'src/actions/user';
-import { getGames } from 'src/actions/game';
+import { getGames, updateStatusGame } from 'src/actions/game';
 import { fetchAllReservations } from 'src/actions/reservations';
 import { setUpdate } from 'src/actions/global';
 
@@ -30,6 +30,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   updateStatusOffer: (id, status) => {
     dispatch(updateStatusOffer2(id, status));
+  },
+  updateStatusGame: (id, status) => {
+    dispatch(updateStatusGame(id, status));
   },
   setUpdate: () => {
     dispatch(setUpdate());
