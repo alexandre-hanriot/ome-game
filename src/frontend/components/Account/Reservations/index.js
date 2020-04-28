@@ -18,6 +18,7 @@ const Reservations = ({
   fetchReservations,
   saveIdReservation,
   data,
+  isReservationsLoad,
   clearReservations,
 }) => {
   useTitle('Mes réservations');
@@ -49,8 +50,8 @@ const Reservations = ({
 
   return (
     <div className="wrapper reservations">
-      {data.length === 0 && <Loader />}
-      {data.length > 0 && (
+      {!isReservationsLoad && <Loader />}
+      {isReservationsLoad && (
         <>
           {(showModal === 'modalReservation' || showModal === 'modalReservationImpossible') && (
           <Modal content={<ConfirmSupp />} />
@@ -141,6 +142,7 @@ Reservations.propTypes = {
   displayModal: PropTypes.func.isRequired,
   fetchReservations: PropTypes.func.isRequired,
   saveIdReservation: PropTypes.func.isRequired,
+  isReservationsLoad: PropTypes.bool.isRequired,
   data: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
