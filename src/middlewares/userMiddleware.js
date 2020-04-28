@@ -180,6 +180,9 @@ const userMiddleware = (store) => (next) => (action) => {
             store.dispatch(setAppLoading(true));
           });
       }
+      else {
+        store.dispatch(setAppLoading(true));
+      }
       next(action);
       break;
     }
