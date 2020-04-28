@@ -17,6 +17,7 @@ export const UPDATE_STATUS_FINISHED_RESERVATION = 'UPDATE_STATUS_FINISHED_RESERV
 export const CHANGE_RESERVATIONS_LOAD = 'CHANGE_RESERVATIONS_LOAD';
 export const FETCH_ALL_RESERVATIONS = 'FETCH_ALL_RESERVATIONS';
 export const CLEAR_RESERVATIONS = 'CLEAR_RESERVATIONS';
+export const SAVE_RESERVATIONS_ADMIN = 'SAVE_RESERVATIONS_ADMIN';
 
 export const fetchReservations = () => ({
   type: FETCH_RESERVATIONS,
@@ -38,6 +39,11 @@ export const saveIdReservation = (id) => ({
 export const saveReservations = (reservations) => ({
   type: SAVE_RESERVATIONS,
   reservations,
+});
+
+export const saveReservationsAdmin = (data) => ({
+  type: SAVE_RESERVATIONS_ADMIN,
+  data,
 });
 
 export const saveOneReservation = (oneReservation) => ({

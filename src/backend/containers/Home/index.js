@@ -1,17 +1,17 @@
 import { connect } from 'react-redux';
 import Home from 'src/backend/components/Home';
 
-import { fetchAllOffers, updateStatusOffer2 } from 'src/actions/offers';
+import { fetchAllOffers, updateStatusOffer2, clearOffers, changeOfferIsLoad } from 'src/actions/offers';
 import { fetchAllUsers } from 'src/actions/user';
 import { getGames, updateStatusGame } from 'src/actions/game';
 import { fetchAllReservations } from 'src/actions/reservations';
 import { setUpdate } from 'src/actions/global';
 
 const mapStateToProps = (state) => ({
-  offers: state.offers.allOffers,
+  offers: state.offers.allOffersAdmin,
   users: state.user.allUsers,
   games: state.game.games,
-  reservations: state.reservations.allReservations,
+  reservations: state.reservations.allReservationsAdmin,
   update: state.global.update,
 });
 
@@ -36,6 +36,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   setUpdate: () => {
     dispatch(setUpdate());
+  },
+  clearOffers: () => {
+    dispatch(clearOffers());
+  },
+  changeOfferIsLoad: () => {
+    dispatch(changeOfferIsLoad());
   },
 });
 

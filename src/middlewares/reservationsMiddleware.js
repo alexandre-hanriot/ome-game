@@ -15,6 +15,7 @@ import {
   FETCH_ALL_RESERVATIONS,
   UPDATE_VALIDATE_RESERVATION,
   UPDATE_STATUS_FINISHED_RESERVATION,
+  saveReservationsAdmin,
 } from 'src/actions/reservations';
 
 import { setOfferInReservation, updateStateOffers } from 'src/actions/offers';
@@ -99,7 +100,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         },
       })
         .then((response) => {
-          store.dispatch(saveReservations(response.data));
+          store.dispatch(saveReservationsAdmin(response.data));
         })
         .catch((error) => {
           console.warn(error);

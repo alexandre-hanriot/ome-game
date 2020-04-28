@@ -17,6 +17,7 @@ import {
   fetchOffers,
   setOfferSend,
   UPDATE_STATUS_OFFER2,
+  saveOffersAdmin,
 } from 'src/actions/offers';
 
 import { showAlert, redirectTo, setUpdate } from 'src/actions/global';
@@ -79,7 +80,7 @@ const offersMiddleware = (store) => (next) => (action) => {
         },
       })
         .then((response) => {
-          store.dispatch(saveOffers(response.data));
+          store.dispatch(saveOffersAdmin(response.data));
         })
         .catch((error) => {
           console.warn(error);
