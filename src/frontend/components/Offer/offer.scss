@@ -318,6 +318,12 @@
     &__aside {
       width: 100%;
       padding: $gutter/2;
+
+      &__search {
+        &__button {
+          display: none;
+        }
+      }
     }
   }
 }

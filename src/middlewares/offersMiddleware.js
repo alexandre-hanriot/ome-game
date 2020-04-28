@@ -16,9 +16,10 @@ import {
   UPDATE_STATUS_OFFER,
   fetchOffers,
   setOfferSend,
+  UPDATE_STATUS_OFFER2,
 } from 'src/actions/offers';
 
-import { showAlert, redirectTo } from 'src/actions/global';
+import { showAlert, redirectTo, setUpdate } from 'src/actions/global';
 
 const offersMiddleware = (store) => (next) => (action) => {
   const { userData } = store.getState().user;
@@ -252,6 +253,29 @@ const offersMiddleware = (store) => (next) => (action) => {
         .then((response) => {
           // store.dispatch(updateStatusStateOffer(urlId));
           store.dispatch(fetchOffers());
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+      next(action);
+      break;
+    }
+
+    case UPDATE_STATUS_OFFER2: {
+      axios({
+        method: 'put',
+        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${action.id}`,
+        withCredentials: true,
+        data: {
+          status: action.status,
+          userId: userData.user.id,
+        },
+        headers: {
+          'x-xsrf-token': localStorage.getItem('xsrfToken'),
+        },
+      })
+        .then((response) => {
+          store.dispatch(setUpdate('offers'));
         })
         .catch((error) => {
           console.warn(error);

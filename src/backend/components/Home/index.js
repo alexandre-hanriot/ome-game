@@ -18,6 +18,9 @@ const Home = ({
   games,
   fetchAllReservations,
   reservations,
+  updateStatusOffer,
+  update,
+  setUpdate,
 }) => {
   useTitle('Administration');
 
@@ -46,6 +49,25 @@ const Home = ({
       status: ['0', '1', '2', '3', '4'],
     });
   }, []);
+
+  useEffect(() => {
+    if (update === 'offers') {
+      fetchAllOffers({
+        orderby: 'id',
+        sortby: 'DESC',
+        limit: 4,
+        resultPage: 1,
+        status: ['0', '1'],
+      });
+
+      setUpdate();
+    }
+  }, [update]);
+
+  const handleClickOffer = (offer) => {
+    const status = offer.status === '0' ? '1' : '0';
+    updateStatusOffer(offer.id, status, offer.userId);
+  };
 
   return (
     <div className="wrapper admin-dashboard">
@@ -112,7 +134,14 @@ const Home = ({
                   return (
                     <li className="admin-dashboard__offers__item" key={offer.id}>
                       <div className="admin-dashboard__offers__item__title">{truncateText(offer.title, 35)}</div>
-                      <div className={statusClass}><i className={statusIconClass} title={offer.status === '0' ? 'En attente de validation' : 'Validée'} /></div>
+                      <div className={statusClass}><button
+                        type="button"
+                        onClick={() => {
+                          handleClickOffer(offer);
+                        }}
+                      ><i className={statusIconClass} title={offer.status === '0' ? 'En attente de validation' : 'Validée'} />
+                                                   </button>
+                      </div>
                       <div className={disponibilityClass}><i className={disponibilityIconClass} title={offer.is_available ? 'Disponible' : 'Non disponible'} /></div>
                       <div className="admin-dashboard__offers__item__action"><Link to={`/admin/offres/${offer.id}`}><i className="fas fa-search" /></Link></div>
                     </li>
@@ -220,6 +249,9 @@ Home.propTypes = {
   games: PropTypes.array.isRequired,
   fetchAllReservations: PropTypes.func.isRequired,
   reservations: PropTypes.array.isRequired,
+  updateStatusOffer: PropTypes.func.isRequired,
+  update: PropTypes.string.isRequired,
+  setUpdate: PropTypes.func.isRequired,
 };
 
 export default Home;
