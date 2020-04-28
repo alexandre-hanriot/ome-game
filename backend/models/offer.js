@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer");
+const slugify = require("slugify");
 
 module.exports = (sequelize, Sequelize) => {
   const Offer = sequelize.define(
@@ -166,12 +167,14 @@ module.exports = (sequelize, Sequelize) => {
           );
 
           // On paramètre le mail
+          const slugTitle = slugify(offer.title);
+          const slugGame = slugify(offer.gameId);
           const mailOptions = {
             from: "omegameatlantis@gmail.com", // sender address
             // to: favorite.user.email, // list of receivers
             to: "omegameatlantis@gmail.com", // list of receivers
-            subject: "Une offre que vous suivez est maintenant disponible", // Subject line
-            html: `L'offre est disponible. On peut ajouter ici les caractéristiques de l'offre et le lien vers la page de l'offre`, // plain text body
+            subject: `L'offre ${offer.title} est maintenant disponible`, // Subject line
+            html: `Bonjour ${favorite.user.username}.<br>L'offre ${offer.title} est maintenant disponible. Retrouvez tous les détails de l'offre en cliquant sur le lien suivant : http://ec2-54-167-103-17.compute-1.amazonaws.com/recherche/jeux/${slugGame}/${slugTitle}.<br><br>.A bientôt !<br>L'équipe O'meGame`, // plain text body
           };
 
           // On envoie
