@@ -10,9 +10,14 @@ const About = () => {
     <div className="wrapper about">
       <h1 className="about__title">A propos</h1>
       <p className="about__content">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et dolorum explicabo laudantium ducimus ut, deleniti quo iure dolore quisquam veniam, est voluptatum rem eum quos illum consectetur recusandae officia. Magnam.
-        Itaque, explicabo reprehenderit harum beatae ducimus ratione blanditiis neque. Sed fugiat quidem commodi tempora quisquam numquam libero rem, quibusdam ea! Aut numquam quam reiciendis autem dolor amet vel incidunt molestias!
-        Praesentium a adipisci unde tenetur, ullam atque at illo temporibus ex modi. Excepturi porro enim atque, laudantium tempora corrupti adipisci, dolorem quis, cum sint quam? Blanditiis, repellendus. Id, sint? Animi!
+        Nous sommes une équipe de 3 développeurs et une developpeuse ayant suivi la formation complète de O'clock. Notre équipe est une équipe en fullstack javascript.
+      </p>
+      <p className="about__content">
+        Constitué de 3 développeurs frontend utilisant React et un developpeur backend sur node.js et une base de données en postgres.
+      </p>
+      <p className="about__content">
+        Nous sommes ravis d'avoir mené le projet O'me Game à sa version 1.0.
+        Ce fût une aventure riche en enseignement et nous en sortons grandis !
       </p>
       <ul className="about__team">
         <li className="about__team__member">
