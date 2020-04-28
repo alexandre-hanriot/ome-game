@@ -22,6 +22,7 @@ export const UPDATE_STATE_OFFERS = 'UPDATE_STATE_OFFERS';
 export const UPDATE_STATUS_OFFER = 'UPDATE_STATUS_OFFER';
 export const UPDATE_STATUS_STATE_OFFER = 'UPDATE_STATUS_STATE_OFFER';
 export const CLEAR_OFFERS = 'CLEAR_OFFERS';
+export const UPDATE_STATUS_OFFER2 = 'UPDATE_STATUS_OFFER2';
 
 // action creators
 export const fetchOffers = () => ({
@@ -128,4 +129,10 @@ export const updateStatusStateOffer = (id) => ({
 
 export const clearOffers = () => ({
   type: CLEAR_OFFERS,
+});
+
+export const updateStatusOffer2 = (id, status) => ({
+  type: UPDATE_STATUS_OFFER2,
+  id,
+  status,
 });

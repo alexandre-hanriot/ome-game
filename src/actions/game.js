@@ -7,6 +7,7 @@ export const SAVE_GAMES = 'SAVE_GAMES';
 export const ADD_GAME = 'ADD_GAME';
 export const SET_NEW_GAME_FIELD = 'SET_NEW_GAME_FIELD';
 export const HANDLE_FORM_INPUT_GAME = 'HANDLE_FORM_INPUT_GAME';
+export const UPDATE_STATUS_GAME = 'UPDATE_STATUS_GAME';
 
 export const getGameCategories = () => ({
   type: GET_GAME_CATEGORIES,
@@ -48,4 +49,10 @@ export const handleFormInputGame = (name, value) => ({
   type: HANDLE_FORM_INPUT_GAME,
   name,
   value,
+});
+
+export const updateStatusGame = (id, status) => ({
+  type: UPDATE_STATUS_GAME,
+  id,
+  status,
 });

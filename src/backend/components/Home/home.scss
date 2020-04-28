@@ -114,6 +114,18 @@
       &__status {
         width: 40px;
 
+        button {
+          background-color: $lightBlue;
+          color: $darkBlue;
+          padding: .3rem .5rem;
+          border-radius: 0.2rem;
+          border: none;
+      
+          &:hover {
+            background-color: $secondaryColor;
+            color: #fff;
+          }
+        }
         i {
           display: inline-block;
           width: 16px;
@@ -202,7 +214,19 @@
       }
       &__status {
         width: 40px;
-
+        
+        button {
+          background-color: $lightBlue;
+          color: $darkBlue;
+          padding: .3rem .5rem;
+          border-radius: 0.2rem;
+          border: none;
+      
+          &:hover {
+            background-color: $secondaryColor;
+            color: #fff;
+          }
+        }
         i {
           display: inline-block;
           width: 16px;

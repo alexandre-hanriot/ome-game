@@ -5,6 +5,7 @@ import {
   SET_IS_ERROR,
   REDIRECT_TO,
   SET_APP_LOADING,
+  SET_UPDATE,
 } from 'src/actions/global';
 
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
   redirectTo: '',
   modalParams: {},
   appIsLoad: false,
+  update: '',
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -57,6 +59,12 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         appIsLoad: action.value,
+      };
+
+    case SET_UPDATE:
+      return {
+        ...state,
+        update: action.value,
       };
 
     default:
