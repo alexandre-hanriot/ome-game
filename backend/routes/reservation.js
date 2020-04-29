@@ -19,6 +19,10 @@ router.put("/:id(\\d+)", reservationController.update);
 router.delete("/", reservationController.deleteManyByID);
 
 // Suppression d'une réservation en fonction de son id
-router.delete("/:id(\\d+)", auth.isAllowed, reservationController.deleteOne);
+router.delete(
+  "/:userId(\\d+)",
+  auth.isAllowed,
+  reservationController.deleteOne
+);
 
 module.exports = router;

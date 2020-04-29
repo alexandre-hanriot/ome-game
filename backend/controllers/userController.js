@@ -252,7 +252,7 @@ exports.findOneReservation = (req, res) => {
       offerId,
       userId,
       status: {
-        [Op.or]: ["0", "1", "2"], // On retourne pas les terminées et annulées
+        [Op.or]: ["0", "1", "2", "3"], // On retourne pas les terminées et annulées
       },
     },
     include: {
