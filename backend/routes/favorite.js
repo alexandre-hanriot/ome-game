@@ -13,7 +13,7 @@ router.post("/:id(\\d+)", favoriteController.findOne);
 router.post("/", favoriteController.create);
 
 // Modification d'un favori
-router.put("/:id(\\d+)", auth.isAllowed, favoriteController.update);
+router.put("/:userId(\\d+)", auth.isAllowed, favoriteController.update);
 
 // Suppression de plusieurs favoris en fonction de leur id
 router.delete("/", favoriteController.deleteManyByID);

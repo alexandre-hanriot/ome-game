@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 
 // Vérifie qu'un user a bien le doit d'appeler la route (en fonction du userId ou du role)
 exports.isAllowed = async (req, res, next) => {
-  console.log("On est dans le middleware isAllowed");
   // On récupère le token xsrf issue du header de la requête (qui était stocké dans le local storage)
   const xsrfToken = req.headers["x-xsrf-token"];
 
@@ -69,7 +68,7 @@ exports.isAllowed = async (req, res, next) => {
   if (role === "1" || role === "2") next();
   // On vérifie que le userId envoyé dans la requête correspond bien au userId présent dan le token JWT
   // Un User n'a pas le droit d'accéder aux informations d'un autre User
-  if (req.body.userId !== userId)
+  if (req.params.userId !== userId)
     return res.status(401).json({
       error:
         "Requêtes non autorisée. Utilisateur ne disposant pas des droits requis",
@@ -80,7 +79,6 @@ exports.isAllowed = async (req, res, next) => {
 
 // Vérifie que c'est un utilisateur enregistré qui appelle la route
 exports.isUser = async (req, res, next) => {
-  console.log("On est dans le middleware isUser");
   // On récupère le token xsrf issue du header de la requête (qui était stocké dans le local storage)
   const xsrfToken = req.headers["x-xsrf-token"];
 
