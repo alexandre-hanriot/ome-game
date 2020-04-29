@@ -60,7 +60,7 @@ exports.create = (req, res) => {
 
 // Modification d'une offre
 exports.update = (req, res) => {
-  const id = req.params.userId;
+  const id = req.params.id;
 
   coreController.update(Offer, id, req, res);
 };
@@ -77,7 +77,7 @@ exports.deleteManyByID = (req, res) => {
 
 // Suppression d'une offre en fonction de sa clé primaire
 exports.deleteOne = (req, res) => {
-  const id = req.params.userId;
+  const id = req.params.id;
 
   coreController.deleteOne(Offer, id, res);
 };

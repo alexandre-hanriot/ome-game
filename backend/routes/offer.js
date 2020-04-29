@@ -13,12 +13,12 @@ router.post("/:id(\\d+)", offerController.findOne);
 router.post("/", auth.isUser, offerController.create);
 
 // Modification d'une offre
-router.put("/:userId(\\d+)", auth.isAllowed, offerController.update);
+router.put("/:id(\\d+)", auth.isAllowed, offerController.update);
 
 // Suppression de plusieurs offres en fonction de leur id
 router.delete("/", offerController.deleteManyByID);
 
 // Suppression d'une offre en fonction de son id
-router.delete("/:userId(\\d+)", auth.isAllowed, offerController.deleteOne);
+router.delete("/:id(\\d+)", auth.isAllowed, offerController.deleteOne);
 
 module.exports = router;

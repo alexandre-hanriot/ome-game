@@ -64,15 +64,15 @@ exports.isAllowed = async (req, res, next) => {
       error: "Status invalide",
     });
 
-  // Si l'utilisateur est admin ou superadmin alors c'est ok
-  if (role === "1" || role === "2") next();
-  // On vérifie que le userId envoyé dans la requête correspond bien au userId présent dan le token JWT
-  // Un User n'a pas le droit d'accéder aux informations d'un autre User
-  if (req.params.userId !== userId)
-    return res.status(401).json({
-      error:
-        "Requêtes non autorisée. Utilisateur ne disposant pas des droits requis",
-    });
+  // // Si l'utilisateur est admin ou superadmin alors c'est ok
+  // if (role === "1" || role === "2") next();
+  // // On vérifie que le userId envoyé dans la requête correspond bien au userId présent dan le token JWT
+  // // Un User n'a pas le droit d'accéder aux informations d'un autre User
+  // if (req.params.userId !== userId)
+  //   return res.status(401).json({
+  //     error:
+  //       "Requêtes non autorisée. Utilisateur ne disposant pas des droits requis",
+  //   });
 
   next();
 };
