@@ -66,6 +66,7 @@ const App = ({
     }
     return () => {
       setAppLoading(false);
+      console.log('coucou je passe par la, et c\'est pas bien');
     };
   }, []);
 
@@ -75,7 +76,7 @@ const App = ({
 
   return (
     <div className={appClass}>
-
+      
       {redirectTo.length > 0 && <Redirect to={redirectUrl} />}
       <Header admin={(isAdmin && inAdministration)} />
       <main>

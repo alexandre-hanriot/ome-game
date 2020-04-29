@@ -30,6 +30,7 @@ const Account = ({
   deleteFavorite,
   saveOfferId,
   displayAlert,
+  changeOfferIsLoad,
 }) => {
   useTitle('Mon tableau de bord');
 
@@ -44,6 +45,7 @@ const Account = ({
 
     return function cleanup() {
       setRequestIsLoad();
+      changeOfferIsLoad();
     };
   }, []);
 
@@ -390,6 +392,7 @@ Account.propTypes = {
   saveOfferId: PropTypes.func.isRequired,
   saveIdReservation: PropTypes.func.isRequired,
   displayAlert: PropTypes.func.isRequired,
+  changeOfferIsLoad: PropTypes.func.isRequired,
 };
 
 export default Account;

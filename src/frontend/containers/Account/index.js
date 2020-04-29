@@ -3,7 +3,7 @@ import { showModal, showAlert } from 'src/actions/global';
 import Account from 'src/frontend/components/Account';
 import { setRequestIsLoad } from 'src/actions/user';
 import { fetchParamsReservations, saveIdReservation } from 'src/actions/reservations';
-import { fetchParamsOffers, saveOfferId } from 'src/actions/offers';
+import { fetchParamsOffers, saveOfferId, changeOfferIsLoad } from 'src/actions/offers';
 import {
   fetchFavorites,
   saveIdFavorite,
@@ -63,6 +63,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   displayAlert: (message, success) => {
     dispatch(showAlert(message, success));
+  },
+  changeOfferIsLoad: () => {
+    dispatch(changeOfferIsLoad());
   },
 });
 

@@ -149,6 +149,7 @@ const offersReducer = (state = initialState, action = {}) => {
             },
           },
         },
+        offerIsLoad: false,
       };
     case CLEAR_OFFERS:
       return {
