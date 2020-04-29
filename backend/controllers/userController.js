@@ -218,7 +218,7 @@ exports.findAllReservations = (req, res) => {
     where: {
       userId,
       status: {
-        [Op.or]: ["0", "1"], // On affiche pas les terminées et annulées
+        [Op.or]: ["0", "1", "3"], // On affiche pas les terminées et annulées
       },
     },
     include: {
@@ -252,7 +252,7 @@ exports.findOneReservation = (req, res) => {
       offerId,
       userId,
       status: {
-        [Op.or]: ["0", "1", "2", "3"], // On retourne pas les terminées et annulées
+        [Op.or]: ["0", "1"], // On retourne pas les annulées
       },
     },
     include: {
