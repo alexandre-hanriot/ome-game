@@ -22,6 +22,7 @@ const Home = ({
   update,
   setUpdate,
   updateStatusGame,
+  changeGameIsLoad,
 }) => {
   useTitle('Administration');
 
@@ -51,6 +52,10 @@ const Home = ({
       ...globalParams,
       status: ['0', '1', '2', '3', '4'],
     });
+
+    return () => {
+      changeGameIsLoad();
+    };
   }, []);
 
   useEffect(() => {
@@ -278,6 +283,7 @@ Home.propTypes = {
   update: PropTypes.string.isRequired,
   setUpdate: PropTypes.func.isRequired,
   updateStatusGame: PropTypes.func.isRequired,
+  changeGameIsLoad: PropTypes.func.isRequired,
 };
 
 export default Home;

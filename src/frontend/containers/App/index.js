@@ -10,6 +10,7 @@ const mapStateToProps = (state) => ({
   redirectTo: state.global.redirectTo,
   rememberMe: state.user.rememberMe,
   appIsLoad: state.global.appIsLoad,
+  user: state.user.userData.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({

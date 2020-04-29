@@ -155,7 +155,6 @@ const offersMiddleware = (store) => (next) => (action) => {
         url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${offer.id}`,
         data: {
           status: 0,
-          userId: userData.user.id,
           type: offer.type,
           is_available: offer.is_available,
           title: offer.title,
@@ -245,7 +244,6 @@ const offersMiddleware = (store) => (next) => (action) => {
         withCredentials: true,
         data: {
           is_available: true,
-          userId: userData.user.id,
         },
         headers: {
           'x-xsrf-token': localStorage.getItem('xsrfToken'),
@@ -269,7 +267,6 @@ const offersMiddleware = (store) => (next) => (action) => {
         withCredentials: true,
         data: {
           status: action.status,
-          userId: userData.user.id,
         },
         headers: {
           'x-xsrf-token': localStorage.getItem('xsrfToken'),

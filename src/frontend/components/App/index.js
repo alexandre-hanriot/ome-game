@@ -39,6 +39,7 @@ const App = ({
   isTokenExist,
   appIsLoad,
   setAppLoading,
+  user,
 }) => {
   const location = useLocation();
   // return the current pathname
@@ -70,7 +71,7 @@ const App = ({
 
   // TODO
   const inAdministration = currentPath.includes('/admin/');
-  const isAdmin = true;
+  const isAdmin = isLogged && user.role === '1';
 
   return (
     <div className={appClass}>
@@ -167,6 +168,7 @@ App.propTypes = {
   isTokenExist: PropTypes.func.isRequired,
   appIsLoad: PropTypes.bool.isRequired,
   setAppLoading: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
 };
 // == Export
 export default App;

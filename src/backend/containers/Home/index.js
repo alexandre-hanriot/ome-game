@@ -3,7 +3,7 @@ import Home from 'src/backend/components/Home';
 
 import { fetchAllOffers, updateStatusOffer2, clearOffers, changeOfferIsLoad } from 'src/actions/offers';
 import { fetchAllUsers } from 'src/actions/user';
-import { getGames, updateStatusGame } from 'src/actions/game';
+import { getGames, updateStatusGame, changeGameIsLoad } from 'src/actions/game';
 import { fetchAllReservations } from 'src/actions/reservations';
 import { setUpdate } from 'src/actions/global';
 
@@ -42,6 +42,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeOfferIsLoad: () => {
     dispatch(changeOfferIsLoad());
+  },
+  changeGameIsLoad: () => {
+    dispatch(changeGameIsLoad());
   },
 });
 

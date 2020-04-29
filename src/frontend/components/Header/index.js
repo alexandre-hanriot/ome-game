@@ -37,6 +37,9 @@ const Header = ({
     displayMenu();
   };
 
+  const userIsAdmin = user.user.role === '1';
+  const isAdmin = userIsAdmin && admin;
+
   return (
     <header className="header">
       {['login', 'registration', 'forgotPassword'].includes(showModal) && (
@@ -47,8 +50,8 @@ const Header = ({
       </div>
       <nav className="header__nav">
         <div className="header__nav__menu">
-          {(!isMobile && !admin) && <Menu />}
-          {(!isMobile && admin) && <MenuAdmin />}
+          {(!isMobile && !isAdmin) && <Menu />}
+          {(!isMobile && isAdmin) && <MenuAdmin />}
           {isMobile && (
             <>
               <button type="button" className="header__nav__menu__burger" onClick={handleMenuBurger}><i className="fas fa-bars"> </i></button>
@@ -56,8 +59,8 @@ const Header = ({
                 <>
                   <div className="menu-background" onClick={handleMenuClose}> </div>
                   <div className="header__nav__menu__container" onClick={handleMenuClose}>
-                    {!admin && <Menu showIcon />}
-                    {admin && <MenuAdmin showIcon />}
+                    {!isAdmin && <Menu showIcon />}
+                    {isAdmin && <MenuAdmin showIcon />}
                   </div>
                 </>
               )}
@@ -79,7 +82,7 @@ const Header = ({
               <>
                 <div className="menu-background" onClick={handleMenuClose}> </div>
                 <div className="header__nav__menu__user" onClick={handleMenuClose}>
-                  <UserMenu />
+                  <UserMenu isAdmin={userIsAdmin} />
                 </div>
               </>
             )}

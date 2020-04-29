@@ -1,5 +1,22 @@
 @import 'src/styles/_vars.scss';
 
+.default-user-image {
+  width: 120px;
+  height: 120px;
+  background-color: $backgroundLight;
+  color: $darkBlue;
+  font-size: 4em;
+  border-radius: 50%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: $gutter;
+}
+.user-picture {
+  border-radius: 50%;
+  margin-right: $gutter;
+}
 .offer-detail__global {
   display: flex;
   margin-bottom: $gutter;
@@ -67,7 +84,7 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-
+    
     &__description {
       margin: 0 $gutter $gutter 0;
       line-height: 1.6;
@@ -109,9 +126,18 @@
       margin: $gutter 0 $gutter 0;
       padding: ($gutter /2);
       width: 95%;
-  
+      display: flex;
+      
+      &__container {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+      }
       &__content {
         padding: ($gutter /4);
+        & span {
+          font-weight: bold;
+        }
       }
     }
   }
@@ -200,5 +226,19 @@
   }
   .offer-detail__global {
     flex-direction: column;
+  }
+}
+
+@media (max-width: 600px) {
+  .offer-detail {
+    &__left {
+      &__user {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  }
+  .default-user-image, .user-picture {
+    margin: 0 0 $gutter 0;
   }
 }

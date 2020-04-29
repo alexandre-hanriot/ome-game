@@ -8,7 +8,11 @@
       color: $secondaryColor;
     }
   }
-
+  &__infos {
+    text-align: center;
+    color: $primaryColor;
+    margin-top: .7rem;
+  }
   &__title {
     font-size: 1.8em;
     font-weight: bold;
