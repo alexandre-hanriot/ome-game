@@ -43,7 +43,7 @@ router.post(
 );
 
 // Récupération du nombre de réservations d'un utilisateur en fonction de son id
-router.post(
+router.get(
   "/:userId(\\d+)/reservations/amount",
   userController.findReservationsAmount
 );
