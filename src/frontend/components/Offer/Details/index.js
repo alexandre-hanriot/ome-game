@@ -118,10 +118,10 @@ const Details = ({
               <section className="offer-detail__left__user">
                 {console.log(offer)}
                 <div>
-                  {offer.user.picture === '' ? <div className="default-user-image"><i className="fas fa-user" /></div> : <img className="user-picture" src={`http://ec2-54-167-103-17.compute-1.amazonaws.com/images/users/${offer.user.picture}`} alt="" />}
+                  {(offer.user.picture === '' || offer.user.picture === null) ? <div className="default-user-image"><i className="fas fa-user" /></div> : <img className="user-picture" src={`http://ec2-54-167-103-17.compute-1.amazonaws.com/images/users/${offer.user.picture}`} alt="" />}
                 </div>
                 <div className="offer-detail__left__user__container">
-                  <p className="offer-detail__left__user__content"><span>Créer par : </span> {offer.user.displayName ? `${offer.user.firstname} ${offer.user.lastname}` : offer.user.username}
+                  <p className="offer-detail__left__user__content"><span>Créer par : </span> {offer.user.display_name ? `${offer.user.firstname} ${offer.user.lastname}` : offer.user.username}
                   </p>
                   <p className="offer-detail__left__user__content">
                     <span>Mise en ligne le : </span> {formatDate(offer.createdAt)}
@@ -133,7 +133,7 @@ const Details = ({
               </section>
             </div>
             <div className="offer-detail__right">
-              <img className="offer-detail__right__image" src={offer.image !== null ? `http://ec2-54-167-103-17.compute-1.amazonaws.com/images/offers/${offer.image}` : noimage} alt="" />
+              <img className="offer-detail__right__image" src={(offer.image !== null && offer.image !== '') ? `http://ec2-54-167-103-17.compute-1.amazonaws.com/images/offers/${offer.image}` : noimage} alt="" />
               <div className="offer-detail__right__map">
                 <div className="offer-detail__right__map__text"><p>{offer.postal_code} {offer.city}</p></div>
                 <Map lat={offer.latitude} lng={offer.longitude} />
