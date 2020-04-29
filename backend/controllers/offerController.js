@@ -1,5 +1,6 @@
 const db = require("../models/index");
 const Offer = db.offers;
+const User = db.users;
 const Game = db.games;
 const Game_category = db.game_categories;
 const coreController = require("./coreController");
@@ -28,10 +29,15 @@ exports.findOne = (req, res) => {
       id,
       ...conditions,
     },
-    include: {
-      model: Game,
-      include: Game_category,
-    },
+    include: [
+      {
+        model: Game,
+        include: Game_category,
+      },
+      {
+        model: User,
+      },
+    ],
     attributes,
   }).then((data) => {
     if (data === null)
