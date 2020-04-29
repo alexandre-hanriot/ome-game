@@ -266,15 +266,9 @@ exports.findReservationsAmount = (req, res) => {
           result: 0,
         });
       } else {
-        return res.send(data);
-        // console.log(JSON.stringify(data));
-        // let count = 0;
-        // for (offer of data) {
-        //   count = count + offer.reservations.length;
-        // }
-        // res.status(200).json({
-        //   result: count,
-        // });
+        res.status(200).json({
+          result: data.length,
+        });
       }
     })
     .catch((err) => {
