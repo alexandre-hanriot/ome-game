@@ -242,6 +242,28 @@ exports.findAllReservations = (req, res) => {
     });
 };
 
+// Récupération du nombre de réservations en attente d'un propriétaire
+exports.findReservationsAmount = (req, res) => {
+  const userId = req.params.userId;
+
+  Reservation.findAll({
+    where: {
+      userId,
+      status: "0",
+    },
+  })
+    .then((data) => {
+      res.status(200).json({
+        result: data.length,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: `Une erreur est survenue pendant la récupération des réservations de l'utilisateur id=${userId} : ${err}`,
+      });
+    });
+};
+
 // Récupération de la réservation d'un utilisateur
 exports.findOneReservation = (req, res) => {
   const userId = req.params.userId;
@@ -252,7 +274,7 @@ exports.findOneReservation = (req, res) => {
       offerId,
       userId,
       status: {
-        [Op.or]: ["0", "1"], // On retourne pas les annulées
+        [Op.or]: ["0", "1"],
       },
     },
     include: {
