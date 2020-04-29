@@ -11,6 +11,9 @@
     color: $primaryColor;
     font-weight: bold;
     margin: $gutter 0;
+    &__infos {
+      color: white;
+    }
   }
   &__container {
     background-color: $darkBlue;
@@ -47,21 +50,23 @@
             font-size: .8em;
           } 
           &__status {
-            border-radius: 10px;
-            padding: ($gutter /7) ($gutter/3);
+            margin-left: 1rem;
+            margin-top: 0.5rem;
+            margin-right: 2rem;
+            border-radius: 5px;
+            padding: .1rem .4rem;
             background-color: $green;
-            font-size: .7em;
-            font-weight: bold;
+            font-size: .9em;
             color: $darkBlue;
-            // float: right;
-            margin-right: $gutter;
-            text-align: center;
+            display: inline-block;
+            font-weight: bold;
 
             &--pending {
               background-color: $primaryColor;
             }
             &--canceled, &--refused {
               background-color: $red;
+              color: #fff;
             }
             &--finished {
               background-color: $green;
@@ -84,7 +89,7 @@
         &__button {
           &__global {
             .global-button {
-              width: 135px;
+              width: 136px;
               margin-bottom: .5rem;
 
               i {

@@ -78,6 +78,10 @@ const Account = ({
     // deleteOffer();
   };
 
+  const handleRemoveImpossible = () => {
+    displayAlert('Vous ne pouvez pas supprimer une offre qui est réservée', false);
+  };
+
   const handleModalOfferImpossible = () => {
     displayModal('modalOfferImpossible');
   };
@@ -111,7 +115,7 @@ const Account = ({
           <div className="account__dashboard">
             {/* Reservations */}
             <div className="account__general reservation">
-              <h2 className="account__general__subtitle">Mes réservations</h2>
+              <h2 className="account__general__subtitle">Mes dernières réservations</h2>
               <table className="account__general__table">
                 <tbody className="account__general__table__body">
                   {reservations.map((reservation) => (
@@ -134,7 +138,7 @@ const Account = ({
                         {reservation.status === '1' && (
                           <span
                             className="account__general__table__body__td__status__available"
-                          >Validée
+                          >Acceptée
                           </span>
                         )}
                         {reservation.status === '2' && (
@@ -186,7 +190,7 @@ const Account = ({
 
             {/* Mes Offres */}
             <div className="account__general offer">
-              <h2 className="account__general__subtitle">Mes offres</h2>
+              <h2 className="account__general__subtitle">Mes dernières offres</h2>
               <table className="account__general__table offer__account__general__table">
                 <tbody className="account__general__table__body ">
                   {offers.map((offerData) => (
@@ -207,12 +211,12 @@ const Account = ({
                           offerData.is_available ? (
                             <span
                               className="account__general__table__body__td__status__available"
-                            >disponible
+                            >Disponible
                             </span>
                           ) : (
                             <span
                               className="account__general__table__body__td__status__unavailable"
-                            >réservée
+                            >Réservée
                             </span>
                           )
                         )}
@@ -233,15 +237,6 @@ const Account = ({
                             <i className="far fa-pencil-alt" />
                           </Link>
                         )}
-                        {(offerData.is_available === false || offerData.status === '0') && (
-                          <button
-                            type="button"
-                            className="account__general__table__body__td__button__pencil__disabled"
-                            disabled
-                            title="Vous ne pouvez pas modifier cette offre"
-                          ><i className="far fa-pencil-alt" />
-                          </button>
-                        )}
                         {(offerData.status === '0' || (offerData.status === '1' && offerData.is_available === true)) && (
                         <button
                           type="button"
@@ -257,10 +252,10 @@ const Account = ({
                         <button
                           type="button"
                           className="account__general__table__body__td__button"
-                          title="Supprimer l'offre"
-                          disabled
+                          title="Vous ne pouvez pas supprimer une offre qui est réservée"
+                          onClick={handleRemoveImpossible}
                         >
-                          <i className="fas fa-trash-alt account__general__table__body__td__button--remove" />
+                          <i className="fas fa-trash-alt account__general__table__body__td__button--disabled" />
                         </button>
                         )}
                       </td>
@@ -303,14 +298,7 @@ const Account = ({
                           )}
                         </td>
                         <td className="account__general__table__body__td account__general__table__body__td--button">
-                          {favorite.offer.is_available ? (
-                            <button
-                              type="button"
-                              className="account__general__table__body__td__button account__general__table__body__td__button__bell"
-                            >
-                              <i className="fas fa-bell-slash account__general__table__body__td__button__bellslash--grey" />
-                            </button>
-                          ) : (
+                          {favorite.offer.is_available === false && (
                             <button
                               data-id={favorite.id}
                               data-notify={favorite.notify_when_available}
@@ -344,7 +332,7 @@ const Account = ({
               <div className="account__profil">
                 <div className="account__profil__left">
                   <ul className="account__profil__left__list">
-                    <li className="account__profil__left__list__content"><span className="account__profil__left__list__content__bold">Nom Prénom : </span>{user.user.firstname}</li>
+                    <li className="account__profil__left__list__content"><span className="account__profil__left__list__content__bold">Nom Prénom : </span>{user.user.lastname} {user.user.firstname}</li>
                     <li className="account__profil__left__list__content"><span className="account__profil__left__list__content__bold">Pseudo : </span> {user.user.username}</li>
                     <li className="account__profil__left__list__content"><span className="account__profil__left__list__content__bold">Adresse email : </span> {user.user.email}</li>
                     <li className="account__profil__left__list__content"><span className="account__profil__left__list__content__bold">Téléphone : </span>{user.user.phone}</li>

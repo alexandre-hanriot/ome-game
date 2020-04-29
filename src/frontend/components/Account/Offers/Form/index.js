@@ -417,6 +417,7 @@ const Form = ({
                   </div>
                 </div>
               </div>
+              <p className="account-offers-form__infos">Votre offre sera soumise à une validation avant d'être publiée en ligne</p>
               <div>
                 {offerSend && <button type="submit" className="account-offers-form__submit" disabled><Loader withMargin={false} /></button>}
                 {!offerSend && <button type="submit" className="account-offers-form__submit">{ offer.id === 0 ? 'Ajouter' : 'Modifier' }</button>}

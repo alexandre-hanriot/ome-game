@@ -81,6 +81,10 @@ const AccountOffers = ({
               Créer une offre
             </Link>
           </div>
+          <ul>
+            <li className="accountOffers__global__legend"><i className="fas fa-concierge-bell accountOffers__global__legend__bell" /> :  <span>Accéder aux demandes de réservation de cette offre.</span></li>
+            <li className="accountOffers__global__legend"><i className="fas fa-dragon accountOffers__global__legend__dragon" /> : <span> Voir les détails de la réservation en cours.</span></li>
+          </ul>
           <ul className="accountOffers__listOffers">
             {data.map((offer) => (
               <li className="accountOffers__listOffers__offer" key={offer.id}>
@@ -107,16 +111,26 @@ const AccountOffers = ({
 
                     {!offer.is_available && (
                       <>
-                        <h3>Client : {offer.reservations[0].user.username}</h3>
+                        <h3>Reservé par : {offer.reservations[0].user.username}</h3>
                         <h3>Reservé le : {formatDate(offer.createdAt)}</h3>
                       </>
                     )}
                   </div>
                   <div className="accountOffers__listOffers__offer__middle">
-                    <div
-                      className={offer.is_available ? 'accountOffers__listOffers__offer__left__status' : 'accountOffers__listOffers__offer__left__status accountOffers__listOffers__offer__left__status--off'}
-                    >{offer.is_available ? 'disponible' : 'réservée'}
-                    </div>
+                    {offer.status === '1' && (
+                      <div
+                        className={offer.is_available ? 'accountOffers__listOffers__offer__left__status' : 'accountOffers__listOffers__offer__left__status accountOffers__listOffers__offer__left__status--off'}
+                      >{offer.status === '1' && (
+                        offer.is_available ? 'Disponible' : 'Réservée'
+                      )}
+                      </div>
+                    )}
+                    {offer.status === '0' && (
+                      <div
+                        className="accountOffers__listOffers__offer__left__status accountOffers__listOffers__offer__left__status--pending"
+                      >En attente de validation
+                      </div>
+                    )}
                     <div className="accountOffers__listOffers__offer__middle__gathered">
                       {offer.is_available === false && (
                       <button
@@ -141,17 +155,8 @@ const AccountOffers = ({
                           >
                             <i className="fas fa-concierge-bell" />
                           </button>
-                          <span>{offer.reservations.length}</span>
+                          <span className="accountOffers__listOffers__offer__middle__request__number">{offer.reservations.length}</span>
                         </>
-                      )}
-                      {offer.status === '0' && (
-                      <i className="accountOffers__listOffers__offer__left__content__bottom__pending fas fa-exclamation-circle" title="Votre offre est en attente de validation" />
-                      )}
-                      {offer.status === '1' && (
-                      <i className="fas fa-check-circle accountOffers__listOffers__offer__left__content__bottom__available" title="votre offre à été validée" />
-                      )}
-                      {offer.status === '2' && (
-                      <i className="fas fa-minus-circle accountOffers__listOffers__offer__left__content__bottom__delete" title="Votre offre à été refusée" />
                       )}
                     </div>
                   </div>

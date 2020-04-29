@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useTitle } from 'src/hooks/useTitle';
+import { formatDate } from 'src/utils/selectors';
 
 import noimage from 'src/assets/images/noimage_450.jpg';
 import './details.scss';
@@ -114,11 +115,22 @@ const Details = ({
                 <button className={favoriteClass} type="button" onClick={handleFavorite} disabled={!isLogged || isOwner}> <i className="fas fa-star" /></button>
                 <button type="button" className="offer-detail__left__buttons__button global-button" onClick={handleModal} disabled={!offer.is_available || !isLogged || offerInReservation || isOwner}>Réserver ce jeu</button>
               </div>
-              {/* <section className="offer-detail__left__user">
-                <p className="offer-detail__left__user__content">A propos de Mme Michu :</p>
-                <p className="offer-detail__left__user__content">Inscrit depuis ...</p>
-                <p className="offer-detail__left__user__content">Possède 10 jeux ...</p>
-              </section> */}
+              <section className="offer-detail__left__user">
+                {console.log(offer)}
+                <div>
+                  {offer.user.picture === '' ? <div className="default-user-image"><i className="fas fa-user" /></div> : <img className="user-picture" src={`http://ec2-54-167-103-17.compute-1.amazonaws.com/images/users/${offer.user.picture}`} alt="" />}
+                </div>
+                <div className="offer-detail__left__user__container">
+                  <p className="offer-detail__left__user__content"><span>Créer par : </span> {offer.user.displayName ? `${offer.user.firstname} ${offer.user.lastname}` : offer.user.username}
+                  </p>
+                  <p className="offer-detail__left__user__content">
+                    <span>Mise en ligne le : </span> {formatDate(offer.createdAt)}
+                  </p>
+                  <p className="offer-detail__left__user__content">
+                    <span>Membre depuis le : </span> {formatDate(offer.user.createdAt)}
+                  </p>
+                </div>
+              </section>
             </div>
             <div className="offer-detail__right">
               <img className="offer-detail__right__image" src={offer.image !== null ? `http://ec2-54-167-103-17.compute-1.amazonaws.com/images/offers/${offer.image}` : noimage} alt="" />

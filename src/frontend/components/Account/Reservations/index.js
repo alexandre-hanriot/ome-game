@@ -65,6 +65,7 @@ const Reservations = ({
             <Link to="/compte/reservations"> Mes reservations</Link>
           </div>
           <h1 className="reservations__title">Mes réservations</h1>
+          <p className="reservations__title__infos">Si votre réservation est acceptée, vous pouvez retrouver les informations de contact en cliquant sur le bouton "Voir plus".</p>
           <ul>
             {data.map((reservation) => {
               const statusClass = classNames('reservations__container__item__left__text__status', {
@@ -78,7 +79,7 @@ const Reservations = ({
               let statusText = 'En attente de validation';
               switch (reservation.status) {
                 case '1':
-                  statusText = 'Validée / En cours';
+                  statusText = 'Acceptée';
                   break;
                 case '2':
                   statusText = 'Terminée';

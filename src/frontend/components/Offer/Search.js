@@ -294,12 +294,15 @@ const Offer = ({
         <ul className="offer__aside__results">
           {results.map((result) => {
             const disponibilityClass = classNames('offer__aside__results__result__disponibility', { 'offer__aside__results__result__disponibility--off': !result.is_available });
-
             return (
               <Link to={`/recherche/jeux/${result.id}/${slugify(result.title, { lower: true })}`} key={result.id}>
                 <li className="offer__aside__results__result">
                   <img src={result.image !== null ? `http://ec2-54-167-103-17.compute-1.amazonaws.com/images/offers/${result.image}` : noimage} alt="" className="offer__aside__results__result__image" />
                   <div className="offer__aside__results__result__content">
+                    <div className="offer__aside__results__result__user">
+                      {(result.user.picture !== null && result.user.picture !== '') && <img src={`http://ec2-54-167-103-17.compute-1.amazonaws.com/images/users/${result.user.picture}`} alt="" title={result.user.display_name ? `${result.user.firstname} ${result.user.lastname}` : result.user.username} />}
+                      {(result.user.picture === null || result.user.picture === '') && <div className="offer__aside__results__result__user__noimage" title={result.user.display_name ? `${result.user.firstname} ${result.user.lastname}` : result.user.username}><i className="fas fa-user" /></div>}
+                    </div>
                     <h3 className="offer__aside__results__result__name">{result.title}</h3>
                     <p className="offer__aside__results__result__city">{result.city} {result.postal_code !== '' ? `(${result.postal_code})` : ''}</p>
                     <p className="offer__aside__results__result__city">{result.game.name} {result.game.year != null && `(${result.game.year})`}</p>

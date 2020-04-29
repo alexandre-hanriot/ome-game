@@ -100,7 +100,7 @@
   }
 }
 .button__disabled {
-  color: $darkBlue;
+  color: grey;
   background-color: #e3e5ecb8;
   font-family: inherit;
   font-size: inherit;
@@ -112,6 +112,10 @@
   &__pencil {
     padding: .3rem;
   }
+  i {
+    color: grey;
+  }
+  
 }
 .accountOffers {
   &__buttonRemove {
@@ -121,8 +125,24 @@
     padding: 0.3rem .4rem;
   }
   &__global {
+    margin-bottom: $gutter/2;
     display: flex;
     justify-content: space-between;
+    &__legend {
+      color: white;
+      line-height: 1.6;
+      & span {
+        margin-left: .3rem;
+      }
+      &__bell {
+        color: $primaryColor;
+        font-size: 1.2em;
+      }
+      &__dragon {
+        color: $red;
+        font-size: 1.2em;
+      }
+    }
 
     &__title {
       font-size: 1.8em;
@@ -216,6 +236,9 @@
             margin-left: 4rem;
             background-color: $backgroundLight;
           }
+          &--pending {
+            background-color: $primaryColor;
+          }
         }
       }
       &__middle {
@@ -235,6 +258,9 @@
           background-color: $darkBlue;
           &:hover {
             color: $secondaryColor;
+          }
+          &__number {
+            color: $primaryColor;
           }
           &__inProgress {
             color: $red;

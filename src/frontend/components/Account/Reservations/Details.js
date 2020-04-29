@@ -49,7 +49,7 @@ const Details = ({
               <span className="reservations__details__list__item__bold">Date de reservation :</span> {formatDate(reservation.createdAt)}
             </li>
             <li className="reservations__details__list__item">
-              <span className="reservations__details__list__item__bold">Etat de la reservation :</span>{reservation.status === '0' && ' En attente de validation pour la propriétaire'}{reservation.status === '1' && ' Validée, en cours de réservation'}{reservation.status === '2' && ' Terminée'}{reservation.status === '3' && ' Refusée'}{reservation.status === '4' && ' Annulée'}
+              <span className="reservations__details__list__item__bold">Etat de la reservation :</span>{reservation.status === '0' && ' En attente de validation par le propriétaire'}{reservation.status === '1' && ' Accepté'}{reservation.status === '2' && ' Terminée'}{reservation.status === '3' && ' Refusée'}{reservation.status === '4' && ' Annulée'}
             </li>
           </ul>
         )}
