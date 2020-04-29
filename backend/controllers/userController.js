@@ -245,17 +245,37 @@ exports.findAllReservations = (req, res) => {
 // Récupération du nombre de réservations en attente d'un propriétaire
 exports.findReservationsAmount = (req, res) => {
   const userId = req.params.userId;
+  console.log(userId);
 
   Reservation.findAll({
     where: {
-      userId,
       status: "0",
+    },
+    include: {
+      model: Offer,
+      where: {
+        userId: {
+          [Op.eq]: userId,
+        },
+      },
     },
   })
     .then((data) => {
-      res.status(200).json({
-        result: data.length,
-      });
+      if (data === null) {
+        return res.status(200).json({
+          result: 0,
+        });
+      } else {
+        return res.send(data);
+        // console.log(JSON.stringify(data));
+        // let count = 0;
+        // for (offer of data) {
+        //   count = count + offer.reservations.length;
+        // }
+        // res.status(200).json({
+        //   result: count,
+        // });
+      }
     })
     .catch((err) => {
       res.status(500).json({
