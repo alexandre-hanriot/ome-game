@@ -1,7 +1,6 @@
 const { Op } = require("sequelize");
 const db = require("../models/index");
 const Offer = db.offers;
-const User = db.users;
 const Game = db.games;
 const Game_category = db.game_categories;
 const User = db.users;
