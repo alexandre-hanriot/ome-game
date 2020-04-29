@@ -33,7 +33,7 @@ exports.create = (req, res) => {
 
 // Modification d'un favori
 exports.update = (req, res) => {
-  const id = req.params.userId;
+  const id = req.params.id;
 
   coreController.update(Favorite, id, req, res);
 };

@@ -130,7 +130,7 @@ exports.deleteManyByID = (req, res) => {
 
 // Suppression d'une réservation en fonction de sa clé primaire
 exports.deleteOne = (req, res) => {
-  const id = req.params.userId;
+  const id = req.params.id;
 
   coreController.deleteOne(Reservation, id, res);
 };
