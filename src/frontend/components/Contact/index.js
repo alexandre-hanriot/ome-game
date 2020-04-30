@@ -7,7 +7,6 @@ import './contact.scss';
 import { useTitle } from 'src/hooks/useTitle';
 import { labelClassname } from 'src/utils/selectors';
 import Loader from 'src/frontend/components/Loader';
-import ReCAPTCHA from 'react-google-recaptcha';
 
 const Contact = ({
   displayAlert,
@@ -19,18 +18,12 @@ const Contact = ({
   isLoad,
   setField,
   sendMessage,
-  sendCaptcha,
 }) => {
   useTitle('Contact');
-
-  const recaptchaRef = useRef(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     let error = false;
-
-    const recaptchaValue = recaptchaRef.current.getValue();
-    sendCaptcha(recaptchaValue);
 
     if (firstname === '' || lastname === '' || email === '' || message === '') {
       error = true;
@@ -89,14 +82,6 @@ const Contact = ({
           </label>
         </div>
 
-        <div className="contact__form__recaptcha">
-          <ReCAPTCHA
-            ref={recaptchaRef}
-            sitekey="6LeDgfAUAAAAAEz5C4vuqMAZzsC0irWyOumQdx4l"
-            // onChange={captchaChange}
-          />
-        </div>
-
         {isLoad && <button className="contact__form__button global-button" type="button" disabled><Loader withMargin={false} /></button>}
         {!isLoad && <button className="contact__form__button global-button" type="submit" onClick={handleSubmit}>Envoyer</button>}
       </form>
@@ -116,7 +101,6 @@ Contact.propTypes = {
   isLoad: PropTypes.bool.isRequired,
   setField: PropTypes.func.isRequired,
   sendMessage: PropTypes.func.isRequired,
-  sendCaptcha: PropTypes.func.isRequired,
 };
 
 export default Contact;

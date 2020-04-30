@@ -61,6 +61,18 @@ const Details = ({
     }
   }, [offer]);
 
+  useEffect(() => {
+    if (offer.id !== 0) {
+      setTimeout(
+        () => {
+          checkOfferInFavorite();
+          checkOfferInReservation();
+        },
+        1000,
+      );
+    }
+  }, [isLogged]);
+
   useTitle(offer.title);
 
   const handleFavorite = () => {

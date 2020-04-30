@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import Contact from 'src/frontend/components/Contact';
 
 import { showAlert } from 'src/actions/global';
-import { setField, sendMessage, sendCaptcha } from 'src/actions/contact';
+import { setField, sendMessage } from 'src/actions/contact';
 
 const mapStateToProps = (state) => ({
   showAlert: state.global.showAlert,
@@ -23,9 +23,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   sendMessage: () => {
     dispatch(sendMessage());
-  },
-  sendCaptcha: (value) => {
-    dispatch(sendCaptcha(value));
   },
 });
 
