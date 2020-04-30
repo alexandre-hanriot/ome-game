@@ -82,7 +82,7 @@ const Contact = ({
           </label>
         </div>
 
-        <div class="contact__form__recaptcha"><div class="g-recaptcha" data-sitekey="6LeDgfAUAAAAAEz5C4vuqMAZzsC0irWyOumQdx4l"></div></div>
+        <div className="contact__form__recaptcha"><div className="g-recaptcha" data-sitekey="6LeDgfAUAAAAAEz5C4vuqMAZzsC0irWyOumQdx4l"></div></div>
 
         {isLoad && <button className="contact__form__button global-button" type="button" disabled><Loader withMargin={false} /></button>}
         {!isLoad && <button className="contact__form__button global-button" type="submit" onClick={handleSubmit}>Envoyer</button>}
