@@ -1,5 +1,17 @@
 @import 'src/styles/_vars.scss';
+.dashboard__legend {
+  margin: $gutter/2 0;
+  line-height: 1.6;
 
+  &__disable {
+    & i {
+      color: #1e2d40;
+    }
+  }
+}
+.empty-profil {
+  color:rgba(255, 255, 255, 0.4);
+}
 .account {
   &__modal {
     display: flex;
@@ -300,6 +312,7 @@
           line-height: 2em;
           &__bold {
             font-weight: bold;
+            margin-right: .5rem;
           }
         }
 
