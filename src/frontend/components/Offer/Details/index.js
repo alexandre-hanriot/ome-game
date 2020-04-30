@@ -58,8 +58,21 @@ const Details = ({
     }
     if (offer.id !== 0) {
       changeOfferDetailIsLoad();
+      saveCurrentFavorite(offer.id);
     }
   }, [offer]);
+
+  useEffect(() => {
+    if (offer.id !== 0) {
+      setTimeout(
+        () => {
+          checkOfferInFavorite();
+          checkOfferInReservation();
+        },
+        1000,
+      );
+    }
+  }, [isLogged]);
 
   useEffect(() => {
     if (offer.id !== 0) {

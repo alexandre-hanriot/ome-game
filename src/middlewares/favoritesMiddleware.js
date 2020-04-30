@@ -132,7 +132,7 @@ const favoritesMiddleware = (store) => (next) => (action) => {
         })
           .then((response) => {
             store.dispatch(setOfferInFavorite(response.data.result));
-            store.dispatch(saveCurrentFavorite(response.data.id));
+            // store.dispatch(saveCurrentFavorite(response.data.id));
           })
           .catch((error) => {
             // console.warn(error);
