@@ -171,8 +171,7 @@ module.exports = (sequelize, Sequelize) => {
           const slugGame = slugify(offer.gameId);
           const mailOptions = {
             from: "omegameatlantis@gmail.com", // sender address
-            // to: favorite.user.email, // list of receivers
-            to: "omegameatlantis@gmail.com", // list of receivers
+            to: favorite.user.email, // list of receivers
             subject: `L'offre ${offer.title} est maintenant disponible`, // Subject line
             html: `Bonjour ${favorite.user.username}.<br>L'offre ${offer.title} est maintenant disponible. Retrouvez tous les détails de l'offre en cliquant sur le lien suivant : http://ec2-54-167-103-17.compute-1.amazonaws.com/recherche/jeux/${slugGame}/${slugTitle}.<br><br>.A bientôt !<br>L'équipe O'meGame`, // plain text body
           };
