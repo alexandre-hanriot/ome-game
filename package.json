@@ -55,6 +55,7 @@
     "react-dom": "*",
     "react-geocode": "^0.2.1",
     "react-google-autocomplete": "^1.1.4",
+    "react-google-recaptcha": "^2.0.1",
     "react-media-hook": "^0.4.6",
     "react-password-strength": "^2.4.0",
     "react-redux": "^7.2.0",

@@ -6609,6 +6609,14 @@ raw-body@2.4.0:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
+react-async-script@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-async-script/-/react-async-script-1.1.1.tgz#f481c6c5f094bf4b94a9d52da0d0dda2e1a74bdf"
+  integrity sha512-pmgS3O7JcX4YtH/Xy//NXylpD5CNb5T4/zqlVUV3HvcuyOanatvuveYoxl3X30ZSq/+q/+mSXcNS8xDVQJpSeA==
+  dependencies:
+    hoist-non-react-statics "^3.3.0"
+    prop-types "^15.5.0"
+
 react-autocomplete-input@^1.0.13:
   version "1.0.13"
   resolved "https://registry.yarnpkg.com/react-autocomplete-input/-/react-autocomplete-input-1.0.13.tgz#10d6010ff6c05302ddc7bf6ec14a8e7d289f2a62"
@@ -6641,6 +6649,14 @@ react-google-autocomplete@^1.1.4:
   integrity sha512-Ogj9wtNbd41BjYwbjYdIHk3X5m1a3cuVXa4si2DdEEMQYk/X1lXXrV2lZW7cFD8afg8MQOfIKltLI1WMLARC8Q==
   dependencies:
     prop-types "^15.5.0"
+
+react-google-recaptcha@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-google-recaptcha/-/react-google-recaptcha-2.0.1.tgz#3276b29659493f7ca2a5b7739f6c239293cdf1d8"
+  integrity sha512-4Y8awVnarn7+gdVpu8uvSmRJzzlMMoXqdhLoyToTOfVK6oM+NaChNI8NShnu75Q2YGHLvR1IA1FWZesuYHwn5w==
+  dependencies:
+    prop-types "^15.5.0"
+    react-async-script "^1.1.1"
 
 react-is@^16.6.0, react-is@^16.7.0, react-is@^16.9.0:
   version "16.13.1"

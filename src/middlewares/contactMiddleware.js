@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { SEND_MESSAGE, setField } from 'src/actions/contact';
+import { SEND_MESSAGE, setField, SEND_CAPTCHA } from 'src/actions/contact';
 import { showAlert } from 'src/actions/global';
 
 const contactMiddleware = (store) => (next) => (action) => {
@@ -36,6 +36,25 @@ const contactMiddleware = (store) => (next) => (action) => {
       next(action);
       break;
     }
+
+    case SEND_CAPTCHA: {
+
+      console.log(action.value);
+      axios.post('https://www.google.com/recaptcha/api/siteverify', {
+        secret: '6LeDgfAUAAAAAHR_59OTzbuTHeQi6aJah3EiO3Rm',
+        response: action.value,
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
+      next(action);
+      break;
+    }
+
 
     default:
       next(action);
