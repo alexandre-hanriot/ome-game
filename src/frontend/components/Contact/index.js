@@ -55,6 +55,9 @@ const Contact = ({
   return (
     <div className="wrapper contact">
       <h1 className="contact__title">Contact</h1>
+      <p>
+        Pour toute demande concernant le site , ce formulaire vous propose d'envoyer un mail à l'équipe O'me Game.
+      </p>
       <form className="contact__form">
         <label className={labelClassname(firstname)}>
           <input className="contact__form__input global-input" name="firstname" value={firstname} onChange={handleChangeField} />

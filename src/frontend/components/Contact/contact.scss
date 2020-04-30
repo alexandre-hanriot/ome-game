@@ -1,6 +1,10 @@
 @import 'src/styles/_vars.scss';
 
 .contact {
+  & p {
+    text-align: center;
+    margin-bottom: $gutter;
+  }
   &__title {
     font-size: 3em;
     text-align: center;

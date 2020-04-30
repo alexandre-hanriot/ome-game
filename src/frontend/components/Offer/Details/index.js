@@ -61,22 +61,37 @@ const Details = ({
   useTitle(offer.title);
 
   const handleFavorite = () => {
-    if (offerInFavorite) {
-      displayAlert('Vous avez bien retiré cette offre de vos favoris', true);
-      removeFavorite();
+    if (isLogged) {
+      if (offerInFavorite) {
+        displayAlert('Vous avez bien retiré cette offre de vos favoris', true);
+        removeFavorite();
+      }
+      else {
+        displayAlert('Vous avez bien ajouté cette offre dans vos favoris', true);
+        addFavorite();
+      }
     }
     else {
-      displayAlert('Vous avez bien ajouté cette offre dans vos favoris', true);
-      addFavorite();
+      displayModal('login');
     }
   };
 
   const handleModal = () => {
-    displayModal('bookGame');
+    if (isLogged) {
+      if (offerInReservation) {
+        displayAlert('Vous avez déjà effectué une demande de reservation pour cette offre', false);
+      }
+      else {
+        displayModal('bookGame');
+      }
+    }
+    else {
+      displayModal('login');
+    }
   };
 
   const disponibilityClass = classNames('offer-detail__infos__disponibility', { 'offer-detail__infos__disponibility--off': !offer.is_available });
-  const favoriteClass = classNames('offer-detail__left__buttons__button global-button', { 'active': offerInFavorite });
+  const favoriteClass = classNames('offer-detail__left__buttons__button global-button', { active: offerInFavorite });
 
   const isOwner = (offer.userId === userId);
 
@@ -112,8 +127,14 @@ const Details = ({
                 {offer.description}
               </div>
               <div className="offer-detail__left__buttons">
-                <button className={favoriteClass} type="button" onClick={handleFavorite} disabled={!isLogged || isOwner}> <i className="fas fa-star" /></button>
-                <button type="button" className="offer-detail__left__buttons__button global-button" onClick={handleModal} disabled={!offer.is_available || !isLogged || offerInReservation || isOwner}>Réserver ce jeu</button>
+                <button
+                  className={favoriteClass}
+                  type="button"
+                  onClick={handleFavorite}
+                >
+                  <i className="fas fa-star" />
+                </button>
+                <button type="button" className="offer-detail__left__buttons__button global-button" onClick={handleModal}>Réserver ce jeu</button>
               </div>
               <section className="offer-detail__left__user">
                 {console.log(offer)}
