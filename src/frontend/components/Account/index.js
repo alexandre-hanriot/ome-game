@@ -201,7 +201,7 @@ const Account = ({
                         className="account__general__table__body__td account__general__table__body__td--left offer__account__general__table__body__tr"
                       >{offerData.status === '1' ? (
                         <Link
-                          to={`/recherche/jeux/${offerData.id}/${offerData.title}`}
+                          to={`/recherche/jeux/${offerData.id}/${slugify(offerData.title, { lower: true })}`}
                           className="account__general__table__body__td__link"
                         >{truncateText(offerData.title)}
                         </Link>
@@ -334,11 +334,35 @@ const Account = ({
               <div className="account__profil">
                 <div className="account__profil__left">
                   <ul className="account__profil__left__list">
-                    <li className="account__profil__left__list__content"><span className="account__profil__left__list__content__bold">Nom Prénom : </span>{user.user.lastname} {user.user.firstname}</li>
-                    <li className="account__profil__left__list__content"><span className="account__profil__left__list__content__bold">Pseudo : </span> {user.user.username}</li>
-                    <li className="account__profil__left__list__content"><span className="account__profil__left__list__content__bold">Adresse email : </span> {user.user.email}</li>
-                    <li className="account__profil__left__list__content"><span className="account__profil__left__list__content__bold">Téléphone : </span>{user.user.phone}</li>
-                    <ul className="account__profil__left__list__content"><span className="account__profil__left__list__content__bold">Adresse postale : </span>
+                    <li className="account__profil__left__list__content">
+                      <span className={(user.user.lastname === '') ? 'account__profil__left__list__content__bold empty-profil' : 'account__profil__left__list__content__bold'}>
+                        Nom :
+                      </span>
+                      {user.user.lastname}
+                    </li>
+                    <li className="account__profil__left__list__content">
+                      <span className={user.user.firstname === '' ? 'account__profil__left__list__content__bold empty-profil' : 'account__profil__left__list__content__bold'}>
+                        Prénom :
+                      </span>
+                      {user.user.firstname}
+                    </li>
+                    <li className="account__profil__left__list__content">
+                      <span className="account__profil__left__list__content__bold">
+                        Pseudo :
+                      </span> {user.user.username}
+                    </li>
+                    <li className="account__profil__left__list__content">
+                      <span className="account__profil__left__list__content__bold">
+                        Adresse email :
+                      </span> {user.user.email}
+                    </li>
+                    <li className="account__profil__left__list__content">
+                      <span className={user.user.phone === '' ? 'account__profil__left__list__content__bold empty-profil' : 'account__profil__left__list__content__bold'}>
+                        Téléphone :
+                      </span>{user.user.phone}
+                    </li>
+                    <ul className="account__profil__left__list__content">
+                      <span className={user.user.address === '' ? 'account__profil__left__list__content__bold empty-profil' : 'account__profil__left__list__content__bold'}>Adresse postale : </span>
                       <li>{user.user.adress}</li>
                       <li>{user.user.postal_code} {user.user.city}</li>
                     </ul>
@@ -352,6 +376,12 @@ const Account = ({
               </div>
             </div>
           </div>
+          <p className="dashboard__legend">
+            <i className="fas fa-bell account__general__table__body__td__button--bell" /> : Notifie par mail lorsque l'offre est disponible.
+          </p>
+          <p className="dashboard__legend dashboard__legend__disable">
+            <i className="fas fa-bell-slash account__general__table__body__td__button--bellslash" /> : Les notifications sont désactivés.
+          </p>
         </div>
       )}
     </>

@@ -148,7 +148,7 @@ const userReducer = (state = initialState, action = {}) => {
             username: '',
             firstname: '',
             lastname: '',
-            phone: 1234567890,
+            phone: '',
             address: '',
             postal_code: '',
             city: '',
