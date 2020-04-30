@@ -88,8 +88,10 @@ const Details = ({
 
   useTitle(offer.title);
 
+  const isOwner = (offer.userId === userId);
+
   const handleFavorite = () => {
-    if (isLogged) {
+    if (isLogged && !isOwner) {
       if (offerInFavorite) {
         displayAlert('Vous avez bien retiré cette offre de vos favoris', true);
         removeFavorite();
@@ -99,6 +101,9 @@ const Details = ({
         addFavorite();
       }
     }
+    else if (isOwner) {
+      displayAlert('Vous ne pouvez pas mettre votre offre en favori', false);
+    }
     else {
       displayModal('login');
     }
@@ -106,8 +111,14 @@ const Details = ({
 
   const handleModal = () => {
     if (isLogged) {
-      if (offerInReservation) {
+      if (offerInReservation && !isOwner) {
         displayAlert('Vous avez déjà effectué une demande de reservation pour cette offre', false);
+      }
+      else if (!offer.is_available && !isOwner) {
+        displayAlert('Vous ne pouvez pas réserver cette offre car elle n\'est pas disponible', false);
+      }
+      else if (isOwner) {
+        displayAlert('Vous ne pouvez pas réserver votre offre', false);
       }
       else {
         displayModal('bookGame');
@@ -120,8 +131,6 @@ const Details = ({
 
   const disponibilityClass = classNames('offer-detail__infos__disponibility', { 'offer-detail__infos__disponibility--off': !offer.is_available });
   const favoriteClass = classNames('offer-detail__left__buttons__button global-button', { active: offerInFavorite });
-
-  const isOwner = (offer.userId === userId);
 
   return (
     <>
@@ -159,6 +168,7 @@ const Details = ({
                   className={favoriteClass}
                   type="button"
                   onClick={handleFavorite}
+                  title="Ajouter l'offre en favori"
                 >
                   <i className="fas fa-star" />
                 </button>
