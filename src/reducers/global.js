@@ -6,6 +6,7 @@ import {
   REDIRECT_TO,
   SET_APP_LOADING,
   SET_UPDATE,
+  CHANGE_FOF,
 } from 'src/actions/global';
 
 const initialState = {
@@ -19,6 +20,7 @@ const initialState = {
   modalParams: {},
   appIsLoad: false,
   update: '',
+  isFof: false,
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -66,7 +68,11 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         update: action.value,
       };
-
+    case CHANGE_FOF:
+      return {
+        ...state,
+        isFof: !state.isFof,
+      };
     default:
       return state;
   }

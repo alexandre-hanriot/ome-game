@@ -13,6 +13,7 @@ import {
   clearOffer,
   setOfferInFavorite,
   setOfferInReservation,
+  changeOfferDetailIsLoad,
 } from 'src/actions/offers';
 
 import {
@@ -29,7 +30,7 @@ import {
 const mapStateToProps = (state) => ({
   showAlert: state.global.showAlert,
   showModal: state.global.showModal,
-  offerIsLoad: state.offers.offerIsLoad,
+  offerDetailIsLoad: state.offers.offerDetailIsLoad,
   offer: state.offers.offer,
   isLogged: state.user.isLogged,
   offerInFavorite: state.offers.offerInFavorite,
@@ -76,6 +77,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   saveCurrentFavorite: (value) => {
     dispatch(saveCurrentFavorite(value));
+  },
+  changeOfferDetailIsLoad: () => {
+    dispatch(changeOfferDetailIsLoad());
   },
 });
 

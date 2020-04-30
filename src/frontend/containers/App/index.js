@@ -11,6 +11,7 @@ const mapStateToProps = (state) => ({
   rememberMe: state.user.rememberMe,
   appIsLoad: state.global.appIsLoad,
   user: state.user.userData.user,
+  isFof: state.global.isFof,
 });
 
 const mapDispatchToProps = (dispatch) => ({

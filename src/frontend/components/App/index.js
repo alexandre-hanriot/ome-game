@@ -40,6 +40,7 @@ const App = ({
   appIsLoad,
   setAppLoading,
   user,
+  isFof,
 }) => {
   const location = useLocation();
   // return the current pathname
@@ -49,8 +50,8 @@ const App = ({
   const appClass = classNames('app', {
     'app--light': isHome,
     'app--error': isError,
+    'fof--on': isFof,
   });
-
   let redirectUrl = '';
   if (redirectTo.length > 0) {
     redirectUrl = redirectTo;
@@ -66,7 +67,6 @@ const App = ({
     }
     return () => {
       setAppLoading(false);
-      console.log('coucou je passe par la, et c\'est pas bien');
     };
   }, []);
 
@@ -170,6 +170,7 @@ App.propTypes = {
   appIsLoad: PropTypes.bool.isRequired,
   setAppLoading: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
+  isFof: PropTypes.bool.isRequired,
 };
 // == Export
 export default App;

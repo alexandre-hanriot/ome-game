@@ -24,6 +24,7 @@ export const UPDATE_STATUS_STATE_OFFER = 'UPDATE_STATUS_STATE_OFFER';
 export const CLEAR_OFFERS = 'CLEAR_OFFERS';
 export const UPDATE_STATUS_OFFER2 = 'UPDATE_STATUS_OFFER2';
 export const SAVE_OFFERS_ADMIN = 'SAVE_OFFERS_ADMIN';
+export const SET_OFFER_DETAIL_IS_LOAD = 'SET_OFFER_DETAIL_IS_LOAD';
 
 // action creators
 export const fetchOffers = () => ({
@@ -141,4 +142,8 @@ export const updateStatusOffer2 = (id, status) => ({
 export const saveOffersAdmin = (data) => ({
   type: SAVE_OFFERS_ADMIN,
   data,
+});
+
+export const changeOfferDetailIsLoad = () => ({
+  type: SET_OFFER_DETAIL_IS_LOAD,
 });

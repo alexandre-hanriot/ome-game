@@ -198,7 +198,6 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         },
       })
         .then((response) => {
-          console.log(response.data);
           store.dispatch(saveListofferReservation(idReservation));
         })
         .catch((error) => {
@@ -222,7 +221,6 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         },
       })
         .then((response) => {
-          console.log(response.data);
           store.dispatch(updateStateOffers(idReservation));
         })
         .catch((error) => {
@@ -246,8 +244,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
         },
       })
         .then((response) => {
-          console.log(response.data);
-          // store.dispatch(updateStatusStateReservation(idReservation));
+
         })
         .catch((error) => {
           console.warn(error);

@@ -10,6 +10,8 @@ import './home.scss';
 const Home = ({
   changeCoordinates,
   changeZoom,
+  changeFof,
+  isFof,
 }) => {
   useTitle();
   const history = useHistory();
@@ -70,11 +72,22 @@ const Home = ({
         );
     }
   };
-
+  const handleFof = () => {
+    changeFof();
+  };
   return (
     <div className="wrapper wrapper-home">
-      <div className="home">
-        <h1 className="home__title">O`me Game</h1>
+      <div className={isFof ? 'home home--f0f' : 'home'}>
+        <h1 className="home__title">O
+          <button
+            className="fof"
+            type="button"
+            onClick={handleFof}
+          >
+            `
+          </button>
+          me Game {isFof && '#f0f'}
+        </h1>
         <p className="home__text">
           Bienvenue ! Vous êtes arrivé sur un site de prêt et de location de jeux de société.
         </p>
@@ -109,6 +122,7 @@ const Home = ({
 Home.propTypes = {
   changeCoordinates: PropTypes.func.isRequired,
   changeZoom: PropTypes.func.isRequired,
+  changeFof: PropTypes.func.isRequired,
 };
 
 export default Home;

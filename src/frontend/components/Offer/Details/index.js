@@ -20,8 +20,8 @@ const Details = ({
   displayModal,
   saveOfferId,
   getOffer,
-  offerIsLoad,
-  changeOfferIsLoad,
+  offerDetailIsLoad,
+  changeOfferDetailIsLoad,
   offer,
   isLogged,
   clearOffer,
@@ -43,7 +43,7 @@ const Details = ({
     getOffer();
 
     return function cleanup() {
-      changeOfferIsLoad();
+      changeOfferDetailIsLoad();
       clearOffer();
       setOfferInFavorite(false);
       setOfferInReservation(false);
@@ -55,6 +55,9 @@ const Details = ({
     if (offer.id !== 0 && isLogged) {
       checkOfferInFavorite();
       checkOfferInReservation();
+    }
+    if (offer.id !== 0) {
+      changeOfferDetailIsLoad();
     }
   }, [offer]);
 
@@ -97,8 +100,8 @@ const Details = ({
 
   return (
     <>
-      {!offerIsLoad && <Loader />}
-      {offerIsLoad && (
+      {!offerDetailIsLoad && <Loader />}
+      {offerDetailIsLoad && (
         <article className="wrapper offer-detail">
           {showAlert && <Alert />}
           {showModal === 'bookGame' && <Modal content={<BookGame offer={offer} />} />}
@@ -137,7 +140,6 @@ const Details = ({
                 <button type="button" className="offer-detail__left__buttons__button global-button" onClick={handleModal}>Réserver ce jeu</button>
               </div>
               <section className="offer-detail__left__user">
-                {console.log(offer)}
                 <div>
                   {(offer.user.picture === '' || offer.user.picture === null) ? <div className="default-user-image"><i className="fas fa-user" /></div> : <img className="user-picture" src={`http://ec2-54-167-103-17.compute-1.amazonaws.com/images/users/${offer.user.picture}`} alt="" />}
                 </div>
@@ -174,8 +176,8 @@ Details.propTypes = {
   showModal: PropTypes.string.isRequired,
   saveOfferId: PropTypes.func.isRequired,
   getOffer: PropTypes.func.isRequired,
-  offerIsLoad: PropTypes.bool.isRequired,
-  changeOfferIsLoad: PropTypes.func.isRequired,
+  offerDetailIsLoad: PropTypes.bool.isRequired,
+  changeOfferDetailIsLoad: PropTypes.func.isRequired,
   offer: PropTypes.object.isRequired,
   isLogged: PropTypes.bool.isRequired,
   clearOffer: PropTypes.func.isRequired,

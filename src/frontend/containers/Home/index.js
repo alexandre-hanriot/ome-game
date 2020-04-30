@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
 import Home from 'src/frontend/components/Home';
-
+import { changeFof } from 'src/actions/global';
 import {
   changeCoordinates,
   changeZoom,
 } from 'src/actions/map';
 
 const mapStateToProps = (state) => ({
+  isFof: state.global.isFof,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -15,6 +16,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeZoom: (value) => {
     dispatch(changeZoom(value));
+  },
+  changeFof: () => {
+    dispatch(changeFof());
   },
 });
 

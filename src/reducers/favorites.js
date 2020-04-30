@@ -60,7 +60,6 @@ const favoritesReducer = (state = initialState, action = {}) => {
 
     case UPDATE_FAVORITES:
     {
-      console.log('action mise à jour dans le réducers', action.id);
       const remainFavorites = state.allFavorites.filter((favorite) => {
         if (favorite.id.toString() !== action.id.toString()) {
           return true;

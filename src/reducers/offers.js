@@ -14,6 +14,7 @@ import {
   UPDATE_STATUS_STATE_OFFER,
   CLEAR_OFFERS,
   SAVE_OFFERS_ADMIN,
+  SET_OFFER_DETAIL_IS_LOAD,
 } from 'src/actions/offers';
 
 import {
@@ -65,6 +66,7 @@ const initialState = {
   },
   urlId: '',
   offerIsLoad: false,
+  offerDetailIsLoad: false,
   offerInFavorite: false,
   offerInReservation: false,
   offerSend: false,
@@ -100,6 +102,11 @@ const offersReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         offerIsLoad: !state.offerIsLoad,
+      };
+    case SET_OFFER_DETAIL_IS_LOAD:
+      return {
+        ...state,
+        offerDetailIsLoad: !state.offerDetailIsLoad,
       };
     case SAVE_OFFERS_ADMIN:
       return {
@@ -195,15 +202,11 @@ const offersReducer = (state = initialState, action = {}) => {
 
     case UPDATE_LIST_OFFERS:
     {
-      console.log('action mise à jour dans le réducers', action.id);
       const remainOffers = state.allOffers.filter((offer) => {
-        console.log(offer.id);
-        console.log(action.id);
         if (offer.id.toString() !== action.id.toString()) {
           return true;
         }
       });
-      console.log(remainOffers);
       return {
         ...state,
         allOffers: remainOffers,
