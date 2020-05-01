@@ -134,7 +134,7 @@ const AccountOffers = ({
                       </div>
                     )}
                     <div className="accountOffers__listOffers__offer__middle__gathered">
-                      {(offer.is_available === false && offer.reservations.length > 0) && (
+                      {(offer.is_available === false && offer.reservations.length > 0 && offer.status === '1') && (
                       <button
                         type="button"
                         title="Réservation en cours"
