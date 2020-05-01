@@ -58,7 +58,6 @@ const Details = ({
     }
     if (offer.id !== 0) {
       changeOfferDetailIsLoad();
-      saveCurrentFavorite(offer.id);
     }
   }, [offer]);
 
