@@ -117,6 +117,7 @@
       
         overflow: auto;
         &__tr {
+          margin: $gutter/2;
           border-bottom: 1px solid $lightBlue;
           &__td{
             overflow: hidden;
@@ -347,8 +348,14 @@
     &__title {
       text-align: center;
     }
+    
     &__general {
       width: 100%;
+      
+      .account__general__button {
+        width: 150px;
+        right: calc(50% - 75px);
+      }
 
       &__table {
         &__body {

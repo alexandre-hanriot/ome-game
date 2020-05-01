@@ -228,6 +228,37 @@
         width: 100%;
       }
     }
+
+    &__avatar {
+      text-align: center;
+      &__image {
+        margin: 0 auto;
+      }
+      &__noimage {
+        margin: 0 auto;
+      }
+    }
+
+    &__infos {
+      text-align: center;
+      margin-bottom: $gutter;
+      &__field {
+      }
+    }
+    &__address {
+      text-align: center;
+      margin-bottom: $gutter;
+      &__field {
+
+      }
+    }
+    &__password {
+      text-align: center;  
+      margin-bottom: $gutter;
+      &__field {
+
+      }
+    }
   }
 }
 

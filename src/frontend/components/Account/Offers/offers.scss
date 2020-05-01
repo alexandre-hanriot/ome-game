@@ -312,12 +312,11 @@
 }
 
 @media (max-width: 820px) {
-  .global-button--light {
-    min-width: 100%;
-    text-align: center;
-  }
-
   .accountOffers {
+    .global-button--light {
+      min-width: 100%;
+      text-align: center;
+    }
 
     &__global {
       margin-bottom: $gutter;
