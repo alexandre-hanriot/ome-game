@@ -289,7 +289,7 @@ const Account = ({
                           </Link>
                         </td>
                         <td className="account__general__table__body__td account__general__table__body__td--status">
-                          {favorite.offer.is_available ? (
+                          {(favorite.offer.is_available && favorite.offer.status === '1') ? (
                             <span
                               className="account__general__table__body__td__status__available"
                             >Disponible
@@ -302,7 +302,7 @@ const Account = ({
                           )}
                         </td>
                         <td className="account__general__table__body__td account__general__table__body__td--button">
-                          {favorite.offer.is_available === false && (
+                          {(favorite.offer.is_available === false && favorite.offer.status === '1') && (
                             <button
                               data-id={favorite.id}
                               data-notify={favorite.notify_when_available}
