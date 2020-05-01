@@ -244,13 +244,12 @@
               color: grey;          text-align: center;
             }
           }
-          &__button__pencil {      
-          }
           &__button__pencil{
             color: $darkBlue;
           }
           &__button__remove{
             color: $red;
+            // font-size: 1.5em;
           }
           &__button__eye {
             color: $darkBlue;

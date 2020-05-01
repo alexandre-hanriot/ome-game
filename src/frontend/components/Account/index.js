@@ -180,7 +180,7 @@ const Account = ({
                           data-status={reservation.status}
                           onClick={handleModalReservation}
                         >
-                          <i className="far fa-times" />
+                          <i className="fas fa-trash-alt" />
                         </button>
                       </td>
                     </tr>
@@ -209,16 +209,18 @@ const Account = ({
                       </td>
                       <td className="account__general__table__body__td account__general__table__body__td--status">
 
-                        {offerData.status === '1' && (
-                          offerData.is_available ? (
+                        {(offerData.status === '1' && offerData.is_available) && <span className="account__general__table__body__td__status__available">Disponible</span>}
+
+                        {(offerData.status === '1' && !offerData.is_available) && (
+                          offerData.reservations.length > 0 ? (
                             <span
-                              className="account__general__table__body__td__status__available"
-                            >Disponible
+                              className="account__general__table__body__td__status__unavailable"
+                            >Réservée
                             </span>
                           ) : (
                             <span
                               className="account__general__table__body__td__status__unavailable"
-                            >Réservée
+                            >Non disponible
                             </span>
                           )
                         )}
@@ -230,7 +232,7 @@ const Account = ({
                         )}
                       </td>
                       <td className="account__general__table__body__td account__general__table__body__td--button">
-                        {(offerData.is_available && offerData.status === '1') && (
+                        {(offerData.status === '1' && (offerData.is_available || (!offerData.is_available && offerData.reservations.length === 0))) && (
                           <Link
                             className="account__general__table__body__td__button__pencil"
                             to={`compte/offres/${offerData.id}`}
@@ -239,7 +241,7 @@ const Account = ({
                             <i className="far fa-pencil-alt" />
                           </Link>
                         )}
-                        {(offerData.status === '0' || (offerData.status === '1' && offerData.is_available === true)) && (
+                        {(offerData.status === '0' || (offerData.status === '1' && (offerData.is_available || (!offerData.is_available && offerData.reservations.length === 0)))) && (
                         <button
                           type="button"
                           className="account__general__table__body__td__button"
@@ -250,7 +252,7 @@ const Account = ({
                           <i className="fas fa-trash-alt account__general__table__body__td__button--remove" />
                         </button>
                         )}
-                        {(offerData.status === '1' && offerData.is_available === false) && (
+                        {(offerData.status === '1' && (!offerData.is_available && offerData.reservations.length > 0)) && (
                         <button
                           type="button"
                           className="account__general__table__body__td__button"

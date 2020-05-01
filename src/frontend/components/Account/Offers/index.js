@@ -109,7 +109,7 @@ const AccountOffers = ({
                     </h2>
                     <h3 className="">Nom du jeu : {offer.game.name}</h3>
 
-                    {!offer.is_available && (
+                    {(!offer.is_available && offer.reservations.length > 0) && (
                       <>
                         <h3>Reservé par : {offer.reservations[0].user.username}</h3>
                         <h3>Reservé le : {formatDate(offer.createdAt)}</h3>
@@ -120,9 +120,11 @@ const AccountOffers = ({
                     {offer.status === '1' && (
                       <div
                         className={offer.is_available ? 'accountOffers__listOffers__offer__left__status' : 'accountOffers__listOffers__offer__left__status accountOffers__listOffers__offer__left__status--off'}
-                      >{offer.status === '1' && (
-                        offer.is_available ? 'Disponible' : 'Réservée'
-                      )}
+                      >
+                        {(offer.status === '1' && offer.is_available) && 'Disponible'}
+                        {(offer.status === '1' && !offer.is_available) && (
+                          offer.reservations.length > 0 ? 'Réservée' : 'Non disponible'
+                        )}
                       </div>
                     )}
                     {offer.status === '0' && (
@@ -132,7 +134,7 @@ const AccountOffers = ({
                       </div>
                     )}
                     <div className="accountOffers__listOffers__offer__middle__gathered">
-                      {offer.is_available === false && (
+                      {(offer.is_available === false && offer.reservations.length > 0) && (
                       <button
                         type="button"
                         title="Réservation en cours"
@@ -162,10 +164,10 @@ const AccountOffers = ({
                   </div>
                 </div>
                 <div className="accountOffers__listOffers__offer__right">
-                  {(offer.status === '1' && offer.is_available === true) && (
+                  {(offer.status === '1' && (offer.is_available || (!offer.is_available && offer.reservations.length === 0))) && (
                     <Link to={`/compte/offres/${offer.id}`} className="global-button global-button--light"><i className="fas fa-pencil-alt accountOffers__listOffers__offer__right__pencil accountOffers__buttonUpdate" /> Modifier</Link>
                   )}
-                  {(offer.status === '0' || offer.status === '2' || (offer.status === '1' && offer.is_available === false)) && (
+                  {(offer.status === '0' || offer.status === '2' || (offer.status === '1' && (offer.is_available === false && offer.reservations.length > 0))) && (
                     <button
                       type="button"
                       disabled
@@ -174,7 +176,7 @@ const AccountOffers = ({
                       <i className="fas fa-pencil-alt button__disabled__pencil" />Modifier
                     </button>
                   )}
-                  {(offer.status === '1' && !offer.is_available) && (
+                  {(offer.status === '1' && !offer.is_available && offer.reservations.length > 0) && (
                   <button
                     type="button"
                     disabled
@@ -184,7 +186,7 @@ const AccountOffers = ({
                   ><i className="fas fa-trash-alt accountOffers__listOffers__offer__right__trash" /> Supprimer
                   </button>
                   )}
-                  {((offer.status === '1' && offer.is_available) || (offer.status === '0')) && (
+                  {((offer.status === '1' && (offer.is_available || (!offer.is_available && offer.reservations.length === 0))) || (offer.status === '0')) && (
                   <button
                     type="button"
                     data-id={offer.id}
