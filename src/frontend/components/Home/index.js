@@ -95,7 +95,7 @@ const Home = ({
           Le but c'est de pouvoir accéder à tous vos jeux préférés et d'en découvrir de nouveaux grâce à la communauté !
         </p>
         <p className="home__text">
-          Pour commencer, vous pouvez acceder à la carte pour trouver un jeu près de chez vous en cliquant sur "trouver un jeu", ou simplement entrer le nom d'une ville ou d'un village juste en dessous de ce texte.
+          Pour commencer, vous pouvez accéder à la carte pour trouver un jeu près de chez vous en cliquant sur "trouver un jeu", ou simplement entrer le nom d'une ville ou d'un village juste en dessous de ce texte.
         </p>
         <div className="home__form">
           <MapAutocomplete

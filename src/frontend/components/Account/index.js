@@ -268,7 +268,7 @@ const Account = ({
               {offers.length === 0 ? <i className="fas fa-chess-bishop account__general__icon" /> : <Link to="/compte/offres" className="account__general__button global-button global-button--light"><i className="far fa-eye" /> Voir plus</Link>}
             </div>
 
-            {/* Ma liste de souhait */}
+            {/* Ma liste de souhaits */}
             <div className="account__general wish-list">
               <h2 className="account__general__subtitle">Ma liste de souhaits</h2>
               <div className="account__general__table__test">
@@ -380,7 +380,7 @@ const Account = ({
             <i className="fas fa-bell account__general__table__body__td__button--bell" /> : Notifie par mail lorsque l'offre est disponible.
           </p>
           <p className="dashboard__legend dashboard__legend__disable">
-            <i className="fas fa-bell-slash account__general__table__body__td__button--bellslash" /> : Les notifications sont désactivés.
+            <i className="fas fa-bell-slash account__general__table__body__td__button--bellslash" /> : Les notifications sont désactivées.
           </p>
         </div>
       )}
