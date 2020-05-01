@@ -112,7 +112,6 @@
           }
         }
       &__body {
-        // border: $lightBlue solid 1px;
         border-top: $lightBlue solid 1px;
       
         overflow: auto;
@@ -126,15 +125,11 @@
           }
         }
         &__td {
-          // border: $lightBlue solid 1px;
           text-align: center;
           padding: 1rem 1rem;
           line-height: 1.2em;
           &--button {
-            // display: flex;
-            // justify-content: flex-end;
             width: 120px;
-            // margin: auto;
             text-align: right;
 
             a, button {
@@ -209,7 +204,6 @@
             font-weight: bold;
           }
           &__status__pending {
-            //margin-left: $gutter/2;
             border-radius: 5px;
             padding: ($gutter /12) ($gutter/4);
             background-color: $primaryColor;
@@ -219,7 +213,6 @@
             font-weight: bold;
           }
           &__status__refused, &__status__canceled {
-            margin-left: auto;
             border-radius: 5px;
             padding: ($gutter /12) ($gutter/4);
             background-color: $red;
@@ -233,22 +226,15 @@
             text-align: left;
           }
           &__button {
-            // border: none;
-            // border-radius: 5px;
-            // background-color: #E3E5EC;
-            // margin: 0.3rem;
-            // padding: 0;
             font-size: $gutter/2;
             &--bellslash {
               color: $darkBlue;
             }
             &--bell {
               color: $green;
-              // padding:.1rem .2rem .2rem .2rem;
             }
             &--remove {
               color: $red;
-              // padding: .5rem .3rem .5rem .3rem;
             }
 
             &:disabled i {
@@ -256,35 +242,17 @@
             }
             &--disabled {
               color: grey;          text-align: center;
-              // padding: .5rem .3rem .5rem .3rem;
             }
           }
-          &__button__pencil {
-            // border: none;
-            // border-radius: 5px;
-            // background-color: #E3E5EC;
-            // margin: 0.3rem;
-            // font-size: $gutter/2;       
+          &__button__pencil {      
           }
           &__button__pencil{
             color: $darkBlue;
-            // padding: .5rem .5rem .4rem .5rem;
-            // &__disabled {
-            //   padding: .5rem .5rem .4rem .5rem;
-            //   border: none;
-            //   border-radius: 5px;
-            //   background-color: #E3E5EC;
-            //   margin: 0.3rem;
-            //   font-size: $gutter/2;
-            // }
           }
           &__button__remove{
             color: $red;
-            // padding: .4rem .6rem;
           }
           &__button__eye {
-            // text-align: center;
-            // padding: .3rem .4rem;
             color: $darkBlue;
           }
 
@@ -293,7 +261,6 @@
           }
           &__button__bellslash {
             color: $darkBlue;
-            // padding: 0.5rem .4rem;
             &--grey {
               color: grey;
             }
@@ -312,7 +279,6 @@
     }
     &__button {
       display: inline-block;
-      // margin: 0 auto;
       margin-top: $gutter/2;
       bottom: 20px;
       position: absolute;
@@ -376,30 +342,6 @@
         width: 150px;
         right: calc(50% - 75px);
       }
-
-      &__table {
-        &__body {
-          // display: flex;
-          // flex-direction: column;
-          &__tr {
-            // justify-content: space-between;
-            // display: flex;
-            // border-bottom: solid 1px $lightBlue;
-
-          }
-          &__td {
-            /*
-            display: flex;
-            border-bottom: none;
-            margin: auto 0; 
-            width:200px ;
-            &--button {
-              width: 130px;
-            }
-            */
-          }
-        }
-      }
       &__button {
         background-color: $backgroundLight;
         color: $darkBlue;
@@ -408,7 +350,6 @@
       &__icon {
         margin-top: 10px;
       }
-
     }
 
     &__profil {
