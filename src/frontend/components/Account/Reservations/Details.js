@@ -32,9 +32,11 @@ const Details = ({
                 <li className="reservations__details__list__item">
                   <span className="reservations__details__list__item__bold">Adresse email :</span> {user.email}
                 </li>
-                <li className="reservations__details__list__item">
-                  <span className="reservations__details__list__item__bold">Adresse postale :</span> {user.address !== null ? `${user.address}, ` : ''} {`${user.postal_code} ${user.city}`}
-                </li>
+                {(user.address !== null || user.postal_code !== null || user.city !== null) && (
+                  <li className="reservations__details__list__item">
+                    <span className="reservations__details__list__item__bold">Adresse postale :</span> {user.address !== null ? `${user.address}, ` : ''} {user.postal_code !== null ? user.postal_code : ''} {user.city !== null ? user.city : ''}
+                  </li>
+                )}
                 {user.phone !== null && (
                 <li className="reservations__details__list__item">
                   <span className="reservations__details__list__item__bold">Téléphone :</span> {user.phone}
