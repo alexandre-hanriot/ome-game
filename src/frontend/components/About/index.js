@@ -21,12 +21,12 @@ const About = () => {
       </p>
       <ul className="about__team">
         <li className="about__team__member">
-          <img className="about__team__member__image" src="https://images.unsplash.com/photo-1585251309844-3eec340559ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" />
+          <img className="about__team__member__image" src="https://i.pinimg.com/originals/76/47/9d/76479dd91dc55c2768ddccfc30a4fbf5.png" alt="" />
           <h2 className="about__team__member__name">Jennifer</h2>
           <p className="about__team__member__job">Product Owner</p>
         </li>
         <li className="about__team__member">
-          <img className="about__team__member__image" src="https://images.unsplash.com/flagged/photo-1563536310477-c7b4e3a800c2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" alt="" />
+          <img className="about__team__member__image" src="https://img-0.journaldunet.com/tYYYSYZA5iQTOn3Wio7MxzCVsHM=/1280x/smart/63bbee8129fe4e489d0b0f98a99b512c/ccmcms-jdn/11547067.jpg" alt="" />
           <h2 className="about__team__member__name">Alexandre</h2>
           <p className="about__team__member__job">Scrum master</p>
         </li>
@@ -36,7 +36,7 @@ const About = () => {
           <p className="about__team__member__job">Lead dev front</p>
         </li>
         <li className="about__team__member">
-          <img className="about__team__member__image" src="https://lestribulationsdunfrancophoneenfrancophonie.files.wordpress.com/2015/08/madame-michu.png?w=584" alt="" />
+          <img className="about__team__member__image" src="https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB12ePSI.img?h=799&w=799&m=6&q=60&o=f&l=f&x=492&y=191" alt="" />
           <h2 className="about__team__member__name">Stephane</h2>
           <p className="about__team__member__job">Lead dev back</p>
         </li>

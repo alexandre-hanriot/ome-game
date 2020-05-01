@@ -302,7 +302,18 @@ const Account = ({
                           )}
                         </td>
                         <td className="account__general__table__body__td account__general__table__body__td--button">
-                          {(favorite.offer.is_available === false && favorite.offer.status === '1') && (
+                          {(favorite.offer.is_available === false && favorite.offer.status !== '2') && (
+                            <button
+                              data-id={favorite.id}
+                              data-notify={favorite.notify_when_available}
+                              type="button"
+                              className="account__general__table__body__td__button"
+                              onClick={handleFavorite}
+                            >
+                              {favorite.notify_when_available ? <i className="fas fa-bell account__general__table__body__td__button--bell" /> : <i className="fas fa-bell-slash account__general__table__body__td__button--bellslash" />}
+                            </button>
+                          )}
+                          {(favorite.offer.is_available && favorite.offer.status !== '0') && (
                             <button
                               data-id={favorite.id}
                               data-notify={favorite.notify_when_available}
