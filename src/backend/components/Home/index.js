@@ -30,7 +30,7 @@ const Home = ({
     const globalParams = {
       orderby: 'id',
       sortby: 'DESC',
-      limit: 4,
+      //limit: 4,
       resultPage: 1,
     };
 

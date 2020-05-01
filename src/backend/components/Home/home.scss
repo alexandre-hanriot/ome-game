@@ -51,10 +51,12 @@
     &__block {
       width: 550px;
       min-height: 100px;
+      height: 430px;
       margin: $gutter/2;
       background-color: $darkBlue;
       padding: $gutter;
       text-align: center;
+      overflow: auto;
 
       &__title {
         margin-bottom: $gutter;
