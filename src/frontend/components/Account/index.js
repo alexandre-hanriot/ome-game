@@ -127,10 +127,10 @@ const Account = ({
                           to={`/recherche/jeux/${reservation.offer.id}/${slugify(reservation.offer.title, { lower: true })}`}
                           className="account__general__table__body__td__link"
                           target="_blank"
-                        >{truncateText(reservation.offer.title)}
+                        >{truncateText(reservation.offer.title, 24)}
                         </Link>
                       </td>
-                      <td className="account__general__table__body__td">
+                      <td className="account__general__table__body__td  account__general__table__body__td--status">
                         {reservation.status === '0' && (
                           <span
                             className="account__general__table__body__td__status__pending"
@@ -207,7 +207,7 @@ const Account = ({
                         </Link>
                       ) : (truncateText(offerData.title))}
                       </td>
-                      <td className="account__general__table__body__td offer__account__general__table__body__tr">
+                      <td className="account__general__table__body__td account__general__table__body__td--status">
 
                         {offerData.status === '1' && (
                           offerData.is_available ? (
@@ -286,16 +286,16 @@ const Account = ({
                           >{truncateText(favorite.offer.title)}
                           </Link>
                         </td>
-                        <td className="account__general__table__body__td">
+                        <td className="account__general__table__body__td account__general__table__body__td--status">
                           {favorite.offer.is_available ? (
                             <span
                               className="account__general__table__body__td__status__available"
-                            >disponible
+                            >Disponible
                             </span>
                           ) : (
                             <span
                               className="account__general__table__body__td__status__unavailable"
-                            >non disponible
+                            >Non disponible
                             </span>
                           )}
                         </td>
