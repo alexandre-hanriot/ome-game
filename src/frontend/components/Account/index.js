@@ -270,7 +270,7 @@ const Account = ({
 
             {/* Ma liste de souhait */}
             <div className="account__general wish-list">
-              <h2 className="account__general__subtitle">Ma liste de souhait</h2>
+              <h2 className="account__general__subtitle">Ma liste de souhaits</h2>
               <div className="account__general__table__test">
                 <table className="account__general__table">
                   <tbody className="account__general__table__body">
