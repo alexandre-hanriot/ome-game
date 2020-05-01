@@ -363,6 +363,7 @@ exports.findOneFavorite = (req, res) => {
       else
         res.status(200).json({
           result: true,
+          id: data.id,
         });
     })
     .catch((err) => {

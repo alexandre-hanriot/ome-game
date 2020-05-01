@@ -30,6 +30,8 @@ db.sequelize.sync().then(() => {
   console.log("Synchronisation avec la bdd réalisée avec succès");
 });
 
+console.log(process.env);
+
 const app = express();
 
 app.use(logger("dev"));
