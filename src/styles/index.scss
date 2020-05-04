@@ -85,7 +85,10 @@ main {
 }
 
 .global-select {
+  position: relative;
   -webkit-appearance:none;
+  -moz-appearance:none;
+  appearance: none;
   font-family: inherit;
   font-size: inherit;
   border-radius: .3rem;
@@ -94,6 +97,9 @@ main {
   background-color: #fff;
   color: $darkBlue;
   max-width: 100%;
+  background-image: url(../assets/images/arrow.png);
+  background-repeat: no-repeat;
+  background-position: calc(100% - 10px) 50%;
 
   &:focus, &:active {
     border: none;
