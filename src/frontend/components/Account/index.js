@@ -203,9 +203,9 @@ const Account = ({
                         <Link
                           to={`/recherche/jeux/${offerData.id}/${slugify(offerData.title, { lower: true })}`}
                           className="account__general__table__body__td__link"
-                        >{truncateText(offerData.title)}
+                        >{truncateText(offerData.title, 24)}
                         </Link>
-                      ) : (truncateText(offerData.title))}
+                      ) : (truncateText(offerData.title, 24))}
                       </td>
                       <td className="account__general__table__body__td account__general__table__body__td--status">
 
@@ -285,7 +285,7 @@ const Account = ({
                             to={`/recherche/jeux/${favorite.offer.id}/${slugify(favorite.offer.title, { lower: true })}`}
                             target="_blank"
                             className="account__general__table__body__td__link"
-                          >{truncateText(favorite.offer.title)}
+                          >{truncateText(favorite.offer.title, 24)}
                           </Link>
                         </td>
                         <td className="account__general__table__body__td account__general__table__body__td--status">
@@ -302,7 +302,7 @@ const Account = ({
                           )}
                         </td>
                         <td className="account__general__table__body__td account__general__table__body__td--button">
-                          {(favorite.offer.is_available === false && favorite.offer.status !== '2') && (
+                          {((!favorite.offer.is_available && favorite.offer.status === '1') || favorite.offer.status === '0') && (
                             <button
                               data-id={favorite.id}
                               data-notify={favorite.notify_when_available}
@@ -313,7 +313,7 @@ const Account = ({
                               {favorite.notify_when_available ? <i className="fas fa-bell account__general__table__body__td__button--bell" /> : <i className="fas fa-bell-slash account__general__table__body__td__button--bellslash" />}
                             </button>
                           )}
-                          {(favorite.offer.is_available && favorite.offer.status !== '0') && (
+                          {/* {(favorite.offer.status === '0') && (
                             <button
                               data-id={favorite.id}
                               data-notify={favorite.notify_when_available}
@@ -323,7 +323,7 @@ const Account = ({
                             >
                               {favorite.notify_when_available ? <i className="fas fa-bell account__general__table__body__td__button--bell" /> : <i className="fas fa-bell-slash account__general__table__body__td__button--bellslash" />}
                             </button>
-                          )}
+                          )} */}
                           <button
                             type="button"
                             className="account__general__table__body__td__button account__general__table__body__td__button__remove"
