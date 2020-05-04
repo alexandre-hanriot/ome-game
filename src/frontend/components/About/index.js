@@ -31,7 +31,7 @@ const About = () => {
           <p className="about__team__member__job">Scrum master</p>
         </li>
         <li className="about__team__member">
-          <img className="about__team__member__image" src="https://images.unsplash.com/photo-1576206739726-574f5a1be5e1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" />
+          <img className="about__team__member__image" src="https://www.s0ak.fr/prive/minion.jpg" alt="" />
           <h2 className="about__team__member__name">Jules</h2>
           <p className="about__team__member__job">Lead dev front</p>
         </li>
