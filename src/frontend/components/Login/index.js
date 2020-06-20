@@ -25,16 +25,16 @@ const Login = ({
   const handlePassword = () => {
     displayModal('forgotPassword');
   };
-  const handleChange = (identifier, newValue) => {
-    changeValue(identifier, newValue);
-  };
+  // const handleChange = (identifier, newValue) => {
+  //   changeValue(identifier, newValue);
+  // };
   const changeInput = (event) => {
     // eslint-disable-next-line prefer-const
     let { name, value } = event.target;
     if (name === 'rememberMe') {
       value = !rememberMe;
     }
-    handleChange(name, value);
+    changeValue(name, value);
   };
 
   const handleSubmit = (event) => {

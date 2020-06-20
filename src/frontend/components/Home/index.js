@@ -16,7 +16,7 @@ const Home = ({
   useTitle();
   const history = useHistory();
 
-  Geocode.setApiKey('AIzaSyAAUPUp27VoZaXgYvRwLCjgn5cZjpRIWjs');
+  Geocode.setApiKey('AIzaSyC8xGEr6OKx4X2CYbwZZTuJC11qOzs_CaE');
   Geocode.setLanguage('fr');
   Geocode.setRegion('fr');
 

@@ -325,7 +325,7 @@ const Cluster = ({
   return (
     <div className="map">
       <GoogleMapReact
-        bootstrapURLKeys={{ key: 'AIzaSyAAUPUp27VoZaXgYvRwLCjgn5cZjpRIWjs' }}
+        bootstrapURLKeys={{ key: 'AIzaSyC8xGEr6OKx4X2CYbwZZTuJC11qOzs_CaE' }}
         defaultCenter={defaultCoordinates}
         defaultZoom={defaultZoom}
         center={coordinates}
