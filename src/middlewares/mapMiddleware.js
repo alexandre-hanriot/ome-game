@@ -59,7 +59,7 @@ const mapMiddleware = (store) => (next) => (action) => {
 
       // ajax request
       axios
-        .get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/search', {
+        .get('ec2-34-205-156-142.compute-1.amazonaws.com/search', {
           params,
         })
         .then((response) => {
@@ -93,7 +93,7 @@ const mapMiddleware = (store) => (next) => (action) => {
         ...action.params,
       };
 
-      axios.get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/games', {
+      axios.get('ec2-34-205-156-142.compute-1.amazonaws.com/games', {
         params,
       })
         .then((response) => {
@@ -112,7 +112,7 @@ const mapMiddleware = (store) => (next) => (action) => {
     // load all games categories
     case MAP_FETCH_GAMES_CATEGORIES: {
       axios
-        .get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/game_categories')
+        .get('ec2-34-205-156-142.compute-1.amazonaws.com/game_categories')
         .then((response) => {
           store.dispatch(saveGamesCategories(response.data));
           store.dispatch(requestLoad());

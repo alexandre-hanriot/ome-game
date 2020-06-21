@@ -30,7 +30,7 @@ const offersMiddleware = (store) => (next) => (action) => {
     case FETCH_OFFERS: {
       axios({
         method: 'post',
-        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/offers`,
+        url: `ec2-34-205-156-142.compute-1.amazonaws.com/users/${userData.user.id}/offers`,
         data: {
           userId: userData.user.id,
         },
@@ -51,7 +51,7 @@ const offersMiddleware = (store) => (next) => (action) => {
     case FETCH_PARAMS_OFFERS:
       axios({
         method: 'post',
-        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/users/${userData.user.id}/offers`,
+        url: `ec2-34-205-156-142.compute-1.amazonaws.com/users/${userData.user.id}/offers`,
         data: {
           userId: userData.user.id,
         },
@@ -74,7 +74,7 @@ const offersMiddleware = (store) => (next) => (action) => {
       break;
 
     case FETCH_ALL_OFFERS: {
-      axios.get('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers', {
+      axios.get('ec2-34-205-156-142.compute-1.amazonaws.com/offers', {
         params: {
           ...action.params,
         },
@@ -93,7 +93,7 @@ const offersMiddleware = (store) => (next) => (action) => {
     case GET_OFFER: {
       axios({
         method: 'post',
-        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`,
+        url: `ec2-34-205-156-142.compute-1.amazonaws.com/offers/${urlId}`,
         data: {
           status: '1',
         },
@@ -117,7 +117,7 @@ const offersMiddleware = (store) => (next) => (action) => {
     case HANDLE_ADD_OFFER: {
       axios({
         method: 'post',
-        url: 'http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers',
+        url: 'ec2-34-205-156-142.compute-1.amazonaws.com/offers',
         data: {
           status: 0,
           userId: userData.user.id,
@@ -152,7 +152,7 @@ const offersMiddleware = (store) => (next) => (action) => {
     case HANDLE_MODIFY_OFFER: {
       axios({
         method: 'put',
-        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${offer.id}`,
+        url: `ec2-34-205-156-142.compute-1.amazonaws.com/offers/${offer.id}`,
         data: {
           status: 0,
           type: offer.type,
@@ -186,7 +186,7 @@ const offersMiddleware = (store) => (next) => (action) => {
     case DELETE_OFFER: {
       axios({
         method: 'delete',
-        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`,
+        url: `ec2-34-205-156-142.compute-1.amazonaws.com/offers/${urlId}`,
         withCredentials: true,
         data: {
           userId: userData.user.id,
@@ -213,7 +213,7 @@ const offersMiddleware = (store) => (next) => (action) => {
 
         axios({
           method: 'post',
-          url: 'http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/upload/offers',
+          url: 'ec2-34-205-156-142.compute-1.amazonaws.com/upload/offers',
           withCredentials: true,
           data,
           headers: {
@@ -240,7 +240,7 @@ const offersMiddleware = (store) => (next) => (action) => {
     case UPDATE_STATUS_OFFER: {
       axios({
         method: 'put',
-        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${urlId}`,
+        url: `ec2-34-205-156-142.compute-1.amazonaws.com/offers/${urlId}`,
         withCredentials: true,
         data: {
           is_available: true,
@@ -263,7 +263,7 @@ const offersMiddleware = (store) => (next) => (action) => {
     case UPDATE_STATUS_OFFER2: {
       axios({
         method: 'put',
-        url: `http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/offers/${action.id}`,
+        url: `ec2-34-205-156-142.compute-1.amazonaws.com/offers/${action.id}`,
         withCredentials: true,
         data: {
           status: action.status,

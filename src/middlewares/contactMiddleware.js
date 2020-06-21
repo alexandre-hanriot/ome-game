@@ -13,7 +13,7 @@ const contactMiddleware = (store) => (next) => (action) => {
         message,
       } = store.getState().contact;
 
-      axios.post('http://ec2-54-167-103-17.compute-1.amazonaws.com:3000/contact', {
+      axios.post('ec2-34-205-156-142.compute-1.amazonaws.com/contact', {
         firstname,
         lastname,
         email,
