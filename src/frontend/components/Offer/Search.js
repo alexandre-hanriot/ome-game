@@ -297,10 +297,10 @@ const Offer = ({
             return (
               <Link to={`/recherche/jeux/${result.id}/${slugify(result.title, { lower: true })}`} key={result.id}>
                 <li className="offer__aside__results__result">
-                  <img src={result.image !== null ? `http://ec2-54-167-103-17.compute-1.amazonaws.com/images/offers/${result.image}` : noimage} alt="" className="offer__aside__results__result__image" />
+                  <img src={result.image !== null ? `http://ec2-34-205-156-142.compute-1.amazonaws.com/images/offers/${result.image}` : noimage} alt="" className="offer__aside__results__result__image" />
                   <div className="offer__aside__results__result__content">
                     <div className="offer__aside__results__result__user">
-                      {(result.user.picture !== null && result.user.picture !== '') && <img src={`http://ec2-54-167-103-17.compute-1.amazonaws.com/images/users/${result.user.picture}`} alt="" title={result.user.display_name ? `${result.user.firstname} ${result.user.lastname}` : result.user.username} />}
+                      {(result.user.picture !== null && result.user.picture !== '') && <img src={`http://ec2-34-205-156-142.compute-1.amazonaws.com/images/users/${result.user.picture}`} alt="" title={result.user.display_name ? `${result.user.firstname} ${result.user.lastname}` : result.user.username} />}
                       {(result.user.picture === null || result.user.picture === '') && <div className="offer__aside__results__result__user__noimage" title={result.user.display_name ? `${result.user.firstname} ${result.user.lastname}` : result.user.username}><i className="fas fa-user" /></div>}
                     </div>
                     <h3 className="offer__aside__results__result__name">{result.title}</h3>

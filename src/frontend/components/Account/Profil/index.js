@@ -147,7 +147,7 @@ const Profil = ({
               <h2 className="account-profil__subtitle">Photo</h2>
               {(userData.user.picture !== '' && userData.user.picture !== null) && (
                 <div className="account-profil__avatar__image">
-                  <img src={`http://ec2-54-167-103-17.compute-1.amazonaws.com/images/users/${userData.user.picture}`} alt="" />
+                  <img src={`http://ec2-34-205-156-142.compute-1.amazonaws.com/images/users/${userData.user.picture}`} alt="" />
                   <button type="button" onClick={handleClickDeleteImage}>Supprimer</button>
                 </div>
               )}

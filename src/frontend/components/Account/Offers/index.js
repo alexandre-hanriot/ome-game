@@ -89,7 +89,7 @@ const AccountOffers = ({
             {data.map((offer) => (
               <li className="accountOffers__listOffers__offer" key={offer.id}>
                 <div className="accountOffers__listOffers__offer__left">
-                  <img className="accountOffers__listOffers__offer__left__picture" src={offer.image === null ? noimage : `http://ec2-54-167-103-17.compute-1.amazonaws.com/images/offers/${offer.image}`} alt="erreur" />
+                  <img className="accountOffers__listOffers__offer__left__picture" src={offer.image === null ? noimage : `http://ec2-34-205-156-142.compute-1.amazonaws.com/images/offers/${offer.image}`} alt="erreur" />
                   <div className="accountOffers__listOffers__offer__left__content">
                     <h2 className="accountOffers__listOffers__offer__left__content__subtitle">
                       {offer.status !== '1' && (

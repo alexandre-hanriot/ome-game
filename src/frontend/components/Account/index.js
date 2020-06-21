@@ -384,7 +384,7 @@ const Account = ({
                 </div>
                 <div className="account__profil__right">
                   {(user.user.picture === '' || user.user.picture === null) && <i className="far fa-portrait account__profil__right__picture" />}
-                  {(user.user.picture !== '' && user.user.picture !== null) && <img src={`http://ec2-54-167-103-17.compute-1.amazonaws.com/images/users/${user.user.picture}`} alt="" />}
+                  {(user.user.picture !== '' && user.user.picture !== null) && <img src={`http://ec2-34-205-156-142.compute-1.amazonaws.com/images/users/${user.user.picture}`} alt="" />}
                 </div>
               </div>
             </div>

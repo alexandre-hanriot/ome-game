@@ -349,7 +349,7 @@ const Form = ({
                     {offer.image === null && <button type="button" className="account-offers-form__game__image__define" onClick={handleClickUpload}>Définir une image</button>}
                     {offer.image !== null && (
                     <div className="account-offers-form__game__image">
-                      <img src={`http://ec2-54-167-103-17.compute-1.amazonaws.com/images/offers/${offer.image}`} alt="erreur" />
+                      <img src={`http://ec2-34-205-156-142.compute-1.amazonaws.com/images/offers/${offer.image}`} alt="erreur" />
                       <div>
                         <button type="button" className="global-button global-button--light" onClick={handleClickUpload}>Modifier</button>
                         <button type="button" className="global-button global-button--light remove" onClick={handleClickRemoveImage}>Supprimer</button>
