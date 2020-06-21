@@ -1,9 +1,9 @@
 module.exports = {
   HOST: 'localhost',
   PORT: '5432',
-  USER: 'admin',
-  PASSWORD: 'alex6395',
-  DB: 'ome-game',
+  USER: 'alexandre',
+  PASSWORD: 'alexandre',
+  DB: 'alexandre-omegame',
   dialect: 'postgres',
   pool: {
     max: 5,
