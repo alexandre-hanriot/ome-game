@@ -1,9 +1,9 @@
 module.exports = {
-  HOST: 'localhost',
+  HOST: 'ec2-34-205-156-142.compute-1.amazonaws.com',
   PORT: '5432',
   USER: 'alexandre',
   PASSWORD: 'alexandre',
-  DB: 'alexandre-omegame',
+  DB: 'omegame',
   dialect: 'postgres',
   pool: {
     max: 5,
