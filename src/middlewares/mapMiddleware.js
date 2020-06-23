@@ -1,5 +1,4 @@
 /* eslint-disable default-case */
-import axios from 'axios';
 import {
   MAP_FETCH_OFFERS,
   saveOffers,
@@ -9,6 +8,8 @@ import {
   saveGamesCategories,
   requestLoad,
 } from 'src/actions/map';
+import api from '../utils/api';
+
 
 const mapMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
@@ -58,8 +59,8 @@ const mapMiddleware = (store) => (next) => (action) => {
       }
 
       // ajax request
-      axios
-        .get('ec2-34-205-156-142.compute-1.amazonaws.com/search', {
+      api
+        .get('/search', {
           params,
         })
         .then((response) => {
@@ -93,7 +94,7 @@ const mapMiddleware = (store) => (next) => (action) => {
         ...action.params,
       };
 
-      axios.get('ec2-34-205-156-142.compute-1.amazonaws.com/games', {
+      api.get('/games', {
         params,
       })
         .then((response) => {
@@ -111,8 +112,8 @@ const mapMiddleware = (store) => (next) => (action) => {
 
     // load all games categories
     case MAP_FETCH_GAMES_CATEGORIES: {
-      axios
-        .get('ec2-34-205-156-142.compute-1.amazonaws.com/game_categories')
+      api
+        .get('/game_categories')
         .then((response) => {
           store.dispatch(saveGamesCategories(response.data));
           store.dispatch(requestLoad());

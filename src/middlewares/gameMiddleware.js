@@ -1,4 +1,5 @@
-import axios from 'axios';
+
+import api from '../utils/api';
 import {
   GET_GAME_CATEGORIES, saveGameCategories, GET_GAMES, saveGames,
   changeCategoriesIsLoad, changeGameIsLoad, ADD_GAME, UPDATE_STATUS_GAME,
@@ -12,9 +13,8 @@ const gameMiddleware = (store) => (next) => (action) => {
 
   switch (action.type) {
     case GET_GAME_CATEGORIES: {
-      axios
-        .get('ec2-34-205-156-142.compute-1.amazonaws.com/game_categories')
-        .then((response) => {
+      api.get('/game_categories') 
+      .then((response) => {
           store.dispatch(saveGameCategories(response.data));
           store.dispatch(changeCategoriesIsLoad());
         })
@@ -26,7 +26,7 @@ const gameMiddleware = (store) => (next) => (action) => {
     }
 
     case GET_GAMES: {
-      axios.get('ec2-34-205-156-142.compute-1.amazonaws.com/games', {
+      api.get('/games', {
         params: {
           ...action.params,
         },
@@ -46,7 +46,7 @@ const gameMiddleware = (store) => (next) => (action) => {
       const { game } = store.getState().game;
       const { offer } = store.getState().offers;
 
-      axios.post('ec2-34-205-156-142.compute-1.amazonaws.com/games', {
+      api.post('/games', {
         name: game.name,
         gameCategoryId: game.gameCategoryId,
         nb_players_min: game.nb_players_min,
@@ -71,9 +71,9 @@ const gameMiddleware = (store) => (next) => (action) => {
     }
 
     case UPDATE_STATUS_GAME: {
-      axios({
+      api({
         method: 'put',
-        url: `ec2-34-205-156-142.compute-1.amazonaws.com/games/${action.id}`,
+        url: `/games/${action.id}`,
         withCredentials: true,
         data: {
           status: action.status,

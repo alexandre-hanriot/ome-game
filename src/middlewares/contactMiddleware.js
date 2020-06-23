@@ -1,4 +1,5 @@
-import axios from 'axios';
+
+import api from '../utils/api';
 
 import { SEND_MESSAGE, setField } from 'src/actions/contact';
 import { showAlert } from 'src/actions/global';
@@ -13,7 +14,7 @@ const contactMiddleware = (store) => (next) => (action) => {
         message,
       } = store.getState().contact;
 
-      axios.post('ec2-34-205-156-142.compute-1.amazonaws.com/contact', {
+      api.post('/contact', {
         firstname,
         lastname,
         email,

@@ -2,8 +2,9 @@ import {
   saveUser,
   SUBMIT_REGISTRATION, changeRegistrationError, changeInput,
 } from 'src/actions/registration';
-import axios from 'axios';
+
 import { showAlert, showModal } from 'src/actions/global';
+import api from '../utils/api';
 
 
 const registrationMiddleware = (store) => (next) => (action) => {
@@ -15,7 +16,7 @@ const registrationMiddleware = (store) => (next) => (action) => {
         email, password, pseudo,
       } = store.getState().registration;
 
-      axios.post('ec2-34-205-156-142.compute-1.amazonaws.com/users', {
+      api.post('/users', {
         email,
         password,
         username: pseudo,

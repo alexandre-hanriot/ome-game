@@ -1,4 +1,5 @@
-import axios from 'axios';
+
+import api from '../utils/api';
 
 import {
   FETCH_FAVORITES,
@@ -21,9 +22,9 @@ const favoritesMiddleware = (store) => (next) => (action) => {
 
   switch (action.type) {
     case FETCH_FAVORITES: {
-      axios({
+      api({
         method: 'post',
-        url: `ec2-34-205-156-142.compute-1.amazonaws.com/users/${userData.user.id}/favorites`,
+        url: `/users/${userData.user.id}/favorites`,
         data: {
           userId: userData.user.id,
         },
@@ -43,9 +44,9 @@ const favoritesMiddleware = (store) => (next) => (action) => {
     }
 
     case UPDATE_NOTIFY_FAVORITE:
-      axios({
+      api({
         method: 'put',
-        url: `ec2-34-205-156-142.compute-1.amazonaws.com/favorites/${idFavorite}`,
+        url: `/favorites/${idFavorite}`,
         data: {
           notify_when_available: notifyfavorite,
           userId: userData.user.id,
@@ -68,9 +69,9 @@ const favoritesMiddleware = (store) => (next) => (action) => {
     case ADD_FAVORITE: {
       const { offer } = store.getState().offers;
 
-      axios({
+      api({
         method: 'post',
-        url: 'ec2-34-205-156-142.compute-1.amazonaws.com/favorites',
+        url: '/favorites',
         data: {
           userId: userData.user.id,
           offerId: offer.id,
@@ -94,9 +95,9 @@ const favoritesMiddleware = (store) => (next) => (action) => {
     // Remove offer in favorite
     case REMOVE_FAVORITE: {
       const { currentFavorite } = store.getState().favorites;
-      axios({
+      api({
         method: 'delete',
-        url: `ec2-34-205-156-142.compute-1.amazonaws.com/favorites/${currentFavorite}`,
+        url: `/favorites/${currentFavorite}`,
         data: {
           userId: userData.user.id,
         },
@@ -119,9 +120,9 @@ const favoritesMiddleware = (store) => (next) => (action) => {
     case CHECK_OFFER_IN_FAVORITE: {
       const { offer } = store.getState().offers;
       if (offer.id !== 0) {
-        axios({
+        api({
           method: 'post',
-          url: `ec2-34-205-156-142.compute-1.amazonaws.com/users/${userData.user.id}/favorites/${offer.id}`,
+          url: `/users/${userData.user.id}/favorites/${offer.id}`,
           data: {
             userId: userData.user.id,
           },
@@ -144,9 +145,9 @@ const favoritesMiddleware = (store) => (next) => (action) => {
     }
 
     case DELETE_FAVORITE:
-      axios({
+      api({
         method: 'delete',
-        url: `ec2-34-205-156-142.compute-1.amazonaws.com/favorites/${idFavorite}`,
+        url: `/favorites/${idFavorite}`,
         data: {
           userId: userData.user.id,
         },

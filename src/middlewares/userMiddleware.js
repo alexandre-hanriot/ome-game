@@ -19,7 +19,8 @@ import {
 } from 'src/actions/user';
 
 import { showAlert, showModal, setAppLoading } from 'src/actions/global';
-import axios from 'axios';
+
+import api from '../utils/api';
 
 
 const userMiddleware = (store) => (next) => (action) => {
@@ -27,9 +28,9 @@ const userMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case SUBMIT_LOGIN: {
       const { email, password } = store.getState().user;
-      axios({
+      api({
         method: 'post',
-        url: 'ec2-34-205-156-142.compute-1.amazonaws.com/login',
+        url: '/login',
         data: {
           identifier: email,
           password,
@@ -73,9 +74,9 @@ const userMiddleware = (store) => (next) => (action) => {
       break;
     }
     case SUBMIT_PROFIL_UPDATE: {
-      axios({
+      api({
         method: 'put',
-        url: `ec2-34-205-156-142.compute-1.amazonaws.com/users/${userData.user.id}`,
+        url: `/users/${userData.user.id}`,
         data: {
           userId: userData.user.id,
           status: userData.user.status,
@@ -108,9 +109,9 @@ const userMiddleware = (store) => (next) => (action) => {
       break;
     }
     case SUBMIT_PROFIL_CHANGE_PASSWORD: {
-      axios({
+      api({
         method: 'put',
-        url: `ec2-34-205-156-142.compute-1.amazonaws.com/users/${userData.user.id}/password`,
+        url: `/users/${userData.user.id}/password`,
         data: {
           oldPassword: userData.user.old_password,
           newPassword: userData.user.new_password,
@@ -135,7 +136,7 @@ const userMiddleware = (store) => (next) => (action) => {
     }
 
     case FETCH_ALL_USERS: {
-      axios.get('ec2-34-205-156-142.compute-1.amazonaws.com/users', {
+      api.get('/users', {
         params: {
           ...action.params,
         },
@@ -153,9 +154,9 @@ const userMiddleware = (store) => (next) => (action) => {
 
     case IS_TOKEN_EXIST: {
       if (localStorage.getItem('xsrfToken') !== null) {
-        axios({
+        api({
           method: 'get',
-          url: 'ec2-34-205-156-142.compute-1.amazonaws.com/authenticate',
+          url: '/authenticate',
           withCredentials: true,
           headers: {
             'x-xsrf-token': localStorage.getItem('xsrfToken'),
@@ -188,7 +189,7 @@ const userMiddleware = (store) => (next) => (action) => {
     }
 
     case LOG_OUT: {
-      axios.get('ec2-34-205-156-142.compute-1.amazonaws.com/logout', {
+      api.get('/logout', {
         withCredentials: true,
       })
         .then((response) => {
@@ -203,9 +204,9 @@ const userMiddleware = (store) => (next) => (action) => {
     }
 
     case FETCH_USER: {
-      axios({
+      api({
         method: 'post',
-        url: `ec2-34-205-156-142.compute-1.amazonaws.com/users/${action.id}`,
+        url: `/users/${action.id}`,
       })
         .then((response) => {
           store.dispatch(saveUser(response.data));
@@ -223,9 +224,9 @@ const userMiddleware = (store) => (next) => (action) => {
         const data = new FormData();
         data.append('file', upload.file);
 
-        axios({
+        api({
           method: 'post',
-          url: 'ec2-34-205-156-142.compute-1.amazonaws.com/upload/users',
+          url: '/upload/users',
           withCredentials: true,
           data,
           headers: {

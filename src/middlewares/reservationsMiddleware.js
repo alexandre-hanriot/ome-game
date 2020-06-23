@@ -1,4 +1,5 @@
-import axios from 'axios';
+
+import api from '../utils/api';
 
 import {
   FETCH_RESERVATIONS,
@@ -26,9 +27,9 @@ const reservationsMiddleware = (store) => (next) => (action) => {
 
   switch (action.type) {
     case FETCH_RESERVATIONS:
-      axios({
+      api({
         method: 'post',
-        url: `ec2-34-205-156-142.compute-1.amazonaws.com/users/${userData.user.id}/reservations`,
+        url: `/users/${userData.user.id}/reservations`,
         data: {
           userId: userData.user.id,
         },
@@ -47,9 +48,9 @@ const reservationsMiddleware = (store) => (next) => (action) => {
       break;
 
     case FETCH_PARAMS_RESERVATIONS: {
-      axios({
+      api({
         method: 'post',
-        url: `ec2-34-205-156-142.compute-1.amazonaws.com/users/${userData.user.id}/reservations`,
+        url: `/users/${userData.user.id}/reservations`,
         data: {
           userId: userData.user.id,
         },
@@ -73,9 +74,9 @@ const reservationsMiddleware = (store) => (next) => (action) => {
     }
 
     case FETCH_ONE_RESERVATION:
-      axios({
+      api({
         method: 'post',
-        url: `ec2-34-205-156-142.compute-1.amazonaws.com/reservations/${idReservation}`,
+        url: `/reservations/${idReservation}`,
         data: {
           userId: userData.user.id,
         },
@@ -94,7 +95,7 @@ const reservationsMiddleware = (store) => (next) => (action) => {
       break;
 
     case FETCH_ALL_RESERVATIONS: {
-      axios.get('ec2-34-205-156-142.compute-1.amazonaws.com/reservations', {
+      api.get('/reservations', {
         params: {
           ...action.params,
         },
@@ -114,9 +115,9 @@ const reservationsMiddleware = (store) => (next) => (action) => {
     case ADD_RESERVATION: {
       const { offer } = store.getState().offers;
 
-      axios({
+      api({
         method: 'post',
-        url: 'ec2-34-205-156-142.compute-1.amazonaws.com/reservations',
+        url: '/reservations',
         data: {
           userId: userData.user.id,
           offerId: offer.id,
@@ -137,9 +138,9 @@ const reservationsMiddleware = (store) => (next) => (action) => {
     }
 
     case DELETE_RESERVATION: {
-      axios({
+      api({
         method: 'delete',
-        url: `ec2-34-205-156-142.compute-1.amazonaws.com/reservations/${idReservation}`,
+        url: `/reservations/${idReservation}`,
         data: {
           userId: userData.user.id,
         },
@@ -162,9 +163,9 @@ const reservationsMiddleware = (store) => (next) => (action) => {
     case CHECK_OFFER_IN_RESERVATION: {
       const { offer } = store.getState().offers;
       if (offer.id !== 0) {
-        axios({
+        api({
           method: 'post',
-          url: `ec2-34-205-156-142.compute-1.amazonaws.com/users/${userData.user.id}/reservations/${offer.id}`,
+          url: `/users/${userData.user.id}/reservations/${offer.id}`,
           data: {
             userId: userData.user.id,
           },
@@ -186,9 +187,9 @@ const reservationsMiddleware = (store) => (next) => (action) => {
     }
 
     case UPDATE_STATUS_RESERVATION: {
-      axios({
+      api({
         method: 'put',
-        url: `ec2-34-205-156-142.compute-1.amazonaws.com/reservations/${idReservation}`,
+        url: `/reservations/${idReservation}`,
         data: {
           status: 3,
         },
@@ -209,9 +210,9 @@ const reservationsMiddleware = (store) => (next) => (action) => {
     }
 
     case UPDATE_VALIDATE_RESERVATION: {
-      axios({
+      api({
         method: 'put',
-        url: `ec2-34-205-156-142.compute-1.amazonaws.com/reservations/${idReservation}`,
+        url: `/reservations/${idReservation}`,
         data: {
           status: '1',
         },
@@ -232,9 +233,9 @@ const reservationsMiddleware = (store) => (next) => (action) => {
     }
 
     case UPDATE_STATUS_FINISHED_RESERVATION: {
-      axios({
+      api({
         method: 'put',
-        url: `ec2-34-205-156-142.compute-1.amazonaws.com/reservations/${idReservation}`,
+        url: `/reservations/${idReservation}`,
         withCredentials: true,
         data: {
           status: '2',
